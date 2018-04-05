@@ -1,0 +1,222 @@
+<style>
+.main-container {
+	padding-bottom: 0px;
+}
+.wrapper {
+	height: auto;
+	min-height: 100%;
+	padding-bottom: 40px;
+}
+#footer {
+	height: 40px;
+}
+</style>
+<head>
+<title>{{title}}</title>
+</head>
+<div ng-include src="'partials/include/header.html'"></div>
+<div class="main-container pt0"><!--Main container start-->
+  <div class="tp-wizard-form_dummy"><!-- wizard form -->
+    <div class="container">
+      <div class="row_dummy">
+        <div class="col-md-12  pl0 pr0">
+          <p ng-show="flash.status" class="alert {{flash.type}}">{{flash.message}} <a class="close" ng-click="closeFlash()"><i class="fa fa-close"></i></a> </p>
+        </div>
+        <div class="col-md-6 mb20">         
+            <div class="input-group" id="adv-search">
+				<form ng-submit="setCsrrateList()" class="form-horizontal" role="form">
+					<input  ng-model="TempSearch.searchby" type="text" class="form-control" placeholder="Search Plan ID.." />
+					<div style="display:none">
+						<button ng-click="setcsrrateList()" type="submit" class="hvr-radial-out btn tp-btn-blue hvr-radial-out adv_srch_btn"><i class="fa fa-search"></i></button>
+					</div>
+			   </form>
+              <div class="input-group-btn">
+                <div class="btn-group" role="group">
+                  <div class="dropdown dropdown-lg">
+                    <button type="button" class="btn btn-default dropdown-toggle adv_srch_btn" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+					 <form ng-submit="setCsrrateList()" class="form-horizontal" role="form">
+                      <div class="form-group_dummy">
+                        <h3 class="mb0 color_blue" for="filter">Filter by</h3>
+                      </div>
+                      <div class="form-group_dummy col-md-6 pl0 mb10">      
+							<label class="adv_search_typo" for="contain">Business Year</label>
+							 <select ng-model="TempSearch.BusinessYear" class="form-control">
+								<option value="">All</option>
+							   <option ng-repeat="year in years" value="{{year.val}}">{{year.val}}</option>
+							</select>
+						</div>
+						<div class="form-group_dummy col-md-6 pl0 pr0 mb10">              
+              <label class="adv_search_typo" for="contain">Rating Area</label>
+              <select ng-model="TempSearch.RatingAreaId" class="form-control">
+                <option value="">All</option>
+                <option ng-repeat="id in ratingAreaId" value="{{id.RatingAreaID}}">{{id.RatingAreaID}}</option>
+              </select>
+            </div>
+
+            <div class="form-group_dummy col-md-6 pl0  mb10">              
+              <label class="adv_search_typo" for="contain">Market Coverage</label>
+              <select ng-model="TempSearch.filterByMarketCover" class="form-control">
+                <option value="">All</option>
+                <option ng-repeat="marketCoverage in marketCoverages" value="{{marketCoverage}}">{{marketCoverage}}</option>
+              </select>
+            </div>
+
+            <div class="form-group_dummy col-md-6 pl0 pr0 mb10">              
+              <label class="adv_search_typo" for="contain">IssuerID</label>
+              <select ng-model="TempSearch.IssuerId" class="form-control">
+                <option value="">All</option>
+                <option ng-repeat="id in issuerIds" value="{{id.Id}}">{{id.Id}} : {{id.IssuerName}} </option>
+              </select>
+            </div>
+            <!-- <div class="form-group_dummy col-md-6 pl0 pr0 mb10">              
+                          <label class="adv_search_typo" for="contain">Mrkt Cover</label>
+                          <select ng-model="TempSearch.filterByMarketCover" class="form-control">
+                            <option value="">All Mrkt Cover</option>
+                            <option ng-repeat="marketCoverage in marketCoverages" value="{{marketCoverage}}">{{marketCoverage}}</option>
+                          </select>
+                        </div> -->
+						<!-- <div class="form-group_dummy col-md-6 pl0 mb10">      
+               <label class="adv_search_typo" for="filter">Plan Id</label>
+               <input type="text" class="form-control" ng-model="TempSearch.PlanID" placeholder="Plan Id.." />
+            </div> -->
+            <!-- <div class="form-group_dummy col-md-6 pl0 mb10">      
+                           <label class="adv_search_typo" for="filter">State</label>
+                          <select ng-model="TempSearch.searchByStateCode" class="form-control">
+                            <option value="">All State</option>
+                            <option ng-repeat="state in states" value="{{state.StateCode}}">{{state.StateName}}</option>
+                          </select>
+                        </div> -->
+						<!-- <div class="form-group_dummy col-md-6 pl0 pr0 mb10">  						
+							<label class="adv_search_typo" for="contain">Metal Level</label>
+							<select ng-model="TempSearch.filterByMetalLevel" class="form-control">
+							  <option value="">All Metal Level</option>
+							  <option ng-if="metalLevel" ng-repeat="metalLevel in metalLevels" value="{{metalLevel}}">{{metalLevel}}</option>
+							</select>
+						</div> -->
+						
+					   <div style="display:none">
+                        <button ng-click="setCsrrateList()" type="submit" class="btn tp-btn-blue hvr-radial-out adv_srch_btn"><i class="fa fa-search"></i></button>
+                      </div>
+					  </form>
+                    </div>
+                  </div>
+                  <button ng-click="setCsrrateList()" type="button" class="hvr-radial-out btn tp-btn tp-btn-blue adv_srch_btn"><i class="fa fa-search mr10"></i>Search</button>
+                  <button ng-click="resetCsrrateList()" type="button" class="hvr-radial-out-black btn tp-btn-grey adv_srch_btn"><i class="fa fa-refresh mr10"></i>Reset</button>
+                </div>
+              </div>
+            </div>        
+        </div>
+        
+        <!--  
+        <a data-toggle="collapse" data-target="#filter-panel" href="javascript:void(0)" class="btn search tp-search-btn tp-btn tp-btn-blue">Advanced Search</a> 
+        --> 
+		
+		<!-- 
+		Created By : Aastha Jain
+		Created Date : 07-06-2016
+		Purpose : Function to export CSR Rate list.
+		Start
+		-->
+		
+    		<div class="row"> 
+			<div class="col-md-3 browse-select">
+			  <input type="file" name="file" class="form-control"  
+                  onchange="angular.element(this).scope().loadFile(this.files)"  />
+            <span> Import </span> </div>
+    
+		<div class="col-md-3 pull-right">
+			<a title="Export Cases" ng-click="exportReport();" class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle mb20 mr10 pull-right" href="javascript:void(0)"> <i class="fa fa-file-excel-o mr10" aria-hidden="true"></i>Export</a>
+
+      <a title="create new rates" class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle mb20 pull-right mr10" href="insuranceplantype/newcsrrate"> <i class="fa fa-plus mr10"></i>Add New Rate</a>
+		</div>
+		
+		<!-- end : Function to export CSR Rate list. -->
+		
+		<div class="col-md-12 text-center list-title">
+			<h2 class="mb0">{{title}}</h2>
+		</div>
+        
+      </div>
+      <!-- end col 12-->      
+      <div class="col-md-12">   
+        
+        <table class="table table-bordered table-condensed table-nowrap table-striped table-hover">
+          <thead>
+            <tr>
+              <!-- <th style="width:10%;"><a ng-click="sort_by('Id')">#ID<i class="fa fa-sort ml20"></i></a></th> -->
+              <th style="width:10%;">#ID</th>
+              <th style="width:12%;"><a ng-click="sort_by('PlanID')">PlanID<i class="fa fa-sort ml20"></i></a></th>
+              <th style="width:15%;">PlanName</th>
+              <th style="width:10%;">IssuerName</th>
+              <th style="width:8%;"><a ng-click="sort_by('RatingAreaId')">Area / Use<i class="fa fa-sort ml20"></i></a></th>
+              <th style="width:7%;"><a ng-click="sort_by('Age')">Age / Prg<i class="fa fa-sort ml20"></i></a></th>
+              <th style="width:10%;">IndPrm</th>
+              <th style="width:10%;">ER Act Prem</th>
+              <th style="width:10%;">ER Contrib Prem</th>
+              <th style="width:10%;">ER Contrib HSA</th>
+
+              <!-- <th style="width:15%;">Year</th>
+              <th style="width:10%;">State</a></th>
+              <th style="width:15%;">Rating Area</th>
+                            <th style="width:10%;">Mrkt Cover</th>
+              <th style="width:15%;"><a ng-click="sort_by('RateEffectiveDate')">Rate Effective<i class="fa fa-sort ml20"></i></a></th> -->
+              <th style="width:12%;">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="CSRRate in CSRRates">              
+			       <td class="text-right" title="{{CSRRate.Id}}">{{CSRRate.Id}}</td>
+              <td class="text-right" title="{{CSRRate.PlanID}}">{{CSRRate.PlanId}}</td> 
+              <td class="text-right" title="{{CSRRate.PlanName}}">{{CSRRate.PlanName}}</td> 
+              <td class="text-right" title="{{CSRRate.IssuerName}}">{{CSRRate.IssuerName}}</td> 
+              <td class="text-right" title="{{CSRRate.RatingAreaId}}">{{CSRRate.RatingAreaId}}</td>
+              <td class="text-right" title="{{CSRRate.Age}}">{{CSRRate.Age}}</td>
+              <td class="text-right" title="{{CSRRate.IndividualRate}}">{{CSRRate.IndividualRate}}</td>
+              <td class="text-right" title="{{CSRRate.GrpCostAmt}}">{{CSRRate.GrpCostAmt}}</td>
+              <td class="text-right" title="{{CSRRate.GrpEmplrPremAmt}}">{{CSRRate.GrpEmplrPremAmt}}</td>
+              <td class="text-right" title="{{CSRRate.GrpHSAAmt}}">{{CSRRate.GrpHSAAmt}}</td>
+
+              <!-- <td class="text-right" title="{{CSRRate.BusinessYear}}">{{CSRRate.BusinessYear}}</td>  
+                                       <td class="text-left" title="{{CSRRate.StateCode}}">{{statesA[CSRRate.StateCode]}}</td> 
+                          <td class="text-left" title="{{CSRRate.RatingAreaName}}">{{CSRRate.RatingAreaName}}</td>
+                                       <td class="text-left" title="{{CSRRate.MrktCover}}">{{CSRRate.MrktCover}}</td>
+                          <td class="text-right" title="{{CSRRate.RateEffectiveDate | date:'MM/dd/yyyy hh:mm:ss'}}">{{CSRRate.RateEffectiveDate | date:'MM/dd/yyyy'}}</td> -->            
+              <td class="text-center">
+                <a title="create new csr rate" class="color_green add_case_btn" href="insuranceplantype/editcsrrate/{{CSRRate.Id}}/copy"><i class="fa fa-plus"></i></a>
+
+				        <a href="insuranceplantype/viewcsrrate/{{CSRRate.Id}}/{{sortby}}/{{desc}}" title="View" class="color_green add_case_btn"><i class="fa fa-eye"></i>
+				
+				        <a href="insuranceplantype/editcsrrate/{{CSRRate.Id}}/{{sortby}}/{{desc}}" title="Edit" class="color_orange add_case_btn"><i class="fa fa-pencil"></i> </a>
+			         </a>
+			       </td>
+            </tr>
+            <tr ng-if="!(TotalCount > 0)">
+              <td colspan="11">No Record Found.</td>
+            </tr>
+          </tbody>
+          <tfoot ng-if="TotalCount > 0">
+            <tr>
+              <td colspan="11"><span class="tot_rec_title"><i class="fa fa-check-circle mr10"></i> Total Records : {{TotalCount}}</span>
+                <div ng-if="TotalCount > pageSize" class="text-center">
+                  <ul class="pagination">
+                    <li ng-class="{disabled: page == 1}"> <a href="javascript:;" ng-click="prevPage()"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Prev</a> </li>
+                    <li ng-repeat="n in range() track by $index" ng-class="{ active :n == page, disabled : n == '...' }" ng-click="setPage()"><a href="javascript:;" ng-bind="n">{{ n }}</a></li>  
+                    <li ng-if="page != (lastCount | number : 0)" ng-class="{disabled: page == (lastCount | number : 0)}"> <a ng-click="nextPage()" href="javascript:;" >Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></a> </li>
+                    <li ng-if="page == (lastCount | number : 0)" ng-class="{disabled: page == (lastCount | number : 0)}"> <a href="javascript:;" >Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></a> </li>
+                  </ul>
+                </div></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <!--end col 12--> 
+      
+    </div>
+    <!--end row--> 
+    
+  </div>
+</div>
+<!-- /.wizard form -->
+</div>
+<div ng-include src="'partials/include/footer.html'"></div>

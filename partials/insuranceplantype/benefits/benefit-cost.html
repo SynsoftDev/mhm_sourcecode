@@ -1,0 +1,70 @@
+﻿<style>.main-container {padding-bottom:0px;} .wrapper{height:auto;min-height:100%; padding-bottom: 40px;}#footer{height:40px;}</style>
+<head><title>{{title}}</title></head>
+<div ng-include src="'partials/include/header.html'"></div>
+  <div class="main-container pt0"><!--Main container start-->
+    <div id="form-page" class="form-page mt0"><!-- form section -->
+      <div class="container">
+        <div class="row_dummy">
+          <div class="col-md-offset-4 col-md-8">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="grey-box grid_addbenefitcost"><!-- grey box -->
+                  <h3 class="mb0 benefit_typo">{{title}} 
+                  <a id="button" name="button" href="insuranceplantype/benefits" class="hvr-radial-out-black btn tp-btn tp-btn-grey pull-right">back</a>	
+                  </h3>
+				  		
+                  <p ng-show="flash.status" class="alert {{flash.type}}">{{flash.message}} <a class="close" ng-click="closeFlash()"><i class="fa fa-close"></i></a> </p>  
+                  <form class="form-horizontal form" id="form" name="form" role="form" ng-submit="update()">
+                    <!-- Text input-->               
+                       
+					<div class="addbenefit_select_box">
+                      <h3 class="mb0" for="cost">Please select State:  <span class="required">*</span></h3>
+					  <select ng-change="GetRatingAreasState()" name="StateCode" required class="form-control" ng-model="StateCode">
+						  <option value="">Select</option>
+						  <option value="{{state.StateCode}}" ng-repeat="state in stateList">{{state.StateName}}</option>					  
+					  </select>	
+					   <span ng-show="form.StateCode.$dirty && form.StateCode.$error.required" class="help-block error_home">State is required.</span>	
+					  
+					  <h3 class="mb0" for="cost">Please select Rating Area:  <span class="required">*</span></h3>
+					  <select ng-change="updateRatingCost()" name="ratingAreaId" required class="form-control" ng-model="ratingAreaId">
+						  <option value="">Select</option>
+						  <option value="{{rating.RatingAreaID}}" ng-repeat="rating in ratingAreas">{{rating.RatingAreaName}}</option>					  
+					  </select>	
+						 <span ng-show="form.ratingAreaId.$dirty && form.ratingAreaId.$error.required" class="help-block error_home">Rating Area is required.</span>	
+					</div> 				
+					
+					<div ng-if="ratingAreaId !='' && StateCode !='' " class="div_scroll" id="scroll-area_addbenefit">
+						<div  class="form-group_addbenefit " ng-repeat="ratingArea in ratingAreaCost">
+							<div class="col-md-6 pl0">
+								<div class="">
+								  <label class="control-label" for="text">{{ratingArea.MHMBenefitName}}</label>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="">							 
+								  <input required id="MHMBenefitCost{{$index}}" name="MHMBenefitCost{{$index}}" type="text" placeholder="" class="form-control input-md text-right" ng-model="ratingArea.MHMBenefitCost" min="0" placeholder="" class="form-control input-md text-right" maxlength="7" max="9999999"  ng-pattern="/^[0-9]{1,9}$/">
+								</div>
+							</div>
+						</div>
+					</div>
+                    
+                        
+                    <div ng-if="ratingAreaId !='' && stateId !='' " class="benefitcst_footer text-center">              
+					 <button ng-disabled="form.$invalid || dataLoading" type="submit" id="button" name="button" class="hvr-radial-out-orange btn tp-btn tp-btn-orange mb0 mt0">{{action}}</button>
+                    <!-- Button -->                   
+                   </div>               <!-- Button -->              
+                    
+                    
+					
+                   </form>
+                </div>
+                <!-- /.greay box --> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--end form-page--> 
+  </div>
+<div ng-include src="'partials/include/footer.html'"></div>

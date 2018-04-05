@@ -1,0 +1,717 @@
+<style>
+    .main-container {
+        padding-bottom: 0px;
+    }
+
+    .wrapper {
+        height: auto;
+    }
+
+    #footer {
+        height: 40px;
+        position: relative !important;
+    }
+
+    .multiSelect {
+        overflow: auto;
+    }
+
+    .multiSelect .select {
+        /* margin-right: 20px;*/
+        float: left;
+    }
+
+    .multiSelect .text {
+        clear: both;
+        font-size: 11px;
+    }
+
+    .multiSelect .dotShow::after {
+        content: ":";
+    }
+
+    .btn.mover {
+        display: block;
+        margin-top: 25px;
+        vertical-align: top;
+    }
+
+    .btn.mover.left {
+        padding: 3px 20px 2px;
+    }
+
+    .btn.mover.right {
+        margin-top: 24px;
+        padding: 3px 20px 2px;
+    }
+
+    .btn.mover i {
+        margin: 0;
+    }
+
+    /* demo css */
+
+    .mul-select label.control-label.ng-binding,
+    .mul-select select {
+        width: 100%;
+    }
+
+    .mul-select select option {
+        border: none;
+    }
+
+    .mul-select select {
+        padding: 5px;
+        border: 1px solid #cccccc;
+        border-radius: 2px;
+        min-width: 180px;
+    }
+
+    /*Select with checkbox*/
+
+    .mul-select .select ul {
+        min-width: 180px;
+        border: 2px solid #3b84f2;
+        padding: 5px;
+        border-radius: 2px;
+        margin-bottom: 10px;
+        height: 200px;
+        overflow-y: scroll;
+    }
+
+    .mul-select .checkbox input[type=checkbox] {
+        margin-left: 0;
+        position: relative;
+    }
+
+    .select.buttons {
+        margin-top: 90px;
+    }
+
+    .multiSelect label {
+        margin: 10px;
+    }
+
+    .multiSelect .btn {
+        margin: 10px;
+    }
+
+    .multiSelect .pool {
+        border: 1px solid #999;
+        border-radius: 4px;
+        padding: 10px;
+        margin: 5px;
+        height: 150px;
+        overflow-y: scroll;
+    }
+
+    .multiSelect .pool ul {
+        list-style: none;
+        padding-left: 0px;
+    }
+
+    .multiSelect .pool ul li {
+        width: 100%;
+        padding: 4px 8px 4px 4px;
+        border-bottom: 1px dotted #CFCFCF;
+    }
+
+    .multiSelect .pool ul li a:hover {
+        text-decoration: none;
+    }
+
+    .swMain .buttonNext,
+    .swMain .buttonPrevious {
+        display: none;
+    }
+</style>
+
+<head>
+    <title>{{title}}</title>
+</head>
+
+<div ng-include src="'partials/include/header.html'"></div>
+<div class="main-container pt0" id="main-container" ng-hide="pageLoading">
+    <div class="row_dummy one-column grid-media-box1">
+        <div class="col-md-12">
+            <div class="tp-wizard-form" id="tp-wizard-form">
+                <div class="container">
+                    <div class="row">
+                        <p ng-show="flash.status" class="alert {{flash.type}}">{{flash.message}}
+                            <a class="close" ng-click="closeFlash()">
+                                <i class="fa fa-close"></i>
+                            </a>
+                        </p>
+                        <div class="swMain">
+                            <div class="pb0 pt0">
+                                <div class="container">
+                                    <div class="row_dummy">
+                                        <h1 class="title_planattr">{{title}}</h1>
+                                        <div id="container_csttab" class="edit_container_csttab">
+                                            <form name="JobRun" id="JobRun">
+                                                <div class="col-md-3 col-sm-12 pull-left">
+                                                    <select ng-model="jobRunStatus" class="form-control">
+                                                        <option value=''>Select Case Job Run Status</option>
+                                                        <option ng-repeat="cstatus in caseJobRunStatus" value="{{cstatus}}">{{cstatus}}</option>
+                                                    </select>
+                                                </div>
+                                            </form>
+                                            <div class="col-md-6 col-sm-12 pull-left">
+                                                <a class="hvr-radial-out btn tp-btn tp-btn-blue pull-left mr10" href="javascript:void(0)" ng-click="sendReportsToAll('Send')">Generate Results & Send</a>
+                                                <a class="hvr-radial-out btn tp-btn tp-btn-blue pull-left mr10" href="javascript:void(0)" ng-click="sendReportsToAll('NoSend')">Generate Results Only</a>
+                                                <a class="hvr-radial-out btn tp-btn tp-btn-blue pull-left" href="javascript:void(0)" ng-click="copyDefault()">Copy Default</a>
+                                            </div>
+
+                                            <div class="col-md-3 col-sm-12 pull-right">
+                                                <a class="hvr-radial-out btn tp-btn tp-btn-blue pull-left mb20 ml50" href="javascript:void(0)" ng-click="addJob()">{{actionBtnText}}</a>
+                                                <a style="position:absolute;right:0;z-index:9;" title="Back" class="hvr-radial-out-black btn tp-btn tp-btn-grey dropdown-toggle pull-right"
+                                                    href="javascript:void(0)" ng-click="backNotify()">Back</a>
+                                            </div>
+                                            <div id="content_dummy">
+                                                <form name="createJobForm" id="createJobForm" ng-submit="addJob()">
+                                                    <div>
+                                                        <span class="inner_content_dummy cst_planbg_dummy">
+                                                            <div class="col-md-12 mb20">
+                                                                <div id="wizard" class="swMain">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="#step-0">
+                                                                                <span class="stepDesc">Job Details
+                                                                                    <br />
+                                                                                    <small>
+                                                                                        <b>Job Details</b>
+                                                                                    </small>
+                                                                                </span>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#step-1">
+                                                                                <span class="stepDesc">Job Description
+                                                                                    <br />
+                                                                                    <small>
+                                                                                        <b>Job Description</b>
+                                                                                    </small>
+                                                                                </span>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#step-2">
+                                                                                <span class="stepDesc"> Email Info
+                                                                                    <br />
+                                                                                    <small>
+                                                                                        <b>Email Info</b>
+                                                                                    </small>
+                                                                                </span>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#step-3">
+                                                                                <span class="stepDesc"> Census Import
+                                                                                    <br />
+                                                                                    <small>
+                                                                                        <b>Census Import</b>
+                                                                                    </small>
+                                                                                </span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+
+                                                                    <div id="step-0">
+                                                                        <div class="row">
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> Employer
+                                                                                <span class="required">*</span> &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <select ng-model="job.EmployerId" class="form-control" name="employerId" id="employerId" ng-change="getInsuranceType(0); chagesOccur();">
+                                                                                    <option value="">Select Employer</option>
+                                                                                    <option ng-repeat="employer in employers" value="{{employer.EmployerId}}">{{employer.EmployerId}} : {{employer.EmployerName}}</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> Job Year
+                                                                                <span class="required">*</span> &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <select ng-model="job.JobYear" name="jobYear" id="jobYear" class="form-control" ng-change="getInsuranceType(0); chagesOccur();">
+                                                                                    <option value="">Select Job Year</option>
+                                                                                    <option ng-repeat="year in jobyears" value="{{year.val}}">{{year.val}}</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr class="cst_hr">
+
+                                                                        <div class="row ">
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> Job Number
+                                                                                <span class="required">*</span> &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input type="text" class="form-control view-dropdown" ng-model="job.JobNumber" name="jobNo" id="jobNo" placeholder="Job Number"
+                                                                                    readonly/>
+                                                                            </div>
+                                                                            <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> Job Description
+                                                                                <span class="required">*</span> &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <textarea ng-readonly="{{readOnly}}" ng-maxlength="200" ng-model="job.JobDesc" placeholder="Write Job Description ...." name="jobDescription"
+                                                                                    id="jobDescription" rows="1" class="form-control"
+                                                                                    ng-change="chagesOccur();"></textarea>
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr class="cst_hr">
+                                                                        <div class="row">
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> Job Status
+                                                                                <span class="required">*</span> &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <select ng-model="job.JobStatus" class="form-control" name="jobStatus" id="jobStatus" ng-change="jobStatusChange();">
+                                                                                    <option value="">Select Job Status</option>
+                                                                                    <option ng-repeat="status in jobStatus" value="{{status}}">{{status}}</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> Job Start Date
+                                                                                <span class="required">*</span> &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input ng-click="open_start($event)" class="form-control date-disabled datepicker" type="text" name="jobStartDate" id="jobStartDate"
+                                                                                    uib-datepicker-popup="MM/dd/yyyy" ng-model="job.JobDateStart"
+                                                                                    is-open="startDate.isOpned" max-date="maxStartDate"
+                                                                                    datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
+                                                                                    close-text="Close" ng-change="chagesOccur();"
+                                                                                    readonly />
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr class="cst_hr">
+                                                                        <div class="row">
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> Job End Date
+                                                                                <span class="required">*</span> &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input ng-click="open_end()" class="form-control date-disabled datepicker" type="text" name="jobEndDate" id="jobEndDate"
+                                                                                    uib-datepicker-popup="MM/dd/yyyy" ng-model="job.JobDateEnd"
+                                                                                    is-open="endDate.isOpned" min-date="minEndDate"
+                                                                                    datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
+                                                                                    close-text="Close" ng-change="chagesOccur();"
+                                                                                    readonly />
+                                                                            </div>
+                                                                            <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> ComparisonJobNum &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input class="form-control" type="text" name="comparisonJobNum" id="comparisonJobNum" ng-change="chagesOccur();" ng-model="job.ComparisonJobNum"
+                                                                                />
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr class="cst_hr">
+                                                                        <div class="row">
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> JobCopiedFrom &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input class="form-control" type="text" name="jobCopiedFrom" id="jobCopiedFrom" ng-change="chagesOccur();" ng-model="job.JobCopiedFrom"
+                                                                                />
+                                                                            </div>
+                                                                            <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> AcctMgr &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input class="form-control" type="text" name="acctMgr" id="acctMgr" ng-model="job.AcctMgr" ng-change="chagesOccur();" Only-digits/>
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr class="cst_hr">
+                                                                        <div class="row">
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> ExpectedCompletionDt &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input ng-click="jobExpectedCompletionDt.isOpned=true;" class="form-control date-disabled datepicker" type="text" name="jobExpectedCompletionDt"
+                                                                                    id="jobExpectedCompletionDt" uib-datepicker-popup="MM/dd/yyyy"
+                                                                                    ng-model="job.ExpectedCompletionDt" is-open="jobExpectedCompletionDt.isOpned"
+                                                                                    min-date="minEndDate" datepicker-options="dateOptions"
+                                                                                    date-disabled="disabled(date, mode)" close-text="Close"
+                                                                                    ng-change="chagesOccur();" readonly />
+                                                                            </div>
+                                                                            <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> PlanYearStartDt &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input ng-click="jobPlanYearStartDate.isOpned=true;" class="form-control date-disabled datepicker" type="text" name="jobPlanYearStartDate"
+                                                                                    id="jobPlanYearStartDate" uib-datepicker-popup="MM/dd/yyyy"
+                                                                                    ng-model="job.PlanYearStartDt" is-open="jobPlanYearStartDate.isOpned"
+                                                                                    max-date="maxStartDate1" min-date="minEndDate"
+                                                                                    datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
+                                                                                    close-text="Close" ng-change="chagesOccur();"
+                                                                                    readonly />
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr class="cst_hr">
+                                                                        <div class="row">
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> JobPlansSelectionLockedDt &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input ng-click="jobPlansSelectionLockedDate.isOpned=true;" class="form-control date-disabled datepicker" type="text" name="jobPlansSelectionLockedDate"
+                                                                                    id="jobPlansSelectionLockedDate" uib-datepicker-popup="MM/dd/yyyy"
+                                                                                    ng-model="job.JobPlansSelectionLockedDt"
+                                                                                    is-open="jobPlansSelectionLockedDate.isOpned"
+                                                                                    min-date="minEndDate" datepicker-options="dateOptions"
+                                                                                    date-disabled="disabled(date, mode)" close-text="Close"
+                                                                                    ng-change="chagesOccur();" readonly />
+                                                                            </div>
+                                                                            <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> PlanYearEndDt &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input ng-click="jobPlanYearEndDate.isOpned=true;" class="form-control date-disabled datepicker" type="text" name="jobPlanYearEndDate"
+                                                                                    id="jobPlanYearEndDate" uib-datepicker-popup="MM/dd/yyyy"
+                                                                                    ng-model="job.PlanYearEndDt" is-open="jobPlanYearEndDate.isOpned"
+                                                                                    min-date="minEndDate1" datepicker-options="dateOptions"
+                                                                                    date-disabled="disabled(date, mode)" close-text="Close"
+                                                                                    ng-change="chagesOccur();" readonly />
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr class="cst_hr">
+                                                                        <div class="row">
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> JobCensusImportDt &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input ng-click="jobCensusImportDate.isOpned=true;" class="form-control date-disabled datepicker" type="text" name="jobCensusImportDate"
+                                                                                    id="jobCensusImportDate" uib-datepicker-popup="MM/dd/yyyy"
+                                                                                    ng-model="job.JobCensusImportDt" is-open="jobCensusImportDate.isOpned"
+                                                                                    min-date="minEndDate" datepicker-options="dateOptions"
+                                                                                    date-disabled="disabled(date, mode)" close-text="Close"
+                                                                                    ng-change="chagesOccur();" readonly />
+                                                                            </div>
+                                                                            <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> JobPlansSelectionLocked &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <select ng-model="job.JobPlansSelectionLocked" name="jobPlansSelectionLocked" id="jobPlansSelectionLocked" class="form-control"
+                                                                                    ng-change="chagesOccur();">
+                                                                                    <option value="" disabled>Select JobPlansSelectionLocked </option>
+                                                                                    <option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}} </option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr class="cst_hr">
+                                                                        <div class="row">
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> HRAMaxReimburseDependent &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input class="form-control" type="text" name="jobHRAMaxReimburseDependent" id="jobHRAMaxReimburseDependent" ng-model="job.HRAMaxReimburseDependent"
+                                                                                    Only-digits ng-change="chagesOccur();" />
+                                                                            </div>
+                                                                            <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> HRAMaxReimbursePrimary &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input class="form-control" type="text" name="jobHRAMaxReimbursePrimary" id="jobHRAMaxReimbursePrimary" ng-model="job.HRAMaxReimbursePrimary"
+                                                                                    Only-digits ng-change="chagesOccur();" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr class="cst_hr">
+                                                                        <div class="row">
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> HRADedLimitDependent &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input class="form-control" type="text" name="jobHRADedLimitDependent" id="jobHRADedLimitDependent" ng-model="job.HRADedLimitDependent"
+                                                                                    Only-digits ng-change="chagesOccur();" />
+                                                                            </div>
+                                                                            <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> HRADedLimitPrimary &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input class="form-control" type="text" name="jobHRADedLimitPrimary" id="jobHRADedLimitPrimary" ng-model="job.HRADedLimitPrimary"
+                                                                                    Only-digits ng-change="chagesOccur();" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr class="cst_hr">
+                                                                        <div class="row">
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> HRAReimburseRatePrimary &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input class="form-control" name="jobHRAReimburseRatePrimary" id="jobHRAReimburseRatePrimary" type="number" min="0" max="1"
+                                                                                    ng-model="job.HRAReimburseRatePrimary" ng-change="chagesOccur();"
+                                                                                />
+                                                                            </div>
+                                                                            <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> HRACanCoverPremium &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <select ng-model="job.HRACanCoverPremium" name="jobHRACanCoverPremium" id="jobHRACanCoverPremium" class="form-control" ng-change="chagesOccur();">
+                                                                                    <option value="" disabled>Select HRACanCoverPremium </option>
+                                                                                    <option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}} </option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr class="cst_hr">
+                                                                        <div class="row">
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> HSA Match Flag &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input class="checkbox_modal" type="checkbox" name="jobHSAMatchFlag" id="jobHSAMatchFlag" value="true" ng-change="changeHsaMatchFlag(); chagesOccur();"
+                                                                                    ng-model="job.IsHSAMatch" />
+                                                                            </div>
+                                                                            <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> HRAReimburseRateDependent &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input class="form-control" name="jobHRAReimburseRateDependent" id="jobHRAReimburseRateDependent" type="number" min="0" max="1"
+                                                                                    ng-model="job.HRAReimburseRateDependent"
+                                                                                    ng-change="chagesOccur();" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr class="cst_hr">
+                                                                        <div ng-if="isHSAMatchFlag" class="row">
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right">HSA Match Limit 1 &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input class="form-control" name="jobHSAMatchLimit1" id="jobHSAMatchLimit1" type="number" min="0" ng-change="chagesOccur();"
+                                                                                    ng-model="job.HSAMatchLimit1" />
+                                                                            </div>
+                                                                            <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right">HSA Match Rate 1 &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input class="form-control" name="jobHSAMatchRate1" id="jobHSAMatchRate1" type="number" min="0" max="100" ng-change="chagesOccur();"
+                                                                                    ng-model="job.HSAMatchRate1" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr class="cst_hr">
+                                                                        <div ng-if="isHSAMatchFlag" class="row">
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right">HSA Match Limit 2 &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input class="form-control" name="jobHSAMatchLimit2" id="jobHSAMatchLimit2" type="number" min="0" ng-change="chagesOccur();"
+                                                                                    ng-model="job.HSAMatchLimit2" />
+                                                                            </div>
+                                                                            <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right">HSA Match Rate 2 &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input class="form-control" name="jobHSAMatchRate2" id="jobHSAMatchRate2" type="number" min="0" max="100" ng-change="chagesOccur();"
+                                                                                    ng-model="job.HSAMatchRate2" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr class="cst_hr">
+                                                                        <div ng-if="isHSAMatchFlag" class="row">
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right">HSA Match Limit 3 &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input class="form-control" name="jobHSAMatchLimit3" id="jobHSAMatchLimit3" type="number" min="0" ng-change="chagesOccur();"
+                                                                                    ng-model="job.HSAMatchLimit3" />
+                                                                            </div>
+                                                                            <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right">HSA Match Rate 3 &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input class="form-control" name="jobHSAMatchRate3" id="jobHSAMatchRate3" type="number" min="0" max="100" ng-change="chagesOccur();"
+                                                                                    ng-model="job.HSAMatchRate3" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr class="cst_hr">
+                                                                        <div ng-if="isHSAMatchFlag" class="row">
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right">HSA Match Limit 4 &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input class="form-control" name="jobHSAMatchLimit4" id="jobHSAMatchLimit4" type="number" min="0" ng-change="chagesOccur();"
+                                                                                    ng-model="job.HSAMatchLimit4" />
+                                                                            </div>
+                                                                            <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right">HSA Match Rate 4 &nbsp; </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input class="form-control" name="jobHSAMatchRate4" id="jobHSAMatchRate4" type="number" min="0" max="100" ng-change="chagesOccur();"
+                                                                                    ng-model="job.HSAMatchRate4" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr class="cst_hr">
+                                                                        <div ng-if="isEditForm" class="row">
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> CreatedDateTime </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input class="form-control view-dropdown datepicker" type="text" name="jobCreatedDateTime" id="jobCreatedDateTime" uib-datepicker-popup="MM/dd/yyyyTHH:mm.ss"
+                                                                                    ng-model="job.CreatedDateTime" is-open="jobCreatedDateTime.isOpned"
+                                                                                    datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
+                                                                                    close-text="Close" ng-change="chagesOccur();"
+                                                                                    readonly />
+                                                                            </div>
+                                                                            <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> Createdby </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input type="text" class="form-control view-dropdown" name="jobCreatedby" id="jobCreatedby" ng-model="CreatedByName" ng-change="chagesOccur();"
+                                                                                    readonly />
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr ng-if="isEditForm" class="cst_hr">
+                                                                        <div ng-if="isEditForm" class="row">
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> ModifiedDateTime </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input class="form-control view-dropdown datepicker" type="text" name="jobModifiedDateTime" id="jobModifiedDateTime" uib-datepicker-popup="MM/dd/yyyyTHH:mm.ss"
+                                                                                    ng-model="job.ModifiedDateTime" is-open="jobModifiedDateTime.isOpned"
+                                                                                    datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
+                                                                                    close-text="Close" ng-change="chagesOccur();"
+                                                                                    readonly />
+                                                                            </div>
+                                                                            <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> ModifiedBy </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input type="text" class="form-control view-dropdown" name="jobModifiedBy" id="jobModifiedBy" ng-model="ModifiedByName" ng-change="chagesOccur();"
+                                                                                    readonly />
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr ng-if="isEditForm" class="cst_hr">
+                                                                        <div class="row">
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right"> Job Run Status </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <h3 class="label label-default cst-label-default">{{job.JobRunStatus}}</h3>
+                                                                            </div>
+                                                                            <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                                                            <div class="col-md-2 col-lg-2 col-sm-12 text-right">
+                                                                                Case Zip Code :
+                                                                                <span class="required">*</span> &nbsp;
+                                                                            </div>
+                                                                            <div class="col-md-3 col-lg-3 col-sm-12">
+                                                                                <input type="text" class="form-control view-dropdown" ng-model="job.CaseZipCode" name="zipCode" id="zipCode" placeholder="Case Zip Code"
+                                                                                    ng-change="chagesOccur();" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--========================================================================= -->
+                                                                    <div id="step-1">
+                                                                        <div class="grid_job_dropdowns">
+                                                                            <div class="col-md-2 col-sm-12">Issuer Id
+                                                                                <select ng-model="planFiltersData.issuerId" class="form-control">
+                                                                                    <option value=''>All</option>
+                                                                                    <option ng-repeat="id in issuerIds" value="{{id.Id}}">{{id.Id}} : {{id.IssuerName}} ({{id.IssuerCode}})</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="col-md-2 col-sm-12">State Code
+                                                                                <select ng-model="planFiltersData.stateCode" class="form-control">
+                                                                                    <option value=''>All</option>
+                                                                                    <option ng-repeat="state in States" value="{{state.StateCode}}">{{state.StateCode}}</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="col-md-2 col-sm-12">Plan Type
+                                                                                <select ng-model="planFiltersData.planType" class="form-control">
+                                                                                    <option value=''>All</option>
+                                                                                    <option ng-repeat="plan in Plans" value="{{plan.PlanID}}">{{plan.PlanType}}</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="col-md-2 col-sm-12">Job Year
+                                                                                <select ng-model="planFiltersData.businessYear" class="form-control">
+                                                                                    <option value=''>All</option>
+                                                                                    <option ng-repeat="year in years" value="{{year.val}}">{{year.val}}</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="col-md-2 col-sm-12">Group Name
+                                                                                <select ng-model="planFiltersData.groupName" class="form-control">
+                                                                                    <option value=''>All</option>
+                                                                                    <option ng-repeat="groupName in GroupNames" value="{{groupName}}">{{groupName}}</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="col-md-2 col-sm-12">Market Coverage
+                                                                                <select ng-model="planFiltersData.marketCoverage" class="form-control">
+                                                                                    <option value=''>All</option>
+                                                                                    <option ng-repeat="mrktCvr in MarketCoverages" value="{{mrktCvr}}">{{mrktCvr}}</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="grid_job_dropdowns">
+                                                                            <div class="col-md-2 col-sm-12 pull-left">
+                                                                                <input class="hvr-radial-out-black btn tp-btn-grey adv_srch_btn width_100 " type="button" ng-click="getPlanInfo(1)" value="Filter">
+                                                                            </div>
+                                                                            <div class="col-md-2 col-sm-12 pull-left">
+                                                                                <input class="hvr-radial-out-black btn tp-btn-grey adv_srch_btn width_100 " type="button" ng-click="resetFilters()" value="Reset">
+                                                                            </div>
+                                                                            <div class="col-md-4 col-sm-12 pull-right">
+                                                                                <input class="width_100 hvr-radial-out btn tp-btn tp-btn-blue ng-binding" type="button" ng-click="AddPlans()" value="Save Plan Selection">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="grid_job_dropdowns">
+                                                                            <div class="col-md-12 col-sm-12">
+                                                                                <div class="mul-select">
+                                                                                    <multi-select ng-model="userSelectedPlans" available="allPlans" selected-label="Current allPlans" available-label="Available allPlans"
+                                                                                        display="r as r.SelectedPlanTitle" title="r as r"
+                                                                                        config="selectConfig" ng-change="JobPlanSelectionLockedChange();">
+                                                                                    </multi-select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div id="step-2">
+                                                                        <span class="col-md-3"> </span>
+                                                                        <span class="col-md-12"> Subject Text
+                                                                            <span class="required">*</span> &nbsp;
+                                                                            <input type="text" class="form-control" ng-model="job.EmailSubjText" name="subText" id="subText" placeholder="Subject Text"
+                                                                            />
+                                                                        </span>
+                                                                        <span class="col-md-12"> Body Text
+                                                                            <span class="required">*</span> &nbsp;
+                                                                            <textarea type="text" class="form-control" ng-model="job.EmailBodyText" name="bodyText" id="bodyText" placeholder="EmailBody Text"></textarea>
+                                                                            <!-- <text-angular name="bodyText" class="html-editor" ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6', 'p', 'ul', 'ol', 'bold','italics', 'underline', 'quote', 'strikeThrough', 'indent', 'outdent', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'html', 'insertImage', 'insertLink', 'insertVideo']]" ng-model="job.EmailBodyText" data-ng-required="true"></text-angular> -->
+                                                                            <span ng-if="createJobForm.bodyText.$invalid && formInvalid" class="error">This field is required.</span>
+                                                                        </span>
+                                                                        <span class="col-md-12"> Sign Text
+                                                                            <span class="required">*</span> &nbsp;
+                                                                            <textarea type="text" class="form-control" ng-model="job.EmailSignText" name="signText" id="signText" placeholder="Sign Text"></textarea>
+                                                                            <!-- <text-angular name="signText" class="html-editor" ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6', 'p', 'ul', 'ol', 'bold','italics', 'underline', 'quote', 'strikeThrough', 'indent', 'outdent', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'html', 'insertImage', 'insertLink', 'insertVideo']]" ng-model="job.EmailSignText" data-ng-required="true"></text-angular> -->
+                                                                            <span ng-if="createJobForm.signText.$invalid && formInvalid" class="error">This field is required.</span>
+                                                                        </span>
+                                                                    </div>
+                                                                    <div id="step-3">
+                                                                        <h3>&nbsp;</h3>
+                                                                        <div class="col-sm-12 col-md-3 col-lg-3 pull-right">
+
+                                                                            <div class="browse-select jobcstfileuploadbtn">
+                                                                                <input type="file" name="file" class="form-control xyz" onchange="angular.element(this).scope().loadFile(this.files)" />
+                                                                                <span> Select File </span>
+                                                                            </div>
+
+                                                                            <div class="browse-select jobcstbtn">
+                                                                                <a class="hvr-radial-out btn tp-btn tp-btn-blue pull-left mb20 ml50 ng-binding" href="javascript:void(0)" ng-click="ImportCensusCases()">Button</a>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                        <div class="row_dummy">
+                                                                            <div class="col-md-12">
+                                                                                <table class="table table-bordered table-condensed f11 table-nowrap table-striped table-hover">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th>First Name</th>
+                                                                                            <th>Last Name</th>
+                                                                                            <th>Street</th>
+                                                                                            <th>City</th>
+                                                                                            <th>State</th>
+                                                                                            <th>Zip</th>
+                                                                                            <th>Email</th>
+                                                                                            <th>Mobile</th>
+                                                                                            <th>MAGI</th>
+                                                                                            <th>Cur. Plan</th>
+                                                                                            <th>Cur. Premium</th>
+                                                                                            <th>PrevYrHSA</th>
+                                                                                            <th>UsageID</th>
+                                                                                            <th>HireDate</th>
+                                                                                            <th>EREmpId</th>
+                                                                                            <th>JobTitle</th>
+                                                                                            <th>CaseTitle</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr ng-repeat="item in CensusData">
+                                                                                            <td class="text-left" title="{{item.FirstName}}">{{item.FirstName}}</td>
+                                                                                            <td class="text-left" title="{{item.LastName}}">{{item.LastName}}</td>
+                                                                                            <td class="text-left" title="{{item.Street}}">{{item.Street}}</td>
+                                                                                            <td class="text-left" title="{{item.City}}">{{item.City}}</td>
+                                                                                            <td class="text-left" title="{{item.State}}">{{item.State}}</td>
+                                                                                            <td class="text-left" title="{{item.Zip}}">{{item.Zip}}</td>
+                                                                                            <td class="text-left" title="{{item.Email}}">{{item.Email}}</td>
+                                                                                            <td class="text-left" title="{{item.Mobile}}">{{item.Mobile}}</td>
+                                                                                            <td class="text-left" title="{{item.MAGI}}">{{item.MAGI}}</td>
+                                                                                            <td class="text-left" title="{{item.CurrentPlan}}">{{item.CurrentPlan}}</td>
+                                                                                            <td class="text-left" title="{{item.CurrentPremium}}">{{item.CurrentPremium}}</td>
+                                                                                            <td class="text-left" title="{{item.PrevYrHSA}}">{{item.PrevYrHSA}}</td>
+                                                                                            <td class="text-left" title="{{item.UsageID}}">{{item.UsageID}}</td>
+                                                                                            <td class="text-left" title="{{item.HireDate}}">{{item.HireDate | date:'MM/dd/yyyy'}}</td>
+                                                                                            <td class="text-left" title="{{item.EREmpId}}">{{item.EREmpId}}</td>
+                                                                                            <td class="text-left" title="{{item.JobTitle}}">{{item.JobTitle}}</td>
+
+                                                                                            <td class="text-left" title="{{item.CaseTitle}}">{{item.CaseTitle}}</td>
+                                                                                        </tr>
+                                                                                    </tbody>
+
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </span>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="print_wizard" style="float: left;">
+                            <div ng-include src="'partials/masters/job/print.html'"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.wizard form -->
+<div ng-include src="'partials/include/footer.html'"></div>

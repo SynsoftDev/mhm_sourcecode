@@ -1,0 +1,1055 @@
+﻿@{
+    ViewBag.Title = "Demo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cutjs/0.4.14/cut.web.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        //called when key is pressed in textbox
+        $('input[type="text"].number').keypress(function (e) {
+            //if the letter is not digit then display error and don't type anything
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                //display error message
+                $("#errmsg").html("Digits Only").show().fadeOut("slow");
+                return false;
+            }
+        });
+
+        $(document).ajaxStart(function () {
+            $("#wait,#wait1").css("display", "block");
+        });
+
+        $(document).ajaxComplete(function () {
+            $("#wait,#wait1").css("display", "none");
+        });
+
+    });
+
+    var baseUrl = 'http://localhost:54181/';
+    //var baseUrl = 'http://192.168.0.36/mhm/';
+
+    function DownloadFile() {
+
+        var url = "http://mhm.synsoftglobal.net/api/case/GetCaseReport?searchby=&sortby=CreatedDateTime&desc=true&startDate=&endDate=&lstParameter=&lstParameter=&lstParameter=&lstParameter=&lstParameter=&lstParameter=&lstParameter=&EmailId=vchaurasiya4@gmail.com";
+
+          var filename = "";
+    var xhr = new XMLHttpRequest();
+    xhr.responseType = 'blob';
+    xhr.ontimeout = function () {
+        console.error("The request timed out.");
+    };
+    xhr.onload = function () {
+        var a = document.createElement('a');
+        a.href = window.URL.createObjectURL(xhr.response); // xhr.response is a blob
+        a.download = 'testPersonExceldata.xlsx'; // Set the file name.
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        delete a;
+    };
+    xhr.open('Get', url);
+    xhr.setRequestHeader('Authorization', 'bearer lc2bZyFUbDLIKIP0U0Ahj2zGr6LDyqLUXiYK4QHOUKUpf1NtEQmL4KlXtt3GXN2JBkRodTePmkr_aYSML-0A8KYQEKLQQv8vzf1u3cTtxOrfMR9g_4wP2IywpZD0b8J4o07Y_6hNts-1Z4Q4Ra-sBHMGqvEE_urDlr4q1jdWZDqwNPPE56hzNSv6jObygEgFgjMnkEcDmif20VWHM_z-eCJ4PStDBeJ1GG53IG3FCAFOu-tDSN_6lL2hlHK1i3cCYNOUprNxo1WBVXsL5z0spBI2xpE7cnj5lR7dwekSfarnM6wMqwP0n_Cod7_2tPGd9iOWSZhcLAHP7Ez5V5Xb7qr-aHNHQ-N0HFulmvIRb1SVjBvTV48r0VI2jZOnw6c_ulkxBphqh8bVJ6gH6GiJn1zxWREsmw7CyqHX5Kimo9aPYV27beXrnuGw6w5StrIDbjtvmaPE4Z4k7OX_I1Z3Z_i2cu9o78JlTiUFyKynxnPdI36pg7bYAs-RQhXiJaX9QFDws_-oUor5O9bD3VTAiQ');
+    xhr.onreadystatechange = function (oEvent) {
+        if (xhr.readyState === 4) {
+            //if (xhr.status === 200) {
+            //    console.log(xhr.responseText)
+            //}
+            //else if (xhr.status === 400)
+            //    {
+            //    console.log(xhr.responseText)
+            //}
+            //else {
+            //    console.log("Error", xhr.statusText);
+            //}
+            console.log("Error", xhr);
+        }
+    };
+
+    ///xhr.timeout = 120000;
+    xhr.send();
+
+
+    }
+
+    function GetSubsidy() {
+        //alert("test");
+        var isValid = true;
+        $('input[type="text"].required').each(function () {
+            if ($.trim($(this).val()) == '') {
+                isValid = false;
+                $(this).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+            }
+            else {
+                $(this).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
+        });
+
+        $('select.required').each(function () {
+            if ($.trim($(this).val()) == '') {
+                isValid = false;
+                $(this).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+            }
+            else {
+                $(this).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
+        });
+
+
+        if (isValid == false)
+            e.preventDefault();
+        else {
+
+            var value1 = $("#txtSkilled1").val(); var value2 = $("#lblSkilled").text();
+
+            var jsonMembersList = {
+                "data": [
+                  { "Age": $("#txtAge1").val(), "SmokingStatus": $('#SmokingStatus1>option:selected').text() },
+                  { "Age": $("#txtAge2").val(), "SmokingStatus": $('#SmokingStatus2>option:selected').text() },
+                   { "Age": $("#txtAge3").val(), "SmokingStatus": $('#SmokingStatus3>option:selected').text() },
+                    { "Age": $("#txtAge4").val(), "SmokingStatus": $('#SmokingStatus4>option:selected').text() },
+                     { "Age": $("#txtAge5").val(), "SmokingStatus": $('#SmokingStatus5>option:selected').text() },
+                      { "Age": $("#txtAge6").val(), "SmokingStatus": $('#SmokingStatus6>option:selected').text() },
+                       { "Age": $("#txtAge7").val(), "SmokingStatus": $('#SmokingStatus7>option:selected').text() },
+                        { "Age": $("#txtAge8").val(), "SmokingStatus": $('#SmokingStatus8>option:selected').text() }
+                ],
+                "UsesDetail": [
+                        {
+                            "FamilyMemberNumber": 1, "BenefitUses": {
+                                "1": $("#txtEmergencyRoom1").val() * $("#lblEmergencyRoomCost1").val(), "2": $("#txtHospital1").val() * $("#lblHospitalCost1").val(), "3": $("#txtOfficeVisitPCP1").val() * $("#lblOfficeVisitPCPCost1").val(),
+                                "4": $("#txtOfficeVisitSpecialist1").val() * $("#lblOfficeVisitSpecialistCost1").val(), "5": $("#txtCounselling1").val() * $("#lblCounsellingCost1").val(), "6": $("#txtSubstance1").val() * $("#lblSubstanceCost1").val(),
+                                "7": $("#txtOutpatientAdvDiag1").val() * $("#lblOutpatientAdvDiagCost1").val(), "8": $("#txtSpeechTherapy1").val() * $("#lblSpeechTherapyCost1").val(), "9": $("#txtPhysicalTherapy1").val() * $("#lblPhysicalTherapyCost1").val(),
+                                "10": $("#txtPreventive1").val() * $("#lblPreventiveCost1").val(), "11": $("#txtLaboratoryOut1").val() * $("#lblLaboratoryOutCost1").val(), "12": $("#txtOutpatientDiagnostic1").val() * $("#lblOutpatientDiagnosticCost1").val(),
+                                "13": $("#txtSkilled1").val() * $("#lblSkilledCost1").val(), "14": $("#txtOutpatientFacility1").val() * $("#lblOutpatientFacilityCost1").val(), "15": $("#txtOutpatientSurgery1").val() * $("#lblOutpatientSurgeryCost1").val(),
+                                "16": $("#txtUrgentCare1").val() * $("#lblUrgentCareCost1").val(), "18": $("#txtMaternity1").val() * $("#lblMaternityCost1").val(), "19": $("#txtChiropractic1").val() * $("#lblChiropracticCost1").val(),
+                                "20": $("#txtDental1").val() * $("#lblDentalCost1").val(), "21": $("#txtVision1").val() * $("#lblVisionCost1").val(), "22": $("#txtHearing1").val() * $("#lblHearingCost1").val(),
+                                "23": $("#txtRxTier11").val() * $("#lblRxTier1Cost1").val(), "24": $("#txtRxTier21").val() * $("#lblRxTier2Cost1").val(), "25": $("#txtRxTier31").val() * $("#lblRxTier3Cost1").val(),
+                                "26": $("#txtRxTier41").val() * $("#lblRxTier4Cost1").val(), "27": $("#txtRxTier51").val() * $("#lblRxTier5Cost1").val(), "28": $("#txtAccupuncture1").val() * $("#lblAccupunctureCost1").val()
+                            }
+                        },
+                       {
+                           "FamilyMemberNumber": 2, "BenefitUses": {
+                               "1": $("#txtEmergencyRoom2").val() * $("#lblEmergencyRoomCost2").val(), "2": $("#txtHospital2").val() * $("#lblHospitalCost2").val(), "3": $("#txtOfficeVisitPCP2").val() * $("#lblOfficeVisitPCPCost2").val(),
+                               "4": $("#txtOfficeVisitSpecialist2").val() * $("#lblOfficeVisitSpecialistCost2").val(), "5": $("#txtCounselling2").val() * $("#lblCounsellingCost2").val(), "6": $("#txtSubstance2").val() * $("#lblSubstanceCost2").val(),
+                               "7": $("#txtOutpatientAdvDiag2").val() * $("#lblOutpatientAdvDiagCost2").val(), "8": $("#txtSpeechTherapy2").val() * $("#lblSpeechTherapyCost2").val(), "9": $("#txtPhysicalTherapy2").val() * $("#lblPhysicalTherapyCost2").val(),
+                               "10": $("#txtPreventive2").val() * $("#lblPreventiveCost2").val(), "11": $("#txtLaboratoryOut2").val() * $("#lblLaboratoryOutCost2").val(), "12": $("#txtOutpatientDiagnostic2").val() * $("#lblOutpatientDiagnosticCost2").val(),
+                               "13": $("#txtSkilled2").val() * $("#lblSkilledCost2").val(), "14": $("#txtOutpatientFacility2").val() * $("#lblOutpatientFacilityCost2").val(), "15": $("#txtOutpatientSurgery2").val() * $("#lblOutpatientSurgeryCost2").val(),
+                               "16": $("#txtUrgentCare2").val() * $("#lblUrgentCareCost2").val(), "18": $("#txtMaternity2").val() * $("#lblMaternityCost2").val(), "19": $("#txtChiropractic2").val() * $("#lblChiropracticCost2").val(),
+                               "20": $("#txtDental2").val() * $("#lblDentalCost2").val(), "21": $("#txtVision2").val() * $("#lblVisionCost2").val(), "22": $("#txtHearing2").val() * $("#lblHearingCost2").val(),
+                               "23": $("#txtRxTier12").val() * $("#lblRxTier1Cost2").val(), "24": $("#txtRxTier22").val() * $("#lblRxTier2Cost2").val(), "25": $("#txtRxTier32").val() * $("#lblRxTier3Cost2").val(),
+                               "26": $("#txtRxTier42").val() * $("#lblRxTier4Cost2").val(), "27": $("#txtRxTier52").val() * $("#lblRxTier5Cost2").val(), "28": $("#txtAccupuncture2").val() * $("#lblAccupunctureCost2").val()
+                           }
+                       },
+                       {
+                           "FamilyMemberNumber": 3, "BenefitUses": {
+                               "1": $("#txtEmergencyRoom3").val() * $("#lblEmergencyRoomCost3").val(), "2": $("#txtHospital3").val() * $("#lblHospitalCost3").val(), "3": $("#txtOfficeVisitPCP3").val() * $("#lblOfficeVisitPCPCost3").val(),
+                               "4": $("#txtOfficeVisitSpecialist3").val() * $("#lblOfficeVisitSpecialistCost3").val(), "5": $("#txtCounselling3").val() * $("#lblCounsellingCost3").val(), "6": $("#txtSubstance3").val() * $("#lblSubstanceCost3").val(),
+                               "7": $("#txtOutpatientAdvDiag3").val() * $("#lblOutpatientAdvDiagCost3").val(), "8": $("#txtSpeechTherapy3").val() * $("#lblSpeechTherapyCost3").val(), "9": $("#txtPhysicalTherapy3").val() * $("#lblPhysicalTherapyCost3").val(),
+                               "10": $("#txtPreventive3").val() * $("#lblPreventiveCost3").val(), "11": $("#txtLaboratoryOut3").val() * $("#lblLaboratoryOutCost3").val(), "12": $("#txtOutpatientDiagnostic3").val() * $("#lblOutpatientDiagnosticCost3").val(),
+                               "13": $("#txtSkilled3").val() * $("#lblSkilledCost3").val(), "14": $("#txtOutpatientFacility3").val() * $("#lblOutpatientFacilityCost3").val(), "15": $("#txtOutpatientSurgery3").val() * $("#lblOutpatientSurgeryCost3").val(),
+                               "16": $("#txtUrgentCare3").val() * $("#lblUrgentCareCost3").val(), "18": $("#txtMaternity3").val() * $("#lblMaternityCost3").val(), "19": $("#txtChiropractic3").val() * $("#lblChiropracticCost3").val(),
+                               "20": $("#txtDental3").val() * $("#lblDentalCost3").val(), "21": $("#txtVision3").val() * $("#lblVisionCost3").val(), "22": $("#txtHearing3").val() * $("#lblHearingCost3").val(),
+                               "23": $("#txtRxTier13").val() * $("#lblRxTier1Cost3").val(), "24": $("#txtRxTier23").val() * $("#lblRxTier2Cost3").val(), "25": $("#txtRxTier33").val() * $("#lblRxTier3Cost3").val(),
+                               "26": $("#txtRxTier43").val() * $("#lblRxTier4Cost3").val(), "27": $("#txtRxTier53").val() * $("#lblRxTier5Cost3").val(), "28": $("#txtAccupuncture3").val() * $("#lblAccupunctureCost3").val()
+                           }
+                       }
+                       ,
+                      {
+                          "FamilyMemberNumber": 4, "BenefitUses": {
+                              "1": $("#txtEmergencyRoom4").val() * $("#lblEmergencyRoomCost4").val(), "2": $("#txtHospital4").val() * $("#lblHospitalCost4").val(), "3": $("#txtOfficeVisitPCP4").val() * $("#lblOfficeVisitPCPCost4").val(),
+                              "4": $("#txtOfficeVisitSpecialist4").val() * $("#lblOfficeVisitSpecialistCost4").val(), "5": $("#txtCounselling4").val() * $("#lblCounsellingCost4").val(), "6": $("#txtSubstance4").val() * $("#lblSubstanceCost4").val(),
+                              "7": $("#txtOutpatientAdvDiag4").val() * $("#lblOutpatientAdvDiagCost4").val(), "8": $("#txtSpeechTherapy4").val() * $("#lblSpeechTherapyCost4").val(), "9": $("#txtPhysicalTherapy4").val() * $("#lblPhysicalTherapyCost4").val(),
+                              "10": $("#txtPreventive4").val() * $("#lblPreventiveCost4").val(), "11": $("#txtLaboratoryOut4").val() * $("#lblLaboratoryOutCost4").val(), "12": $("#txtOutpatientDiagnostic4").val() * $("#lblOutpatientDiagnosticCost4").val(),
+                              "13": $("#txtSkilled4").val() * $("#lblSkilledCost4").val(), "14": $("#txtOutpatientFacility4").val() * $("#lblOutpatientFacilityCost4").val(), "15": $("#txtOutpatientSurgery4").val() * $("#lblOutpatientSurgeryCost4").val(),
+                              "16": $("#txtUrgentCare4").val() * $("#lblUrgentCareCost4").val(), "18": $("#txtMaternity4").val() * $("#lblMaternityCost4").val(), "19": $("#txtChiropractic4").val() * $("#lblChiropracticCost4").val(),
+                              "20": $("#txtDental4").val() * $("#lblDentalCost4").val(), "21": $("#txtVision4").val() * $("#lblVisionCost4").val(), "22": $("#txtHearing4").val() * $("#lblHearingCost4").val(),
+                              "23": $("#txtRxTier14").val() * $("#lblRxTier1Cost4").val(), "24": $("#txtRxTier24").val() * $("#lblRxTier2Cost4").val(), "25": $("#txtRxTier34").val() * $("#lblRxTier3Cost4").val(),
+                              "26": $("#txtRxTier44").val() * $("#lblRxTier4Cost4").val(), "27": $("#txtRxTier54").val() * $("#lblRxTier5Cost4").val(), "28": $("#txtAccupuncture4").val() * $("#lblAccupunctureCost4").val()
+                          }
+                      },
+                       {
+                           "FamilyMemberNumber": 5, "BenefitUses": {
+                               "1": $("#txtEmergencyRoom5").val() * $("#lblEmergencyRoomCost5").val(), "2": $("#txtHospital5").val() * $("#lblHospitalCost5").val(), "3": $("#txtOfficeVisitPCP5").val() * $("#lblOfficeVisitPCPCost5").val(),
+                               "4": $("#txtOfficeVisitSpecialist5").val() * $("#lblOfficeVisitSpecialistCost5").val(), "5": $("#txtCounselling5").val() * $("#lblCounsellingCost5").val(), "6": $("#txtSubstance5").val() * $("#lblSubstanceCost5").val(),
+                               "7": $("#txtOutpatientAdvDiag5").val() * $("#lblOutpatientAdvDiagCost5").val(), "8": $("#txtSpeechTherapy5").val() * $("#lblSpeechTherapyCost5").val(), "9": $("#txtPhysicalTherapy5").val() * $("#lblPhysicalTherapyCost5").val(),
+                               "10": $("#txtPreventive5").val() * $("#lblPreventiveCost5").val(), "11": $("#txtLaboratoryOut5").val() * $("#lblLaboratoryOutCost5").val(), "12": $("#txtOutpatientDiagnostic5").val() * $("#lblOutpatientDiagnosticCost5").val(),
+                               "13": $("#txtSkilled5").val() * $("#lblSkilledCost5").val(), "14": $("#txtOutpatientFacility5").val() * $("#lblOutpatientFacilityCost5").val(), "15": $("#txtOutpatientSurgery5").val() * $("#lblOutpatientSurgeryCost5").val(),
+                               "16": $("#txtUrgentCare5").val() * $("#lblUrgentCareCost5").val(), "18": $("#txtMaternity5").val() * $("#lblMaternityCost5").val(), "19": $("#txtChiropractic5").val() * $("#lblChiropracticCost5").val(),
+                               "20": $("#txtDental5").val() * $("#lblDentalCost5").val(), "21": $("#txtVision5").val() * $("#lblVisionCost5").val(), "22": $("#txtHearing5").val() * $("#lblHearingCost5").val(),
+                               "23": $("#txtRxTier15").val() * $("#lblRxTier1Cost5").val(), "24": $("#txtRxTier25").val() * $("#lblRxTier2Cost5").val(), "25": $("#txtRxTier35").val() * $("#lblRxTier3Cost5").val(),
+                               "26": $("#txtRxTier45").val() * $("#lblRxTier4Cost5").val(), "27": $("#txtRxTier55").val() * $("#lblRxTier5Cost5").val(), "28": $("#txtAccupuncture5").val() * $("#lblAccupunctureCost5").val()
+                           }
+                       },
+                      {
+                          "FamilyMemberNumber": 6, "BenefitUses": {
+                              "1": $("#txtEmergencyRoom6").val() * $("#lblEmergencyRoomCost6").val(), "2": $("#txtHospital6").val() * $("#lblHospitalCost6").val(), "3": $("#txtOfficeVisitPCP6").val() * $("#lblOfficeVisitPCPCost6").val(),
+                              "4": $("#txtOfficeVisitSpecialist6").val() * $("#lblOfficeVisitSpecialistCost6").val(), "5": $("#txtCounselling6").val() * $("#lblCounsellingCost6").val(), "6": $("#txtSubstance6").val() * $("#lblSubstanceCost6").val(),
+                              "7": $("#txtOutpatientAdvDiag6").val() * $("#lblOutpatientAdvDiagCost6").val(), "8": $("#txtSpeechTherapy6").val() * $("#lblSpeechTherapyCost6").val(), "9": $("#txtPhysicalTherapy6").val() * $("#lblPhysicalTherapyCost6").val(),
+                              "10": $("#txtPreventive6").val() * $("#lblPreventiveCost6").val(), "11": $("#txtLaboratoryOut6").val() * $("#lblLaboratoryOutCost6").val(), "12": $("#txtOutpatientDiagnostic6").val() * $("#lblOutpatientDiagnosticCost6").val(),
+                              "13": $("#txtSkilled6").val() * $("#lblSkilledCost6").val(), "14": $("#txtOutpatientFacility6").val() * $("#lblOutpatientFacilityCost6").val(), "15": $("#txtOutpatientSurgery6").val() * $("#lblOutpatientSurgeryCost6").val(),
+                              "16": $("#txtUrgentCare6").val() * $("#lblUrgentCareCost6").val(), "18": $("#txtMaternity6").val() * $("#lblMaternityCost6").val(), "19": $("#txtChiropractic6").val() * $("#lblChiropracticCost6").val(),
+                              "20": $("#txtDental6").val() * $("#lblDentalCost6").val(), "21": $("#txtVision6").val() * $("#lblVisionCost6").val(), "22": $("#txtHearing6").val() * $("#lblHearingCost6").val(),
+                              "23": $("#txtRxTier16").val() * $("#lblRxTier1Cost6").val(), "24": $("#txtRxTier26").val() * $("#lblRxTier2Cost6").val(), "25": $("#txtRxTier36").val() * $("#lblRxTier3Cost6").val(),
+                              "26": $("#txtRxTier46").val() * $("#lblRxTier4Cost6").val(), "27": $("#txtRxTier56").val() * $("#lblRxTier5Cost6").val(), "28": $("#txtAccupuncture6").val() * $("#lblAccupunctureCost6").val()
+                          }
+                      },
+                       {
+                           "FamilyMemberNumber": 7, "BenefitUses": {
+                               "1": $("#txtEmergencyRoom7").val() * $("#lblEmergencyRoomCost7").val(), "2": $("#txtHospital7").val() * $("#lblHospitalCost7").val(), "3": $("#txtOfficeVisitPCP7").val() * $("#lblOfficeVisitPCPCost7").val(),
+                               "4": $("#txtOfficeVisitSpecialist7").val() * $("#lblOfficeVisitSpecialistCost7").val(), "5": $("#txtCounselling7").val() * $("#lblCounsellingCost7").val(), "6": $("#txtSubstance7").val() * $("#lblSubstanceCost7").val(),
+                               "7": $("#txtOutpatientAdvDiag7").val() * $("#lblOutpatientAdvDiagCost7").val(), "8": $("#txtSpeechTherapy7").val() * $("#lblSpeechTherapyCost7").val(), "9": $("#txtPhysicalTherapy7").val() * $("#lblPhysicalTherapyCost7").val(),
+                               "10": $("#txtPreventive7").val() * $("#lblPreventiveCost7").val(), "11": $("#txtLaboratoryOut7").val() * $("#lblLaboratoryOutCost7").val(), "12": $("#txtOutpatientDiagnostic7").val() * $("#lblOutpatientDiagnosticCost7").val(),
+                               "13": $("#txtSkilled7").val() * $("#lblSkilledCost7").val(), "14": $("#txtOutpatientFacility7").val() * $("#lblOutpatientFacilityCost7").val(), "15": $("#txtOutpatientSurgery7").val() * $("#lblOutpatientSurgeryCost7").val(),
+                               "16": $("#txtUrgentCare7").val() * $("#lblUrgentCareCost7").val(), "18": $("#txtMaternity7").val() * $("#lblMaternityCost7").val(), "19": $("#txtChiropractic7").val() * $("#lblChiropracticCost7").val(),
+                               "20": $("#txtDental7").val() * $("#lblDentalCost7").val(), "21": $("#txtVision7").val() * $("#lblVisionCost7").val(), "22": $("#txtHearing7").val() * $("#lblHearingCost7").val(),
+                               "23": $("#txtRxTier17").val() * $("#lblRxTier1Cost7").val(), "24": $("#txtRxTier27").val() * $("#lblRxTier2Cost7").val(), "25": $("#txtRxTier37").val() * $("#lblRxTier3Cost7").val(),
+                               "26": $("#txtRxTier47").val() * $("#lblRxTier4Cost7").val(), "27": $("#txtRxTier57").val() * $("#lblRxTier5Cost7").val(), "28": $("#txtAccupuncture7").val() * $("#lblAccupunctureCost7").val()
+                           }
+                       },
+                       {
+                           "FamilyMemberNumber": 8, "BenefitUses": {
+                               "1": $("#txtEmergencyRoom8").val() * $("#lblEmergencyRoomCost8").val(), "2": $("#txtHospital8").val() * $("#lblHospitalCost8").val(), "3": $("#txtOfficeVisitPCP8").val() * $("#lblOfficeVisitPCPCost8").val(),
+                               "4": $("#txtOfficeVisitSpecialist8").val() * $("#lblOfficeVisitSpecialistCost8").val(), "5": $("#txtCounselling8").val() * $("#lblCounsellingCost8").val(), "6": $("#txtSubstance8").val() * $("#lblSubstanceCost8").val(),
+                               "7": $("#txtOutpatientAdvDiag8").val() * $("#lblOutpatientAdvDiagCost8").val(), "8": $("#txtSpeechTherapy8").val() * $("#lblSpeechTherapyCost8").val(), "9": $("#txtPhysicalTherapy8").val() * $("#lblPhysicalTherapyCost8").val(),
+                               "10": $("#txtPreventive8").val() * $("#lblPreventiveCost8").val(), "11": $("#txtLaboratoryOut8").val() * $("#lblLaboratoryOutCost8").val(), "12": $("#txtOutpatientDiagnostic8").val() * $("#lblOutpatientDiagnosticCost8").val(),
+                               "13": $("#txtSkilled8").val() * $("#lblSkilledCost8").val(), "14": $("#txtOutpatientFacility8").val() * $("#lblOutpatientFacilityCost8").val(), "15": $("#txtOutpatientSurgery8").val() * $("#lblOutpatientSurgeryCost8").val(),
+                               "16": $("#txtUrgentCare8").val() * $("#lblUrgentCareCost8").val(), "18": $("#txtMaternity8").val() * $("#lblMaternityCost8").val(), "19": $("#txtChiropractic8").val() * $("#lblChiropracticCost8").val(),
+                               "20": $("#txtDental8").val() * $("#lblDentalCost8").val(), "21": $("#txtVision8").val() * $("#lblVisionCost8").val(), "22": $("#txtHearing8").val() * $("#lblHearingCost8").val(),
+                               "23": $("#txtRxTier18").val() * $("#lblRxTier1Cost8").val(), "24": $("#txtRxTier28").val() * $("#lblRxTier2Cost8").val(), "25": $("#txtRxTier38").val() * $("#lblRxTier3Cost8").val(),
+                               "26": $("#txtRxTier48").val() * $("#lblRxTier4Cost8").val(), "27": $("#txtRxTier58").val() * $("#lblRxTier5Cost8").val(), "28": $("#txtAccupuncture8").val() * $("#lblAccupunctureCost8").val()
+                           }
+                       }
+                ]
+            }
+            //
+            var testString = JSON.stringify(jsonMembersList);
+            console.log(testString);
+            $.ajax({
+                url: baseUrl + "api/operation/CalculatePlans?ZipCode=" + $("#txtPinCode").val() + "&CountyId=" + $("#ddlCounty option:selected").val() + "&Income=" + $("#txtIncome").val() + "&IsAmericanIndian= " + $("input:radio[name='IsAmerican']:checked").val() + "&SubsidyStatus=" + $("input:radio[name='IsSubsidy']:checked").val() + "&HSAPercentage=" + $("#txtHSA").val() + "&TaxRate=" + $("#txtTaxRate").val() + "&UsageCode=" + $("#txtUsageCode").val() + "&IssuerId=0&PlanID=0&EmployerId=100000&Welness=false&InsuranceTypeId=0&BusinessYear=2016",
+                type: "Post",
+                data: jsonMembersList,
+                success: function (data) {
+                    var test = data;
+                    var jsonResult = JSON.stringify(data);
+                    var table = $('#tblDisplay'), row = null, data = null;
+                    table.empty();
+                    if (test.Status == "true") {
+                        row = $('<tr></tr>');
+                        $('<td  style="width:120px;"><b>Gov. Plan Id</b></td><td  style="width:100px;"><b>Plan Id</b></td><td  style="width:100px;"><b>Std Premium</b></td><td  style="width:100px;"><b>Subsidy</b></td><td  style="width:100px;"><b>Net Premium</b></td><td  style="width:100px;"><b>Monthly Pre.</b></td><td  style="width:100px;"><b>Copays</b></td><td  style="width:100px;"><b>Payments</b></td><td  style="width:100px;"><b>Coinsurance</b></td><td  style="width:100px;"><b>Tax Savings</b></td><td  style="width:100px;"><b>Medical</b></td><td  style="width:130px;"><b>Total Pay by You</b></td><td  style="width:120px;"><b>Pay by Ins. Co</b></td><td  style="width:120px;"><b>Coinsurance %</b></td><td  style="width:100px;"><b>Worst case</b></td>').appendTo(row);
+                        row.appendTo(table);
+                        $.each(test.Plans, function (id, obj) {
+                            // build a row
+                            if (obj != null) {
+                                row1 = $('<tr></tr>');
+                                $.each(obj, function (id, obj1) {
+                                    if (id.toString() == "PlanIdIndiv1") { data1 = $('<td>' + obj1 + '</td>'); data1.appendTo(row1); }
+                                    else if (id.toString() == "GovtPlanNumber") { data1 = $('<td>' + obj1 + '</td>'); data1.appendTo(row1); }
+                                    else if (id.toString() == "GrossAnnualPremium") { data1 = $('<td>' + obj1 + '</td>'); data1.appendTo(row1); }
+                                    else if (id.toString() == "FederalSubsidy") { data1 = $('<td>' + obj1 + '</td>'); data1.appendTo(row1); }
+                                    else if (id.toString() == "NetAnnualPremium") { data1 = $('<td>' + obj1 + '</td>'); data1.appendTo(row1); }
+                                    else if (id.toString() == "MonthlyPremium") { data1 = $('<td>' + obj1 + '</td>'); data1.appendTo(row1); }
+                                    else if (id.toString() == "Copays") { data1 = $('<td>' + obj1 + '</td>'); data1.appendTo(row1); }
+                                    else if (id.toString() == "PaymentsToDeductibleLimit") { data1 = $('<td>' + obj1 + '</td>'); data1.appendTo(row1); }
+                                    else if (id.toString() == "CoinsuranceToOutOfPocketLimit") { data1 = $('<td>' + obj1 + '</td>'); data1.appendTo(row1); }
+                                    else if (id.toString() == "TaxSavingFromHSAAccount") { data1 = $('<td>' + obj1 + '</td>'); data1.appendTo(row1); }
+                                    else if (id.toString() == "Medical") { data1 = $('<td>' + obj1 + '</td>'); data1.appendTo(row1); }
+                                    else if (id.toString() == "TotalPaid") { data1 = $('<td>' + obj1 + '</td>'); data1.appendTo(row1); }
+                                    else if (id.toString() == "PaymentsByInsuranceCo") { data1 = $('<td>' + obj1 + '</td>'); data1.appendTo(row1); }
+                                    else if (id.toString() == "Coinsurance") { data1 = $('<td>' + obj1 + '</td>'); data1.appendTo(row1); }
+                                    else if (id.toString() == "WorstCase") { data1 = $('<td>' + obj1 + '</td>'); data1.appendTo(row1); }
+                                });
+                                row1.appendTo(table);
+                            }
+                        });
+                        $("#lblChip").text(test.ChipEligibilityCount);
+                        $("#lblMedicaid").text(test.MedicaidEligibilityCount);
+                        $("#lblBaseRatePlan").text(test.SecondLowestPlanId);
+                        //$("#jsonResponse").val(data);
+                        //
+                        //$("#lblAnnualPremium").text(test.StandardAnnual.toString().match(/^\d+(?:\.\d{0,2})?/));
+                        //$("#lblFederalSubsidy").text(test.FederalSubsidy.toString().match(/^\d+(?:\.\d{0,2})?/));
+                        //$("#lblNetAnnualPremium").text(test.NetAnnualPremium.toString().match(/^\d+(?:\.\d{0,2})?/));
+                        //$("#lblMonthlyPremium").text(test.MonthlyPremium.toString().match(/^\d+(?:\.\d{0,2})?/));
+                        //$("#lblCopays").text(test.Copays.toString().match(/^\d+(?:\.\d{0,2})?/));
+                        //$("#lblPayments").text(test.Payments.toString().match(/^\d+(?:\.\d{0,2})?/));
+                        //$("#lblCoinsuranceValue").text(test.Coinsurance.toString().match(/^\d+(?:\.\d{0,2})?/));
+                        //$("#lblMedical").text(test.Medical.toString());
+                        //$("#lblTotalPaymentsbyYou").text(test.TotalPaymentsByYou.toString().match(/^\d+(?:\.\d{0,2})?/));
+                        //$("#lblPaymentByInsurance").text(test.PaymentsByInsurance.toString().match(/^\d+(?:\.\d{0,2})?/));
+                        //$("#lblDeductible").text(test.Deductible.toString());
+                        //$("#lblOOPLimit").text(test.OutOfPocketLimit.toString());
+                        //$("#lblCoinsurance").text(test.CoInsurance.toString().match(/^\d+(?:\.\d{0,2})?/) + "%");
+                        //$("#lblWorstcase").text(test.WorstCase.toString().match(/^\d+(?:\.\d{0,2})?/));
+                        //$("#lblTaxSavingFromHSA").text(test.TaxSavingFromHSA.toString().match(/^\d+(?:\.\d{0,2})?/));
+                        //alert(data);
+
+                    }
+                    else {
+                        alert(test.Message);
+                    }
+                },
+                fail: function (data) {
+                    alert(data);
+                }
+            });
+
+
+
+        }
+    }
+    
+    function ImportData(){
+        $.ajax({
+            url: baseUrl + "api/case/ImportExcelData",
+            type: "Get",
+            success: function (data) {
+                alert(data);
+            },
+            fail: function (data) {
+                alert(data);
+            }
+        });
+    }
+
+    var testString1 = {"username":"sourabh", "password":"sourabh"};
+    function checkAPI() {
+        $.ajax({
+            url: "http://spadmin.itractechnology.com/Login",
+            type: "POST",
+            data: testString1,
+            success: function (data) {
+                alert(data);
+            },
+            fail: function (data) {
+                alert(data);
+            }
+        });
+    }
+
+    function checkInput(textbox) {
+        var textInput = document.getElementById(textbox).value;
+        $('#ddlCounty').html('');
+        $.ajax({
+            url: baseUrl + "api/case/getcounty/" + textInput,
+            type: "Get",
+            success: function (data) {
+                var test = data.CountyList;
+                if (test != undefined) {
+                    $.each(test, function (index, item) {
+                        $('#ddlCounty').append(
+                             $('<option></option>').val(item.CountyId).html(item.CountyName)
+                         );
+                    });
+                }
+                else {
+                    alert("Zipcode not found");
+                }
+            },
+            fail: function (data) {
+                alert(data);
+            }
+        });
+
+        //     alert(textInput);
+    }
+
+
+
+</script>
+
+<h2>Demo New</h2>
+
+<div class="panel-body">
+
+    <div id="errmsg" style="color:red;"></div>
+    <div class="row">
+        <div class="col-md-2">Zipcode :    <input id="txtPinCode" class="form-control required number" onchange="checkInput('txtPinCode')" type="text" /></div>
+        <div class="col-md-2">CountyName :    <select id="ddlCounty" class="form-control required"></select></div>
+        <div class="col-md-2">Income : <input id="txtIncome" class="form-control required number" type="text" /></div>
+        <div class="col-md-2">tax Rate : <input type="text" id="txtTaxRate" class="form-control required number" /></div>
+        <div class="col-md-2">HSA% : <input type="text" id="txtHSA" class="form-control required number" /></div>
+        <div class="col-md-2">
+            <div id="wait" style="display:none;">
+                <img id="imgwait1" src="/Content/22.gif"></>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-2">Usage Code : <input type="text" id="txtUsageCode" class="form-control required number" /></div>
+        <div class="col-md-2">American Indian (Y/N) : <br /><input type="radio" value="True" name="IsAmerican" />&nbsp;Yes&nbsp;&nbsp;&nbsp;<input type="radio" value="False" name="IsAmerican" checked="checked" />&nbsp;No</div>
+        <div class="col-md-2">Subsidy (Y/N) : <br /><input type="radio" value="True" name="IsSubsidy" checked="checked" />&nbsp;Yes&nbsp;&nbsp;&nbsp;<input type="radio" value="False" name="IsSubsidy" />&nbsp;No</div>
+
+    </div>
+
+    <br />
+    <div class="row">
+        <table>
+            <tr>
+                <td style="width:200px;"></td>
+                <td></td>
+                <td>Person 1</td>
+                <td></td>
+                <td>Person 2</td>
+                <td></td>
+                <td>Person 3</td>
+                <td></td>
+                <td>Person 4</td>
+                <td></td>
+                <td>Person 5</td>
+                <td></td>
+                <td>Person 6</td>
+                <td></td>
+                <td>Person 7</td>
+                <td></td>
+                <td>Person 8</td>
+            </tr>
+            <tr>
+                <td><b>  Age </b></td>
+                <td></td>
+                <td>  <input id="txtAge1" class="form-control required  number" type="text" /></td>
+                <td></td>
+                <td> <input id="txtAge2" class="form-control number" type="text" /></td>
+                <td></td>
+                <td> <input id="txtAge3" class="form-control  number" type="text" /></td>
+                <td></td>
+                <td> <input id="txtAge4" class="form-control  number" type="text" /></td>
+                <td></td>
+                <td> <input id="txtAge5" class="form-control  number" type="text" /></td>
+                <td></td>
+                <td> <input id="txtAge6" class="form-control  number" type="text" /></td>
+                <td></td>
+                <td> <input id="txtAge7" class="form-control  number" type="text" /></td>
+                <td></td>
+                <td> <input id="txtAge8" class="form-control  number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Smoking</b></td>
+                <td></td>
+                <td>
+                    <select id="SmokingStatus1" class="form-control">
+                        <option value="1">False</option>
+                        <option value="2">True</option>
+                    </select>
+                </td>
+                <td></td>
+                <td>
+                    <select id="SmokingStatus2" class="form-control">
+                        <option value="1">False</option>
+                        <option value="2">True</option>
+                    </select>
+                </td>
+                <td></td>
+                <td>
+                    <select id="SmokingStatus3" class="form-control">
+                        <option value="1">False</option>
+                        <option value="2">True</option>
+                    </select>
+                </td>
+                <td></td>
+                <td>
+                    <select id="SmokingStatus4" class="form-control">
+                        <option value="1">False</option>
+                        <option value="2">True</option>
+                    </select>
+                </td>
+                <td></td>
+                <td>
+                    <select id="SmokingStatus5" class="form-control">
+                        <option value="1">False</option>
+                        <option value="2">True</option>
+                    </select>
+                </td>
+                <td></td>
+                <td>
+                    <select id="SmokingStatus6" class="form-control">
+                        <option value="1">False</option>
+                        <option value="2">True</option>
+                    </select>
+                </td>
+                <td></td>
+                <td>
+                    <select id="SmokingStatus7" class="form-control">
+                        <option value="1">False</option>
+                        <option value="2">True</option>
+                    </select>
+                </td>
+                <td></td>
+                <td>
+                    <select id="SmokingStatus8" class="form-control">
+                        <option value="1">False</option>
+                        <option value="2">True</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><b>Preventive Care</b></td>
+                <td><input id="lblPreventiveCost1" style="width:50px;" value="0" class="number" type="text" /></td>
+                <td><input id="txtPreventive1" class="form-control  number" type="text" /></td>
+                <td><input id="lblPreventiveCost2" style="width:50px;" value="0" class="number" type="text" /></td>
+                <td><input id="txtPreventive2" class="form-control  number" type="text" /></td>
+                <td><input id="lblPreventiveCost3" style="width:50px;" value="0" class="number" type="text" /></td>
+                <td><input id="txtPreventive3" class="form-control number" type="text" /></td>
+                <td><input id="lblPreventiveCost4" style="width:50px;" value="0" class="number" type="text" /></td>
+                <td><input id="txtPreventive4" class="form-control number" type="text" /></td>
+                <td><input id="lblPreventiveCost5" style="width:50px;" value="0" class="number" type="text" /></td>
+                <td><input id="txtPreventive5" class="form-control number" type="text" /></td>
+                <td><input id="lblPreventiveCost6" style="width:50px;" value="0" class="number" type="text" /></td>
+                <td><input id="txtPreventive6" class="form-control number" type="text" /></td>
+                <td><input id="lblPreventiveCost7" style="width:50px;" value="0" class="number" type="text" /></td>
+                <td><input id="txtPreventive7" class="form-control number" type="text" /></td>
+                <td><input id="lblPreventiveCost8" style="width:50px;" value="0" class="number" type="text" /></td>
+                <td><input id="txtPreventive8" class="form-control number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Office Visit PCP</b></td>
+                <td><input id="lblOfficeVisitPCPCost1" style="width:50px;" value="150" class="number" type="text" /></td>
+                <td><input id="txtOfficeVisitPCP1" class="form-control number" type="text" /></td>
+                <td><input id="lblOfficeVisitPCPCost2" style="width:50px;" value="150" class="number" type="text" /></td>
+                <td><input id="txtOfficeVisitPCP2" class="form-control number" type="text" /></td>
+                <td><input id="lblOfficeVisitPCPCost3" style="width:50px;" value="150" class="number" type="text" /></td>
+                <td><input id="txtOfficeVisitPCP3" class="form-control number" type="text" /></td>
+                <td><input id="lblOfficeVisitPCPCost4" style="width:50px;" value="150" class="number" type="text" /></td>
+                <td><input id="txtOfficeVisitPCP4" class="form-control number" type="text" /></td>
+                <td><input id="lblOfficeVisitPCPCost5" style="width:50px;" value="150" class="number" type="text" /></td>
+                <td><input id="txtOfficeVisitPCP5" class="form-control number" type="text" /></td>
+                <td><input id="lblOfficeVisitPCPCost6" style="width:50px;" value="150" class="number" type="text" /></td>
+                <td><input id="txtOfficeVisitPCP6" class="form-control number" type="text" /></td>
+                <td><input id="lblOfficeVisitPCPCost7" style="width:50px;" value="150" class="number" type="text" /></td>
+                <td><input id="txtOfficeVisitPCP7" class="form-control number" type="text" /></td>
+                <td><input id="lblOfficeVisitPCPCost8" style="width:50px;" value="150" class="number" type="text" /></td>
+                <td><input id="txtOfficeVisitPCP8" class="form-control number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Office Visit Specialist</b></td>
+                <td><input id="lblOfficeVisitSpecialistCost1" style="width:50px;" value="250" class="number" type="text" /></td>
+                <td><input id="txtOfficeVisitSpecialist1" class="form-control number" type="text" /></td>
+                <td><input id="lblOfficeVisitSpecialistCost2" style="width:50px;" value="250" class="number" type="text" /></td>
+                <td><input id="txtOfficeVisitSpecialist2" class="form-control number" type="text" /></td>
+                <td><input id="lblOfficeVisitSpecialistCost3" style="width:50px;" value="250" class="number" type="text" /></td>
+                <td><input id="txtOfficeVisitSpecialist3" class="form-control number" type="text" /></td>
+                <td><input id="lblOfficeVisitSpecialistCost4" style="width:50px;" value="250" class="number" type="text" /></td>
+                <td><input id="txtOfficeVisitSpecialist4" class="form-control number" type="text" /></td>
+                <td><input id="lblOfficeVisitSpecialistCost5" style="width:50px;" value="250" class="number" type="text" /></td>
+                <td><input id="txtOfficeVisitSpecialist5" class="form-control number" type="text" /></td>
+                <td><input id="lblOfficeVisitSpecialistCost6" style="width:50px;" value="250" class="number" type="text" /></td>
+                <td><input id="txtOfficeVisitSpecialist6" class="form-control number" type="text" /></td>
+                <td><input id="lblOfficeVisitSpecialistCost7" style="width:50px;" value="250" class="number" type="text" /></td>
+                <td><input id="txtOfficeVisitSpecialist7" class="form-control number" type="text" /></td>
+                <td><input id="lblOfficeVisitSpecialistCost8" style="width:50px;" value="250" class="number" type="text" /></td>
+                <td><input id="txtOfficeVisitSpecialist8" class="form-control number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Outpatient Diagnostic Tests</b></td>
+                <td><input id="lblOutpatientDiagnosticCost1" style="width:50px;" value="200" class="number" type="text" /></td>
+                <td><input id="txtOutpatientDiagnostic1" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientDiagnosticCost2" style="width:50px;" value="200" class="number" type="text" /></td>
+                <td><input id="txtOutpatientDiagnostic2" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientDiagnosticCost3" style="width:50px;" value="200" class="number" type="text" /></td>
+                <td><input id="txtOutpatientDiagnostic3" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientDiagnosticCost4" style="width:50px;" value="200" class="number" type="text" /></td>
+                <td><input id="txtOutpatientDiagnostic4" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientDiagnosticCost5" style="width:50px;" value="200" class="number" type="text" /></td>
+                <td><input id="txtOutpatientDiagnostic5" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientDiagnosticCost6" style="width:50px;" value="200" class="number" type="text" /></td>
+                <td><input id="txtOutpatientDiagnostic6" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientDiagnosticCost7" style="width:50px;" value="200" class="number" type="text" /></td>
+                <td><input id="txtOutpatientDiagnostic7" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientDiagnosticCost8" style="width:50px;" value="200" class="number" type="text" /></td>
+                <td><input id="txtOutpatientDiagnostic8" class="form-control number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Outpatient Adv Diag Tests</b></td>
+                <td><input id="lblOutpatientAdvDiagCost1" style="width:50px;" value="900" class="number" type="text" /></td>
+                <td><input id="txtOutpatientAdvDiag1" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientAdvDiagCost2" style="width:50px;" value="900" class="number" type="text" /></td>
+                <td><input id="txtOutpatientAdvDiag2" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientAdvDiagCost3" style="width:50px;" value="900" class="number" type="text" /></td>
+                <td><input id="txtOutpatientAdvDiag3" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientAdvDiagCost4" style="width:50px;" value="900" class="number" type="text" /></td>
+                <td><input id="txtOutpatientAdvDiag4" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientAdvDiagCost5" style="width:50px;" value="900" class="number" type="text" /></td>
+                <td><input id="txtOutpatientAdvDiag5" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientAdvDiagCost6" style="width:50px;" value="900" class="number" type="text" /></td>
+                <td><input id="txtOutpatientAdvDiag6" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientAdvDiagCost7" style="width:50px;" value="900" class="number" type="text" /></td>
+                <td><input id="txtOutpatientAdvDiag7" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientAdvDiagCost8" style="width:50px;" value="900" class="number" type="text" /></td>
+                <td><input id="txtOutpatientAdvDiag8" class="form-control number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Lab. Out. / Pro. Svcs</b></td>
+                <td><input id="lblLaboratoryOutCost1" value="75" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtLaboratoryOut1" class="form-control number" type="text" /></td>
+                <td><input id="lblLaboratoryOutCost2" value="75" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtLaboratoryOut2" class="form-control number" type="text" /></td>
+                <td><input id="lblLaboratoryOutCost3" value="75" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtLaboratoryOut3" class="form-control number" type="text" /></td>
+                <td><input id="lblLaboratoryOutCost4" value="75" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtLaboratoryOut4" class="form-control number" type="text" /></td>
+                <td><input id="lblLaboratoryOutCost5" value="75" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtLaboratoryOut5" class="form-control number" type="text" /></td>
+                <td><input id="lblLaboratoryOutCost6" value="75" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtLaboratoryOut6" class="form-control number" type="text" /></td>
+                <td><input id="lblLaboratoryOutCost7" value="75" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtLaboratoryOut7" class="form-control number" type="text" /></td>
+                <td><input id="lblLaboratoryOutCost8" value="75" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtLaboratoryOut8" class="form-control number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Rx Tier 1 - Generic </b></td>
+                <td><input id="lblRxTier1Cost1" value="25" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier11" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier1Cost2" value="25" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier12" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier1Cost3" value="25" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier13" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier1Cost4" value="25" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier14" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier1Cost5" value="25" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier15" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier1Cost6" value="25" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier16" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier1Cost7" value="25" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier17" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier1Cost8" value="25" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier18" class="form-control number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Rx Tier 2 - Pre. Brand Name</b></td>
+                <td><input id="lblRxTier2Cost1" value="50" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier21" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier2Cost2" value="50" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier22" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier2Cost3" value="50" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier23" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier2Cost4" value="50" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier24" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier2Cost5" value="50" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier25" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier2Cost6" value="50" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier26" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier2Cost7" value="50" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier27" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier2Cost8" value="50" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier28" class="form-control number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Rx Tier 3 - Non-Pre. Brand</b></td>
+                <td><input id="lblRxTier3Cost1" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier31" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier3Cost2" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier32" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier3Cost3" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier33" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier3Cost4" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier34" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier3Cost5" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier35" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier3Cost6" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier36" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier3Cost7" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier37" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier3Cost8" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier38" class="form-control number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Rx Tier 4 - Specialty Drugs</b></td>
+                <td><input id="lblRxTier4Cost1" value="5000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier41" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier4Cost2" value="5000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier42" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier4Cost3" value="5000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier43" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier4Cost4" value="5000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier44" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier4Cost5" value="5000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier45" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier4Cost6" value="5000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier46" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier4Cost7" value="5000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier47" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier4Cost8" value="5000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier48" class="form-control number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Rx Tier 5 - Other</b></td>
+                <td><input id="lblRxTier5Cost1" value="1000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier51" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier5Cost2" value="1000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier52" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier5Cost3" value="1000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier53" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier5Cost4" value="1000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier54" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier5Cost5" value="1000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier55" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier5Cost6" value="1000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier56" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier5Cost7" value="1000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier57" class="form-control number" type="text" /></td>
+                <td><input id="lblRxTier5Cost8" value="1000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtRxTier58" class="form-control number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Emergency Room</b></td>
+                <td><input id="lblEmergencyRoomCost1" value="1200" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtEmergencyRoom1" class="form-control number" type="text" /></td>
+                <td><input id="lblEmergencyRoomCost2" value="1200" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtEmergencyRoom2" class="form-control number" type="text" /></td>
+                <td><input id="lblEmergencyRoomCost3" value="1200" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtEmergencyRoom3" class="form-control number" type="text" /></td>
+                <td><input id="lblEmergencyRoomCost4" value="1200" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtEmergencyRoom4" class="form-control number" type="text" /></td>
+                <td><input id="lblEmergencyRoomCost5" value="1200" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtEmergencyRoom5" class="form-control number" type="text" /></td>
+                <td><input id="lblEmergencyRoomCost6" value="1200" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtEmergencyRoom6" class="form-control number" type="text" /></td>
+                <td><input id="lblEmergencyRoomCost7" value="1200" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtEmergencyRoom7" class="form-control number" type="text" /></td>
+                <td><input id="lblEmergencyRoomCost8" value="1200" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtEmergencyRoom8" class="form-control number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Urgent Care</b></td>
+                <td><input id="lblUrgentCareCost1" value="425" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtUrgentCare1" class="form-control number" type="text" /></td>
+                <td><input id="lblUrgentCareCost2" value="425" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtUrgentCare2" class="form-control number" type="text" /></td>
+                <td><input id="lblUrgentCareCost3" value="425" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtUrgentCare3" class="form-control number" type="text" /></td>
+                <td><input id="lblUrgentCareCost4" value="425" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtUrgentCare4" class="form-control number" type="text" /></td>
+                <td><input id="lblUrgentCareCost5" value="425" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtUrgentCare5" class="form-control number" type="text" /></td>
+                <td><input id="lblUrgentCareCost6" value="425" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtUrgentCare6" class="form-control number" type="text" /></td>
+                <td><input id="lblUrgentCareCost7" value="425" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtUrgentCare7" class="form-control number" type="text" /></td>
+                <td><input id="lblUrgentCareCost8" value="425" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtUrgentCare8" class="form-control number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Physical Therapy</b></td>
+                <td><input id="lblPhysicalTherapyCost1" value="90" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtPhysicalTherapy1" class="form-control number" type="text" /></td>
+                <td><input id="lblPhysicalTherapyCost2" value="90" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtPhysicalTherapy2" class="form-control number" type="text" /></td>
+                <td><input id="lblPhysicalTherapyCost3" value="90" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtPhysicalTherapy3" class="form-control number" type="text" /></td>
+                <td><input id="lblPhysicalTherapyCost4" value="90" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtPhysicalTherapy4" class="form-control number" type="text" /></td>
+                <td><input id="lblPhysicalTherapyCost5" value="90" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtPhysicalTherapy5" class="form-control number" type="text" /></td>
+                <td><input id="lblPhysicalTherapyCost6" value="90" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtPhysicalTherapy6" class="form-control number" type="text" /></td>
+                <td><input id="lblPhysicalTherapyCost7" value="90" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtPhysicalTherapy7" class="form-control number" type="text" /></td>
+                <td><input id="lblPhysicalTherapyCost8" value="90" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtPhysicalTherapy8" class="form-control number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Chiropractic</b></td>
+                <td><input id="lblChiropracticCost1" value="90" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtChiropractic1" class="form-control number" type="text" /></td>
+                <td><input id="lblChiropracticCost2" value="90" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtChiropractic2" class="form-control number" type="text" /></td>
+                <td><input id="lblChiropracticCost3" value="90" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtChiropractic3" class="form-control number" type="text" /></td>
+                <td><input id="lblChiropracticCost4" value="90" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtChiropractic4" class="form-control number" type="text" /></td>
+                <td><input id="lblChiropracticCost5" value="90" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtChiropractic5" class="form-control number" type="text" /></td>
+                <td><input id="lblChiropracticCost6" value="90" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtChiropractic6" class="form-control number" type="text" /></td>
+                <td><input id="lblChiropracticCost7" value="90" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtChiropractic7" class="form-control number" type="text" /></td>
+                <td><input id="lblChiropracticCost8" value="90" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtChiropractic8" class="form-control number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Accupuncture</b></td>
+                <td><input id="lblAccupunctureCost1" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtAccupuncture1" class="form-control number" type="text" /></td>
+                <td><input id="lblAccupunctureCost2" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtAccupuncture2" class="form-control number" type="text" /></td>
+                <td><input id="lblAccupunctureCost3" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtAccupuncture3" class="form-control number" type="text" /></td>
+                <td><input id="lblAccupunctureCost4" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtAccupuncture4" class="form-control number" type="text" /></td>
+                <td><input id="lblAccupunctureCost5" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtAccupuncture5" class="form-control number" type="text" /></td>
+                <td><input id="lblAccupunctureCost6" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtAccupuncture6" class="form-control number" type="text" /></td>
+                <td><input id="lblAccupunctureCost7" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtAccupuncture7" class="form-control number" type="text" /></td>
+                <td><input id="lblAccupunctureCost8" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtAccupuncture8" class="form-control number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Speech Therapy</b></td>
+                <td><input id="lblSpeechTherapyCost1" value="100" style="width:50px;" class="number" type="text"></td>
+                <td><input id="txtSpeechTherapy1" class="form-control number" type="text" /></td>
+                <td><input id="lblSpeechTherapyCost2" value="100" style="width:50px;" class="number" type="text"></td>
+                <td><input id="txtSpeechTherapy2" class="form-control number" type="text" /></td>
+                <td><input id="lblSpeechTherapyCost3" value="100" style="width:50px;" class="number" type="text"></td>
+                <td><input id="txtSpeechTherapy3" class="form-control number" type="text" /></td>
+                <td><input id="lblSpeechTherapyCost4" value="100" style="width:50px;" class="number" type="text"></td>
+                <td><input id="txtSpeechTherapy4" class="form-control number" type="text" /></td>
+                <td><input id="lblSpeechTherapyCost5" value="100" style="width:50px;" class="number" type="text"></td>
+                <td><input id="txtSpeechTherapy5" class="form-control number" type="text" /></td>
+                <td><input id="lblSpeechTherapyCost6" value="100" style="width:50px;" class="number" type="text"></td>
+                <td><input id="txtSpeechTherapy6" class="form-control number" type="text" /></td>
+                <td><input id="lblSpeechTherapyCost7" value="100" style="width:50px;" class="number" type="text"></td>
+                <td><input id="txtSpeechTherapy7" class="form-control number" type="text" /></td>
+                <td><input id="lblSpeechTherapyCost8" value="100" style="width:50px;" class="number" type="text"></td>
+                <td><input id="txtSpeechTherapy8" class="form-control number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Hearing / Speech exams</b></td>
+                <td><input id="lblHearingCost1" value="150" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtHearing1" class="form-control number" type="text" /></td>
+                <td><input id="lblHearingCost2" value="150" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtHearing2" class="form-control number" type="text" /></td>
+                <td><input id="lblHearingCost3" value="150" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtHearing3" class="form-control number" type="text" /></td>
+                <td><input id="lblHearingCost4" value="150" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtHearing4" class="form-control number" type="text" /></td>
+                <td><input id="lblHearingCost5" value="150" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtHearing5" class="form-control number" type="text" /></td>
+                <td><input id="lblHearingCost6" value="150" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtHearing6" class="form-control number" type="text" /></td>
+                <td><input id="lblHearingCost7" value="150" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtHearing7" class="form-control number" type="text" /></td>
+                <td><input id="lblHearingCost8" value="150" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtHearing8" class="form-control number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Hospital Inpatient Admin.</b></td>
+                <td><input id="lblHospitalCost1" value="10000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtHospital1" class="form-control number" type="text" /></td>
+                <td><input id="lblHospitalCost2" value="10000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtHospital2" class="form-control number" type="text" /></td>
+                <td><input id="lblHospitalCost3" value="10000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtHospital3" class="form-control number" type="text" /></td>
+                <td><input id="lblHospitalCost4" value="10000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtHospital4" class="form-control number" type="text" /></td>
+                <td><input id="lblHospitalCost5" value="10000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtHospital5" class="form-control number" type="text" /></td>
+                <td><input id="lblHospitalCost6" value="10000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtHospital6" class="form-control number" type="text" /></td>
+                <td><input id="lblHospitalCost7" value="10000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtHospital7" class="form-control number" type="text" /></td>
+                <td><input id="lblHospitalCost8" value="10000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtHospital8" class="form-control number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Maternity</b></td>
+                <td><input id="lblMaternityCost1" value="7500" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtMaternity1" class="form-control number" type="text" /></td>
+                <td><input id="lblMaternityCost2" value="7500" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtMaternity2" class="form-control number" type="text" /></td>
+                <td><input id="lblMaternityCost3" value="7500" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtMaternity3" class="form-control number" type="text" /></td>
+                <td><input id="lblMaternityCost4" value="7500" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtMaternity4" class="form-control number" type="text" /></td>
+                <td><input id="lblMaternityCost5" value="7500" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtMaternity5" class="form-control number" type="text" /></td>
+                <td><input id="lblMaternityCost6" value="7500" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtMaternity6" class="form-control number" type="text" /></td>
+                <td><input id="lblMaternityCost7" value="7500" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtMaternity7" class="form-control number" type="text" /></td>
+                <td><input id="lblMaternityCost8" value="7500" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtMaternity8" class="form-control number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Outpatient Surgery</b></td>
+                <td><input id="lblOutpatientSurgeryCost1" value="2000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtOutpatientSurgery1" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientSurgeryCost2" value="2000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtOutpatientSurgery2" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientSurgeryCost3" value="2000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtOutpatientSurgery3" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientSurgeryCost4" value="2000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtOutpatientSurgery4" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientSurgeryCost5" value="2000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtOutpatientSurgery5" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientSurgeryCost6" value="2000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtOutpatientSurgery6" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientSurgeryCost7" value="2000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtOutpatientSurgery7" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientSurgeryCost8" value="2000" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtOutpatientSurgery8" class="form-control number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Skilled Nursing Services</b></td>
+                <td><input id="lblSkilledCost1" value="500" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtSkilled1" class="form-control number" type="text" /></td>
+                <td><input id="lblSkilledCost2" value="500" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtSkilled2" class="form-control number" type="text" /></td>
+                <td><input id="lblSkilledCost3" value="500" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtSkilled3" class="form-control number" type="text" /></td>
+                <td><input id="lblSkilledCost4" value="500" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtSkilled4" class="form-control number" type="text" /></td>
+                <td><input id="lblSkilledCost5" value="500" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtSkilled5" class="form-control number" type="text" /></td>
+                <td><input id="lblSkilledCost6" value="500" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtSkilled6" class="form-control number" type="text" /></td>
+                <td><input id="lblSkilledCost7" value="500" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtSkilled7" class="form-control number" type="text" /></td>
+                <td><input id="lblSkilledCost8" value="500" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtSkilled8" class="form-control number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Outpatient Facility Fee</b></td>
+                <td><input id="lblOutpatientFacilityCost1" value="500" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtOutpatientFacility1" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientFacilityCost2" value="500" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtOutpatientFacility2" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientFacilityCost3" value="500" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtOutpatientFacility3" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientFacilityCost4" value="500" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtOutpatientFacility4" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientFacilityCost5" value="500" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtOutpatientFacility5" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientFacilityCost6" value="500" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtOutpatientFacility6" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientFacilityCost7" value="500" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtOutpatientFacility7" class="form-control number" type="text" /></td>
+                <td><input id="lblOutpatientFacilityCost8" value="500" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtOutpatientFacility8" class="form-control number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Counselling</b></td>
+                <td><input id="lblCounsellingCost1" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtCounselling1" class="form-control number" type="text" /></td>
+                <td><input id="lblCounsellingCost2" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtCounselling2" class="form-control number" type="text" /></td>
+                <td><input id="lblCounsellingCost3" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtCounselling3" class="form-control number" type="text" /></td>
+                <td><input id="lblCounsellingCost4" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtCounselling4" class="form-control number" type="text" /></td>
+                <td><input id="lblCounsellingCost5" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtCounselling5" class="form-control number" type="text" /></td>
+                <td><input id="lblCounsellingCost6" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtCounselling6" class="form-control number" type="text" /></td>
+                <td><input id="lblCounsellingCost7" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtCounselling7" class="form-control number" type="text" /></td>
+                <td><input id="lblCounsellingCost8" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtCounselling8" class="form-control number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Substance / Recovery</b></td>
+                <td><input id="lblSubstanceCost1" value="125" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtSubstance1" class="form-control number" type="text" /></td>
+                <td><input id="lblSubstanceCost2" value="125" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtSubstance2" class="form-control number" type="text" /></td>
+                <td><input id="lblSubstanceCost3" value="125" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtSubstance3" class="form-control number" type="text" /></td>
+                <td><input id="lblSubstanceCost4" value="125" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtSubstance4" class="form-control number" type="text" /></td>
+                <td><input id="lblSubstanceCost5" value="125" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtSubstance5" class="form-control number" type="text" /></td>
+                <td><input id="lblSubstanceCost6" value="125" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtSubstance6" class="form-control number" type="text" /></td>
+                <td><input id="lblSubstanceCost7" value="125" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtSubstance7" class="form-control number" type="text" /></td>
+                <td><input id="lblSubstanceCost8" value="125" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtSubstance8" class="form-control number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Dental</b></td>
+                <td><input id="lblDentalCost1" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtDental1" class="form-control number" type="text" /></td>
+                <td><input id="lblDentalCost2" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtDental2" class="form-control number" type="text" /></td>
+                <td><input id="lblDentalCost3" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtDental3" class="form-control number" type="text" /></td>
+                <td><input id="lblDentalCost4" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtDental4" class="form-control number" type="text" /></td>
+                <td><input id="lblDentalCost5" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtDental5" class="form-control number" type="text" /></td>
+                <td><input id="lblDentalCost6" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtDental6" class="form-control number" type="text" /></td>
+                <td><input id="lblDentalCost7" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtDental7" class="form-control number" type="text" /></td>
+                <td><input id="lblDentalCost8" value="100" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtDental8" class="form-control number" type="text" /></td>
+            </tr>
+            <tr>
+                <td><b>Vision</b></td>
+                <td><input id="lblVisionCost1" value="150" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtVision1" class="form-control number" type="text" /></td>
+                <td><input id="lblVisionCost2" value="150" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtVision2" class="form-control number" type="text" /></td>
+                <td><input id="lblVisionCost3" value="150" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtVision3" class="form-control number" type="text" /></td>
+                <td><input id="lblVisionCost4" value="150" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtVision4" class="form-control number" type="text" /></td>
+                <td><input id="lblVisionCost5" value="150" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtVision5" class="form-control number" type="text" /></td>
+                <td><input id="lblVisionCost6" value="150" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtVision6" class="form-control number" type="text" /></td>
+                <td><input id="lblVisionCost7" value="150" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtVision7" class="form-control number" type="text" /></td>
+                <td><input id="lblVisionCost8" value="150" style="width:50px;" class="number" type="text" /></td>
+                <td><input id="txtVision8" class="form-control number" type="text" /></td>
+            </tr>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-md-2"><br /><br /> <input type="button" onclick="GetSubsidy()" value="Submit" />  </div>
+        <div class="col-lg-2">
+            <div id="wait1" style="display:none;">
+                <img id="imgwait" src="~/Content/22.gif"></>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="row">
+        <table id="tblDisplay" border="1" bordercolor="black"></table>
+        <br />
+        <table>
+            <tr>
+                <td>
+                    Member Remove Under Chip Eligibility :
+                </td>
+                <td><label id="lblChip"></label></td>
+            </tr>
+            <tr>
+                <td>
+                    Member Remove Under Medicaid Eligibility :
+                </td>
+                <td><label id="lblMedicaid"></label></td>
+            </tr>
+            <tr>
+                <td>
+                    Second Lowest Base Plan Id :
+                </td>
+                <td><label id="lblBaseRatePlan"></label></td>
+            </tr>
+        </table>
+    </div>
+    <form enctype="multipart/form-data">
+        <input type="button" onclick="checkAPI()" value="hello" />
+        <iframe id="frmTest" height="200" width="200"></iframe>
+    </form>
+</div>
+
+
+

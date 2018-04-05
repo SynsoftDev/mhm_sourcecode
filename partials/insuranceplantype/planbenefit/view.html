@@ -1,0 +1,477 @@
+﻿<style>.main-container {padding-bottom:0px;}.wrapper{height:auto;}#footer{height:40px;position:relative !important;}</style>
+<head><title>{{title}}</title></head>
+<div ng-include src="'partials/include/header.html'"></div>
+<div class="main-container pt0" id="main-container" ng-hide="pageLoading"> 
+  <!--Main container start-->
+  <div class="row_dummy one-column grid-media-box1">
+    <div class="col-md-12">
+      <div class="tp-wizard-form" id="tp-wizard-form"><!-- wizard form -->
+        <div class="container">
+          <div class="row">
+            <p ng-show="flash.status" class="alert {{flash.type}}">{{flash.message}} <a class="close" ng-click="closeFlash()"><i class="fa fa-close"></i></a> </p>  
+				<!-- <div class="col-md-4 pull-right">	       
+						<a style="position:absolute;right:0;z-index:9;" title="Back" class="hvr-radial-out-black btn tp-btn tp-btn-grey dropdown-toggle pull-right" href="insuranceplantype/planbenefit">Back</a>				
+					</div> -->
+				<!-- Smart Wizard -->   
+				<div class="swMain attr attr-label">     
+                  <div class="pb0 pt0"><!-- zipcode -->
+				  <div class="container">
+                      <div class="row_dummy">             
+                        <h1 class="title_planattr">{{title}}</h1>
+                        <div class="container cst-from-container">
+                            <!--new duumy grids teststruct-->
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 col-sm-12">
+                                    <!-- <h2>Main</h2>  -->
+                                </div>
+                                <div class="col-md-6 col-lg-6 col-sm-12">
+                                    <a title="Back" class="hvr-radial-out-black btn tp-btn tp-btn-grey dropdown-toggle pull-right ml20" href="insuranceplantype/planbenefit">Back</a>
+                                    <!-- <a ng-click="viewplanbenefit()" href="javascript:void(0)" class="hvr-radial-out btn tp-btn tp-btn-blue pull-right mb20 ml20">Update</a> -->
+                                    
+                                    <a href="insuranceplantype/viewplanbenefit/{{NextRecord}}/{{sortby}}/{{desc}}" class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle mb20 pull-right ml20" ng-disabled="nextButton" ><i class="fa fa-angle-double-right mr10" aria-hidden="true"></i>Next Plan Benefit</a>
+                                    <a href="insuranceplantype/viewplanbenefit/{{PreviousRecord}}/{{sortby}}/{{desc}}" class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle mb20 pull-right ml20" ng-disabled="prevButton"><i class="fa fa-angle-double-left mr10" aria-hidden="true"></i>Prev Plan Benefit</a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="row">
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">BenefitRecNum</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <input type="text" class="form-control" ng-model="planBenefit.Id" readonly />
+                                    </div>
+                                    <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">CostSharingType Tier1</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <input type="text" class="form-control" ng-model="planBenefit.CostSharingType1" readonly/>
+                                    </div>
+                                </div>
+                                <hr class="cst_hr">
+                                <div class="row">
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">PlanId</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <input type="text" class="form-control" ng-model="planBenefit.PlanId" readonly />
+                                    </div>
+                                    <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">CostSharingType Tier2</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <input type="text" class="form-control" ng-model="planBenefit.CostSharingType2" readonly/>
+                                    </div>
+                                </div>
+                                <hr class="cst_hr">
+                                <div class="row">
+                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Year</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <select ng-model="planBenefit.BusinessYear" class="form-control" disabled>
+                                            <option value="">Select Year</option>
+                                            <option ng-repeat="year in years" value="{{year.val}}">{{year.val}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Copay In-Network TIer 1 Amt</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <input type="text" class="form-control" ng-model="planBenefit.CopayInnTier1"  Only-digits readonly/>
+                                    </div>
+                                </div>
+                                <hr class="cst_hr">
+                                <div class="row">
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Benefit Name</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <input type="text" class="form-control" ng-model="planBenefit.BenefitName" readonly/>
+                                    </div>
+                                    <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">CoIns In-Network Tier 1 Amt</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <input type="text" class="form-control" ng-model="planBenefit.CoinsInnTier1"  Only-digits readonly/>
+                                    </div>
+                                </div>
+                                <hr class="cst_hr">
+                                <div class="row">
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Issuer ID</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <input type="text" class="form-control" ng-model="planBenefit.IssuerId" readonly/>
+                                    </div>
+                                    <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Max Coins Amount </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <input type="text" class="form-control" ng-model="planBenefit.CoinsMaxAmt"  Only-digits readonly/>
+                                    </div>
+                                </div>
+                                <hr class="cst_hr">
+                                <div class="row">
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">BenefitNum</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <input type="text" class="form-control" ng-model="planBenefit.BenefitNum" readonly />
+                                    </div>
+                                    <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Copay In-Network TIer 2 Amt</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <input type="text" class="form-control" ng-model="planBenefit.CopayInnTier2" Only-digits readonly/>
+                                    </div>
+                                </div>
+                               <hr class="cst_hr">
+                                <div class="row">
+                                    <!-- <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Use Issuer Dflt Ben Assign</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <button ng-click="resetMHMBenefitId()" type="button">...</button>
+                                    </div> -->
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label"></div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                    </div>
+                                    <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">CoIns In-Network Tier 2 Amt</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <input type="text" class="form-control" ng-model="planBenefit.CoinsInnTier2"  Only-digits readonly/>
+                                    </div>
+                                </div>
+                              <hr class="cst_hr">
+                                <div class="row">
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">MHM Benefit ID</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <select ng-model="planBenefit.MHMBenefitId" class="form-control" disabled>
+                                            <option ng-repeat="id in mhmBenefitIds" value="{{id.MHMBenefitID}}">{{id.MHMBenefitID}} : {{id.MHMBenefitName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Copay Out-of-Network Amt</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <input type="text" class="form-control" ng-model="planBenefit.CopayOutofNet"  Only-digits readonly/>
+                                    </div>
+                                </div>
+                              <hr class="cst_hr">
+                                <div class="row">
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Is Covered</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <select ng-model="planBenefit.IsCovered" class="form-control" disabled>
+                                            <option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">CoIns Out-of-Network Amt</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <input type="text" class="form-control" ng-model="planBenefit.CoinsOutofNet"  Only-digits readonly/>
+                                    </div>
+
+                                </div>
+                                <hr class="cst_hr">
+                                <div class="row">
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Excluded from In-Net Max OOP</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <select ng-model="planBenefit.IsExclFromInnMOOP" class="form-control" disabled>
+                                            <option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                   <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Limit Qty</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <input type="text" class="form-control" ng-model="planBenefit.LimitQty" Only-digits readonly/>
+                                    </div>
+
+                                </div>
+                              <hr class="cst_hr">
+                                <div class="row">
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Service Qty is Limited</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <select ng-model="planBenefit.QuantLimitOnSvc" class="form-control" disabled>
+                                            <option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Limit Unit</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <input type="text" class="form-control" ng-model="planBenefit.LimitUnit" readonly/>
+                                    </div>
+
+                                </div>
+                                <hr class="cst_hr">
+                                <div class="row">
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Data Source</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <input type="text" class="form-control" ng-model="planBenefit.SourceName" readonly/>
+                                    </div>
+                                    <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Exclusions</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <input type="text" class="form-control" ng-model="planBenefit.Exclusions" readonly/>
+                                    </div>
+                                </div>
+                               <hr class="cst_hr">
+                                <div class="row">
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Created By</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <input type="text" class="form-control" ng-model="CreatedBy" readonly />
+                                    </div>
+                                    <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Maximum Qty Before Copay </div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <input type="text" class="form-control" ng-model="planBenefit.MaxQtyBeforeCoPay"  readonly/>
+                                    </div>
+                                </div>
+                              <hr class="cst_hr">
+                                <div class="row">
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Created Date/Time</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <input type="text" class="form-control" ng-model="planBenefit.CreatedDateTime" readonly />
+                                    </div>
+                                    <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Copay In-Network Tier 1 Desc</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <input type="text" class="form-control" ng-model="planBenefit.CopayInnTier1Desc" readonly/>
+                                    </div>
+                                </div>
+                               <hr class="cst_hr">
+                                <div class="row">
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Last Modified By</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <input type="text" class="form-control" ng-model="ModifiedBy" readonly/>
+                                    </div>
+                                    <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">CoIns In-Network Tier 1 Desc</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <input type="text" class="form-control" ng-model="planBenefit.CoinsInnTier1Desc"  readonly/>
+                                    </div>
+                                </div>
+                              <hr class="cst_hr">
+                                <div class="row">
+                                    <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Last Modified</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <input type="text" class="form-control" ng-model="planBenefit.ModifiedDateTime" readonly/>
+                                    </div>
+                                    <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                    <!-- <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Excluded from Out-of-Network Max OOP</div>
+                                    <div class="col-md-3 col-lg-3 col-sm-12">
+                                        <select ng-model="planBenefit.IsExclFromOonMOOP" class="form-control" disabled>
+                                            <option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}}
+                                            </option>
+                                        </select>
+                                    </div> -->
+                                </div>
+                              <hr class="cst_hr">
+							  <div class="row">
+                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Benefit Notes</div>
+                                                <div class="col-md-3 col-lg-3 col-sm-12">
+                                                    <input type="text" class="form-control" ng-model="planBenefit.PlanBenNotes" readonly />
+                                                </div>
+                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                            </div>
+                                          <hr class="cst_hr">
+										  <div class="row">
+                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">SBC Text</div>
+                                                <div class="col-md-3 col-lg-3 col-sm-12">
+                                                    <!-- <input type="text" mul class="form-control" ng-model="planBenefit.SBCText"  /> -->
+													<textarea name="SBCText" class="form-control" ng-model="planBenefit.SBCText" cols="40" rows="6" readonly ></textarea>
+                                                </div>
+                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
+                                            </div>
+                                          <hr class="cst_hr">
+                            </div>
+                        </div>
+						<!-- <div id="container_csttab">
+							Pestaña 1 activa por defecto
+							<input id="tab-1" type="radio" name="tab-group" checked="checked" />
+							<label for="tab-1">Main</label>
+								Pestaña 2 inactiva por defecto
+							<input id="tab-2" type="radio" name="tab-group" />
+							<label for="tab-2">Properties</label>
+							Pestaña 3 inactiva por defecto
+							<input id="tab-3" type="radio" name="tab-group" />
+							<label for="tab-3">Tab 3</label>
+							Contenido a mostrar/ocultar
+							<div id="content">
+								Contenido de la Pestaña 1
+								<div id="content-1" class="tab-content animated fadeIn">            
+									<p class="cst_planbg left"> 
+						                        
+										Start : Row 1
+										<span class="col-md-12">
+											<span class="col-md-2">
+												#ID - &nbsp; 
+												<strong title="{{planattribute.Id}}">&nbsp;{{planBenefit.Id}}</strong>
+											</span>
+											<span class="col-md-2">
+												Year - &nbsp; 
+												<strong title="{{planBenefit.BusinessYear}}">&nbsp;{{planBenefit.BusinessYear}}</strong>
+											</span>
+											<span class="col-md-2">
+												Benefit Key - &nbsp; 
+												<strong title="{{planBenefit.BenefitKey}}">&nbsp;{{planBenefit.BenefitKey}}</strong>
+											</span>
+											<span class="col-md-2">
+												Benefit Name - &nbsp;
+												<strong title="{{planBenefit.BenefitName}}">&nbsp;{{planBenefit.BenefitName}}</strong>
+											</span>
+											<span class="col-md-2">
+												Mrkt Cover - &nbsp;
+												<select ng-model="planBenefit.MarketConverage" class="form-control view-dropdown" disabled >
+													<option value="">Select Market Coverage</option>
+													<option ng-repeat="marketCoverage in marketCoverages" value="{{marketCoverage}}">{{marketCoverage}}</option>
+												</select>
+											</span>
+											<span class="col-md-2">
+												Is Covered - &nbsp; 
+												<strong title="{{planBenefit.IsCovered}}">&nbsp;{{planBenefit.IsCovered}}</strong>
+											</span>
+										</span>	
+										End : Row 1
+										
+										Start : Row 2
+										<span class="col-md-12">
+											<span class="col-md-2">
+												Tier1 InNet CoPay Type - &nbsp; 
+												<strong title="{{planBenefit.CopayInnTier1Type}}">&nbsp;{{planBenefit.CopayInnTier1Type}}</strong>
+											</span>
+											<span class="col-md-2">
+												Tier1 InNet Copay Amt - &nbsp; 
+												<strong title="{{planBenefit.Copay | number : 2}}">&nbsp;  {{planBenefit.Copay | number : 2}}</strong>
+											</span>
+											<span class="col-md-2">
+												Tier1 InNet CoPay Desc - &nbsp; 
+												<strong title="{{planBenefit.CopayInnTier1}}">&nbsp;{{planBenefit.CopayInnTier1}}</strong>
+											</span>
+										</span>
+										End : Row 2
+										
+										Start : Row 3
+										<span class="col-md-12">
+											<span class="col-md-2">
+												Tier2 InNet CoIns Amt - &nbsp; 
+												<strong title="{{planBenefit.CoIns | number : 2}}">&nbsp;{{planBenefit.CoIns | number : 2}}</strong>
+											</span>
+											<span class="col-md-2">
+												Tier1 InNet CoIns Desc - &nbsp; 
+												<strong title="{{planBenefit.CoinsInnTier1}}">&nbsp;{{planBenefit.CoinsInnTier1}}</strong>
+											</span>
+										</span>
+										End : Row 3
+										
+										Start : Row 4
+										<span class="col-md-12">
+											<span class="col-md-2">
+												Subj To Ded Tier1 - &nbsp; 
+												<strong title="{{planBenefit.IsSubjToDedTier1}}">&nbsp;{{planBenefit.IsSubjToDedTier1}}</strong>
+											</span>
+											<span class="col-md-2">
+												Is Excl InNet Max OOP - &nbsp; 
+												<strong title="{{planBenefit.IsExclFromInnMOOP}}">&nbsp;{{planBenefit.IsExclFromInnMOOP}}</strong>
+											</span>
+										</span>
+										End : Row 4
+						                                   											
+									</p>          
+								</div>
+								Contenido de la Pestaña 2
+								<div id="content-2">
+									<p class="cst_planbg column-left">
+									
+										Start : Row 1
+										<span class="col-md-12">
+											<span class="col-md-2">
+												#ID - &nbsp; 
+												<strong title="{{planattribute.Id}}">&nbsp;{{planBenefit.Id}}</strong>
+											</span>
+											<span class="col-md-2">
+												Year - &nbsp; 
+												<strong title="{{planBenefit.BusinessYear}}">&nbsp;{{planBenefit.BusinessYear}}</strong>
+											</span>
+											<span class="col-md-2">
+												State - &nbsp;
+												<select ng-model="planBenefit.StateCode" class="form-control view-dropdown" disabled>
+													<option ng-repeat="state in states" value="{{state.StateCode}}">{{state.StateName}}</option>
+												</select>
+											</span>
+										</span>
+										End : Row 1
+										
+										Start : Row 2
+										<span class="col-md-12">
+											<span class="col-md-2">
+												Benefit Key - &nbsp; 
+												<strong title="{{planBenefit.BenefitKey}}">&nbsp;{{planBenefit.BenefitKey}}</strong>
+											</span>
+											<span class="col-md-2">
+												Benefit Name - &nbsp;
+												<strong title="{{planBenefit.BenefitName}}">&nbsp;{{planBenefit.BenefitName}}</strong>
+											</span>
+										</span>
+										End : Row 2
+										
+										Start : Row 3
+										<span class="col-md-12">
+											<span class="col-md-2">
+												Mrkt Cover - &nbsp;
+												<select ng-model="planBenefit.MarketConverage" class="form-control view-dropdown" disabled >
+													<option value="">Select Market Coverage</option>
+													<option ng-repeat="marketCoverage in marketCoverages" value="{{marketCoverage}}">{{marketCoverage}}</option>
+												</select>
+											</span>
+											<span class="col-md-2">
+												Is Covered - &nbsp;
+												<strong title="{{planBenefit.IsCovered}}">&nbsp;{{planBenefit.IsCovered}}</strong>
+											</span>
+											<span class="col-md-2">
+												Is Essential Benefit - &nbsp;
+												<strong title="{{planBenefit.IsEHB}}">&nbsp;{{planBenefit.IsEHB}}</strong>
+											</span>
+										</span>
+										End : Row 3
+										
+										Start : Row 4
+										<span class="col-md-12">
+											<span class="col-md-2">
+												Created By - &nbsp; 
+												<strong title="{{planBenefit.Createdby}}">&nbsp;{{planBenefit.Createdby}}</strong>
+											</span>
+											<span class="col-md-2">
+												Created - &nbsp; 
+												<strong title="{{planBenefit.CreatedDateTime | date:'MM/dd/yyyy hh:mm:ss'}}">&nbsp;{{planBenefit.CreatedDateTime | date:'MM/dd/yyyy hh:mm:ss'}}</strong>
+											</span>
+										</span>
+										End : Row 4
+										
+										Start : Row 5
+										<span class="col-md-12">
+											<span class="col-md-2">
+												Modified By - &nbsp; 
+												<strong title="{{planBenefit.ModifiedBy}}">&nbsp;{{planBenefit.ModifiedBy}}</strong>
+											</span>
+											<span class="col-md-2">
+												Modified - &nbsp; 
+												<strong title="{{planBenefit.ModifiedDateTime | date:'MM/dd/yyyy hh:mm:ss'}}">&nbsp;{{planBenefit.ModifiedDateTime | date:'MM/dd/yyyy hh:mm:ss'}}</strong>
+											</span>
+										</span>
+										End : Row 5
+																			
+									</p>            	
+								</div>
+								Contenido de la Pestaña 3
+								<div id="content-3">
+										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis, aperiam, enim odit placeat minus ab vero molestiae ad fugit maiores eaque saepe debitis assumenda ut ipsam eius sit repellendus dolore.</p>
+										<ul>
+										<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae, in magni illo dolore dicta vero.</li>
+										<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti, minus, aspernatur voluptatem doloribus labore modi.</li>
+										<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora, exercitationem quia id accusamus beatae sunt? Dolorum mollitia sint debitis delectus.</li>
+										</ul>
+										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis, accusantium, provident ab quo sed blanditiis perspiciatis distinctio aut voluptatibus cum odio quaerat iure vel dolorum fugit explicabo suscipit tenetur. Sed!</p>
+								</div>
+							</div>
+						</div> -->
+						<!-- Newsletter form -->                        
+						<!-- <div class="row col-md-12">-->                          
+						<!--</div>-->
+						<!-- end col row col-md 12-->
+                        </div>
+                      </div>
+                    </div>
+                  </div>   
+            <!--end col 12-->           
+          </div>
+          <!--end row-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.wizard form --> 
+</div>
+<div ng-include src="'partials/include/footer.html'"></div>

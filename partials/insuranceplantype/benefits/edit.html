@@ -1,0 +1,92 @@
+﻿<style>.main-container {padding-bottom:0px;} .wrapper{height:auto;min-height:100%; padding-bottom: 40px;}#footer{height:40px;}</style>
+<head><title>{{title}}</title></head>
+<div ng-include src="'partials/include/header.html'"></div>
+  <div class="main-container pt0"><!--Main container start-->
+    <div id="form-page" class="form-page mt0"><!-- form section -->
+      <div class="container">
+        <div class="row_dummy">
+          <div class="col-md-offset-2 col-md-8">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="grey-box  grid_addbenefit"><!-- grey box -->
+                  <h3 class="tp-title benefit_typo mb0">{{title}}</h3>	
+                <p ng-show="flash.status" class="alert {{flash.type}}">{{flash.message}} <a class="close" ng-click="closeFlash()"><i class="fa fa-close"></i></a> </p>  
+				
+                  <form class="form-horizontal form" id="form" name="form" role="form" ng-submit="update()">
+				  
+				  <div class="form-group mb10">                             
+						<input value="true" type="checkbox" name="IsDefault" ng-model="benefit.IsDefault"/>
+                         <label class="control-label" for="cost">Default?</label>    
+				  </div>
+				  
+				  <h3 class="mt0 mb10">
+					<button ng-disabled="form.$invalid || dataLoading" type="submit"id="button" name="button" class="hvr-radial-out-orange btn tp-btn tp-btn-orange mb0">{{action}}</button>                   
+                    <a  id="button" name="button" href="insuranceplantype/benefits" class="hvr-radial-out-black btn tp-btn tp-btn-grey pull-right mt10">back</a>
+				  </h3>
+                  
+                  <div class="addbenefit_select_box">
+                  
+                    <!-- Text input-->
+              
+                      <h3 class="control-label" for="MHMBenefitName">Benefit Name: <span class="required">*</span></h3>
+                      <input id="text" name="MHMBenefitName" type="text" placeholder="Benefit Name" class="form-control input-md"  ng-maxlength="50" ng-model="benefit.MHMBenefitName" required>
+					   <span ng-show="form.MHMBenefitName.$dirty && form.MHMBenefitName.$error.required" class="help-block error_home">Benefit Name is required.</span>					   
+					   <span class="error_home" ng-show="form.MHMBenefitName.$error.maxlength">Max character length 50.</span>
+                
+                      <h3 class="control-label" for="cost">Category: <span class="required">*</span></h3>            
+					 
+					 <select name="CategoryId" required class="form-control" ng-model="benefit.CategoryId">
+						<option value="">Select Category</option>
+						<option ng-repeat="category in categories" value="{{category.CategoryId}}">{{category.CategoryName}}</option>
+					 </select>					  
+					   <span ng-show="form.CategoryId.$dirty && form.CategoryId.$error.required" class="help-block error_home">Category is required.</span>					   
+					</div>
+					
+                   <!-- end addbenefit_select_box-->                   
+					<div class="form-group">					
+						<h3 class="tp-title mb0">Issuers Benefit Mapping</h3>
+						<div ng-repeat="issuer in benefit.MHMBenefitMappingMsts">							
+                            <div class="form-group_addbenefit">
+								<div class="col-md-4 pl0">
+									<div class="">
+									  <label class="control-label pt0 mt0" for="text">{{issuer.name}} </label>
+									</div>
+								</div>
+								<div class="col-md-4 pr0">
+									<div class="">	
+	<!-- 									<select class="form-control" ng-model="issuer.IssuerBenefitID" ng-change="checkBenefitMapping('{{issuer.IssuerID}}', '{{issuer.IssuerBenefitID}}', issuer.IssuerBenefitID, {{$index}});"> -->
+	<!-- done by Vaibhav -->
+										<select class="form-control" ng-model="issuer.IssuerBenefitID" >
+											<option value="0">0</option>
+											<option ng-repeat="benefitId in issuer.BenefitNumbers | orderBy:'IssuerBenefitId*1'" value="{{benefitId.IssuerBenefitId}}">{{benefitId.IssuerBenefitId+'  ('+benefitId.BenefitName+')'}} </option>
+										</select>
+									  <!-- <input required id="text" ng-model="issuer.IssuerBenefitID" type="text" name="IssuerBenefitID{{$index}}" min="0" placeholder="" class="form-control input-md text-right" max="999999999"  ng-pattern="/^[0-9]{1,9}$/" > -->
+									</div>
+								</div>
+								<div class="col-md-4 pr0">
+									<div class="">	
+										<select class="form-control view-dropdown" ng-model="issuer.IssuerBenefitID" disabled>
+											<option value="0"></option>
+											<option ng-repeat="benefitId in issuer.BenefitNumbers | orderBy:'IssuerBenefitId*1'" value="{{benefitId.IssuerBenefitId}}">{{benefitId.BenefitName}}</option>
+										</select>
+									</div>
+								</div>
+							</div>                        
+						</div>                        
+					</div> 
+					<!-- <div class="form-group mb0">                             
+						<input value="true" type="checkbox" name="IsDefault" ng-model="benefit.IsDefault"/>
+                         <label class="control-label" for="cost">Default?</label>    
+					</div> -->  
+                    <!-- <button ng-disabled="form.$invalid || dataLoading" type="submit"id="button" name="button" class="hvr-radial-out-orange btn tp-btn tp-btn-orange mb0">{{action}}</button>                   
+                    <a  id="button" name="button" href="insuranceplantype/benefits" class="hvr-radial-out-black btn tp-btn tp-btn-grey pull-right mt10">back</a> -->
+                 	</form>
+                </div>              
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>   
+  </div>
+<div ng-include src="'partials/include/footer.html'"></div>

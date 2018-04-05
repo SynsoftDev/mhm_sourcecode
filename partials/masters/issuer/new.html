@@ -1,0 +1,74 @@
+﻿<style>
+    .main-container {
+        padding-bottom: 0px;
+    }
+    .wrapper {
+        height: auto;
+        min-height: 100%;
+        padding-bottom: 40px;
+    }
+    #footer {
+        height: 40px;
+    }
+</style>
+
+<head>
+    <title>{{title}}</title>
+</head>
+<div ng-include src="'partials/include/header.html'"></div>
+<div class="main-container pt0">
+    <div id="form-page" class="form-page mt0">
+        <div class="container">
+            <div class="row_dummy">
+                <div class="col-md-offset-4 col-md-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="grey-box  grid_addbenefit">
+                                <h2 class="mb0 text-center">{{title}}</h2>
+                                <p ng-show="flash.status" class="alert {{flash.type}}">{{flash.message}} <a class="close" ng-click="closeFlash()"><i class="fa fa-close"></i></a> </p>
+                                <form class="form-horizontal form" id="createIssuerForm" name="createIssuerForm" role="form" ng-submit="addIssuer()">
+                                    <a class="hvr-radial-out btn tp-btn tp-btn-blue pull-left" href="javascript:void(0)" ng-click="addIssuer()">{{actionBtnText}}</a>
+                                    <a class="hvr-radial-out btn tp-btn tp-btn-blue pull-left" href="masters/newissuer" style="margin-left:5px;" ng-if="title == 'Edit Issuer'">Add New</a>
+                                    <a id="button" name="button" href="masters/issuermaster" class="hvr-radial-out-black btn tp-btn tp-btn-grey pull-right">back</a>
+                                    <div class="form-group">
+                                        <div class="form-group_addbenefit">
+                                            <div class="col-md-12">
+                                                <span class="typo-nw-emplr">Issuer Code: <span class="required">*</span> </span>&nbsp;
+                                                <input type="text" class="form-control" ng-model="issuermaster.IssuerCode" name="issuerCode" id="issuerCode" placeholder="Issuer Code" ng-readonly="{{readOnly}}" />
+                                            </div>
+                                            <div class="col-md-12">
+                                                <span class="typo-nw-emplr">Issuer Name: <span class="required">*</span> </span>&nbsp;
+                                                <input type="text" class="form-control" ng-model="issuermaster.IssuerName" name="issuerName" id="issuerName" placeholder="Issuer Name" />
+                                            </div>
+											
+											<div class="col-md-12">
+                                                <span class="typo-nw-emplr">Abbreviations: <span class="required">*</span> </span>&nbsp;
+                                                <input type="text" class="form-control" ng-model="issuermaster.Abbreviations" name="abbreviations" id="abbreviations" placeholder="Abbreviations" />
+                                            </div>
+                                            <div class="col-md-12">
+                                                <span class="typo-nw-emplr">StateCode: <span class="required">*</span> </span>&nbsp;
+                                                <select ng-model="issuermaster.StateCode" id="stateCode" name="stateCode" class="form-control">
+                                                    <option value="" disabled>Select State</option>
+                                                    <option ng-repeat="state in states" value="{{state.StateCode}}">{{state.StateName}}</option>
+                                                </select>
+                                            </div>
+											<div class="col-md-12">
+                                                <span class="typo-nw-emplr">Status: <span class="required">*</span> </span>&nbsp;
+                                                <select ng-model="issuermaster.Status" class="form-control" id="status" name="status">
+                                                    <option value="" disabled>Select Status</option>
+                                                    <option value="true">True</option>
+													<option value="false">False</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-include src="'partials/include/footer.html'"></div>

@@ -1,0 +1,65 @@
+﻿<style>.main-container {padding-bottom:0px;} .wrapper{height:auto;min-height:100%; padding-bottom: 40px;}#footer{height:40px;}</style>
+<head><title>{{title}}</title></head>
+<div ng-include src="'partials/include/header.html'"></div>
+  <div class="main-container pt0"><!--Main container start-->
+    <div id="form-page" class="form-page mt0"><!-- form section -->
+      <div class="container">
+        <div class="row_dummy">
+          <div class="col-md-offset-4 col-md-4">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="grey-box  grid_addbenefit"><!-- grey box -->
+                  <h2 class="mb0 text-center">{{title}}</h2>	
+				   
+                <p ng-show="flash.status" class="alert {{flash.type}}">{{flash.message}} <a class="close" ng-click="closeFlash()"><i class="fa fa-close"></i></a> </p>  
+				
+                  <form class="form-horizontal form" id="createEmployerForm" name="createEmployerForm" role="form" ng-submit="addEmployer()">
+				  
+				
+				  
+				 
+				 
+					<a class="hvr-radial-out btn tp-btn tp-btn-blue pull-left" href="javascript:void(0)" ng-click="addEmployer()">{{actionBtnText}}</a> 
+					
+					<a class="hvr-radial-out btn tp-btn tp-btn-blue pull-left" href="masters/newemployer" style="margin-left:5px;" ng-if="title == 'Edit Employer'" >Add New</a>       					
+                    <a  id="button" name="button" href="masters/employermaster" class="hvr-radial-out-black btn tp-btn tp-btn-grey pull-right">back</a>
+				 
+                  
+             
+					
+                   <!-- end addbenefit_select_box-->                   
+					<div class="form-group">				
+					
+												
+                            <div class="form-group_addbenefit">
+								
+																							
+																
+																	<div class="col-md-12">
+																		<span class="typo-nw-emplr">Employer Id: <span class="required">*</span> </span>&nbsp;
+																		<input type="text" class="form-control" ng-model="employermaster.EmployerId" name="employerId" id="employerId" placeholder="Employer Id" 
+																	    readonly />
+																		
+																	</div>
+																
+																
+																	<div class="col-md-12">
+																		<span class="typo-nw-emplr">Employer Name: <span class="required">*</span> </span>&nbsp;
+																		<input type="text" class="form-control" ng-model="employermaster.EmployerName" name="employerName" id="employerName" placeholder="Employer Name" />
+																		
+																	</div>
+																
+															
+							                       
+						                       
+					</div> 
+						</form>
+                </div>              
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>   
+  </div>
+<div ng-include src="'partials/include/footer.html'"></div>

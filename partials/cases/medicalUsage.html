@@ -1,0 +1,102 @@
+﻿<div class="col-md-12 pl0 pr0">
+  <table class="table table-bordered mt5 cst_tables mb0 {{totalCountClass}} medicalUsageTable">
+    <tbody>
+      <!-- Remove applicant-->
+      <tr>
+        <td class="text-left color_red" width="150"><i>Remove applicant</i></td>
+        <td ng-repeat="user in UseBenefits.users.counts" class="text-center" width="100"><a ng-hide="readOnly" 
+        ng-if="user.val != 'Primary' && user.isDelete" ng-click="removeMemberColumn($event,false,false)" 
+        href="javascript:void(0)"><i class="fa fa-times color_red delete-ico" id="{{user.user_id}}"></i></a></td>
+      </tr>
+      <!--primary/department-->
+      <tr>
+        <td class="text-left">Primary/Dependent</td>
+        <td ng-repeat="user in UseBenefits.users.counts" class="text-center" width="100">{{user.val}}</td>
+      </tr>
+      <!-- date of birth-->
+      <tr>
+        <td class="text-left">Date of Birth <span class="required">*</span></td>
+        <td ng-repeat="user in UseBenefits.users.dobs" class="text-center" width="100">
+			<input maxlength="10" date-input ng-readonly="{{readOnly}}" class="medicalusg_dateip form-control custom_border0  DOBFormat" 
+      type="text" uib-datepicker-popup="{{format}}" ng-model="user.val" is-open="user.isOpned" min-date="minDate" 
+      max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close"  
+      ng-change="calAge('{{user.user_id}}'); ChangesOccur();"  placeholder="mm/dd/yyyy" required ng-blur="validateDOB(user.val)" 
+      name="DOB{{$index}}" id="DOB{{$index}}" onClick="this.select();"/>
+          <button ng-hide="readOnly" type="button" class="btn btn-default medicalusg_dateico custom_btn" ng-click="open1($event)" id="{{user.user_id}}" ><i id="{{user.user_id}}" class="fa fa-calendar"></i></button></td>
+      </tr>
+      <!-- gender-->
+      <tr>
+        <td class="text-left">Gender</td>
+        <td ng-repeat="user in UseBenefits.users.gender" class="text-left" width="100">
+        <select ng-disabled="{{readOnly}}" ng-readonly="{{readOnly}}" ng-change="getTopInsurancePlan(0); ChangesOccur();" class="form-control select_medusg" ng-model="user.val" name="gender{{$index}}" id="gender{{$index}}" required>
+            <option value="">Select</option>
+            <option value="M" selected="true">Male</option>
+            <option value="F">Female</option>
+          </select></td>
+      </tr>
+      <!-- Smoking-->
+      <tr>
+        <td class="text-left">Smoking</td>
+        <td ng-repeat="user in UseBenefits.users.smoking" class="text-left" width="100">
+          <select ng-disabled="{{readOnly}}" ng-readonly="{{readOnly}}" ng-change="getTopInsurancePlan(0); ChangesOccur();" class="form-control select_medusg" ng-model="user.val" name="smoking[]">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select></td>
+      </tr>
+      <!-- Age-->
+      <tr>
+        <td class="text-left">Age</td>
+        <td ng-repeat="user in UseBenefits.users.age" class="text-right" width="100">{{user.val}}</td>
+      </tr>
+      <!-- second section for tables household--> 
+      <!-- Medical Usage Heading-->
+    </tbody>
+  </table>
+</div>
+
+ 
+
+<div id="scroll-area" class="col-md-12 pl0 pr0 grid510" >
+  <table class="table table-bordered mt5 cst_tables mb0 {{totalCountClass}}" id="tableBodyScroll">
+    <tbody>
+      <!-- second section for tables household--> 
+      <!-- Medical Usage Heading-->
+    <div class="div_fixtable2"> 
+      <!-- Tests-->
+      <tr>
+        <td width="150" class="text-left bg_lightblue medical_usage_typo"><h4 class="mb0 color_orange medical_usage_amt"><b><i class="fa fa-medkit mr10"></i>Medical Usage</b></h4></td>
+        <td ng-repeat="UseBenefit in UseBenefits.users.UseMedicalUsage" class="text-left bg_lightblue" width="100"><div class="text-center">
+            <h4 class="mb0 medical_usage_amt">{{UseBenefit.val | mycurrency:"$"}}</h4>
+          </div></td>
+      </tr>
+	  <tr>
+        <td width="150" class="text-left bg_lightblue medical_usage_typo"><h4 class="mb0 color_orange"><b>Chronic Conditions</b></h4></td>
+        <td ng-repeat="user in UseBenefits.users.Criticalillnesses" class="text-left bg_lightblue" width="100">
+			<div class="text-center">
+				<a title="Add Chronic Conditions" ng-hide="readOnly" href="javascript:void(0)"  ng-click="showCriticalillness($event)" class="color_orange"><i id="{{user.user_id}}" class="fa fa-plus"></i> </a> 
+			</div>
+		</td>
+      </tr>
+      <tr>
+        <td width="150" class="bg_light_red_dummy"></td>
+        <td ng-repeat="UseBenefit in UseBenefits.users.UseMedicalUsage" class="text-left bg_light_red_dummy pl0 pr0" width="100"><div class="pull-left qty_title_grid"> <i>Qty</i> </div>
+          <div class="grid_46 pull-left cost_title_grid" style="padding-left:8px;width:40px !important;"> <i>Cost</i> </div></td>
+      </tr>	
+      <tr ng-repeat="medicalUsage in display">
+        <td ng-if="!medicalUsage.benefit" class="text-left typo_filter bg_lightblue" colspan="9"><div class="cst_boxed_title"> <span class="pull-left">{{medicalUsage.name}}</span> <a ng-hide="readOnly" href="javascript:void(0)"  ng-click="showMedicalUsage($event)" class="color_green pull-right"><i id="{{medicalUsage.id}}" class="fa fa-plus"></i> </a> </div></td>
+        <td width="150" ng-if="medicalUsage.display == '1'" ng-show="medicalUsage.benefit" class="text-left ellipsis_grid_150" title="{{medicalUsage.name}}">{{medicalUsage.name}} <a class="usage_title_cross" ng-hide="readOnly" ng-click="removeRow($event)" ng-if="medicalUsage.default != '1'" href="javascript:void(0)"><b><i id="{{medicalUsage.id}}" class="fa fa-times color_red delete-ico pull-right"></i></b></a></td>
+        <td ng-if="medicalUsage.display == '1'" ng-show="medicalUsage.benefit" width="100" class="text-left bg_lightblue medicalusg_qty_td" ng-repeat="benefitsValF in UseBenefits.users.benefitsVal[medicalUsage.id]" >
+		
+		<div class="grid_30 pull-left text-right medicalusg_qty"> 
+            <input maxlength="3" ng-readonly="{{readOnly}}" class="custom_border0 QTYFormat" style="width:20px;" type="text" name="benefit{{$index}}" id="benefit{{$index}}"  ng-model="benefitsValF.qty" ng-change="updateRow(); ChangesOccur();" ng-pattern="/^[0-9]{1,9}$/"/>			
+          </div>
+          <div class="grid_46 pull-left text-right medicalusg_amt"> $
+            <input ng-required="benefitsValF.qty > 0" ng-maxlength="7" ng-readonly="{{readOnly}}" ng-if="benefitsValF.qty !='' && benefitsValF.qty > 0" class="custom_border0 CostFormat" style="width:30px;" ng-change="updateRow(); ChangesOccur();" type="text" name="benefitCost{{$index}}" id="benefitCost{{$index}}" ng-model="benefitsValF.cost" ng-pattern="/^[0-9]\d*(\.\d+)?$/"/>			
+          </div>
+          <div class="pull-right text-center"> <a ng-click="addNotes($event)" ng-if="benefitsValF.note !='' " class="color_blue" href="javascript:void(0)"> <i id="{{medicalUsage.id}}-{{benefitsValF.user_id}}" class="fa fa-pencil-square-o cst_edit"></i> </a> <a ng-hide="readOnly" ng-click="addNotes($event)" ng-if="benefitsValF.note =='' " class="color_green pull-right" href="javascript:void(0)"> <i id="{{medicalUsage.id}}-{{benefitsValF.user_id}}" class="fa fa-plus"></i> </a> </div></td>
+      </tr>
+      <!-- Doctor Visits--> 
+    </div>
+      </tbody>    
+  </table>
+</div>

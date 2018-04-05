@@ -1,0 +1,263 @@
+﻿<style>
+.main-container {
+  padding-bottom: 0px;
+}
+.wrapper {
+  height: auto;
+  min-height: 100%;
+  padding-bottom: 40px;
+}
+#footer {
+  height: 40px;
+}
+.ipfilter .ui-select-container {
+    width: 100%;
+}
+</style>
+<head>
+<title>{{title}}</title>
+</head>
+<div ng-include src="'partials/include/header.html'"></div>
+<div class="main-container pt0">
+    <!--Main container start-->
+    <div class="tp-wizard-form_dummy ipfilter">
+        <!-- wizard form -->
+        <div class="container">
+            <div class="row_dummy">
+                <div class="col-md-12  pl0 pr0">
+                    <p ng-show="flash.status" class="alert {{flash.type}}">{{flash.message}} <a class="close" ng-click="closeFlash()"><i class="fa fa-close"></i></a> </p>
+                </div>
+                <div class="col-md-6 mb20">
+                    <div class="input-group" id="adv-search">
+                        <form ng-submit="setPlanbenefitList()" class="form-horizontal" role="form">
+                            <!-- <input  ng-model="TempSearch.searchby" type="text" class="form-control" placeholder="Search Benefit Key.." /> -->
+                            <input ng-model="TempSearch.searchby" type="text" class="form-control" placeholder="Search Plan ID.." />
+                            <div style="display:none">
+                                <button ng-click="setPlanbenefitList()" type="submit" class="hvr-radial-out btn tp-btn-blue hvr-radial-out adv_srch_btn"><i class="fa fa-search"></i></button>
+                            </div>
+                        </form>
+                        <div class="input-group-btn">
+                            <div class="btn-group" role="group">
+                                <div class="dropdown dropdown-lg">
+                                    <button type="button" class="btn btn-default dropdown-toggle adv_srch_btn" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                        <form ng-submit="setPlanbenefitList()" class="form-horizontal" role="form">
+                                            <div class="form-group_dummy">
+                                                <h3 class="mb0 color_blue" for="filter">Filter by</h3>
+                                            </div>
+                                            <!-- <div class="form-group_dummy col-md-6 pl0 mb10">      
+              <label class="adv_search_typo" for="contain">Business Year</label>
+               <select ng-model="TempSearch.BusinessYear" class="form-control">
+                <option value="">ALL</option>
+                 <option ng-repeat="year in years" value="{{year.val}}">{{year.val}}</option>
+              </select>
+            </div>
+            <div class="form-group_dummy col-md-6 pl0 pr0 mb10">              
+              <label class="adv_search_typo" for="contain">Market Cover</label>
+               <select ng-model="TempSearch.filterByMarketCover" class="form-control">
+                <option value="">All Market Cover</option>
+                <option ng-repeat="marketCoverage in marketCoverages" value="{{marketCoverage}}">{{marketCoverage}}</option>
+              </select>
+            </div>
+            <div class="form-group_dummy col-md-6 pl0 mb10">      
+               <label class="adv_search_typo" for="filter">State Code</label>
+              <select ng-model="TempSearch.searchByStateCode" class="form-control">
+                <option value="">All States</option>
+                <option ng-repeat="state in states" value="{{state.StateCode}}">{{state.StateName}}</option>
+              </select>
+            </div> -->
+                                            <div class="form-group_dummy col-md-6 pl0 mb10">
+                                              <label class="adv_search_typo" for="contain">Plan ID</label>
+                                                <!-- <select ng-model="TempSearch.PlanId" class="form-control">
+                                                  <option value="">ALL</option>
+                                                   <option ng-repeat="planbenefit in PlanIds" value="{{planbenefit.PlanId}}">{{planbenefit.PlanId}} : {{planbenefit.PlanMarketingName}}</option>
+                                                </select> -->
+                                                <div>
+                                                  <ui-select ng-model="TempSearch.PlanId" theme="select2" ng-disabled="disabled"  title="Choose" ng-keyup="getMoreResultPlanId($select.search)">
+                                                      <ui-select-match placeholder="ALL">{{$select.selected.PlanId}} : {{$select.selected.PlanMarketingName}}</ui-select-match>
+                                                      <ui-select-choices repeat="id in PlanIds | propsFilter: {PlanId: $select.search, PlanMarketingName: $select.search}">
+                                                          <div>
+                                                              <span ng-bind-html="id.PlanId | highlight: $select.search"></span> : <span ng-bind-html="id.PlanMarketingName | highlight: $select.search"></span>
+                                                          </div>
+                                                      </ui-select-choices>
+                                                  </ui-select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group_dummy col-md-6 pl0 mb10">
+                                                <label class="adv_search_typo" for="contain">MHMBenefitId</label>
+                                                <!-- <select ng-model="TempSearch.MHMBenefitId" class="form-control">
+                                                    <option value="">ALL</option>
+                                                    <option value="null">NULL</option>
+                                                    <option ng-repeat="mhmBenefitId in MHMBenefitIds" value="{{mhmBenefitId}}">{{mhmBenefitId}}</option>
+                                                </select> -->
+                                                <div>
+                                                  <ui-select ng-model="TempSearch.MHMBenefitId" theme="select2" ng-disabled="disabled"  title="Choose">
+                                                        <ui-select-match placeholder="ALL">{{$select.selected.MHMBenefitID}} : {{$select.selected.MHMBenefitName}}</ui-select-match>
+                                                        <ui-select-choices repeat="mhmBenefitId in MHMBenefitIds | propsFilter: {MHMBenefitID: $select.search, MHMBenefitName: $select.search}">
+                                                            <div>
+                                                                <span ng-bind-html="mhmBenefitId.MHMBenefitID | highlight: $select.search"></span> : <span ng-bind-html="mhmBenefitId.MHMBenefitName | highlight: $select.search"></span>
+                                                            </div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                  </div>
+                                            </div>
+                                            <div class="form-group_dummy col-md-6 pl0 mb10">
+                                                <label class="adv_search_typo" for="contain">Issuer Id</label>
+                                                <!-- <select ng-model="TempSearch.IssuerId" class="form-control">
+                                                <option value="">ALL</option>
+                                                 <option ng-repeat="issuer in IssuerIds" value="{{issuer.Id}}">{{issuer.Id}} : {{issuer.IssuerName}}</option>
+                                                             </select> -->
+                                                <div>
+                                                    <ui-select ng-model="TempSearch.IssuerId" theme="select2" ng-disabled="disabled"  title="Choose" ng-keyup="getMoreResultIssuerId($select.search)">
+                                                        <ui-select-match placeholder="ALL">{{$select.selected.Id}}: {{$select.selected.IssuerName}}</ui-select-match>
+                                                        <ui-select-choices repeat="issuer in IssuerIds | propsFilter: {Id: $select.search, IssuerName: $select.search}">
+                                                            <div>
+                                                                <span ng-bind-html="issuer.Id | highlight: $select.search"></span> : <span ng-bind-html="issuer.IssuerName | highlight: $select.search"></span>
+                                                            </div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group_dummy col-md-6 pl0 mb10">
+                                              <label class="adv_search_typo" for="contain">Business Year</label>
+                                                <!-- <select ng-model="TempSearch.BusinessYear" class="form-control">
+                                                  <option value="">ALL</option>
+                                                  <option ng-repeat="year in years" value="{{year.val}}">{{year.val}}</option>
+                                                </select> -->
+                                              <div>
+                                                <ui-select ng-model="TempSearch.BusinessYear" theme="select2" ng-disabled="disabled" search-enabled="false" title="Choose">
+                                                  <ui-select-match placeholder="ALL">{{$select.selected.val}}</ui-select-match>
+                                                  <ui-select-choices repeat="year in years">
+                                                    <span ng-bind-html="year.val | highlight: $select.search"></span>
+                                                  </ui-select-choices>
+                                                </ui-select>
+                                              </div>
+                                            </div>
+                                            <!-- <div class="form-group_dummy col-md-6 pl0 mb10">      
+                                            <ui-select ng-model="TempSearch.PlanId" theme="select2" ng-disabled="disabled" style="min-width: 240px;" title="Choose" ng-keyup="getMoreResult($select.search)">
+                                                <ui-select-match placeholder="ALL">{{$select.selected.PlanId}}</ui-select-match>
+                                                <ui-select-choices repeat="id in PlanIds | propsFilter: {PlanId: $select.search, PlanMarketingName: $select.search}">
+                                                  <div>
+                                                    <span ng-bind-html="id.PlanId | highlight: $select.search"></span>
+                                                     : <span ng-bind-html="id.PlanMarketingName | highlight: $select.search"></span>
+                                                  </div>
+                                                </ui-select-choices>
+                                              </ui-select>
+                                          </div> -->
+                                            <div style="display:none">
+                                                <button ng-click="setPlanbenefitList()" type="submit" class="btn tp-btn-blue hvr-radial-out adv_srch_btn"><i class="fa fa-search"></i></button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <button ng-click="setPlanbenefitList()" type="button" class="hvr-radial-out btn tp-btn tp-btn-blue adv_srch_btn"><i class="fa fa-search mr10"></i>Search</button>
+                                <button ng-click="resetPlanbenefitList()" type="button" class="hvr-radial-out-black btn tp-btn-grey adv_srch_btn"><i class="fa fa-refresh mr10"></i>Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  
+                  <a data-toggle="collapse" data-target="#filter-panel" href="javascript:void(0)" class="btn search tp-search-btn tp-btn tp-btn-blue">Advanced Search</a> 
+                  -->
+              <!-- 
+              Created By : Aastha Jain
+              Created Date : 07-06-2016
+              Purpose : Function to export plan benefits list.
+              Start
+              -->
+              
+		<div class="row"> 
+			<div class="col-md-3 browse-select">
+			  <input type="file" name="file" class="form-control"  
+                  onchange="angular.element(this).scope().loadFile(this.files)"  />
+            <span> Import </span> </div>
+		
+		
+		<div class="col-md-3 pull-right"> 
+                    <a title="Export Cases" ng-click="exportReport();" class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle mb20 mr10 pull-right" href="javascript:void(0)"> <i class="fa fa-file-excel-o mr10" aria-hidden="true"></i>Export</a>
+
+                    <a title="create new planbenefit" class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle mb20 pull-right mr10" href="insuranceplantype/newplanbenefit"> <i class="fa fa-plus mr10"></i>Add New PlanBenefit</a>
+                </div>
+                <!-- end : Function to export plan benefits list. -->
+                <div class="col-md-12 text-center list-title">
+                    <h2 class="mb0">{{title}}</h2>
+                </div>
+            </div>
+            <!-- end col 12-->
+            <div class="col-md-12">
+                <table class="table table-bordered table-condensed table-nowrap table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width:20%;"><a ng-click="sort_by('Id')">#PlanID<i class="fa fa-sort ml20"></i></a></th>
+                            <th style="width:20%;"><a ng-click="sort_by('BenefitName')">Benefit Name<i class="fa fa-sort ml20"></i></a></th>
+                            <th style="width:15%;">Business Year</th>
+                            <th style="width:15%;">#UnassignBen</th>
+                            <th style="width:15%;"><a ng-click="sort_by('MHMBenefitID')">MHMBenefitID<i class="fa fa-sort ml20"></i></a></th>
+                            <th style="width:18%;">Category</th>
+                            <th style="width:18%;"><a ng-click="sort_by('IsCovered')">Is Covered<i class="fa fa-sort ml20"></i></a></th>
+                            <th style="width:12%;">IssuerId</th>
+                            <th style="width:18%;"><a ng-click="sort_by('CostShareType1')">CostShareType1<i class="fa fa-sort ml20"></i></a></th>
+                            <th style="width:18%;"><a ng-click="sort_by('CostShareType2')">CostShareType2<i class="fa fa-sort ml20"></i></a></th>
+                            <th style="width:15%;">CopayInN1$</th>
+                            <th style="width:15%;">CoInsInN1%</th>
+                            <th style="width:18%;">Action</th>
+                            <!-- <th style="width:20%;">Year</th>
+                          <th style="width:27%;"><a ng-click="sort_by('BenefitKey')">Benefit Key<i class="fa fa-sort ml20"></i></a></th>
+                          <th style="width:15%;">Mrkt Cover</th>
+                          <th style="width:20%;">State</th>  -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="planbenefit in planBenefits">
+                            <td class="text-right" title="{{planbenefit.PlanId}}">{{planbenefit.PlanId}}</td>
+                            <td class="text-left" title="{{planbenefit.BenefitName}}">{{planbenefit.BenefitName}}</td>
+                            <td class="text-right" title="{{planbenefit.BusinessYear}}">{{planbenefit.BusinessYear}}</td>
+                            <td class="text-right" title="{{planbenefit.Unassign}}">{{planbenefit.Unassign}}</td>
+                            <td class="text-right" title="{{planbenefit.MHMBenefitId}}">{{planbenefit.MHMBenefitId}}</td>
+                            <td class="text-left" title="{{planbenefit.Category}}">{{planbenefit.Category}}</td>
+                            <td class="text-left" title="{{planbenefit.IsCovered}}">{{planbenefit.IsCovered}}</td>
+                            <td class="text-right" title="planbenefit.IssuerId">{{planbenefit.IssuerId}}</td>
+                            <td class="text-left" title="{{planbenefit.CostSharingType1}}">{{planbenefit.CostSharingType1}}</td>
+                            <td class="text-left" title="{{planbenefit.CostSharingType2}}">{{planbenefit.CostSharingType2}}</td>
+                            <td class="text-right" title="{{planbenefit.CopayInnTier1}}">{{planbenefit.CopayInnTier1}}</td>
+                            <td class="text-right" title="{{planbenefit.CoinsInnTier1}}">{{planbenefit.CoinsInnTier1}}</td>
+                            <td class="text-center">
+                                <a title="create new planbenefit" class="color_green add_case_btn" href="insuranceplantype/editplanbenefit/{{planbenefit.Id}}/copy"><i class="fa fa-plus"></i></a>
+
+                                <a href="insuranceplantype/viewplanbenefit/{{planbenefit.Id}}/{{sortby}}/{{desc}}" title="View" class="color_green add_case_btn"><i class="fa fa-eye"></i></a>
+                                <a href="insuranceplantype/editplanbenefit/{{planbenefit.Id}}/{{sortby}}/{{desc}}" title="Edit" class="color_orange add_case_btn"><i class="fa fa-pencil"></i> </a>
+                            </td>
+                            <!-- <td class="text-right" title="{{planbenefit.BusinessYear}}">{{planbenefit.BusinessYear}}</td>
+                      <td class="text-left" title="{{planbenefit.BenefitKey}}">{{planbenefit.BenefitKey}}</td> 
+                      <td class="text-left" title="{{planbenefit.MarketConverage}}">{{planbenefit.MarketConverage}}</td>
+                      <td class="text-left" title="{{planbenefit.StateCode}}">{{statesA[planbenefit.StateCode]}}</td> -->
+                        </tr>
+                        <tr ng-if="!(TotalCount > 0)">
+                            <td colspan="13">No Record Found.</td>
+                        </tr>
+                    </tbody>
+                    <tfoot ng-if="TotalCount > 0">
+                        <tr>
+                            <td colspan="13"><span class="tot_rec_title"><i class="fa fa-check-circle mr10"></i> Total Records : {{TotalCount}}</span>
+                                <div ng-if="TotalCount > pageSize" class="text-center">
+                                    <ul class="pagination">
+                                        <li ng-class="{disabled: page == 1}"> <a href="javascript:;" ng-click="prevPage()"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Prev</a> </li>
+                                        <li ng-repeat="n in range() track by $index" ng-class="{ active :n == page, disabled : n == '...' }" ng-click="setPage()"><a href="javascript:;" ng-bind="n">{{ n }}</a></li>
+                                        <li ng-if="page != (lastCount | number : 0)" ng-class="{disabled: page == (lastCount | number : 0)}"> <a ng-click="nextPage()" href="javascript:;">Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></a> </li>
+                                        <li ng-if="page == (lastCount | number : 0)" ng-class="{disabled: page == (lastCount | number : 0)}"> <a href="javascript:;">Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></a> </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!--end col 12-->
+        </div>
+        <!--end row-->
+    </div>
+</div>
+
+<!-- /.wizard form -->
+</div>
+<div ng-include src="'partials/include/footer.html'"></div>

@@ -1,0 +1,299 @@
+﻿<div style="padding:25px 0 0 0">
+   <div style="margin:0 auto ">
+      <div style="margin-top:-10px;float:left;width:100%;text-align:left;">
+         <div style="width:16%; float:left" id="logo_pri nt"> <img width="266" style="position: relative;top: 0px;" src="{{messages.base_url}}/images/L_MyHealthMath.png"> </div>
+         <p style="width:74.5%; float:right;text-align:center;"> <strong style="position:relative;font-size:22px;font-weight:bold;color:#000">Health Plan Analysis for <span style="text-decoration:underline">In-Network</span> Projected Health Care Usage {{Case.Year}}</strong> </p>
+      </div>
+   </div>
+   <div style="margin-top:1px;position: relative; width:100%; float:left;top:20px;">
+      <div style="width:14%; float:left;position:relative;top: 11em;font-size:14px;">
+         <p style="margin:10px 0; color:#000;font-size:14px;font-weight:bold;">{{Applicant.FirstName}} {{Applicant.LastName}}</p>
+         <p title="{{UsageType}}" style="margin:10px 0;color:#000;font-size:14px;"><i>{{UsageType}}</i></p>
+         <p style="margin:10px 0; color:#000;font-size:14px;"><i>{{Case.Families.length}} on plan</i></p>
+         <p ng-if="IssuerAbbreviations  !='' " style="margin:1px 0 1px 0; color:#000;font-size:14px;"><i>{{IssuerAbbreviations }}</i></p>
+         <p ng-if="PlanType !='' " style="margin:10px 0; color:#000;font-size:14px;"><i>{{PlanType}} only</i></p>
+         <p ng-if="InsuranceName !='' " style="margin:10px 0;color:#000;font-size:14px;"><i>{{InsuranceName}}</i></p>
+         <p style="margin:10px 0; color:#000;font-size:14px;">For further information or questions, please contact </p>
+         <p style="margin:10px 0; color:#000;font-size:14px;">{{customer.FirstName}} at <a style="color:#1757b8;font-size:14px;" href="mailto:{{customer.Email}}" target="_top">{{customer.Email}}</a></p>
+      </div>
+      <div style="float: right; width:86%; position:relative;top:-10px">
+         <div style="width:700px;text-align:center;float:left;margin-top:40px;position:relative; top: -15px;"><span style="color:#000;text-align:center;font-size:16px;"><i>Ranked in order of lowest to highest estimated total projected cost:</i></span></div>
+         <div data-width="{{data.width}}" id="holderHtml">
+            <d3-bars data="data" height="450" style="float:left;"></d3-bars>
+         </div>
+      </div>
+   </div>
+   <div style="">
+      <div id="cst_graphResults" style="float:left;">
+         <div>
+            <div ng-if="graphResults.length > 0">
+               <div id="graph">
+                  <div style="background-color:#fff;" ng-if="graphResults.length > 0" id="table_resultpage">
+                     <table width="1100px !important" cellspacing="0" cellpadding="0" border="0" style="padding:15px 10px 25px 0;overflow: hidden;text-overflow: ellipsis;table-layout: auto;border-collapse:separate; margin-top:-5px;">
+                        <tbody>
+                           <tr>
+                              <td style="width: 225px !important;display: inline-block; !important;">&nbsp;</td>
+                              <td colspan="{{graphResults.length+1}}">&nbsp;</td>
+                           </tr>
+                           <tr style="font-size:18px;color:#000">
+                              <td style="font-weight:bold;color:#000"><span style="border-bottom: 1px solid #000;font-weight: bold;padding-bottom: 0;font-size:18px;color:#000">Premium Payments</span></td>
+                              <td colspan="{{graphResults.length+2}}"></td>
+                           </tr>
+                           <tr style="font-size:16px;">
+                              <td  style="font-size:14px !important;color:#000">Actual Premium</td>
+                              <td width="{{graphResults.length*215}}" ng-if="Applicant.EmployerId != messages.ShopEmployerId" ng-style="$index!=0 && {'border-left':'0px solid #000','border-bottom':'0px solid #000','border-right':'1px solid #000','border-top':'1px solid #000'}" style="border-bottom: 0px solid #000;border-top: 1px solid #000;border-right: 1px solid #000;border-left: 1px solid #000;text-align:right;padding:2px 12px 2px 5px;color:#000"
+                                 ng-repeat="graphResult in graphResults" width="">{{graphResult.GrossAnnualPremium | mycurrency:"$"}}
+                              </td>
+                              <td width="{{graphResults.length*215}}" ng-if="Applicant.EmployerId == messages.ShopEmployerId" ng-style="$index!=0 && {'border-left':'0px solid #000','border-bottom':'1px solid #000','border-right':'1px solid #000','border-top':'1px solid #000'}" style="border-bottom: 1px solid #000;border-top: 1px solid #000;border-right: 1px solid #000;border-left: 1px solid #000;text-align:right;padding:2px 12px 2px 5px;color:#000"
+                                 ng-repeat="graphResult in graphResults" width="">{{graphResult.GrossAnnualPremium | mycurrency:"$"}}
+                              </td>
+                              <td></td>
+                           </tr>
+                           <tr ng-if="Applicant.EmployerId != messages.ShopEmployerId" style="font-size:16px;">
+                              <td style="font-size:14px !important;color:#000" ng-if="Applicant.EmployerId != messages.IndividualEmployerId">Employer Contribution</td>
+                              <td style="font-size:14px !important;color:#000" ng-if="Applicant.EmployerId == messages.IndividualEmployerId">Estimated Federal Subsidy</td>
+                              <td  ng-style="$index!=0 && {'border-left':'none'}" style="border-bottom: 0px solid #000;border-top: 0px solid #000;border-right: 1px solid #000;border-left: 1px solid #000; text-align:right;padding:2px 12px 0px 5px;color:#000"
+                                 ng-repeat="graphResult in graphResults" width=""><span ng-if="graphResult.FederalSubsidy == 0" style="border-bottom:1px solid #000; position: relative;top:0px;float:right;min-width:70px;right: -5px;padding-right:5px;"> {{ -1 * graphResult.FederalSubsidy | mycurrency:"$"}}</span>
+                                 <span ng-if="graphResult.FederalSubsidy != 0"  style="position:relative;right:-5px;">
+                                 <span style="border-bottom:1px solid #000; position: relative;top:0px;float:right;min-width:70px;right: -2px;padding-right:2px;"> {{ -1 * graphResult.FederalSubsidy | mycurrency:"$"}}</span></span>
+                              </td>
+                              <td></td>
+                           </tr>
+                           <tr ng-if="Applicant.EmployerId == messages.ShopEmployerId" style="font-size:16px;">
+                              <td colspan="{{graphResults.length+2}}">&nbsp;</td>
+                           </tr>
+                           <tr style="font-size:16px;">
+                              <td style="font-weight:500;background:#ffe48f;font-size:14px !important;color:#000"><strong style="font-weight:bold;">Your Net Annual Contribution</strong></td>
+                              <td ng-if="Applicant.EmployerId != messages.ShopEmployerId" ng-style="$index!=0 && {'border-left':'none'}" style="border: 1px solid #000;border-top:none; background:#ffe48f;  text-align:right;padding:2px 12px 2px 5px;color:#000"
+                                 ng-repeat="graphResult in graphResults" width="">{{graphResult.NetAnnualPremium | mycurrency:"$"}}</td>
+                              <td ng-if="Applicant.EmployerId == messages.ShopEmployerId"  ng-style="$index!=0 && {'border-left':'none'}" style="border: 1px solid #000;border-top:1px solid #000; background:#ffe48f;  text-align:right;padding:2px 12px 2px 5px;color:#000"
+                                 ng-repeat="graphResult in graphResults" width="">{{graphResult.NetAnnualPremium | mycurrency:"$"}}</td>
+                              <td rowspan="2">
+                                 <div style="background:#fbe5a9;float:left;margin-left:22px; margin-top:-60px; width:235px;padding:5px 10px;border-radius:10px;font-size:14px;color:#000" ng-if="Applicant.EmployerId != messages.IndividualEmployerId && Applicant.EmployerId != messages.ShopEmployerId" >
+                                    <img src="{{messages.base_url}}/images/1.png" width="20" height="30" style="height: 15px;margin-left: -32px;margin-top: 35px;position: absolute;width:24px;"><strong>Your annual premium cost</strong>, as a net of the total annual premium LESS your employer’s contribution to premium.
+                                 </div>
+                                 <div style="background:#fbe5a9;float:left;margin-left:22px; margin-top:-60px; width:235px;padding:5px 10px;border-radius:10px;font-size:14px;color:#000" ng-if="Applicant.EmployerId == messages.IndividualEmployerId || Applicant.EmployerId == messages.ShopEmployerId">
+                                    <img src="{{messages.base_url}}/images/1.png" width="20" height="30" style="height: 15px;margin-left: -32px;margin-top: 35px;position: absolute;width:24px;"><strong>Premiums</strong> paid by you, including Federal Subsidy.<br>&nbsp;
+                                 </div>
+                              </td>
+                           </tr>
+                           <tr style="font-size:16px;">
+                              <td style="font-size:14px !important;color:#000">Your Net Monthly Contribution</td>
+                              <td  ng-style="$index!=0 && {'border-left':'none'}" style="border: 1px solid #000;border-top:none; text-align:right;padding:2px 12px 2px 5px;color:#000"
+                                 ng-repeat="graphResult in graphResults" width=""><span ng-if="graphResult.MonthlyPremium < 0" style="position:relative;right:-5px;">{{graphResult.MonthlyPremium | mycurrency:"$"}}</span> 
+                                 <span ng-if="graphResult.MonthlyPremium >= 0" >{{graphResult.MonthlyPremium | mycurrency:"$"}}</span>
+                              </td>
+                              <td></td>
+                           </tr>
+                           <tr>
+                              <td colspan="{{graphResults.length+2}}">&nbsp;</td>
+                           </tr>
+                           <tr>
+                              <td ng-style="$index!=0 && {'border-left':'none'}" style="font-weight:bold"><span style=" border-bottom: 1px solid #000;font-weight: bold;padding-bottom: 0;font-size:18px;color:#000">Medical Usage Payments</span></td>
+                              <td colspan="{{graphResults.length+2}}"></td>
+                           </tr>
+                           <tr style="font-size:16px;color:#000">
+                              <td style="font-size:14px !important;color:#000">Copays</td>
+                              <td ng-style="$index!=0 && {'border-left':'none'}" style="border-bottom: 0px solid #000;border-top: 1px solid #000;border-right: 1px solid #000;border-left: 1px solid #000;text-align:right;padding:2px 12px 2px 5px;color:#000"
+                                 ng-repeat="graphResult in graphResults" width="">{{graphResult.Copays | mycurrency:"$"}}</td>
+                              <td></td>
+                           </tr>
+                           <tr style="font-size:16px;color:#000">
+                              <td style="font-size:14px !important;color:#000">Payments Toward Deductible</td>
+                              <td ng-style="$index!=0 && {'border-left':'none'}" style="border-bottom: 0px solid #000;border-top: 0px solid #000;border-right: 1px solid #000;border-left: 1px solid #000;border-top:none; text-align:right;padding:2px 12px 2px 5px;color:#000"
+                                 ng-repeat="graphResult in graphResults" width="">{{graphResult.PaymentsToDeductibleLimit | mycurrency:"$"}}</td>
+                              <td></td>
+                           </tr>
+                           <tr style="font-size:16px;">
+                              <td style="font-size:14px !important;color:#000">Coinsurance Amount</td>
+                              <td ng-if="Applicant.EmployerId != messages.IndividualEmployerId && Applicant.EmployerId != messages.ShopEmployerId" ng-style="$index!=0 && {'border-left':'none'}" style="border-bottom: 0px solid #000;border-top: 0px solid #000;border-right: 1px solid #000;border-left: 1px solid #000;border-top:none;text-align:right;padding: 2px 12px 2px 5px;color:#000"
+                                 ng-repeat="graphResult in graphResults" width="">{{graphResult.CoinsuranceToOutOfPocketLimit | mycurrency:"$"}}</td>
+                              <td ng-if="Applicant.EmployerId == messages.IndividualEmployerId || Applicant.EmployerId == messages.ShopEmployerId" ng-style="$index!=0 && {'border-left':'none'}" style="border-bottom: 1px solid #000;border-top: 0px solid #000;border-right: 1px solid #000;border-left: 1px solid #000;border-top:none;text-align:right;padding: 2px 12px 2px 5px;color:#000"
+                                 ng-repeat="graphResult in graphResults" width="">{{graphResult.CoinsuranceToOutOfPocketLimit | mycurrency:"$"}}</td>
+                              <td></td>
+                           </tr>
+                           <tr style="font-size:16px;">
+                              <td style="font-size:14px !important;color:#000">Excluded Amount (Not Covered)</td>
+                              <td ng-style="$index!=0 && {'border-left':'none'}" style="border-bottom: 0px solid #000;border-top: 0px solid #000;border-right: 1px solid #000;border-left: 1px solid #000;border-top:none;text-align:right;padding: 2px 12px 2px 5px;color:#000"
+                                 ng-repeat="graphResult in graphResults" width="">{{graphResult.ExcludedAmount | mycurrency:"$"}}</td>
+                              <td></td>
+                           </tr>
+                            <tr ng-if="Applicant.EmployerId == messages.IndividualEmployerId || Applicant.EmployerId == messages.ShopEmployerId" style="font-size:15px;">
+                                 <td></td> 
+                                 <td colspan="{{graphResults.length}}" style="border-top: 1px solid #000;">&nbsp;</td>
+                                 <td></td>
+                              </tr>
+                           <tr style="font-size:16px;" ng-if="Applicant.EmployerId != messages.IndividualEmployerId && Applicant.EmployerId != messages.ShopEmployerId">
+                              <td style="font-size:14px !important;color:#000">Employer HSA Contribution</td>
+                              <td ng-style="$index!=0 && {'border-left':'none','border-bottom':'none'}" style="border-bottom: 0px solid #000;border-top: 0px solid #000;border-right: 1px solid #000;border-left: 1px solid #000; text-align:right;padding:2px 12px 2px 5px;color:#000"
+                                 ng-repeat="graphResult in graphResults" width=""><span ng-if="graphResult.ContributedToYourHSAAccount < 0" style="position:relative;right:-5px;">{{-1 * graphResult.ContributedToYourHSAAccount | mycurrency:"$"}}</span>
+                                 <span style="position:relative;right:-5px;" ng-if="graphResult.ContributedToYourHSAAccount >= 0">{{-1 * graphResult.ContributedToYourHSAAccount | mycurrency:"$"}}</span>
+                              </td>
+                              <td></td>
+                           </tr>
+                           <tr style="font-size:16px;" ng-if="Applicant.EmployerId != messages.IndividualEmployerId && Applicant.EmployerId != messages.ShopEmployerId">
+                              <td style="font-size:14px !important;color:#000">Employer HRA Reimbursement</td>
+                              <td ng-style="$index!=0 && {'border-left':'none','border-bottom':'none'}" style="border-bottom: 0px solid #000;border-top: 0px solid #000;border-right: 1px solid #000;border-left: 1px solid #000; text-align:right;padding:2px 12px 2px 5px;color:#000"
+                                 ng-repeat="graphResult in graphResults" width="">
+                                <span ng-if="graphResult.EmployerHRAReimbursement != 0" style="position:relative;right:-5px;">{{-1 * graphResult.EmployerHRAReimbursement | mycurrency:"$"}}</span>
+                                    <span ng-if="graphResult.EmployerHRAReimbursement == 0">{{-1 * graphResult.EmployerHRAReimbursement | mycurrency:"$"}}</span>
+                              </td>
+                              <td></td>
+                           </tr>
+                           <tr ng-if="Applicant.EmployerId == messages.IndividualEmployerId || Applicant.EmployerId == messages.ShopEmployerId" style="font-size:15px;">
+                              <td colspan="{{graphResults.length+2}}">&nbsp;</td>
+                           </tr>
+                           <tr style="font-size:16px;">
+                              <td style="font-size:14px !important;color:#000">Your HSA Contribution Tax Savings</td>
+                              <td ng-if="(Applicant.EmployerId != messages.IndividualEmployerId && Applicant.EmployerId != messages.ShopEmployerId)" ng-style="$index!=0 && {'border-left':'0px solid #000','border-right':'1px solid #000','border-top':'0px solid #000','border-bottom':'0px solid #000'}" style="border-bottom: 0px solid #000;border-top: 0px solid #000;border-right: 1px solid #000;border-left: 1px solid #000;text-align:right;padding:2px 12px 2px 5px;color:#000" ng-repeat="graphResult in graphResults" width="">
+                                 <span ng-if="graphResult.TaxSavingFromHSAAccount < 0" style="position:relative;right:-5px;padding-right:5px;">
+                                 <span  style="border-bottom:1px solid #000;min-width: 70px;position:relative;top:2px;float:right;right: -2px;padding-right:2px;">{{ graphResult.TaxSavingFromHSAAccount | mycurrency:"$"}}</span></span>
+                                 <span ng-if="graphResult.TaxSavingFromHSAAccount >= 0" style="min-width: 70px;float: right;position:relative;top:0px;"><span  style="border-bottom:1px solid #000;min-width: 70px;position:relative;top:2px;float:right;right: -5px;padding-right:5px;">{{ graphResult.TaxSavingFromHSAAccount | mycurrency:"$"}}</span></span>
+                              </td>
+                              <td ng-if="(Applicant.EmployerId == messages.IndividualEmployerId || Applicant.EmployerId == messages.ShopEmployerId)" ng-style="$index!=0 && {'border-left':'0px solid #000','border-right':'1px solid #000','border-top':'1px solid #000','border-bottom':'0px solid #000'}" style="border-bottom: 0px solid #000;border-top: 1px solid #000;border-right: 1px solid #000;border-left: 1px solid #000;text-align:right;padding:2px 12px 2px 5px;color:#000;" ng-repeat="graphResult in graphResults" width="">
+                                 <span  ng-if="graphResult.TaxSavingFromHSAAccount ==0" style="position:relative;right:0px;"><span  style="border-bottom:1px solid #000;margin-bottom:-3px;min-width: 70px;position:relative;float:right;top:-1px;right: -5px;padding-right:5px;">{{graphResult.TaxSavingFromHSAAccount | mycurrency:"$"}}</span></span>
+                                 <span ng-if="graphResult.TaxSavingFromHSAAccount != 0" style="border-bottom:1px solid #000;margin-bottom:-3px;min-width: 70px;position:relative;float:right;top:-0px;right:-7px;padding-right:3px;">{{graphResult.TaxSavingFromHSAAccount | mycurrency:"$"}}</span>
+                              </td>
+                              <td></td>
+                           </tr>
+                           <tr style="font-size:16px;background:#c7e6a4;">
+                              <td style="font-weight:bold; background:#c7e6a4;font-size: 14px !important;
+                                 width: 200px;color:#000;letter-spacing:-0.2px;">Your Net Out-of-Pocket Medical Costs</td>
+                              <td  ng-style="$index!=0 && {'border-left':'0px solid #000','border-right':'1px solid #000','border-top':'0px solid #000','border-bottom':'1px solid #000'}" style="border-bottom: 1px solid #000;border-top: 0px solid #000;border-right: 1px solid #000;border-left: 1px solid #000;background:#c7e6a4;  text-align:right;padding:2px 12px 2px 5px;color:#000"
+                                 ng-repeat="graphResult in graphResults" width=""><span ng-if="graphResult.Medical < 0" style="position:relative;right:-5px;">{{graphResult.Medical | mycurrency:"$"}}</span><span ng-if="graphResult.Medical >= 0">{{graphResult.Medical | mycurrency:"$"}}</span></td>
+                              <td rowspan="2" style="background:#fff;">
+                                 <div style="background:#d5edbb;float:left;margin-left:22px; margin-top:-140px; width:235px;padding:5px 10px;border-radius:10px;font-size:14px;color:#000">
+                                    <img src="{{messages.base_url}}/images/2.png" width="20" height="30" style="margin-left: -32px;
+                                       position: absolute; margin-top:128px;height:15px;width:24px;">
+                                    <strong>Your medical expenses</strong>, as a net of total medical costs LESS the amount paid by your 
+                                    insurance company, your employer’s contribution to your HSA (if applicable), and tax savings from your HSA contribution (if applicable;
+                                    adjusted to your stated tax bracket). Copays, deductibles, coinsurance rates, and out-of-pocket limits vary per plan.
+                                 </div>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td colspan="{{graphResults.length+2}}">&nbsp;</td>
+                           </tr>
+                           <tr style="font-size:16px;">
+                              <td style="color:rgb(3,36,159);"><span style="font-weight: bold;padding-bottom: 0;padding: 2px 0px;font-weight:bold;font-size:18px;color:#03069f">YOUR TOTAL PAYMENTS</span></td>
+                              <td ng-style="$index!=0 && {'border-left':'0px solid #000','border-right':'1px solid #000','border-top':'1px solid #000','border-bottom':'1px solid #000'}"
+                                 style="border-bottom: 1px solid #000;border-top: 1px solid #000;border-right: 1px solid #000;border-left: 1px solid #000; color:rgb(3,36,159); font-weight:bold; text-align:right;padding:2px 12px 2px 5px;font-size:18px;color:#03069f"
+                                 ng-repeat="graphResult in graphResults" width="">{{graphResult.TotalPaid | mycurrency:"$"}}</td>
+                              <td rowspan="2">
+                                 <div style="background:#d9fbfc;float:left;margin-left:22px;width:235px; margin-top:0px;padding:5px 10px;border-radius:10px;font-size:14px;color:#000;">
+                                    <img src="{{messages.base_url}}/images/3.png" width="20" height="30" style=" height: 15px;margin-left: -32px;
+                                       margin-top: 0px;position: absolute;width:24px;">
+                                    <strong>Your total cost</strong>: Your annual premium cost + your medical expenses.
+                                 </div>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td colspan="{{graphResults.length+2}}">&nbsp;</td>
+                           </tr>
+                           <tr style="font-size:16px;">
+                              <td style="font-size:14px !important;color:#000">Payments by Insurance Company</td>
+                              <td ng-style="$index!=0 && {'border-left':'none'}" style="border-bottom: 0px solid #000;border-top: 1px solid #000;border-right: 1px solid #000;border-left: 1px solid #000;text-align:right;padding: 2px 12px 2px 5px;color:#000"
+                                 ng-repeat="graphResult in graphResults" width="">{{graphResult.PaymentsByInsuranceCo | mycurrency:"$"}}</td>
+                              <td></td>
+                           </tr>
+                           <tr style="font-size:16px;color:#000">
+                              <td style="font-weight:bold;color:#ff0000;font-size: 14px; position: absolute;
+                                 width: 200px;">Worst Case Scenario (in-network)</td>
+                              <td ng-if="Applicant.EmployerId != messages.IndividualEmployerId && Applicant.EmployerId != messages.ShopEmployerId" ng-style="$index!=0 && {'border-left':'none'}" style="border-top: 0px solid #000;border-right: 1px solid #000;border-left: 1px solid #000;font-weight:bold; color:#ff0000;  text-align:right;padding: 0px 12px 0px 2px;"
+                                 ng-repeat="graphResult in graphResults">{{graphResult.WorstCase | mycurrency:"$"}}</td>
+                              <td ng-if="Applicant.EmployerId == messages.IndividualEmployerId || Applicant.EmployerId == messages.ShopEmployerId" ng-style="$index!=0 && {'border-left':'none'}" style="border-bottom: 1px solid #000;border-top: 0px solid #000;border-right: 1px solid #000;border-left: 1px solid #000;font-weight:bold; color:#ff0000;  text-align:right;padding: 0px 12px 0px 2px;"
+                                 ng-repeat="graphResult in graphResults">{{graphResult.WorstCase | mycurrency:"$"}}</td>
+                              <td></td>
+                           </tr>
+                           <tr style="font-size:16px;color:#000">
+                              <td ng-if="Applicant.EmployerId != messages.IndividualEmployerId && Applicant.EmployerId != messages.ShopEmployerId"  style="text-align:left;font-size:14px !important;position: absolute;color:#000">Total Employer Contribution</td>
+                              <td ng-if="Applicant.EmployerId == messages.IndividualEmployerId ||	Applicant.EmployerId == messages.ShopEmployerId"></td>
+                              <td ng-if="Applicant.EmployerId != messages.IndividualEmployerId && Applicant.EmployerId != messages.ShopEmployerId"  ng-style="$index!=0 && {'border-left':'none'}" style="border: 1px solid #000; border-top:none; text-align:right;padding: 0px 12px 0px 0px;border-top:none;color:#000"
+                                 ng-repeat="graphResult in graphResults" width="">{{(1 * graphResult.TotalEmployerContribution_Pre) | mycurrency:"$"}}</td>
+                              <td ng-if="Applicant.EmployerId == messages.IndividualEmployerId ||	Applicant.EmployerId == messages.ShopEmployerId" colspan="{{graphResults.length}}">&nbsp;</td>
+                              <td>
+                                 <div ng-if="Applicant.EmployerId != messages.IndividualEmployerId && 		Applicant.EmployerId != messages.ShopEmployerId"   style="background: #e3dcff;float:left;margin-left:22px; margin-top:-35px; width:235px;padding:5px 10px;border-radius:10px;font-size:14px;position:absolute;color:#000">
+                                    <img src="{{messages.base_url}}/images/4.png" width="20" height="30" style="height: 15px;margin-left: -32px;margin-top:3px;position: absolute;width:24px;">
+                                    Your <strong style="color:#f00"> Worst Case Scenario (in-network)</strong> costs are calculated as the sum of your annual 
+                                    premium and OOP limit, LESS your employer's contribution to HSA and tax savings from your own HSA contribution.
+                                 </div>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td colspan="{{graphResults.length+2}}">&nbsp;</td>
+                           </tr>
+                           <tr>
+                              <td colspan="{{graphResults.length+2}}">&nbsp;</td>
+                           </tr>
+                           <tr style="font-size:16px;color:#000">
+                              <td style="font-weight:bold;color:#000"><span style="border-bottom: 1px solid #000;font-weight: bold;padding-bottom: 0;padding: 0 0px;font-size:18px;color:#000">Health Plan Specifics</span></td>
+                              <td colspan="{{graphResults.length+2}}">&nbsp;</td>
+                           </tr>
+                           <tr style="font-size:16px;color:#000">
+                              <td style="font-size:14px !important;color:#000;padding-bottom: 2px; padding-top: 2px;">Deductible (single / family)</td>
+                              <td ng-if="Case.UsageID == 1" ng-repeat="graphResult in graphResults" width="" ng-style="$index!=0 && {'border-left':'0px solid #000','border-right':'1px solid #000','border-top':'1px solid #000','border-bottom':'0px solid #000'}" style="border-bottom: 0px solid #000;border-top: 1px solid #000;border-right: 1px solid #000;border-left: 1px solid #000;text-align:right;padding: 0px 12px 0px 1px;color:#000" class="text-right table_result_data">
+                                 {{graphResult.DeductibleSingle | mycurrency:""}} / {{graphResult.DeductibleFamilyPerGroup | mycurrency:""}}
+                              </td>
+                              <td ng-if="Case.UsageID != 1" ng-repeat="graphResult in graphResults" width="" ng-style="$index!=0 && {'border-left':'0px solid #000','border-right':'1px solid #000','border-top':'1px solid #000','border-bottom':'0px solid #000'}" style="border-bottom: 0px solid #000;border-top: 1px solid #000;border-right: 1px solid #000;border-left: 1px solid #000;text-align:right;padding: 0px 12px 0px 1px;color:#000" class="text-right table_result_data">
+                                 {{graphResult.DeductibleFamilyPerPerson | mycurrency:""}} / {{graphResult.DeductibleFamilyPerGroup | mycurrency:""}}
+                              </td>
+                              <td></td>
+                           </tr>
+                           <tr style="font-size:16px;color:#000">
+                              <td style="font-size:14px !important;color:#000;padding-bottom: 2px; padding-top: 2px;">Out-of-Pocket Limit (single / family)</td>
+                              <td ng-if="Case.UsageID == 1" ng-repeat="graphResult in graphResults" width="" ng-style="$index!=0 && {'border-left':'0px solid #000','border-right':'1px solid #000','border-top':'0px solid #000','border-bottom':'0px solid #000'}" style="border-bottom: 0px solid #000;border-top: 0px solid #000;border-right: 1px solid #000;border-left: 1px solid #000; text-align:right;padding: 0px 12px 0px 1px;color:#000" class="text-right table_result_data">
+                                 {{graphResult.OPLSingle | mycurrency:""}} / {{graphResult.OPLFamilyPerGroup | mycurrency:""}}
+                              </td>
+                              <td ng-if="Case.UsageID != 1" ng-repeat="graphResult in graphResults" width="" ng-style="$index!=0 && {'border-left':'0px solid #000','border-right':'1px solid #000','border-top':'0px solid #000','border-bottom':'0px solid #000'}" style="border-bottom: 0px solid #000;border-top: 0px solid #000;border-right: 1px solid #000;border-left: 1px solid #000; text-align:right;padding: 0px 12px 0px 1px;color:#000" class="text-right table_result_data">
+                                 {{graphResult.OPLFamilyPerPerson | mycurrency:""}} / {{graphResult.OPLFamilyPerGroup | mycurrency:""}}
+                              </td>
+                              <td></td>
+                           </tr>
+                           <tr style="font-size:16px;color:#000">
+                              <td style="font-size:14px !important;color:#000;padding-bottom: 2px; padding-top: 2px;">Coinsurance rate (in-network)</td>
+                              <td ng-style="$index!=0 && {'border-left':'0px solid #000','border-right':'1px solid #000','border-top':'0px solid #000','border-bottom':'1px solid #000'}" style="border-bottom: 1px solid #000;border-top:0px solid #000;border-right: 1px solid #000;border-left: 1px solid #000;text-align:right;padding: 0px 12px 0px 2px;color:#000"
+                                 ng-repeat="graphResult in graphResults" width="">{{graphResult.Coinsurance}}%</td>
+                              <td></td>
+                           </tr>
+                           <!--<tr style="vertical-align:top;font-size:16px;color:#000">
+                              <td style="vertical-align:middle;word-wrap: break-word;text-align:left;font-size:14px !important;color:#000;padding-bottom: 2px; padding-top: 2px;">Medical Network</td>
+                              <td ng-style="$index!=0 && {'border-left':'0px solid #000','border-right':'1px solid #000','border-top':'0px solid #000','border-bottom':'1px solid #000'}" style="border-bottom: 1px solid #000;border-top:none;border-right: 1px solid #000;border-left: 1px solid #000; word-wrap: break-word;padding:0px 12px 0px 2px!important;  text-align:right;font-size:15px !important;color:#000;"
+                                 ng-repeat="graphResult in graphResults" width=""><a style="display: inline-block;max-width: 100px;" href="{{graphResult.MedicalNetwork}}">{{graphResult.MedicalNetwork}}</a></td>
+                              <td></td>
+                           </tr>-->
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div style="width:100%;text-align:left;float:left;color:#000;letter-spacing: -0.1pt;padding-top: 10px;">
+      <div style="text-align:left;float:left;color:#000;letter-spacing: -0.1pt;"><span style="font-size:13px;letter-spacing: -0.1pt;"> <span style="text-decoration:underline;text-align:left">Assumptions</span> - This estimate is based on the projected health usage provided by you and the following key assumptions: 1) Medical
+         charges are In Network for covered services only; 2) All services are assumed to have started and ended in the same
+         coverage period; 3) Cost of services are estimates based on average costs of these services; 4) Categories with "co-pays"
+         may have other charges that are not covered by the applicable co-pay; 5) Some of the referenced insurance plans have
+         a limited number of visits for copays, after which co-insurance applies, and some plans may have "Chronic Illness Support"
+         with a waiver of deductible and more favorable coinsurance; 7) Non-generic prescription retail prices and appropriate
+         Tier information are provided by you; 8) Prescriptions are generally quoted on 30 day supply - a 90 day supply may
+         be slightly less expensive.</span>
+      </div>
+      <div style="width:100%;height:12px;letter-spacing: -0.1pt;text-align:left;float:left;"></div>
+      <div>
+         <span style="font-size:13px;color:#000;letter-spacing: -0.1pt;"> <span style="text-decoration:underline;letter-spacing: -0.1pt;text-align:left"> Disclaimer</span>  - This report includes general information and calculations regarding medical charges based on projected usage and
+         is intended to provide assistance with decisions about health insurance plan choices. This report is for informational
+         purposes only and may not reflect all of the pricing factors and variables for all circumstances. This report and
+         any accompanying information or materials, written or verbal, are not intended, and must not be taken as professional
+         advice or recommendations. Professional advice on specific insurance and benefits can be obtained by contacting a
+         duly licensed professional. While the figures and analyses herein are believed to be accurate and reflect current
+         industry trends, they are not warranted to be correct and MyHealthMath, LLC disclaims any and all warranties of any
+         type and shall have no liability for any inaccuracy or incompleteness.</span>
+      </div>
+   </div>
+   <div style="width: 100%; margin-top: 0px;margin-bottom: 0px;font-size:14px;font-weight:bold;position:relative;bottom:-10px;">
+      <span style="margin-top: 3px; float: left;color:#ff0000;">{{Case.CreatedDateTime | date:'MM/dd/yyyy HH:mm:ss a'}}</span>
+      <span style="margin-top: 3px;float: right;color:#ff0000;" ng-if="Case.CaseID !=''">{{Case.CaseID | numberFixedLen:8}}</span>
+   </div>
+</div>
+</div>

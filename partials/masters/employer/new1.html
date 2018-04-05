@@ -1,0 +1,95 @@
+<style>.main-container {padding-bottom:0px;}.wrapper{height:auto;}#footer{height:40px;position:relative !important;}</style>
+<head><title>{{title}}</title></head>
+<div ng-include src="'partials/include/header.html'"></div>
+<div class="main-container pt0" id="main-container" ng-hide="pageLoading"> 
+  <!--Main container start-->
+	<div class="row_dummy one-column grid-media-box1">
+		<div class="col-md-12">
+			<div class="tp-wizard-form" id="tp-wizard-form"><!-- wizard form -->
+				<div class="container">
+					<div class="row">
+						<p ng-show="flash.status" class="alert {{flash.type}}">{{flash.message}} <a class="close" ng-click="closeFlash()"><i class="fa fa-close"></i></a> </p>  
+						
+						<!-- Smart Wizard -->       
+						<div class="swMain">       
+							<div class="pb0 pt0"><!-- zipcode -->
+								<div class="container">
+									<div class="row_dummy">             
+										<h1 class="title_planattr">{{title}}</h1>                  
+										<div id="container_csttab" class="edit_container_csttab">
+										
+											<!--Pestaña 1 activa por defecto-->
+											<input id="tab-1" type="radio" name="tab-group" checked="checked" />
+											<label class="visible-hide" for="tab-1">Tab1</label>
+											
+											<div class="col-md-2 pull-right">
+												<a class="hvr-radial-out btn tp-btn tp-btn-blue pull-left mb20 ml50" href="javascript:void(0)" ng-click="addEmployer()">{{actionBtnText}}</a>
+												
+												<a style="position:absolute;right:0;z-index:9;" title="Back" class="hvr-radial-out-black btn tp-btn tp-btn-grey dropdown-toggle pull-right" href="masters/employermaster" >Back</a>						
+											</div>
+											
+											<!--Contenido a mostrar/ocultar-->
+											
+
+											<div id="content">											
+												<form name="createEmployerForm" id="createEmployerForm" ng-submit="addEmployer()">												
+												<!--content 1-->
+												<div id="content-1" class="tab-content animated fadeIn">
+													<span class="inner_content cst_planbg">
+														<span class="col-md-12">
+														
+															<div class="col-md-6">
+																<h3 class="tp-title mb0 color_blue">Employer Details</h3>
+																<div class="col-md-12">
+																	<div class="col-md-6">
+																		Employer Id: <span class="required">*</span> &nbsp;
+																		<input type="text" class="form-control" ng-model="employermaster.EmployerId" name="employerId" id="employerId" placeholder="Employer Id" 
+																	    ng-readonly="action=='edit'"	/>
+																		
+																	</div>
+																</div>
+																<div class="col-md-12">
+																	<div class="col-md-6">
+																		Employer Name : <span class="required">*</span> &nbsp;
+																		<input type="number" class="form-control" ng-model="employermaster.EmployerName" name="employerName" id="employerName" placeholder="Employer Name" />
+																		
+																	</div>
+																</div>
+															</div>
+															
+														</span>
+													</span>  
+												</div>
+												
+												</form>
+											</div>	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+											
+										</div>
+										</div>
+								</div>
+							</div>
+						</div>      
+					</div>           
+					<!--end row-->           
+				</div>
+				<!--end container-->           
+			</div>
+		</div>
+    </div>
+</div>
+<!-- /.wizard form --> 
+<div ng-include src="'partials/include/footer.html'"></div>

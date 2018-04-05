@@ -1,0 +1,61 @@
+<style>
+.wrapper {
+    min-height: auto;
+}
+</style>
+
+<head>
+    <title>Login</title>
+</head>
+<div ng-include src="'partials/include/header.html'"></div>
+<div class="main-container">
+    <div id="form-page" class="form-page mt0">
+        <!-- form section -->
+        <div class="container">
+            <div class="row_dummy">
+                <div class="col-md-offset-4 col-md-8">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="grey-box">
+                                <!-- greay box -->
+                                <h2 class="tp-title mb0">Account Log In</h2>
+                                <p ng-show="flash.status" class="alert {{flash.type}}">{{flash.message}} <a class="close" ng-click="closeFlash()"><i class="fa fa-close"></i></a> </p>
+                                <form class="form-horizontal form" id="form1" name="form" role="form" ng-submit="login()">
+                                    <!-- Text input-->
+                                    <div class="form-group_dummy mb0">
+                                        <label for="email" class="control-label">E - mail : <span class="required">*</span></label>
+                                        <input required ng-maxlength="50" type="email" ng-model="email" class="form-control input-md" placeholder="E - mail" name="email" id="email" tabindex="1" ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/">
+                                        <p ng-show="submitted && form.email.$dirty && form.email.$error.required" class="help-block error_home mb0">Email is required.</p>
+                                        <p class="error_home mb0" ng-show="submitted && form.email.$error.pattern">Invalid email.</p>
+                                        <p class="error_home mb0" ng-show="submitted && form.email.$error.maxlength">Maximum email character length 50.</p>
+                                    </div>
+                                    <!-- Text input-->
+                                    <div class="form-group_dummy">
+                                        <label for="password" class="control-label">Password : <span class="required">*</span></label>
+                                        <input ng-minlength="6" required type="password" ng-model="password" class="form-control input-md" placeholder="Password" name="password" id="password" tabindex="2">
+                                        <p ng-show="submitted && form.password.$dirty && form.password.$error.required" class="help-block error_home mb0">Password is required.</p>
+                                        <p class="error_home mb0" ng-show="submitted && form.password.$error.minlength">Minimum password character length 6.</p>
+                                    </div>
+                                    <!-- Button -->
+                                    <div class="form-group_dummy mb0">
+                                        <label for="button" class="control-label"></label>
+                                        <button ng-disabled="dataLoading" type="submit" class="hvr-radial-out-orange btn tp-btn tp-btn-orange" name="button" id="" tabindex="3">login</button>
+                                        <a class="pull-right mt20" href="forgot-password" tabindex="4">Forgot Password?</a>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.greay box -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-include src="'partials/include/footer.html'"></div>
+<style>
+#footer {
+    position: absolute !important;
+    bottom: 0;
+}
+</style>

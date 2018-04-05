@@ -1,0 +1,105 @@
+﻿<head><title>{{title}}</title></head>
+<div ng-include src="'partials/include/header.html'"></div>
+  <div class="main-container pt0"><!--Main container start-->
+    <div id="form-page" class="form-page mt0"><!-- form section -->
+      <div class="container">
+        <div class="row_dummy">
+          <div class="col-md-offset-4 col-md-8">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="grey-box register-blk"><!-- grey box -->
+                  <h2 class="tp-title mb0">{{title}}</h2>				  
+				 <p ng-show="flash.status" class="alert {{flash.type}}">{{flash.message}} <a class="close" ng-click="closeFlash()"><i class="fa fa-close"></i></a> </p>  
+                  <form id="form1" name="form" role="form"  ng-submit="update()">
+                    <!-- Text input-->					
+                    <div class="form-group mb0">
+                      <label class="control-label" for="FirstName">First Name: <span class="required">*</span></label>
+                      <input ng-maxlength="50" id="FirstName" name="FirstName" type="text" placeholder="First Name" class="form-control input-md" ng-model="user.FirstName" required>
+					  <p ng-show="submitted && form.FirstName.$dirty && form.FirstName.$error.required" class="help-block error_home">First Name is required.</p>
+					  <p class="error_home" ng-show="submitted && form.FirstName.$error.maxlength">Maximum First Name character length 50.</p>
+                    </div>                  
+                    <!-- Text input-->
+                    <div class="form-group mb0">
+                      <label class="control-label" for="LastName">Last Name: <span class="required">*</span></label>
+                      <input ng-maxlength="50" id="LastName" name="LastName" type="text" placeholder="Last Name" class="form-control input-md" ng-model="user.LastName" required>
+					  <p ng-show="submitted && form.LastName.$dirty && form.LastName.$error.required" class="help-block error_home">Last Name is required.</p>
+					   <p class="error_home" ng-show="submitted && form.LastName.$error.maxlength">Maximum Last Name character length 50.</p>
+                    </div>                  
+                    
+                    <!-- Text input-->
+                    <div class="form-group mb0">
+                      <label class="control-label" for="Email">Email: <span class="required">*</span></label>
+						
+					  <input ng-maxlength="50" ng-if="readonly == ''" id="Email" name="Email" type="email" placeholder="Email" class="form-control input-md" ng-model="user.Email" required ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/">
+					  
+					  <input ng-maxlength="50" ng-if="readonly != '' " id="Email" name="Email" type="email" placeholder="Email" class="form-control input-md" ng-model="user.Email" readonly="readonly" required ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/">
+					   <p ng-show="submitted && form.Email.$dirty && form.Email.$error.required" class="help-block error_home">Email is required</p>
+					   <p class="error_home" ng-show="submitted && form.Email.$error.pattern">Invalid email.</p>	
+					   <p class="error_home" ng-show="submitted && form.Email.$error.maxlength">Maximum email character length 50.</p>
+                    </div> 
+					
+					 
+                    <!-- Text input-->
+                    <div class="form-group mb0">
+                      <label class="control-label" for="Phone">Mobile Phone Number : <span class="required">*</span></label>
+                      <input id="Phone" name="Phone" type="text" placeholder="Mobile Phone Number" class="form-control input-md" phone-input ng-model="user.Phone" required>
+						<p ng-show="submitted && form.Phone.$dirty && form.Phone.$error.required" class="help-block error_home">Phone is required.</p>						
+                    </div>
+					<div class="form-group mb0">
+                      <label class="control-label" for="Role">Role: <span class="required">*</span></label>
+                      <select class="form-control"  id="Role" name="Role" ng-model="user.Role" required>
+						<option value="">Select</option>
+						<option value="Admin">Admin</option>
+						<option value="Agent">Agent</option>
+					  </select>
+						<p ng-show="submitted && form.Role.$dirty && form.Role.$error.required" class="help-block error_home">Role is required.</p>					
+                    </div>
+					<div ng-if="user.Role =='Agent' " class="form-group mb0">
+                      <label class="control-label" for="Role">Client Company: <span class="required">*</span></label>					 
+                     <select class="form-control"  id="ClientCompanyId" name="ClientCompanyId" ng-model="user.ClientCompanyId" required>
+						<option value="">Select</option>
+						<option ng-repeat="clientCompany in clientCompanies" value="{{clientCompany.CompanyId}}">{{clientCompany.CompanyName}}</option>						
+					  </select>
+						<p ng-show="submitted && form.ClientCompanyId.$dirty && form.ClientCompanyId.$error.required" class="help-block error_home">Client Company is required.</p>					
+                    </div>
+					
+                    
+                    <!-- Text input-->
+                   <!-- <div class="form-group mb0" ng-if="id == ''">
+                      <label class="control-label" for="email">Password <span class="required">*</span></label>
+                      <input ng-minlength="8" ng-maxlength="20" id="Password" name="Password" type="password" placeholder="" class="form-control input-md" ng-model="user.Password" required ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/">
+						<p ng-show="form.Password.$dirty && form.password.$error.required" class="help-block error_home">Password is required</p>
+						<p ng-show="form.Password.$dirty && form.password.$error.required" class="help-block error_home">Old Password is required</p>
+						<p class="error_home" ng-show="form.Password.$error.maxlength">Maximum Old Password character length 20.</p>
+						<p class="error_home" ng-show="form.Password.$error.minlength">Minimum New Password character length 8.</p>
+						<p class="error_home" ng-show="form.Password.$error.pattern">Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol.)</p>
+                    </div>
+                    
+                    <!-- Text input-->
+                   <!-- <div class="form-group mb0" ng-if="id == ''">
+                      <label class="control-label" for="ConfirmPassword">Confirm Password <span class="required">*</span></label>
+                      <input ng-minlength="8" ng-maxlength="20" id="ConfirmPassword" name="ConfirmPassword" type="password" 
+					  placeholder="" class="form-control input-md" ng-model="user.ConfirmPassword" required ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/" valid-password-c="user.Password">
+					  
+					   <p ng-show="form.ConfirmPassword.$dirty && form.ConfirmPassword.$error.required" class="help-block error_home">Confirm Password is required</p>
+					   <p class="error_home" ng-show="form.ConfirmPassword.$error.maxlength">Maximum New Password character length 20.</p>
+					    <p class="error_home" ng-show="form.ConfirmPassword.$error.minlength">Minimum New Password character length 8.</p>
+						<p class="error_home" ng-show="form.ConfirmPassword.$error.pattern">Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol.)</p>
+						<p class="error_home" ng-show="form.ConfirmPassword.$error.noMatch">Passwords do not match.</p>	
+                    </div>-->
+                    <button ng-disabled="dataLoading" type="submit"id="button" name="button" class="hvr-radial-out-orange btn tp-btn tp-btn-orange mb0">{{action}}</button>
+                    <!-- Button -->
+                    <a  id="button" name="button" href="users" class="hvr-radial-out-black btn tp-btn tp-btn-grey pull-right mt10">back</a>
+                    <!-- Button -->  							
+                   </form>
+                </div>
+                <!-- /.greay box --> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--end form-page--> 
+  </div>
+<div ng-include src="'partials/include/footer.html'"></div>

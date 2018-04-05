@@ -1,0 +1,309 @@
+﻿<style>
+  .main-container {
+    padding-bottom: 0px;
+  }
+
+  .wrapper {
+    height: auto;
+    min-height: 100%;
+    padding-bottom: 40px;
+  }
+
+  #footer {
+    height: 40px;
+  }
+</style>
+
+<head>
+  <title>Cases</title>
+</head>
+<div ng-include src="'partials/include/header.html'"></div>
+<div class="main-container pt0" ng-hide="pageLoading">
+  <!--Main container start-->
+  <div class="tp-wizard-form_dummy">
+    <!-- wizard form -->
+    <div class="container">
+      <div class="row_dummy">
+        <div class="col-md-12  pl0 pr0">
+          <p ng-show="flash.status" class="alert {{flash.type}}">{{flash.message}}
+            <a class="close" ng-click="closeFlash()">
+              <i class="fa fa-close"></i>
+            </a>
+          </p>
+        </div>
+        <div class="col-md-6">
+          <div class="input-group" id="adv-search">
+            <form ng-submit="setCaseList()" class="form-horizontal" role="form" name="caseForm">
+              <input type="text" class="form-control" ng-model="TempSearch.searchby" placeholder="Search Case #ID..." ng-pattern="/^[0-9]{1,20}$/"
+                name="caseIdSearch" />
+              <span ng-show="caseForm.caseIdSearch.$error.pattern" class="error_src">Please enter number only</span>
+              <div style="display:none">
+                <button ng-click="setCaseList()" type="submit" class="hvr-radial-out btn tp-btn-blue adv_srch_btn">
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            </form>
+            <div class="input-group-btn">
+              <div class="btn-group" role="group">
+                <div class="dropdown dropdown-lg">
+                  <button id="adv_srch_btn_search" ng-click="openPopUP()" type="button" class="btn btn-default adv_srch_btn adv_srch_btn_search">
+                    <span class="caret adv_srch_btn_search"></span>
+                  </button>
+                  <div id="adv_srch_btn_box" class="adv_srch_btn_box dropdown-menu dropdown-menu-right" role="menu" style="display:none;">
+                    <form ng-submit="setCaseList()" class="form-horizontal" role="form">
+                      <div class="form-group_dummy">
+                        <h3 class="mb0 color_blue" for="filter">Filter by</h3>
+                      </div>
+
+                      <div class="form-group_dummy col-md-6 pl0">
+                        <label class="adv_search_typo" for="filter">Job Number</label>
+                        <select ng-model="TempSearch.searchByJobNo" class="form-control">
+                          <option value="">All Job Number</option>
+                          <option ng-repeat="jobNo in jobNumbers" value="{{jobNo.JobNumber}}">{{jobNo.JobNumber}} - {{jobNo.EmployerId}} - {{jobNo.JobDesc}}</option>
+                        </select>
+                      </div>
+                      <div class="form-group_dummy col-md-6 pl0 pr0">
+                        <label class="adv_search_typo" for="filter">Status Code</label>
+                        <div ng-dropdown-multiselect="" options="statusCode" selected-model="TempSearch.searchByStatusCode" extra-settings="statusCodesettings"></div>
+                      </div>
+                      <div class="form-group_dummy col-md-6 pl0">
+                        <label class="adv_search_typo" for="contain">Employer company</label>
+                        <select ng-model="TempSearch.searchByEmployer" class="form-control">
+                          <option value="">All Employer Company</option>
+                          <option ng-repeat="employer in employerCompanies" value="{{employer.EmployerName}}">{{employer.EmployerName}}</option>
+                        </select>
+                      </div>
+                      <div class="form-group_dummy col-md-6 pl0 pr0">
+                        <label class="adv_search_typo" for="filter">Agent</label>
+                        <select ng-model="TempSearch.searchByAgent" class="form-control">
+                          <option value="">All Agents</option>
+                          <option ng-repeat="agent in agentsList1" value="{{agent}}">{{agent}}</option>
+                        </select>
+                      </div>
+                      <div class="form-group_dummy col-md-6 pl0">
+                        <label class="adv_search_typo" for="contain">Case title</label>
+                        <input placeholder="Case title" ng-model="TempSearch.searchByCaseTitle" class="form-control" type="text" />
+                      </div>
+                      <div class="form-group_dummy col-md-6 pl0 pr0">
+                        <label class="adv_search_typo" for="contain">Business Year</label>
+                        <select ng-model="TempSearch.searchByBusinessYear" class="form-control">
+                          <option value="">ALL</option>
+                          <option ng-repeat="year in businessYears" value="{{year.val}}">{{year.val}}</option>
+                        </select>
+                      </div>
+                      <div class="form-group_dummy col-md-6 pl0">
+                        <label class="adv_search_typo" for="filter">Use for Optimization</label>
+                        <select ng-model="TempSearch.searchByAnalytics" class="form-control">
+                          <option value="">All</option>
+                          <option value="true">Yes</option>
+                          <option value="false">No</option>
+                        </select>
+                      </div>
+                      <div class="form-group_dummy col-md-6 pl0 pr0">
+                        <label class="adv_search_typo" for="filter">Alternate</label>
+                        <select ng-model="TempSearch.searchByAlternate" class="form-control">
+                          <option value="">All</option>
+                          <option value="true">Yes</option>
+                          <option value="false">No</option>
+                        </select>
+                      </div>
+                      <div class="col-md-12 form-group_dummy pl0 pr0">
+                        <h3 class="mb0" for="filter">
+                          <strong>Created Date</strong>
+                        </h3>
+                      </div>
+                      <div class="form-group col-md-6 pl0">
+                        <div class="box_width_dummy">
+                          <label class="adv_search_typo" for="start_date">From</label>
+                          <input ng-readonly="true" ng-click="open_start()" class="form-control datepicker" type="text" uib-datepicker-popup="{{format}}"
+                            ng-model="TempSearch.start_date" is-open="startDate.isOpned" max-date="maxStartDate" datepicker-options="dateOptions"
+                            date-disabled="disabled(date, mode)" close-text="Close" placeholder="mm/dd/yyyy" />
+                          <button type="button" class="cases_calendar_ico medicalusg_dateico adv_src_datebtn" ng-click="open_start()">
+                            <i class="fa fa-calendar color_blue"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="form-group col-md-6 pr0 pl0">
+                        <div class="box_width">
+                          <label class="adv_search_typo" for="end_date">To</label>
+                          <input ng-readonly="true" ng-click="open_end($event)" class="form-control datepicker" type="text" uib-datepicker-popup="{{format}}"
+                            ng-model="TempSearch.end_date" is-open="endDate.isOpned" min-date="minEndDate" datepicker-options="dateOptions"
+                            date-disabled="disabled(date, mode)" close-text="Close" placeholder="mm/dd/yyyy" ng-change="setEndDate()"
+                          />
+                          <button style="right:-5px !important;" type="button" class="cases_calendar_ico medicalusg_dateico adv_src_datebtn" ng-click="open_end($event)">
+                            <i class="fa fa-calendar color_blue"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div style="display:none">
+                        <button ng-click="setCaseList()" type="submit" class="btn tp-btn-blue hvr-radial-out adv_srch_btn">
+                          <i class="fa fa-search"></i>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <button ng-click="setCaseList()" type="submit" class="hvr-radial-out btn tp-btn tp-btn-blue adv_srch_btn">
+                  <i class="fa fa-search mr10"></i>Search</button>
+                <button ng-click="resetCaseList()" type="button" class="hvr-radial-out-black btn tp-btn-grey adv_srch_btn" style="">
+                  <i class="fa fa-refresh mr10"></i> Reset</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--<div class="col-md-4 pull-right"> 
+		
+		<a title="Export Cases" ng-click="exportReport();" class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle mb20 mr10 pull-right" href="javascript:void(0)"> <i class="fa fa-file-excel-o mr10" aria-hidden="true"></i> Export</a>
+		
+		<a title="create new case" class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle mb20 pull-right mr10" href="newCase"> <i class="fa fa-plus mr10"></i>Add Case</a> 
+		 
+	  </div>-->
+
+      <div class="row">
+
+
+
+        <div class="col-md-3 pull-right">
+          <a title="Export Cases" ng-click="exportReport();" class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle mb20 mr10 pull-right"
+            href="javascript:void(0)">
+            <i class="fa fa-file-excel-o mr10" aria-hidden="true"></i> Export</a>
+
+          <a title="create new case" class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle mb20 pull-right mr10" href="newCase">
+            <i class="fa fa-plus mr10"></i>Add Case</a>
+        </div>
+
+        <!-- end : Function to export plan attribute list. -->
+
+        <div class="col-md-12 text-center list-title">
+          <h2 class="mb0">{{title}}</h2>
+        </div>
+
+      </div>
+
+      <div class="col-md-12 text-center list-title">
+        <h2 class="mb0">Cases</h2>
+      </div>
+
+      <div class="row_dummy">
+
+        <!-- end col 4-->
+        <div class="col-md-12">
+          <table class="table table-bordered table-condensed f11 table-nowrap table-striped table-hover">
+            <thead>
+              <tr>
+                <th style="width:5%" class="th_id">
+                  <a ng-click="sort_by('CaseID')">#ID
+                    <i class="fa fa-sort ml20"></i>
+                  </a>
+                </th>
+                <th style="width:11%" class="th_name">Applicant Name</th>
+                <th style="width:13%" class="th_title">
+                  <a ng-click="sort_by('CaseTitle')">Case Title
+                    <i class="fa fa-sort ml20"></i>
+                  </a>
+                </th>
+                <th style="width:9.5%" class="th_phone">Use Code</th>
+                <!-- <th style="width:13%" class="th_phone">Applicant Phone</th> -->
+                <th style="width:11%" class="th_company">Employer Company</th>
+                <th style="width:9.5%" class="th_datetime">
+                  <a ng-click="sort_by('CreatedDateTime')">Date created
+                    <i class="fa fa-sort ml20"></i>
+                  </a>
+                </th>
+                <th style="width:8%" class="th_agent">Agent</th>
+                <th style="width:6%" class="th_jobNo">Job Number</th>
+                <th style="width:8%" class="th_statusCode">Status Code</th>
+                <th style="width:4%" class="th_businessYr">Year</th>
+              
+                <th style="width:3%" class="th_UseforOpt">Opt</th>
+                <th style="width:3%" class="th_Alternate">Alt</th>
+                <th style="width:9%" class="th_viewcase">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="case in cases">
+                <td class="text-right" title="{{case.CaseID}}">{{case.CaseID}}</td>
+                <td title="{{case.ApplicantName}}">{{case.ApplicantName}}</td>
+                <td class="text-left" title="{{case.CaseTitle}}">{{case.CaseTitle}}</td>
+                <td class="text-left" title="{{case.UsageType}}">{{case.UsageType}}</td>
+                <!-- <td class="text-right" title="{{case.MobileNo | tel}}">{{case.MobileNo | tel}}</td> -->
+                <td class="text-left" title="{{case.EmployerName}}">{{case.EmployerName}}</td>
+                <td class="text-right" title="{{case.CreatedDateTime | date:'MM/dd/yyyy hh:mm:ss'}}">{{case.CreatedDateTime | date:'MM/dd/yyyy hh:mm:ss'}}</td>
+                <td class="text-left" title="{{case.Agent}}">{{case.Agent}}</td>
+               
+                <!-- 
+					Created By : Aastha Jain
+					Created Date : 08-06-2016
+					Start : Add New Fields.
+				-->
+                <td class="text-right" title="{{case.JobNumber}}">{{case.JobNumber}}</td>
+                <td class="text-left" title="{{case.StatusCode}}">{{case.StatusCode}}</td>
+                <td class="text-right" title="{{case.BusinessYear}}">{{case.BusinessYear}}</td>
+                <td class="text-right" title="{{case.PrimaryCase}}">
+                    <input  ng-model="case.PrimaryCase" ng-change="updateCaseOpt(case.CaseID, case)" type="checkbox" value="true" id="PrimaryCase"
+                    name="PrimaryCase"></td>
+                <td class="text-le ft" title="{{case.AlternateCase}}">
+                    <input  ng-model="case.AlternateCase" ng-change="updateCaseAlternates(case.CaseID, case)" type="checkbox" value="true" id="AlternateCase"
+                    name="AlternateCase"></td>
+                <!--
+					End : Start : Add New Fields.
+				-->
+                <td class="text-left">
+                  <a title="create new case" class="color_green add_case_btn" href="editCase/false/{{case.CaseID}}/copy">
+                    <i class="fa fa-plus"></i>
+                  </a>
+                  <a title="view case" class="color_orange view_case_btn" href="editCase/true/{{case.CaseID}}/view">
+                    <i class="fa fa-eye"></i>
+                  </a>
+                  <a ng-if="case.Editable == true" title="edit case" class="color_orange edit_case_btn" href="editCase/false/{{case.CaseID}}/update">
+                    <i class="fa fa-pencil"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr ng-if="!(TotalCount > 0)">
+                <td colspan="13">{{messages.NoRecordFound}}</td>
+              </tr>
+            </tbody>
+            <tfoot ng-if="TotalCount > 0">
+              <tr>
+                <td colspan="12">
+                  <span class="tot_rec_title">
+                    <i class="fa fa-check-circle mr10"></i> Total Records : {{TotalCount}}</span>
+                  <div ng-if="TotalCount > pageSize" class="text-center">
+                    <ul class="pagination">
+                      <li ng-class="{disabled: page == 1}">
+                        <a href="javascript:;" ng-click="prevPage()">
+                          <i class="fa fa-angle-double-left" aria-hidden="true"></i> Prev</a>
+                      </li>
+                      <li ng-repeat="n in range() track by $index" ng-class="{ active :n == page, disabled : n == '...' }" ng-click="setPage()">
+                        <a href="javascript:;" ng-bind="n">{{ n }}</a>
+                      </li>
+                      <li ng-if="page != (lastCount | number : 0)" ng-class="{disabled: page == (lastCount | number : 0)}">
+                        <a ng-click="nextPage()" href="javascript:;">Next
+                          <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                        </a>
+                      </li>
+                      <li ng-if="page == (lastCount | number : 0)" ng-class="{disabled: page == (lastCount | number : 0)}">
+                        <a href="javascript:;">Next
+                          <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <!--end col 12-->
+
+      </div>
+      <!--end row-->
+
+    </div>
+  </div>
+  <!-- /.wizard form -->
+</div>
+<div ng-include src="'partials/include/footer.html'"></div>

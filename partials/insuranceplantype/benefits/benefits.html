@@ -1,0 +1,137 @@
+﻿<style>
+.main-container {
+	padding-bottom: 0px;
+}
+.wrapper {
+	height: auto;
+	min-height: 100%;
+	padding-bottom: 40px;
+}
+#footer {
+	height: 40px;
+}
+</style>
+<head>
+<title>MHM Benefits</title>
+</head>
+
+<div ng-include src="'partials/include/header.html'"></div>
+<div class="main-container pt0"><!--Main container start-->
+  <div class="tp-wizard-form_dummy"><!-- wizard form -->
+    <div class="container">
+      <div class="row_dummy">
+        <div class="col-md-12  pl0 pr0">
+          <p ng-show="flash.status" class="alert {{flash.type}}">{{flash.message}} <a class="close" ng-click="closeFlash()"><i class="fa fa-close"></i></a> </p>
+        </div>
+        <div class="col-md-6">
+         
+            <div class="input-group" id="adv-search">
+				 <form ng-submit="setBenefitList()" class="form-horizontal" role="form">
+              <input  ng-model="TempSearch.searchby" type="text" class="form-control" placeholder="Search Benefit Name.." />
+			   <div style="display:none">
+                        <button ng-click="setBenefitList()" type="submit" class="hvr-radial-out btn tp-btn-blue hvr-radial-out adv_srch_btn"><i class="fa fa-search"></i></button>
+                      </div>
+					   </form>
+              <div class="input-group-btn">
+                <div class="btn-group" role="group">
+                  <div class="dropdown dropdown-lg">
+                    <button type="button" class="btn btn-default dropdown-toggle adv_srch_btn" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+					 <form ng-submit="setBenefitList()" class="form-horizontal" role="form">
+                      <div class="form-group_dummy">
+                        <h3 class="mb0 color_blue" for="filter">Filter by Category</h3>
+                      </div>
+                      <div class="form-group_dummy col-md-6 pl0 pr0 mb10"> 
+                        <!--<label class="adv_search_typo" for="Category">Category</label>-->
+                        <select ng-model="TempSearch.filterByCategory" class="form-control">
+                          <option value="0">All category</option>
+                          <option ng-repeat="(key, val) in categoryList" value="{{key}}">{{val}}</option>
+                        </select>
+                      </div>
+					   <div style="display:none">
+                        <button ng-click="setBenefitList()" type="submit" class="btn tp-btn-blue hvr-radial-out adv_srch_btn"><i class="fa fa-search"></i></button>
+                      </div>
+					  </form>
+                    </div>
+                  </div>
+                  <button ng-click="setBenefitList()" type="button" class="hvr-radial-out btn tp-btn tp-btn-blue adv_srch_btn"><i class="fa fa-search mr10"></i>Search</button>
+                  <button ng-click="resetBenefitList()" type="button" class="hvr-radial-out-black btn tp-btn-grey adv_srch_btn"><i class="fa fa-refresh mr10"></i>Reset</button>
+                </div>
+              </div>
+            </div>        
+        </div>
+        
+        <!--  
+        <a data-toggle="collapse" data-target="#filter-panel" href="javascript:void(0)" class="btn search tp-search-btn tp-btn tp-btn-blue">Advanced Search</a> 
+        --> 
+        
+      </div>
+	  
+      <!-- end col 6-->
+      <div class="col-md-6 pull-right"> <a class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle mb20 pull-right" href="insuranceplantype/addBenefitCost"><i class="fa fa-plus mr10"></i> Add/Update Benefit Cost </a> <a class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle mb20 pull-right mr10" href="insuranceplantype/addBenefit"><i class="fa fa-plus mr10"></i> Create New Benefit </a> </div>
+      
+      
+	  <div class="col-md-12 text-center list-title">
+			<h2 class="mb0">MHM Benefits</h2>
+	  </div>
+	  
+	  <!-- end col 12-->
+      
+      <div class="col-md-12"> 
+        <!--<div class="btn-group mt10 mr10"> <a class="btn tp-btn tp-btn-orange dropdown-toggle mb10" href="#addBenefitCost"><i class="fa fa-plus mr10"></i> Add/Update Benefit Cost </a> </div>	
+			<div class="btn-group pull-right mt10"> <a class="btn tp-btn tp-btn-orange dropdown-toggle mb10" href="#addBenefit"><i class="fa fa-plus mr10"></i> Create New Benefit </a> </div>-->
+        
+        <table class="table table-bordered table-condensed table-nowrap table-striped table-hover">
+          <thead>
+            <tr>
+              <th style="width:7%;"><a ng-click="sort_by('MHMBenefitID')">#ID<i class="fa fa-sort ml20"></i></a></th>
+              <th style="width:27%;"><a ng-click="sort_by('MHMBenefitName')">Benefit Name<i class="fa fa-sort ml20"></i></a></th>
+              <th style="width:30%;">Category</th>
+              <th style="width:15%;">Default Benefit?</th>
+              <th style="width:15%;">Created By</th>
+              <th style="width:20%;"><a ng-click="sort_by('CreatedDateTime')">Date created<i class="fa fa-sort ml20"></i></a></th>
+              <th style="width:15%;">Action</th>
+            </tr>
+          </thead>
+          <tbody> 
+		 
+            <tr ng-repeat="benefit in benefits">
+              <td class="text-right" title="{{benefit.MHMBenefitID}}">{{benefit.MHMBenefitID}}</td>
+              <td class="text-left" title="{{benefit.MHMBenefitName}}">{{benefit.MHMBenefitName}}</td>
+              <td ng-if="benefit.CategoryName !='' " class="text-left" title="{{benefit.CategoryName}}">{{benefit.CategoryName}}</td>
+              <td ng-if="benefit.CategoryName =='' " class="text-left" title="--">--</td>
+              <td class="text-left" title="{{IsDefaultStatus[benefit.IsDefault]}}">{{IsDefaultStatus[benefit.IsDefault]}}</td>
+              <td class="text-left" title="{{benefit.CreatedByName}}">{{benefit.CreatedByName}}</td>
+              <td class="text-right" title="{{benefit.CreatedDateTime | date:'MM/dd/yyyy hh:mm:ss'}}">{{benefit.CreatedDateTime | date:'MM/dd/yyyy hh:mm:ss'}}</td>
+              <td class="text-center"><a href="insuranceplantype/editBenefit/{{benefit.MHMBenefitID}}" title="Edit" class="color_green add_case_btn"><i class="fa fa-pencil"></i> </a>			 
+			  <a ng-if="benefit.Createdby && customer.Role == 'Admin'" ng-click="delete($event)" id="{{benefit.MHMBenefitID}}" href="javascript:void(0)" title="Delete" class="color_orange view_case_btn"><i id="{{benefit.MHMBenefitID}}" class="fa fa-remove"></i> </a></td>
+            </tr>
+            <tr ng-if="!(TotalCount > 0)">
+              <td colspan="7">No Record Found.</td>
+            </tr>
+          </tbody>
+          <tfoot ng-if="TotalCount > 0">
+            <tr>
+              <td colspan="7"><span class="tot_rec_title"><i class="fa fa-check-circle mr10"></i> Total Records : {{TotalCount}}</span>
+                <div ng-if="TotalCount > pageSize" class="text-center">
+                  <ul class="pagination">
+                    <li ng-class="{disabled: page == 1}"> <a href="javascript:;" ng-click="prevPage()"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Prev</a> </li>
+                    <li ng-repeat="n in range() track by $index" ng-class="{active: n == page}" ng-click="setPage()"> <a href="javascript:;" ng-bind="n">1</a> </li>
+                    <li ng-if="page != (lastCount | number : 0)" ng-class="{disabled: page == (lastCount | number : 0)}"> <a ng-click="nextPage()" href="javascript:;" >Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></a> </li>
+                    <li ng-if="page == (lastCount | number : 0)" ng-class="{disabled: page == (lastCount | number : 0)}"> <a href="javascript:;" >Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></a> </li>
+                  </ul>
+                </div></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <!--end col 12--> 
+      
+    </div>
+    <!--end row--> 
+    
+  </div>
+</div>
+<!-- /.wizard form -->
+</div>
+<div ng-include src="'partials/include/footer.html'"></div>

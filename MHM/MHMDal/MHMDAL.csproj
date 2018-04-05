@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6D7ED225-C010-4D48-8C9F-2449B5AD424C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MHMDal</RootNamespace>
+    <AssemblyName>MHMDal</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Interfaces\IChipEligibility.cs" />
+    <Compile Include="Interfaces\ICSRRateMaster.cs" />
+    <Compile Include="Interfaces\IFedPovertyLevelMaster.cs" />
+    <Compile Include="Interfaces\IFPLBracketLookupMaster.cs" />
+    <Compile Include="Interfaces\IFPLCapMaster.cs" />
+    <Compile Include="Interfaces\IHSAFunding.cs" />
+    <Compile Include="Interfaces\IJobMaster.cs" />
+    <Compile Include="Interfaces\IIssuerMaster.cs" />
+    <Compile Include="Interfaces\IMedicaidEligibility.cs" />
+    <Compile Include="Interfaces\IMHMBenefitCostByAreaMaster.cs" />
+    <Compile Include="Interfaces\IMHMBenefitMappingMaster.cs" />
+    <Compile Include="Interfaces\IMHMCommonBenefitMaster.cs" />
+    <Compile Include="Interfaces\IPlanAttributeMaster.cs" />
+    <Compile Include="Interfaces\IPlanBenefitMaster.cs" />
+    <Compile Include="Interfaces\IqryZipCodeToRatingAreas.cs" />
+    <Compile Include="Interfaces\IRatingAreaMaster.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\IRule.cs" />
+    <Compile Include="Interfaces\IRules.cs" />
+    <Compile Include="Models\Applicant.cs" />
+    <Compile Include="Models\AspNetRole.cs" />
+    <Compile Include="Models\AspNetUser.cs" />
+    <Compile Include="Models\AspNetUserClaim.cs" />
+    <Compile Include="Models\AspNetUserLogin.cs" />
+    <Compile Include="Models\AuditLog.cs" />
+    <Compile Include="Models\BenefitUserDetail.cs" />
+    <Compile Include="Models\Case.cs" />
+    <Compile Include="Models\CasePlanResult.cs" />
+    <Compile Include="Models\CaseStatusMst.cs" />
+    <Compile Include="Models\CategoryMst.cs" />
+    <Compile Include="Models\CensusImport.cs" />
+    <Compile Include="Models\ChipEligibility.cs" />
+    <Compile Include="Models\ClientCompany.cs" />
+    <Compile Include="Models\CostSharingReductionScheduleMst.cs" />
+    <Compile Include="Models\Criticalillness.cs" />
+    <Compile Include="Models\CriticalillnessMst.cs" />
+    <Compile Include="Models\CSR_Rate_Mst.cs" />
+    <Compile Include="Models\CSTMst.cs" />
+    <Compile Include="Models\C__MigrationHistory.cs" />
+    <Compile Include="Models\EmployerMst.cs" />
+    <Compile Include="Models\Family.cs" />
+    <Compile Include="Models\FamilyMemberList.cs" />
+    <Compile Include="Models\FamilyMemberUsesList.cs" />
+    <Compile Include="Models\FamilySheetResult.cs" />
+    <Compile Include="Models\FedPovertyLevelMst.cs" />
+    <Compile Include="Models\FPLBracketLookupMst.cs" />
+    <Compile Include="Models\FPLCapMst.cs" />
+    <Compile Include="Models\HSAFunding.cs" />
+    <Compile Include="Models\InsuranceType.cs" />
+    <Compile Include="Models\IssuerMst.cs" />
+    <Compile Include="Models\JobMaster.cs" />
+    <Compile Include="Models\JobPlansMst.cs" />
+    <Compile Include="Models\MedicaidEligibility.cs" />
+    <Compile Include="Models\MHM.cs" />
+    <Compile Include="Models\MHMBenefitCostByAreaMst.cs" />
+    <Compile Include="Models\MHMBenefitMappingMst.cs" />
+    <Compile Include="Models\MHMCommonBenefitsMst.cs" />
+    <Compile Include="Models\PlanAttributeMst.cs" />
+    <Compile Include="Models\PlanBenefitMst.cs" />
+    <Compile Include="Models\PlanBenefits.cs" />
+    <Compile Include="Models\PlanMaster.cs" />
+    <Compile Include="Models\qryZipCodeToRatingArea.cs" />
+    <Compile Include="Models\qryZipStateCounty.cs" />
+    <Compile Include="Models\Response.cs" />
+    <Compile Include="Models\Rule.cs" />
+    <Compile Include="Models\tblRatingArea.cs" />
+    <Compile Include="Models\tblRatingAreaMst.cs" />
+    <Compile Include="Models\tblStateAbrev.cs" />
+    <Compile Include="Models\tblZipCode.cs" />
+    <Compile Include="Models\UsageCodeMaster.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\ChipEligibilityRepo.cs" />
+    <Compile Include="Repository\CSRRateMasterRepo.cs" />
+    <Compile Include="Repository\FedPovertyLevelMasterRepo.cs" />
+    <Compile Include="Repository\FPLBracketLookupMasterRepo.cs" />
+    <Compile Include="Repository\FPLCapMasterRepo.cs" />
+    <Compile Include="Repository\HSAFundingRepo.cs" />
+    <Compile Include="Repository\JobMasterRepo.cs" />
+    <Compile Include="Repository\IssuerMasterRepo.cs" />
+    <Compile Include="Repository\MedicaidEligibilityRepo.cs" />
+    <Compile Include="Repository\MHMBenefitCostByAreaMasterRepo.cs" />
+    <Compile Include="Repository\MHMBenefitMappingMasterRepo.cs" />
+    <Compile Include="Repository\MHMCommonBenefitMasterRepo.cs" />
+    <Compile Include="Repository\PlanAttributeMasterRepo.cs" />
+    <Compile Include="Repository\PlanBenefitMasterRepo.cs" />
+    <Compile Include="Repository\qryZipCodeToRatingAreasRepo.cs" />
+    <Compile Include="Repository\RatingAreaMasterRepo.cs" />
+    <Compile Include="Repository\RulesRepo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

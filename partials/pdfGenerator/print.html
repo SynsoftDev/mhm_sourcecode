@@ -1,0 +1,209 @@
+<div style="">
+	  <div style="margin:0 auto ">
+		<div style="margin-top:2px;float:left;">
+		  <div style="width:40%; float:left" id="logo_pri nt"> <img width="300" style="position: relative;top: 18px;" src="{{messages.base_url}}/images/logo.png"> </div>
+		  <p style="width:50%; float:left;font-size:18px;"> <strong style="position:relative; top:15px;font-size:18px;">Health Plan Analysis for <span style="border-bottom:2px solid #000;padding-bottom:2px;font-size:20px;">In Network</span> Projected Health Care Usage</strong>        </p>
+		  <p align="right" style="width:9%; float:left;   position:relative; top:15px"> <strong style="font-size:22px;">{{Case.Year}}</strong> </p>
+		</div>
+		<div style="margin-top:15px; width:100%; float:left;">
+		  <div style="width:14%; float:left;position:relative;top:4em;font-size:15px;">
+			<p style="margin:10px 0; color:#002060;"><i>{{Applicant.FirstName}} {{Applicant.LastName}}</i></p>
+			<p title="{{UsageType}}" style="margin:10px 0; color:#002060;"><i>{{UsageType}}</i></p>
+			<p style="margin:10px 0; color:#002060;"><i>{{UseBenefits.users.counts.length}} on plan</i></p>
+			<p ng-if="IssuerAbbreviations  !='' " style="margin:1px 0 1px 0; color:#002060;"><i>{{IssuerAbbreviations}}</i></p>
+			<p ng-if="PlanType !='' " style="margin:10px 0; color:#002060;"><i>{{PlanType}} only</i></p>
+			<p ng-if="InsuranceName !='' " style="margin:10px 0; color:#002060;"><i>{{InsuranceName}}</i></p>
+			<p style="margin:10px 0; color:#002060;">For further information or questions please contact your agent </p>
+			<p style="margin:10px 0; color:#002060;">{{customer.FirstName}} at <a href="mailto:{{customer.Email}}" target="_top">{{customer.Email}}</a></p>
+		  </div>
+		  <div style="float: right; width:86%;">
+			<div data-width="932" id="holderHtml">
+			  <d3-bars data="data" height="450" style="float:left;"></d3-bars>
+			</div>
+		  </div>
+		</div>
+		<div style="margin-top:2px;">
+		  <div id="cst_graphResults">
+			<div>
+			  <div ng-if="graphResults.length > 0">
+				<div id="graph">
+				  <div style="background-color:#fff;" ng-if="graphResults.length > 0" id="table_resultpage">
+					<table width="100%" cellspacing="0" cellpadding="0" border="0" style="padding:15px 25px 25px 0;overflow: hidden;text-overflow: ellipsis;table-layout: fixed;">
+					  <tbody>
+						<!-- Smoking-->
+						<tr>
+						  <td style="font-size:15px;width:25%;text-align:left;font-weight:bold;">Government Plan ID</td>
+						  <td style="font-size:12px;width:13%;border: 1px solid #000;text-align:center;padding: 2px 5px;" ng-style="$index!=0 && {'border-left':'none'}"
+							ng-repeat="graphResult in graphResults" width="">{{graphResult.PlanIdIndiv1}}</td>
+						</tr>
+						<tr>
+						  <td colspan="{{graphResults.length+1}}">&nbsp;</td>
+						</tr>
+						<tr style="font-size:15px;">
+						  <td style="font-weight:bold;"><span style="border-bottom: 1px solid #000;font-weight: bold;padding-bottom: 0;">Premium Payments by You</span></td>
+						  <td colspan="{{graphResults.length+1}}"></td>
+						</tr>
+						<!-- Age-->
+						<tr style="font-size:15px;">
+						  <td>Standard Annual Premium</td>
+						  <td ng-style="$index!=0 && {'border-left':'none'}" style="border: 1px solid #000;text-align:right;padding:2px 40px 2px 5px;"
+							ng-repeat="graphResult in graphResults" width="">{{graphResult.GrossAnnualPremium | mycurrency:"$"}}</td>
+						</tr>
+						<!-- Age-->
+						<tr style="font-size:15px;">
+						  <td ng-if="Applicant.EmployerId != messages.IndividualEmployerId && Applicant.EmployerId != messages.ShopEmployerId">Contributed to your premium</td>
+						  <td ng-if="Applicant.EmployerId == messages.IndividualEmployerId || Applicant.EmployerId == messages.ShopEmployerId">Estimated Federal Subsidy</td>
+						  <td ng-style="$index!=0 && {'border-left':'none'}" style="border: 1px solid #000; border-top:none; text-align:right;padding:2px 40px 2px 5px;"
+							ng-repeat="graphResult in graphResults" width="">{{graphResult.FederalSubsidy | mycurrency:"$"}}</td>
+						</tr>
+						<tr style="font-size:15px;">
+						  <td style="font-weight:500;background:#ffe48f;">Net Annual Premium</td>
+						  <td ng-style="$index!=0 && {'border-left':'none'}" style="border: 1px solid #000;border-top:none; background:#ffe48f;  text-align:right;padding:2px 40px 2px 5px;"
+							ng-repeat="graphResult in graphResults" width="">{{graphResult.NetAnnualPremium | mycurrency:"$"}}</td>
+						</tr>
+						<tr style="font-size:15px;">
+						  <td>Monthly Premium</td>
+						  <td ng-style="$index!=0 && {'border-left':'none'}" style="border: 1px solid #000;border-top:none; text-align:right;padding:2px 40px 2px 5px;"
+							ng-repeat="graphResult in graphResults" width="">{{graphResult.MonthlyPremium | mycurrency:"$"}}</td>
+						</tr>
+						<tr>
+						  <td colspan="{{graphResults.length+1}}">&nbsp;</td>
+						</tr>
+						<tr>
+						  <td colspan="{{graphResults.length+1}}">&nbsp;</td>
+						</tr>
+						<tr style="font-size:15px;">
+						  <td ng-style="$index!=0 && {'border-left':'none'}" style="font-weight:bold"><span style=" border-bottom: 1px solid #000;font-weight: bold;padding-bottom: 0;">Medical Usage Payments by You</span></td>
+						  <td colspan="{{graphResults.length+1}}"></td>
+						</tr>
+						<!-- Age-->
+						<tr style="font-size:15px;">
+						  <td>Copays (if applicable)</td>
+						  <td ng-style="$index!=0 && {'border-left':'none'}" style="border:1px solid #000;text-align:right;padding:2px 40px 2px 5px;"
+							ng-repeat="graphResult in graphResults" width="">{{graphResult.Copays | mycurrency:"$"}}</td>
+						</tr>
+						<!-- Age-->
+						<tr style="font-size:15px;">
+						  <td>Payments (up to Deductible Limit)</td>
+						  <td ng-style="$index!=0 && {'border-left':'none'}" style="border:1px solid #000;border-top:none; text-align:right;padding:2px 40px 2px 5px;"
+							ng-repeat="graphResult in graphResults" width="">{{graphResult.PaymentsToDeductibleLimit | mycurrency:"$"}}</td>
+						</tr>
+						<tr style="font-size:15px;">
+						  <td>Coinsurance (to OOP Max)</td>
+						  <td ng-style="$index!=0 && {'border-left':'none'}" style="border:1px solid #000;border-top:none;text-align:right;padding: 2px 40px 2px 5px;"
+							ng-repeat="graphResult in graphResults" width="">{{graphResult.CoinsuranceToOutOfPocketLimit | mycurrency:"$"}}</td>
+						</tr>
+						<tr style="font-size:15px;">
+						  <td>Tax Savings from HSA account</td>
+						  <td ng-style="$index!=0 && {'border-left':'none'}" style="border:1px solid #000;border-top:none; text-align:right;padding:2px 40px 2px 5px;"
+							ng-repeat="graphResult in graphResults" width="">{{graphResult.TaxSavingFromHSAAccount | mycurrency:"$"}}</td>
+						</tr>
+						<tr style="font-size:15px;" ng-if="Applicant.EmployerId != messages.IndividualEmployerId && Applicant.EmployerId != messages.ShopEmployerId">
+						  <td>Contributed to your HSA account</td>
+						  <td ng-style="$index!=0 && {'border-left':'none'}" style="border:1px solid #000;border-top:none; text-align:right;padding:2px 40px 2px 5px;"
+							ng-repeat="graphResult in graphResults" width="">{{graphResult.ContributedToYourHSAAccount | mycurrency:"$"}}</td>
+						</tr>
+						<tr style="font-size:15px;">
+						  <td style="font-weight:bold; background:#c7e6a4">Medical (net of HSA tax savings)</td>
+						  <td ng-style="$index!=0 && {'border-left':'none'}" style="border:1px solid #000;border-top:none;background:#c7e6a4;  text-align:right;padding:2px 40px 2px 5px;"
+							ng-repeat="graphResult in graphResults" width="">{{graphResult.Medical | mycurrency:"$"}}</td>
+						</tr>
+						<tr>
+						  <td colspan="{{graphResults.length+1}}">&nbsp;</td>
+						</tr>
+						<tr style="font-size:15px;">
+						  <td style="color:#4472c4; font-weight:bold;"><span style=" border-bottom: 1px solid #4472c4;font-weight: bold;padding-bottom: 0;;padding: 2px 5px;">Total Payments by You</span></td>
+
+						  <td ng-style="$index!=0 && {'border-left':'none','border-right':'1px solid #000','border-top':'1px solid #000','border-bottom':'1px solid #000'}"
+							style="border:1px solid #000; color:#4472c4; font-weight:bold; text-align:right;padding:2px 40px 2px 5px;"
+							ng-repeat="graphResult in graphResults" width="">{{graphResult.TotalPaid | mycurrency:"$"}}</td>
+						</tr>
+						<tr>
+						  <td colspan="{{graphResults.length+1}}">&nbsp;</td>
+						</tr>
+						<tr style="font-size:15px;">
+						  <td style="font-weight:bold;">Payments by Insurance Co.</td>
+						  <td ng-style="$index!=0 && {'border-left':'none'}" style="border:1px solid #000;text-align:right;padding: 2px 40px 2px 5px;"
+							ng-repeat="graphResult in graphResults" width="">{{graphResult.PaymentsByInsuranceCo | mycurrency:"$"}}</td>
+						</tr>
+						<tr>
+						  <td colspan="{{graphResults.length+1}}">&nbsp;</td>
+						</tr>
+						<tr>
+						  <td colspan="{{graphResults.length+1}}">&nbsp;</td>
+						</tr>
+						<tr style="font-size:15px;">
+						  <td style="font-weight:bold;"><span style=" border-bottom: 1px solid #000;font-weight: bold;padding-bottom: 0;;padding: 0 5px;">Health Plan Specifics</span></td>
+						  <td colspan="{{graphResults.length+1}}">&nbsp;</td>
+						</tr>
+						<!-- Age-->
+						<tr style="font-size:15px;">
+						  <td>Deductible (single / family)</td>
+						  <td ng-style="$index!=0 && {'border-left':'none'}" style="border:1px solid #000;text-align:center;padding:2px 5px;" ng-repeat="graphResult in graphResults"
+							width="">{{graphResult.DeductibleSingle | mycurrency:"$"}} / {{graphResult.DeductibleFamily | mycurrency:"$"}}</td>
+						</tr>
+						<!-- Age-->
+						<tr style="font-size:15px;">
+						  <td>Out of Pocket Limit (single / family)</td>
+						  <td ng-style="$index!=0 && {'border-left':'none'}" style="border:1px solid #000;border-top:none; text-align:center;padding: 2px 5px;"
+							ng-repeat="graphResult in graphResults" width="">{{graphResult.OPLSingle | mycurrency:"$"}} / {{graphResult.OPLFamily | mycurrency:"$"}}</td>
+						</tr>
+						<tr style="font-size:15px;">
+						  <td>Coinsurance</td>
+						  <td ng-style="$index!=0 && {'border-left':'none'}" style="border:1px solid #000;border-top:none;text-align:center;padding: 2px 5px;"
+							ng-repeat="graphResult in graphResults" width="">{{graphResult.Coinsurance}}%</td>
+						</tr>
+						<tr style="font-size:15px;">
+						  <td style="font-weight:bold;color:#ff0000">Worst case (Premium + OOP max)</td>
+						  <td ng-style="$index!=0 && {'border-left':'none'}" style="border:1px solid #000;border-top:none;font-weight:bold; color:#ff0000;  text-align:center;padding: 2px 5px;"
+							ng-repeat="graphResult in graphResults" width="">{{graphResult.WorstCase | mycurrency:"$"}}</td>
+						</tr>
+						<tr style="vertical-align:top;font-size:15px;">
+						  <td style="vertical-align:middle;word-wrap: break-word; padding:5px!important;  text-align:left; ">Medical Network</td>
+						  <td ng-style="$index!=0 && {'border-left':'none'}" style="border:1px solid #000; border-top:none;  word-wrap: break-word;padding:2px 5px!important;  text-align:left;font-size:10px !important;"
+							ng-repeat="graphResult in graphResults" width=""><a href="{{graphResult.MedicalNetwork}}">{{graphResult.MedicalNetwork}}</a></td>
+						</tr>
+						<tr style="font-size:15px;">
+						  <td style="text-align:left;font-weight:bold;">MyHealthMath Plan Number</td>
+						  <td ng-style="$index!=0 && {'border-left':'none'}" style="border: 1px solid #000;text-align:center;padding: 2px 5px;border-top:none;"
+							ng-repeat="graphResult in graphResults" width="">{{graphResult.GovtPlanNumber}}</td>
+						</tr>
+						<!-- second section for tables household-->
+					  </tbody>
+					</table>
+				  </div>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		<div style="width:100%;text-align: justify;">
+		  <span style="font-size:12px;"> <span style="text-decoration:underline;  font-weight:600;font-size:12px;">Assumptions</span>      - This estimate is based on the projected health usage provided by you and the following key assumptions: 1) Medical
+		  charges are In Network for covered services only; 2) All services are assumed to have started and ended in the same
+		  coverage period; 3) Cost of services are estimates based on average costs of these services; 4) Categories with "co-pays"
+		  may have other charges that are not covered by the applicable co-pay; 5) Some of the referenced insurance plans have
+		  a limited number of visits for copays, after which co-insurance applies, and some plans may have "Chronic Illness Support"
+		  with a waiver of deductible and more favorable coinsurance; 7) Non-generic prescription retail prices and appropriate
+		  Tier information are provided by you; 8) Prescriptions are generally quoted on 30 day supply - a 90 day supply may
+		  be slightly less expensive.</span>
+		  <div>
+			<div style="width:100%;height:12px;"></div>
+			<span style="font-size:12px;"> <span style="text-decoration:underline; font-weight:600;font-size:12px;"> Disclaimer</span>        - This report includes general information and calculations regarding medical charges based on projected usage and
+			is intended to provide assistance with decisions about health insurance plan choices. This report is for informational
+			purposes only and may not reflect all of the pricing factors and variables for all circumstances. This report and
+			any accompanying information or materials, written or verbal, are not intended, and must not be taken as professional
+			advice or recommendations. Professional advice on specific insurance and benefits can be obtained by contacting a
+			duly licensed professional. While the figures and analyses herein are believed to be accurate and reflect current
+			industry trends, they are not warranted to be correct and MyHealthMath, LLC disclaims any and all warranties of any
+			type and shall have no liability for any inaccuracy or incompleteness.</span>
+		  </div>
+		</div>
+		<div style="width: 100%; margin-top: 10px;margin-bottom: 10px;font-size:12px;font-weight:bold;">
+		  <span style="margin-top: 5px; float: left;">{{Case.CreatedDateTime | date:'MM/dd/yyyy HH:mm:ss a'}}</span>
+		  <span style="margin-top: 5px;float: right;" ng-if="caseID !=''">{{caseID}}</span>
+		</div>
+
+
+
+	  </div>
+	</div>

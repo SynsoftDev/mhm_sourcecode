@@ -1,0 +1,147 @@
+<style>
+.main-container {
+	padding-bottom: 0px;
+}
+.wrapper {
+	height: auto;
+	min-height: 100%;
+	padding-bottom: 40px;
+}
+#footer {
+	height: 40px;
+}
+</style>
+<head>
+<title>County</title>
+</head>
+
+<div ng-include src="'partials/include/header.html'"></div>
+<div class="main-container pt0" ng-hide="pageLoading"><!--Main container start-->
+	<div class="tp-wizard-form_dummy"><!-- wizard form -->
+		<div class="container"><!-- container -->
+			<div class="row_dummy"><!-- row_dummy -->
+				<div class="col-md-12  pl0 pr0">
+					<p ng-show="flash.status" class="alert {{flash.type}}">{{flash.message}} <a class="close" ng-click="closeFlash()"><i class="fa fa-close"></i></a> </p>
+				</div>
+				
+				<div class="col-md-6 mb20">   		
+					<div class="input-group" id="adv-search">
+						<form ng-submit="setCountyList()" class="form-horizontal" role="form">
+							<input type="text" class="form-control" ng-model="TempSearch.searchby" placeholder="Search..." />
+							<div style="display:none">
+								<button ng-click="setCountyList()" type="submit" class="hvr-radial-out btn tp-btn-blue adv_srch_btn"><i class="fa fa-search"></i></button>
+							</div>
+						</form>
+						
+						<div class="input-group-btn">
+							<div class="btn-group" role="group">
+								<div class="dropdown dropdown-lg">  
+									<button id="adv_srch_btn_search" ng-click="openPopUP()" type="button" class="btn btn-default adv_srch_btn adv_srch_btn_search" ><span class="caret adv_srch_btn_search"></span></button>
+									
+									<div id="adv_srch_btn_box" class="adv_srch_btn_box dropdown-menu dropdown-menu-right" role="menu" style="display:none;">
+										<form ng-submit="setCountyList()" class="form-horizontal" role="form">
+											<div class="form-group_dummy">
+												<h3 class="mb0 color_blue" for="filter">Filter by</h3>
+											</div>
+											<div class="form-group_dummy col-md-6 pl0 mb10">
+												<label class="adv_search_typo" for="contain">State</label>
+												<input placeholder="State" ng-model="TempSearch.searchByState" class="form-control" type="text" />
+											</div>
+											<div class="form-group_dummy col-md-6 pl0 mb10">
+												<label class="adv_search_typo" for="contain">County Name</label>
+												<input placeholder="County Name" ng-model="TempSearch.searchByCounty" class="form-control" type="text" />
+											</div>
+											<div class="form-group_dummy col-md-6 pl0 mb10">
+												<label class="adv_search_typo" for="contain">Fips State</label>
+												<input placeholder="Fips State" ng-model="TempSearch.searchByFipsState" class="form-control" type="text" />
+											</div>
+											<div class="form-group_dummy col-md-6 pl0 mb10">
+												<label class="adv_search_typo" for="contain">Fips County</label>
+												<input placeholder="Fips County" ng-model="TempSearch.searchByFipsCountry" class="form-control" type="text" />
+											</div>
+											<div class="form-group_dummy col-md-6 pl0 pr0 mb10">
+												<label class="adv_search_typo" for="contain">Business Year</label>
+												<select ng-model="TempSearch.searchByBusinessYear" class="form-control">
+													<option value="">Select Business Year</option>
+													<option ng-repeat="year in years" value="{{year.val}}">{{year.val}}</option>
+												</select>
+											</div>
+											<div style="display:none">
+												<button ng-click="setCountyList()" type="submit" class="btn tp-btn-blue hvr-radial-out adv_srch_btn"><i class="fa fa-search"></i></button>
+											</div>
+										</form>
+									</div>
+								</div>
+								<button ng-click="setCountyList()" type="submit" class="hvr-radial-out btn tp-btn tp-btn-blue adv_srch_btn"><i class="fa fa-search mr10"></i>Search</button>
+								<button ng-click="resetCountyList()" type="button" class="hvr-radial-out-black btn tp-btn-grey adv_srch_btn" style=""><i class="fa fa-refresh mr10"></i> Reset</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-md-12 text-center list-title">
+					<h2 class="mb0">County</h2>
+				</div>
+				
+			</div>
+			<!-- row_dummy -->
+			<div class="row_dummy">
+				<div class="col-md-12">
+					<table class="table table-bordered table-condensed f11 table-nowrap table-striped table-hover">
+						<thead>
+							<th style="width:7%" class="th_id"><a ng-click="sort_by('Id')">#id<i class="fa fa-sort ml20"></i></a></th>
+							<th style="width:10%" class="th_fipscode"><a ng-click="sort_by('FipsCode')">Fips Code<i class="fa fa-sort ml20"></i></a></th>
+							<th style="width:10%" class="th_state"><a ng-click="sort_by('State')">State<i class="fa fa-sort ml20"></i></a></th>
+							<th style="width:10%" class="th_countyname"><a ng-click="sort_by('CountyName')">County Name<i class="fa fa-sort ml20"></i></a></th>
+							<th style="width:10%" class="th_fipsstate"><a ng-click="sort_by('FipsState')">Fips State<i class="fa fa-sort ml20"></i></a></th>
+							<th style="width:10%" class="th_fipscounty"><a ng-click="sort_by('FipsCounty')">Fips County<i class="fa fa-sort ml20"></i></a></th>
+							<th style="width:10%" class="th_businessYear"><a ng-click="sort_by('Businessyear')">Business Year<i class="fa fa-sort ml20"></i></a></th>
+						</thead>
+						<tbody>
+							<tr ng-repeat="county in countieslist">
+								<td class="text-right" title="{{county.Id}}">{{county.Id}}</td>
+								<td class="text-right" title="{{county.FipsCode}}">{{county.FipsCode}}</td>
+								<td title="{{county.State}}">{{county.State}}</td>
+								<td title="{{county.CountyName}}">{{county.CountyName}}</td>
+								<td class="text-right" title="{{county.FipsState}}">{{county.FipsState}}</td>
+								<td class="text-right" title="{{county.FipsCounty}}">{{county.FipsCounty}}</td>
+								<td class="text-right" title="{{county.Businessyear}}">{{county.Businessyear}}</td>
+							</tr>
+							<tr ng-if="!(TotalCount > 0)">
+								<td colspan="7">{{messages.NoRecordFound}}</td>
+							</tr>
+						</tbody>
+						<tfoot ng-if="TotalCount > 0">
+							<tr>
+								<td colspan="7">
+									<span class="tot_rec_title"><i class="fa fa-check-circle mr10"></i> Total Records : {{TotalCount}}</span>
+									<div ng-if="TotalCount > pageSize" class="text-center">
+										<ul class="pagination">
+											<li ng-class="{disabled: page == 1}"> 
+												<a href="javascript:;" ng-click="prevPage()"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Prev</a> 
+											</li>
+											<li ng-repeat="n in range() track by $index" ng-class="{ active :n == page, disabled : n == '...' }" ng-click="setPage()">
+												<a href="javascript:;" ng-bind="n">{{ n }}</a>
+											</li>  
+											<li ng-if="page != (lastCount | number : 0)" ng-class="{disabled: page == (lastCount | number : 0)}"> 
+												<a ng-click="nextPage()" href="javascript:;" >Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></a> 
+											</li>
+											<li ng-if="page == (lastCount | number : 0)" ng-class="{disabled: page == (lastCount | number : 0)}"> 
+												<a href="javascript:;" >Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></a> 
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+				<!-- end col 12-->
+			</div>
+			<!-- row_dummy -->
+		</div>
+		<!-- container -->
+	</div>
+	<!-- wizard form -->
+</div>
+<div ng-include src="'partials/include/footer.html'"></div>

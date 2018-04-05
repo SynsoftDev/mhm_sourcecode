@@ -1,0 +1,213 @@
+﻿<style>
+.main-container {
+	padding-bottom: 0px;
+}
+.wrapper {
+	height: auto;
+	min-height: 100%;
+	padding-bottom: 40px;
+}
+#footer {
+	height: 40px;
+}
+</style>
+<head>
+<title>{{title}}</title>
+</head>
+<div ng-include src="'partials/include/header.html'"></div>
+<div class="main-container pt0"><!--Main container start-->
+  <div class="tp-wizard-form_dummy"><!-- wizard form -->
+    <div class="container">
+      <div class="row_dummy">
+        <div class="col-md-12  pl0 pr0">
+          <p ng-show="flash.status" class="alert {{flash.type}}">{{flash.message}} <a class="close" ng-click="closeFlash()"><i class="fa fa-close"></i></a> </p>
+        </div>
+        <div class="col-md-6 mb20">    			
+            <div class="input-group" id="adv-search">
+				<form ng-submit="setPlanattributeList()" class="form-horizontal" role="form">
+					<input  ng-model="TempSearch.searchby" type="text" class="form-control" placeholder="Search Plan ID.." />
+					<div style="display:none">
+						<button ng-click="setPlanattributeList()" type="submit" class="hvr-radial-out btn tp-btn-blue hvr-radial-out adv_srch_btn"><i class="fa fa-search"></i></button>
+					</div>
+			   </form>
+              <div class="input-group-btn">
+                <div class="btn-group" role="group">
+                  <div class="dropdown dropdown-lg">
+                    <button type="button" class="btn btn-default dropdown-toggle adv_srch_btn" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+					 <form ng-submit="setPlanattributeList()" class="form-horizontal" role="form">
+                      <div class="form-group_dummy">
+                        <h3 class="mb0 color_blue" for="filter">Filter by</h3>
+                      </div>
+
+                      <div class="form-group_dummy col-md-6 pl0 mb10">   						
+						<label class="adv_search_typo" for="contain">AprvStatus</label>
+                        <select ng-model="TempSearch.ApprovalStatus" class="form-control">
+							<option value="">ALL</option>
+							<option ng-repeat="status in approvalStatus" value="{{status.Id}}">{{status.Id}} : {{status.Value}}</option>
+                        </select>
+                      </div>
+                      <div class="form-group_dummy col-md-6 pl0 mb10">   						
+						<label class="adv_search_typo" for="contain">Issuer</label>
+                        <select ng-model="TempSearch.IssuerId" class="form-control">
+							<option value="">ALL</option>
+							<option ng-repeat="id in issuerIds" value="{{id.Id}}">{{id.Id}} : {{id.IssuerName}}</option>
+                        </select>
+                        <!-- <div>
+                            <ui-select ng-model="TempSearch.IssuerId" theme="select2" ng-disabled="disabled" style="min-width: 240px;" title="Choose" ng-keyup="getMoreResultIssuerId($select.search)">
+                                <ui-select-match placeholder="ALL">{{$select.selected.Id}}: {{$select.selected.IssuerName}}</ui-select-match>
+                                <ui-select-choices repeat="issuer in IssuerIds | propsFilter: {Id: $select.search, IssuerName: $select.search}">
+                                    <div>
+                                        <span ng-bind-html="issuer.Id | highlight: $select.search"></span> : <span ng-bind-html="issuer.IssuerName | highlight: $select.search"></span>
+                                    </div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div> -->
+                      </div>
+                      <div class="form-group_dummy col-md-6 pl0 mb10">   						
+						<label class="adv_search_typo" for="contain">Year</label>
+                        <select ng-model="TempSearch.BusinessYear" class="form-control">
+							<option value="">ALL</option>
+							<option ng-repeat="year in years" value="{{year.val}}">{{year.val}}</option>
+                        </select>
+                      </div>
+                      <div class="form-group_dummy col-md-6 pl0 mb10">      
+							<label class="adv_search_typo" for="contain">Mrkt</label>
+							<select ng-model="TempSearch.filterByMarketCover" class="form-control">
+							  <option value="">All Market Cover</option>
+							  <option ng-repeat="marketCoverage in marketCoverages" value="{{marketCoverage}}">{{marketCoverage}}</option>
+							</select>
+						</div>
+                      <div class="form-group_dummy col-md-6 pl0 mb10">   						
+						<label class="adv_search_typo" for="contain">GrpName</label>
+                        <select ng-model="TempSearch.GroupName" class="form-control">
+							<option value="">ALL</option>
+							<option ng-repeat="name in groupNames" value="{{name}}">{{name}}</option>
+                        </select>
+                      </div>
+                      <div class="form-group_dummy col-md-6 pl0 mb10">  
+						 <label class="adv_search_typo" for="filter">Open</label>
+							<select ng-model="TempSearch.searchByIsActive" class="form-control">
+							  <option value="">All Plans</option>
+							  <option value="true">Yes</option>
+							  <option value="false">No</option>
+							</select>
+						</div>
+						<div class="form-group_dummy col-md-6 pl0 mb10">  
+						 <label class="adv_search_typo" for="filter">State</label>
+							<select ng-model="TempSearch.searchByStateCode" class="form-control">
+							  <option value="">All States</option>
+							  <option ng-repeat="state in states" value="{{state.StateCode}}">{{state.StateName}}</option>
+							</select>
+						</div>
+				<div style="display:none">
+                        <button ng-click="setPlanattributeList()" type="submit" class="btn tp-btn-blue hvr-radial-out adv_srch_btn"><i class="fa fa-search"></i></button>
+                      </div>
+					  </form>
+                    </div>
+                  </div>
+                  <button ng-click="setPlanattributeList()" type="button" class="hvr-radial-out btn tp-btn tp-btn-blue adv_srch_btn"><i class="fa fa-search mr10"></i>Search</button>
+                  <button ng-click="resetPlanattributeList()" type="button" class="hvr-radial-out-black btn tp-btn-grey adv_srch_btn"><i class="fa fa-refresh mr10"></i>Reset</button>
+                </div>
+              </div>
+            </div>        
+        </div>
+	
+		<div class="row"> 
+			<div class="col-md-3 browse-select">
+			  <input type="file" name="file" class="form-control"  
+                  onchange="angular.element(this).scope().loadFile(this.files)"  />
+            <span> Import </span> </div>
+		
+		
+		<div class="col-md-4 pull-right"> 
+			<a title="Export Cases" ng-click="exportReport();" class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle mb20 mr10 pull-right" href="javascript:void(0)"> <i class="fa fa-file-excel-o mr10" aria-hidden="true"></i>Export</a>
+
+			<a title="create new planattribute" class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle mb20 pull-right mr10" href="insuranceplantype/newplanattribute"> <i class="fa fa-plus mr10"></i>Add New PlanAttribute</a>
+		</div>
+		
+		<!-- end : Function to export plan attribute list. -->
+		
+		<div class="col-md-12 text-center list-title">
+			<h2 class="mb0">{{title}}</h2>
+		</div>
+        
+      </div>
+      <!-- end col 12-->      
+      <div class="col-md-12">   			
+        <table class="table table-bordered table-condensed table-nowrap table-striped table-hover">
+          <thead>
+            <tr>
+              <th style="width:7%;"><a ng-click="sort_by('Id')">#ID<i class="fa fa-sort ml20"></i></a></th>
+              <th style="width:15%;"><a ng-click="sort_by('PlanId')">Plan Id<i class="fa fa-sort ml20"></i></a></th>
+              <th style="width:15%;">Plan Name</th>
+							<th style="width:15%;">Group Name</th>
+              <th style="width:7%;">Year</th>
+              <th style="width:8%;">Mrkt</th>
+              <th style="width:8%;">HSA</th>
+              <th style="width:10%;">IndDed</th>
+              <th style="width:10%;">IndMOOP</th>
+              <th style="width:10%;">#UnassgnBen</th>
+              <th style="width:10%;">#Cases</th>
+			  <th style="width:12%;">AprvStatus</th>
+			  <th style="width:16%;">Action</th>
+            </tr>
+          </thead>
+          <tbody> 
+		 
+            <tr ng-repeat="planattribute in planattributes">
+              <td class="text-right" title="{{planattribute.Id}}">{{planattribute.Id}}</td>
+              <td class="text-right" title="{{planattribute.PlanId}}">{{planattribute.PlanId}}</td>
+              <td class="text-right" title="{{planattribute.PlanMarketingName}}">{{planattribute.PlanMarketingName}}</td>
+							<td class="text-right" title="{{planattribute.GroupName}}">{{planattribute.GroupName}}</td>
+              <td class="text-right" title="{{planattribute.BusinessYear}}">{{planattribute.BusinessYear}}</td>       
+              <td class="text-left" title="{{planattribute.MrktCover}}">{{planattribute.MrktCover}}</td>
+              <td class="text-left" title="{{planattribute.IsHSAEligible}}">{{planattribute.IsHSAEligible}}</td>
+              <td class="text-left" title="{{planattribute.TEHBDedInnTier1Individual}}">{{planattribute.TEHBDedInnTier1Individual}}</td>
+              <td class="text-left" title="{{planattribute.TEHBInnTier1IndividualMOOP}}">{{planattribute.TEHBInnTier1IndividualMOOP}}</td>
+              <td class="text-left" title="{{planattribute.UnassgnBen}}">{{planattribute.UnassgnBen}}</td>
+              <td class="text-left" title="{{planattribute.NoOfCases}}">{{planattribute.NoOfCases}}</td>
+			  <td class="text-right" title="{{planattribute.ApprovalStatus}}">{{planattribute.ApprovalStatus}}</td>
+			  <td class="text-center">
+              	<a title="create new planattribute" class="color_green add_case_btn" href="insuranceplantype/editplanattribute/{{planattribute.Id}}/copy"><i class="fa fa-plus"></i></a>
+
+				<a href="insuranceplantype/viewplanattribute/{{planattribute.Id}}/{{sortby}}/{{desc}}" title="View" class="color_green add_case_btn"><i class="fa fa-eye"></i> </a>
+
+				<a href="insuranceplantype/editplanattribute/{{planattribute.Id}}/{{sortby}}/{{desc}}" title="Edit" class="color_orange add_case_btn"><i class="fa fa-pencil"></i> </a>
+				
+				<a ng-if="planattribute.OpenForEnrollment == false" ng-click="changeStatus('true',$event)" id="{{planattribute.Id}}" data-alert="{{messages.confirmActivatePlanAttribute}}" href="javascript:void(0)" title="{{messages.confirmActivatePlanAttribute}}" class="color_orange view_case_btn"><i id="{{planattribute.Id}}" data-alert="{{messages.confirmActivatePlanAttribute}}" value="{{planattribute.ApprovalStatus}}" class="fa fa-ban"></i> </a>
+				
+				<a ng-if="planattribute.OpenForEnrollment == true" ng-click="changeStatus('false',$event)" id="{{planattribute.Id}}" data-alert="{{messages.confirmDeactivatePlanAttribute}}" href="javascript:void(0)"  title="{{messages.confirmDeactivatePlanAttribute}}" class="color_orange view_case_btn"><i id="{{planattribute.Id}}" value="{{planattribute.ApprovalStatus}}" data-alert="{{messages.confirmDeactivatePlanAttribute}}" class="fa fa-remove"></i> </a>
+			</td>
+            </tr>
+            <tr ng-if="!(TotalCount > 0)">
+              <td colspan="15">No Record Found.</td>
+            </tr>
+          </tbody>
+		 
+          <tfoot ng-if="TotalCount > 0">
+            <tr>
+              <td colspan="15"><span class="tot_rec_title"><i class="fa fa-check-circle mr10"></i> Total Records : {{TotalCount}}</span>
+                <div ng-if="TotalCount > pageSize" class="text-center">
+                  <ul class="pagination">
+                    <li ng-class="{disabled: page == 1}"> <a href="javascript:;" ng-click="prevPage()"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Prev</a> </li>
+                    <li ng-repeat="n in range() track by $index" ng-class="{ active :n == page, disabled : n == '...' }" ng-click="setPage()"><a href="javascript:;" ng-bind="n">{{ n }}</a></li>  
+                    <li ng-if="page != (lastCount | number : 0)" ng-class="{disabled: page == (lastCount | number : 0)}"> <a ng-click="nextPage()" href="javascript:;" >Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></a> </li>
+                    <li ng-if="page == (lastCount | number : 0)" ng-class="{disabled: page == (lastCount | number : 0)}"> <a href="javascript:;" >Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></a> </li>
+                  </ul>
+                </div></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <!--end col 12--> 
+      
+    </div>
+    <!--end row--> 
+    
+  </div>
+</div>
+<!-- /.wizard form -->
+</div>
+<div ng-include src="'partials/include/footer.html'"></div>
+

@@ -1,0 +1,1236 @@
+﻿<style>
+    .main-container {
+        padding-bottom: 0px;
+    }
+
+    .wrapper {
+        height: auto;
+    }
+
+    #footer {
+        height: 40px;
+        position: relative !important;
+    }
+
+    .style1 {
+        width: 147px;
+    }
+
+    .cst-table-title-col {
+        width: 202px !important;
+    }
+</style>
+
+<head>
+    <title>{{title}}</title>
+</head>
+<div ng-include src="'partials/include/header.html'"></div>
+<div class="main-container pt0" id="main-container" ng-hide="pageLoading">
+    <div class="row_dummy one-column grid-media-box1">
+        <div id="floating-button">
+            <h3 class="floating-typo">
+                <a href="javascript:void(0)" ng-click="tempSaveChanges(false) ">Save Case</a>
+            </h3>
+
+        </div>
+        <div class="col-md-12">
+            <div class="tp-wizard-form" id="tp-wizard-form">
+                <div class="container">
+                    <div class="row">
+                        <p ng-show="flash.status" class="alert {{flash.type}}">{{flash.message}}
+                            <a class="close" ng-click="closeFlash()">
+                                <i class="fa fa-close"></i>
+                            </a>
+                        </p>
+                        <div ng-show="readOnly" class="col-md-10 pull-left">
+                            <a style="position:absolute;right:0;z-index:9;" title="create new case" class="btn tp-btn tp-btn-orange dropdown-toggle mb20 pull-right cpy_case_btn"
+                                href="editCase/false/{{Case.CaseID}}/copy">
+                                <i class="fa fa-plus mr10"></i>Create a copy of case</a>
+                                
+                        </div>
+                        <form name="form" id="caseAdd" ng-submit="createCase($event)">
+                            <div class="welcome_view" ng-if="formLoading">
+                                <div class="w-cont">
+                                    <div class="loading_dots_view">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="wizard" class="swMain">
+                                <ul>
+                                    <li>
+                                        <a href="#step-1">
+                                            <label class="stepNumber">1</label>
+                                            <span class="stepDesc"> Step 1
+                                                <br />
+                                                <small>
+                                                    <b>Household</b>
+                                                </small>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#step-2">
+                                            <label class="stepNumber">2</label>
+                                            <span class="stepDesc"> Step 2
+                                                <br />
+                                                <small>
+                                                    <b>Medical Usage</b>
+                                                </small>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#step-3">
+                                            <label class="stepNumber">3</label>
+                                            <span class="stepDesc"> Step 3
+                                                <br />
+                                                <small>
+                                                    <b>Results</b>
+                                                </small>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div id="step-1">
+                                    <div class="pb0 pt0">
+                                        <div class="container">
+                                            <div class="row_dummy">
+                                                <div class="col-md-12 pr0">
+
+                                                    <a href="cases" class="hvr-radial-out-black btn tp-btn tp-btn-grey dropdown-toggle pull-right" style="position:absolute;right:0;z-index:9;">
+                                                        Close </a>
+                                                </div>
+                                                <div class="case_status_txt"> Current Status : {{Case.CaseStatus}} </div>
+                                                <div class="row col-md-12">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <h3 class="tp-title mb0 color_blue">
+                                                                <i class="fa fa-user mr10"></i>
+                                                                <strong>Applicant Section</strong>
+                                                            </h3>
+                                                            <div class="col-md-6 pl0">
+                                                                <div class="form-group mb0">
+                                                                    <label class="control-label" for="fname">First Name:
+                                                                        <span class="required">*</span>
+                                                                    </label>
+                                                                    <input ng-readonly="{{readOnly}}" ng-maxlength="50" ng-model="Applicant.FirstName" id="fname" name="fname" type="text" placeholder="First name"
+                                                                        ng-change="createCaseTitle(); ChangesOccur();" class="form-control input-md"
+                                                                        required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 pr0">
+                                                                <div class="form-group mb0">
+                                                                    <label class="control-label" for="lname">Last Name:
+                                                                        <span class="required">*</span>
+                                                                    </label>
+                                                                    <input ng-readonly="{{readOnly}}" ng-maxlength="50" ng-model="Applicant.LastName" id="lname" name="lname" type="text" placeholder="Last name"
+                                                                        ng-change="createCaseTitle(); ChangesOccur();" class="form-control input-md"
+                                                                        required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12 pl0 pr0">
+                                                                <div class="form-group mb0">
+                                                                    <label class="control-label" for="checkboxes-0">
+                                                                        <input ng-disabled="{{readOnly}}" ng-readonly="{{readOnly}}" ng-model="Applicant.Origin" type="checkbox" value="true" id="checkboxes-0"
+                                                                            name="origin">
+                                                                        <span style="font-size:12px;">&nbsp;&nbsp;&nbsp;&nbsp;If American Indian, please
+                                                                            check this box {{Applicant.Origin}}</span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 pl0 ">
+                                                                <div class="form-group mb0">
+                                                                    <label class="control-label" for="policy">Contact Zip Code:
+                                                                        <span class="required">*</span>
+                                                                    </label>
+                                                                    <input ng-blur="updateZipcode();" ng-change="ChangesOccur();" ng-readonly="{{readOnly}}" ng-maxlength="10" ng-model="Applicant.Zip"
+                                                                        type="text" required class="form-control input-md" placeholder="Contact Zip Code"
+                                                                        name="zipcode" id="zipcode">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 pr0">
+                                                                <div class="form-group mb0">
+                                                                    <div class="col-md-12 pl0 pr0">
+                                                                        <div class="col-md-6 pl0">
+                                                                            <label class="control-label" for="city">City:
+                                                                                <span class="required">*</span>
+                                                                            </label>
+                                                                            <input ng-readonly="{{readOnly}}" ng-maxlength="50" ng-model="Applicant.City" ng-change="ChangesOccur();" id="city" name="city"
+                                                                                type="text" placeholder="City" class="form-control input-md"
+                                                                                required>
+                                                                        </div>
+                                                                        <div class="col-md-6 pl0 pr0">
+                                                                            <label class="control-label" for="State">State:
+                                                                                <span class="required">*</span>
+                                                                            </label>
+                                                                            <select ng-disabled="{{readOnly}}" ng-readonly="{{readOnly}}" class="form-control" name="State" id="State" ng-model="Applicant.State"
+                                                                                ng-change="ChangesOccur();" required>
+                                                                                <option value="">Select State</option>
+                                                                                <option ng-repeat="state in stateList" value="{{state.StateID}}">{{state.StateName}}</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12 pl0 pr0">
+                                                                <div class="col-md-6 pl0 ">
+                                                                    <div class="form-group mb0">
+                                                                        <label class="control-label" for="phone">Mobile Phone Number:
+                                                                            <span class="required">*</span>
+                                                                        </label>
+                                                                        <input ng-readonly="{{readOnly}}" maxlength="14" ng-model="Applicant.Mobile" ng-change="ChangesOccur();" type="text" required
+                                                                            class="form-control input-md" placeholder="Mobile Phone Number"
+                                                                            name="phone" id="phone" phone-input>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 pr0 ">
+                                                                    <div class="form-group mb0">
+                                                                        <label class="control-label" for="email">E - mail:
+                                                                            <span class="required">*</span>
+                                                                        </label>
+                                                                        <input ng-readonly="{{readOnly}}" required ng-maxlength="50" type="text" ng-model="Applicant.Email" ng-change="ChangesOccur(); "
+                                                                            class="form-control input-md" placeholder="E - mail"
+                                                                            name="email" id="email">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12 pl0 pr0">
+                                                                <div class="form-group mb0">
+                                                                    <label class="control-label mt0" for="lname">Address (street):</label>
+                                                                    <textarea ng-readonly="{{readOnly}}" ng-maxlength="200" ng-model="Applicant.Street" ng-change="ChangesOccur();" placeholder="Write Address (street) ...."
+                                                                        name="address" id="address" rows="2" class="form-control"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 border-left-dashed pr0">
+                                                            <h3 class="tp-title mb0 color_blue">
+                                                                <i class="fa fa-briefcase mr10"></i>
+                                                                <strong>Case Master</strong>
+                                                            </h3>
+                                                            <div class="col-md-12 pl0 pr0">
+                                                                <div class="col-md-6 pl0">
+                                                                    <div class="form-group mb0">
+                                                                        <label class="control-label" for="JobNo">Job Number:
+                                                                            <span class="required">*</span>
+                                                                        </label>
+                                                                        <select ng-disabled="{{readOnly}}" ng-readonly="{{readOnly}}" class="form-control" name="caseJobNo" id="caseJobNo" ng-model="Case.JobNumber"
+                                                                            ng-change="updateJobNo(); ChangesOccur();" required>
+                                                                            <option value="">Select</option>
+                                                                            <option ng-repeat="jobNo in jobNos" value="{{jobNo.JobNumber}}">{{jobNo.JobNumber}} - {{jobNo.EmployerId}} -
+                                                                                {{jobNo.JobDesc}}
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 pr0">
+                                                                    <div class="form-group mb0">
+                                                                        <label for="Year" class="control-label"> Year:
+                                                                            <span class="required">*</span>
+                                                                        </label>
+                                                                        <div>
+                                                                            <input ng-readonly="true" type="text" ng-model="Case.Year" class="form-control input-md" id="Year" name="Year" required>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12 pl0 pr0">
+                                                                <div class="col-md-6 pl0">
+                                                                    <div class="form-group mb0">
+                                                                        <label class="control-label" for="ZipCode">Case Zip Code:
+                                                                            <span class="required">*</span>
+                                                                        </label>
+                                                                        <input ng-change="updateZip(); ChangesOccur();" ng-readonly="{{readOnly}}" ng-maxlength="10" maxlength="10" ng-model="Case.ZipCode"
+                                                                            type="text" required class="form-control input-md"
+                                                                            placeholder="Contact Zip Code" name="caseZipCode"
+                                                                            id="caseZipCode">
+                                                                        <span class="error_home" ng-show="form.caseZipCode.$error.maxlength">Max character length 10.</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 pr0">
+                                                                    <div class="form-group mb0">
+                                                                        <label class="control-label" for="CountyName">County:
+                                                                            <span class="required">*</span>
+                                                                        </label>
+                                                                        <select ng-change="updateCounty(); ChangesOccur();" ng-readonly="{{readOnly}}" ng-disabled="{{readOnly}}" class="form-control"
+                                                                            name="CountyName" id="CountyName" ng-model="Case.CountyName"
+                                                                            required>
+                                                                            <option value="">Select County</option>
+                                                                            <option nf-if="County.RatingAreaId !='' " ng-repeat="County in CountyList" value="{{County.CountyName}}">{{County.CountyName}}</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12 pl0 pr0">
+                                                                <div class="col-md-6 pl0">
+                                                                    <div class="form-group mb0">
+                                                                        <label for="EmployerId" class="control-label"> Select Employer:
+                                                                            <span class="required">*</span>
+                                                                        </label>
+                                                                        <div>
+                                                                            <input ng-readonly="true" type="text" ng-model="EmployerName" class="form-control input-md" id="EmployerId" name="EmployerId"
+                                                                                ng-change="updateEmloyer();" required>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- <div class="col-md-6 pr0" ng-if="Applicant.EmployerId != messages.IndividualEmployerId && Applicant.EmployerId != messages.ShopEmployerId && Applicant.EmployerId != '' "> -->
+                                                                <div class="col-md-6 pr0">
+                                                                    <div class="form-group mb0">
+                                                                        <!-- <label for="insuranceType" class="control-label">Insurance Type: <span class="required">*</span></label> -->
+                                                                        <label for="agentInterviewed" class="control-label">Interviewed By:
+                                                                            <!-- <span class="required">*</span> -->
+                                                                        </label>
+                                                                        <div>
+                                                                            <select ng-disabled="{{readOnly}}" ng-readonly="{{readOnly}}" class="form-control" name="caseJobAgentInterviewed" id="caseJobAgentInterviewed"
+                                                                                ng-model="Case.Agent">
+                                                                                <!-- <select ng-disabled="{{readOnly}}" ng-readonly="{{readOnly}}" class="form-control" name="caseJobAgentInterviewed" id="caseJobAgentInterviewed"
+                                                                                ng-model="Case.Agent" required> -->
+                                                                                <option value="">Select Agent</option>
+                                                                                <option ng-repeat="agent in agentsList2" value="{{agent.id}}">{{agent.Name}}</option>
+                                                                            </select>
+                                                                            <input ng-readonly="true" type="hidden" ng-model="InsuranceName" class="form-control input-md" id="insuranceType" ng-change="updateCarrier();getTopInsurancePlan(0);">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12 pl0 pr0">
+                                                                <div class="col-md-6 pl0">
+                                                                    <div class="form-group mb0">
+                                                                        <label class="control-label" for="CurrentPlan">Current Plan:</label>
+                                                                        <select ng-disabled="{{readOnly}}" ng-readonly="{{readOnly}}" class="form-control" name="CurrentPlan" id="CurrentPlan"
+                                                                                ng-model="Applicant.CurrentPlan">
+                                                                                <!-- <select ng-disabled="{{readOnly}}" ng-readonly="{{readOnly}}" class="form-control" name="caseJobAgentInterviewed" id="caseJobAgentInterviewed"
+                                                                                ng-model="Case.Agent" required> -->
+                                                                                <option value="">Select plan</option>
+                                                                                <option value="Waived">Waived</option>
+                                                                                <option value="NewHire">New Hire</option>
+                                                                                <option ng-repeat="plan in allPlans" value="{{plan.Id}}">{{plan.SelectedPlanTitle}}</option>
+                                                                            </select>
+                                                                        <!-- <input ng-readonly="{{readOnly}}" ng-model="Applicant.CurrentPlan" ng-change="ChangesOccur();" ng-maxlength="50" maxlength="50"
+                                                                            id="CurrentPlan" name="CurrentPlan" type="text" placeholder="Current Plan"
+                                                                            class="form-control input-md"> -->
+                                                                    </div>
+                                                                </div>
+
+
+                                                            
+
+                                                                <div class="col-md-6 pr0 mb10">
+                                                                    <label class="control-label" for="CaseTitle">Date of Interview:
+                                                                    </label>
+                                                                    <div class="form-group mb0">
+                                                                        <div class="col-md-4 pr0 pl0">
+                                                                            <select ng-disabled="{{readOnly}}" ng-readonly="{{readOnly}}" ng-required="{{InterviewvaliMonth == false}}" ng-model="SelectedMonth"
+                                                                                class="form-control" ng-change="changeMonth();">
+                                                                                <!-- ng-options="Month for Month in InterviewMonths"> -->
+                                                                                <option value="">Select Month</option>
+                                                                                <option ng-repeat="Interviewmonth in InterviewMonths" value="{{Interviewmonth.id}}">{{Interviewmonth.label}}</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="col-md-4 pr0">
+                                                                            <select ng-disabled="{{readOnly}}" ng-readonly="{{readOnly}}" ng-required="Interviewvaliday == false" ng-model="SelectedDay"
+                                                                                class="form-control" ng-change="checkDay();"
+                                                                                ng-options="Day for Day in InterviewDays">
+                                                                                <option value="">Select Day</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="col-md-4 pr0">
+                                                                            <select ng-disabled="{{readOnly}}" ng-readonly="{{readOnly}}" ng-required="Interviewvaliyear == false" ng-model="SelectedYear"
+                                                                                class="form-control" ng-change="checkYear();"
+                                                                                ng-options="Year for Year in InterviewYears">
+                                                                                <option value="">Select Year</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                
+
+
+
+                                                                
+                                                            </div>
+                                                            <div class="col-md-6 pl0 pr0">
+                                                                <div class="col-md-12 pl0">
+                                                                    <!-- <div class="form-group mb0">
+                                                                        <label class="control-label mt10" for="PreviousYrHSA">
+                                                                            <input ng-disabled="{{readOnly}}" ng-readonly="{{readOnly}}" ng-model="Case.PreviousYrHSA" type="checkbox" value="true" id="PreviousYrHSA"
+                                                                                name="PreviousYrHSA">
+                                                                            <span style="font-size:12px;">&nbsp;&nbsp;&nbsp;&nbsp;Previous Year HSA?</span>
+                                                                        </label>
+                                                                    </div> -->
+                                                                    <div class="col-md-6 pr0 pl0">
+                                                                        <div class="col-md-12 pl0">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label mt10" for="PrimaryCase">
+                                                                                    <input ng-disabled="{{readOnly}}" ng-readonly="{{readOnly}}" ng-model="Case.PrimaryCase" type="checkbox" value="true" id="PrimaryCase"
+                                                                                        name="PrimaryCase">
+                                                                                    <span style="font-size:12px;">&nbsp;&nbsp;&nbsp;&nbsp;Use for Optimization</span>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 pr0 pl0">
+                                                                        <div class="col-md-12 pl0">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label mt10" for="AlternateCase">
+                                                                                    <input ng-disabled="{{readOnly}}" ng-readonly="{{readOnly}}" ng-model="Case.AlternateCase" type="checkbox" value="true" id="AlternateCase"
+                                                                                        name="AlternateCase">
+                                                                                    <span style="font-size:12px;">&nbsp;&nbsp;&nbsp;&nbsp; Alternate</span>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                    
+
+                                                            <div class="col-md-3">
+                                                                <div class="col-md-12 pl0">
+                                                                    <div class="form-group">
+                                                                        <a href="javascript:void(0)" ng-disabled="{{readOnly}}" ng-readonly="{{readOnly}}" class="btn tp-btn tp-btn-grey actionBar"
+                                                                            ng-click="SetCurrentdate() ">SET TODAY'S DATE</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+
+
+
+
+                                                        
+
+                                                            <div class="col-md-6 pr0" ng-if="Applicant.EmployerId == messages.IndividualEmployerId || Applicant.EmployerId == messages.ShopEmployerId">
+                                                                <div class="form-group mb0">
+                                                                    <label class="control-label" for="CurrentPremium">Current Premium:</label>
+                                                                    <input numeric-only ng-readonly="{{readOnly}}" ng-maxlength="50" maxlength="50" ng-model="Applicant.CurrentPremium" id="CurrentPremium"
+                                                                        name="CurrentPremium" type="text" placeholder="Current Premium"
+                                                                        class="form-control input-md">
+                                                                </div>
+                                                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                            <div class="col-md-12 pl0 pr0">
+                                                                <div class="col-md-6 pl0">
+                                                                    <div class="form-group mb0">
+                                                                        <label class="control-label" for="JobNo">Case Source: </label>
+                                                                        <input ng-change="updateCaseSource();" readOnly ng-model="Case.CaseSource" type="text" class="form-control input-md" placeholder="Case Source"
+                                                                            name="CaseSource" id="CaseSource">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 pr0">
+                                                                    <div class="form-group mb0">
+                                                                        <label class="control-label" for="CaseTitle">Case title:
+                                                                            <span class="required">*</span>
+                                                                        </label>
+                                                                        <input unique-title ng-readonly="{{readOnly}}" ng-maxlength="50" ng-model="Case.CaseTitle" ng-change="ChangesOccur();" case-id="Case.CaseID"
+                                                                            case-action="Case.CaseAction" id="CaseTitle" name="CaseTitle"
+                                                                            type="text" placeholder="Case title" class="form-control input-md"
+                                                                            required>
+                                                                        <span class="error_home" ng-show="form.CaseTitle.$error.uniqueTitle && !readOnly">{{messages.sameCaseTitleWarning}}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="step-2">
+                                    <div class="row_dummy two-column">
+                                        <div class="col-md-6 pl0 pr5 {{totalGridClass}}">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Personal</h3>
+                                                </div>
+                                                <div>
+                                                    <div class="panel-body pb0">
+                                                        <div class="col-md-12 col-sm-6 pl0 pr0">
+                                                            <div class="col-md-6 col-sm-6 pl0 border-right-dashed width_f_grid8_usage">
+                                                                <div class="form-group mb0">
+                                                                    <label class="control-label mt0" for="policy">Select Usage Code:
+                                                                        <span class="required">*</span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-group cst_form-group_dummy">
+                                                                    <select ng-disabled="{{readOnly}}" ng-click="getUsageCode()" ng-change="changeUsageCode(true);getTopInsurancePlan(0);ChangesOccur();"
+                                                                        ng-readonly="{{readOnly}}" required class="form-control"
+                                                                        name="code" id="code" ng-model="Case.UsageID">
+                                                                        <option ng-repeat="code in codes" value="{{code.UsagaId}}">{{code.UsageType}}</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group_dummy">
+                                                                    <label class="control-label mt0 mr20" for="checkboxes-0">
+                                                                        <input ng-change="getTopInsurancePlan(0);ChangesOccur();" ng-disabled="{{readOnly}}" ng-readonly="{{readOnly}}" ng-model="Case.Welness"
+                                                                            type="checkbox" value="true" id="checkboxes-0" name="checkboxes">
+                                                                        <span>&nbsp;&nbsp;&nbsp;Wellness</span>
+                                                                    </label>
+                                                                    <label class="control-label mt0" for="checkboxes-0">
+                                                                        <input ng-change="getTopInsurancePlan(0);ChangesOccur();" ng-disabled="{{readOnly}}" ng-readonly="{{readOnly}}" ng-model="Case.IsSubsidy"
+                                                                            type="checkbox" value="true" id="checkboxes-0" name="checkboxes">
+                                                                        <span>&nbsp;&nbsp;&nbsp;Calculate Subsidy</span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-group_dummy mb20">
+                                                                    <label class="control-label mt10 mr20" for="PrimaryCase">
+                                                                        <input ng-disabled="{{readOnly}}" ng-readonly="{{readOnly}}" ng-model="Case.PrimaryCase" type="checkbox" value="true" id="PrimaryCase"
+                                                                            name="PrimaryCase">
+                                                                        <span style="font-size:12px;">&nbsp;&nbsp;&nbsp;&nbsp;Use for Optimization</span>
+                                                                    </label>
+                                                                    <label class="control-label mt10" for="Alternatecase">
+                                                                        <input ng-disabled="{{readOnly}}" ng-readonly="{{readOnly}}" ng-model="Case.AlternateCase" type="checkbox" value="true" id="Alternatecase"
+                                                                            name="Alternatecase">
+                                                                        <span style="font-size:12px;">&nbsp;&nbsp;&nbsp;&nbsp;Alternate</span>
+                                                                    </label>
+
+                                                                </div>
+                                                                <div class="form-group mb0">
+                                                                    <label class="control-label">DedBalAvailToRollOver:
+                                                                        <span class="required">*</span>
+                                                                    </label>
+                                                                    <input id="DedBalAvailToRO" name="DedBalAvailToRO" ng-model="Case.DedBalAvailToRollOver" ng-change="getTopInsurancePlan(0);ChangesOccur();"
+                                                                        type="text" class="form-control input-md" only-digits/>
+                                                                </div>
+                                                                <div class="form-group mb0">
+                                                                    <label class="control-label">DedBalAvailDate:
+                                                                        <span class="required">*</span>
+                                                                    </label>
+                                                                    <input id="DedBalAvlDate" name="DedBalAvlDate" ng-click="open_start($event)" class="form-control date-disabled datepicker"
+                                                                        type="text" name="jobStartDate" id="jobStartDate" uib-datepicker-popup="MM/dd/yyyy"
+                                                                        ng-model="Case.DedBalAvailDate" ng-change="getTopInsurancePlan(0);ChangesOccur();"
+                                                                        is-open="startDate.isOpned" max-date="maxStartDate" datepicker-options="dateOptions"
+                                                                        date-disabled="disabled(date, mode)" close-text="Close"
+                                                                    />
+                                                                    <label id="DedBalAvlDate-error" class="error_home" ng-If="IsDedBalAvlDate" for="DedBalAvlDate">This field is required.</label>
+                                                                </div>
+
+                                                                <div class="form-group mb0">
+                                                                    <label class="control-label" for="MAGIncome">MAGI:
+                                                                        <span class="required">*</span>
+                                                                    </label>
+                                                                    <input ng-maxlength="7" format-currency numeric-only ng-readonly="{{readOnly}}" ng-model="Case.MAGIncome" ng-change="getTopInsurancePlan(0);ChangesOccur();"
+                                                                        id="MAGIncome" name="MAGIncome" type="text" placeholder="MAGI"
+                                                                        class="form-control input-md" required>
+                                                                    </input>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-6 pr0 width_f_grid8_fpl">
+                                                                <div class="col-md-12 col-sm-6 pl0 pr0">
+                                                                    <div class="col-md-6 col-sm-6 pl0 pr0 width_f_grid7">
+                                                                        <div class="cst_blue_box ml0 mr0">
+                                                                            <h4 class="color_blue">FPL% </h4>
+                                                                            <label class="box_width mt0 mb0">{{Case.FPL | percentage:0}}</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 col-sm-6 pr0 width_f_grid7">
+                                                                        <div class="cst_blue_box ml0 mr0">
+                                                                            <h4 class="color_blue">Subsidy Amount </h4>
+                                                                            <label class="box_width mt0 mb0">{{Case.SubsidyAmount | mycurrency:"$"}}</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12 col-sm-6 pl0 pr0">
+                                                                    <div class="col-md-6 col-sm-6 pl0 pr0 width_f_grid7">
+                                                                        <div class="form-group mb0 ">
+                                                                            <label class="control-label" for="TaxRate">Tax Rate %: </label>
+                                                                            <input ng-change="getTopInsurancePlan(0); ChangesOccur();" ng-max="100" ng-readonly="{{readOnly}}" ng-maxlength="6" ng-model="Case.TaxRate"
+                                                                                id="TaxRate" name="TaxRate" type="text" placeholder="Tax Rate"
+                                                                                class="form-control input-md">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 col-sm-6 pr0">
+                                                                        <div class="cst_blue_box mt20 ml0 mr0 width_f_grid7">
+                                                                            <h4 class="color_blue">Total Medical Usage</h4>
+                                                                            <label class="box_width mt0 mb0">{{Case.TotalMedicalUsage | mycurrency:"$"}}</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12 col-sm-6 pl0 pr0">
+                                                                    <div class="col-md-6 col-sm-6 pl0 pr0 width_f_grid7">
+                                                                        <div class="form-group mb0">
+                                                                            <label class="control-label" for="HSAFunding">HSA Funding %</label>
+                                                                            <input ng-change="getTopInsurancePlan(0); ChangesOccur();" ng-max="100" ng-readonly="{{readOnly}}" ng-model="Case.HSAFunding"
+                                                                                id="HSAFunding" name="HSAFunding" ng-maxlength="6"
+                                                                                type="text" placeholder="HSA Funding" class="form-control input-md">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 col-sm-6 pr0 width_f_grid7">
+                                                                        <div class="cst_blue_box mt20 ml0 mr0 width_f_grid7">
+                                                                            <h4 class="color_blue">HSA Limit</h4>
+                                                                            <label class="box_width mt0 mb0">{{Case.HSALimit | mycurrency:"$"}}</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12 col-sm-6 pl0 pr0">
+                                                                    <div class="col-md-6 col-sm-6 pl0 pr0 width_f_grid7">
+                                                                        <div class="cst_blue_box mt20 ml0 mr0">
+                                                                            <h4 class="color_blue">HSA Amount</h4>
+                                                                            <label class="box_width mt0 mb0">{{Case.HSAAmount | mycurrency:"$"}}</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12 col-sm-6 pl0 pr0" style="padding-top:4px;">
+                                                                    <label class="control-label">TierIntention:
+                                                                        <span class="required">*</span>
+                                                                    </label>
+                                                                    <select class="form-control" id="TierIn" name="TierIn" ng-change="getTopInsurancePlan(0);ChangesOccur();" ng-model="Case.TierIntention">
+                                                                        <option value="" disabled>select tier intention</option>
+                                                                        <option value="1">tier1</option>
+                                                                        <option value="2">tier2</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <h3 class="typo_filter mb0" style="font-weight:normal;">
+                                                                <i class="fa fa-filter"></i> Apply Filters</h3>
+                                                            <div class="col-md-6 col-sm-6 pl0">
+                                                                <div class="form-group mt10 cst_form-group">
+                                                                    <select ng-change="getTopInsurancePlan(0); ChangesOccur();" ng-disabled="{{readOnly}}" ng-readonly="{{readOnly}}" class="form-control"
+                                                                        name="PlanID" id="PlanID" ng-model="Case.PlanID">
+                                                                        <option value="">Select plan</option>
+                                                                        <option ng-repeat="plan in plans" value="{{plan.PlanID}}">{{plan.PlanType}}</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-6 pr0 ">
+                                                                <div class="col-md-12 ml0 pl0 pr0 mt10">
+                                                                    <div class="form-group cst_form-group">
+                                                                        <select ng-change="getTopInsurancePlan(0); ChangesOccur();" ng-disabled="{{readOnly}}" ng-readonly="{{readOnly}}" class="form-control"
+                                                                            name="carrier" id="carrier" ng-model="Case.IssuerID">
+                                                                            <option value="">Select carrier</option>
+                                                                            <option ng-repeat="carrier in carriers" value="{{carrier.Id}}">{{carrier.IssuerName}}</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Personal</h3>
+                                                </div>
+                                                <div>
+                                                    <div class="panel-body pb0 mb20">
+
+                                                        <div class="col-md-12 col-sm-12 pl0 pr0 mb10">
+                                                            <div class="col-md-6 col-sm-12 pl0 pr0">
+                                                                <div class="col-md-12 pl0 pr0">
+                                                                    <div class="cst_blue_box ml0">
+                                                                        <h4 ng-if="EmployerName !='' " class="color_blue mt10">Case Title</h4>
+                                                                        <label ng-if="EmployerName !='' " class="box_width">{{Case.CaseTitle}}</label>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-12 pl0 pr0">
+                                                                <div class="col-md-12 pl0 pr0">
+                                                                    <div class="cst_blue_box mr0">
+                                                                        <h4 class="color_blue mt10">Contact Zip Code</h4>
+                                                                        <label class="box_width ">{{Applicant.Zip}}</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-12 col-sm-12 pl0 pr0">
+                                                            <div class="col-md-6 col-sm-12 pl0 pr0">
+                                                                <div class="col-md-12 pl0 pr0">
+                                                                    <div class="cst_blue_box ml0">
+                                                                        <h4 class="color_blue mt10" ng-if="Case.CaseReferenceId !=''">Case Reference Id</h4>
+                                                                        <label class="box_width " ng-if=" Case.CaseReferenceId !=''">{{ Case.CaseReferenceId}}</label>
+
+                                                                        <div ng-if="EmployerName !='' " class="for_divider"></div>
+                                                                        <h4 class="color_blue mt10">First Name / Last Name</h4>
+                                                                        <label class="box_width ">{{Applicant.FirstName}} / {{Applicant.LastName}}</label>
+
+                                                                        <div class="for_divider" ng-if=" Case.CaseReferenceId !=''"></div>
+                                                                        <h4 ng-if="EmployerName !='' " class="color_blue mt10">Employer Name</h4>
+                                                                        <label ng-if="EmployerName !='' " class="box_width">{{EmployerName}}</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-12 pl0 pr0">
+                                                                <div class="col-md-12 pl0 pr0">
+                                                                    <div class="cst_blue_box mr0">
+                                                                        <h4 class="color_blue mt10">Case Zip code & County</h4>
+                                                                        <label class="box_width ">{{Case.ZipCode}}
+                                                                            <span ng-if="CountyName !=''">& </span> {{CountyName}}</label>
+                                                                        <div class="for_divider"></div>
+
+                                                                        <h4 class="color_blue mt10">Phone Number</h4>
+                                                                        <label class="box_width ">{{Applicant.Mobile}}</label>
+                                                                        <div class="for_divider"></div>
+                                                                        <h4 class="color_blue mt10"> SLCSP </h4>
+                                                                        <label class="box_width ">{{Case.SecondLowestPlanId}}</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 pl0 pr0">
+                                                            <div class="form-group mb0 mt5">
+                                                                <label class="control-label mt0" for="Notes">Notes:</label>
+                                                                <textarea ng-readonly="{{readOnly}}" ng-maxlength="4000" ng-model="Case.Notes" ng-change="ChangesOccur();" placeholder="Write notes here ...."
+                                                                    name="Notes" id="Notes" rows="2" class="form-control fc10"></textarea>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-6 pl0 pr0 {{altGridClass}}">
+                                            <div class="col-md-12 pl0 pr0">
+                                                <a class="hvr-radial-out-black btn tp-btn tp-btn-grey tp-btn-default pull-right" href="javascript:void(0);" ng-click="saveChangesOnClose()">Close</a>
+                                                <a ng-hide="readOnly" ng-click="restoreDefault(true)" class="hvr-radial-out btn tp-btn tp-btn-default pull-left tp-btn-blue mr5 pl10 pr10"
+                                                    href="javascript:void(0)">Restore Defaults</a>
+                                                    <a ng-hide="readOnly" ng-click="quickViewPopUp()" class="hvr-radial-out btn tp-btn tp-btn-default pull-left tp-btn-blue mr5 pl10 pr10"
+                                                    href="javascript:void(0)">Quick View</a>
+                                                <a ng-if="addNewMemberBtn && addNewMemberBtn!='false'" ng-hide="readOnly" ng-click="addNewMember(false)" class="hvr-radial-out-orange btn tp-btn tp-btn-orange tp-btn-default pull-left pl10 pr10"
+                                                    href="javascript:void(0)">Add New Member</a>
+                                                <div class="case_status_dd">
+                                                    <select required ng-disabled="{{readOnly}}" ng-readonly="{{readOnly}}" class="form-control" name="StatusId" id="StatusId1"
+                                                        ng-model="Case.StatusId">
+                                                        <option value="">Select Status</option>
+                                                        <!-- <span>
+                                                            <option>{{code.StatusCode}}</option> -->
+                                                        <option ng-repeat="code in statusCode" ng-disabled="code.StatusId==11" value="{{code.StatusId}}">{{code.StatusCode}}</option>
+                                                        <!--  <option disabled readOnly ng-if="code.ModifiedBy ==11" value="{{code.StatusId}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{code.StatusCode}}</option>
+                                                        -->
+                                                        </span>
+                                                    </select>
+                                                </div>
+                                                <a ng-click="getTopInsurancePlan(1)" class="hvr-radial-out btn tp-btn tp-btn-blue tp-btn-default pull-right mr5 pl10 pr10"
+                                                    href="javascript:void(0)" ng-hide="readOnly">Calculate Premium</a>
+                                                <div ng-hide="readOnly" class="cst_check_all_premium pull-left">
+                                                    <input class="mt0 cst_check_premium" type="checkbox" value="1" ng-model="auto_calculate" />
+                                                    <span class="typo_checkbox_premium">Auto Calculate On</span>
+                                                </div>
+                                            </div>
+                                            <div ng-include src="'partials/cases/medicalUsage.html'"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="step-3" style="min-height:400px;">
+                                    <div class="row_dummy two-column">
+                                        <div class="col-md-2">
+                                            <div class="col-md-12 pl0">
+                                                <div>
+                                                    <label class="control-label" for="PrimaryCase">
+                                                        <input ng-disabled="{{readOnly}}" ng-readonly="{{readOnly}}" ng-model="Case.PrimaryCase" type="checkbox" value="true" id="PrimaryCase"
+                                                            name="PrimaryCase">
+                                                        <span style="font-size:12px;">Use for Optimization</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="col-md-12 pl0">
+                                                <div>
+                                                    <label class="control-label" for="AlternateCase">
+                                                        <input ng-disabled="{{readOnly}}" ng-readonly="{{readOnly}}" ng-model="Case.AlternateCase" type="checkbox" value="true" id="AlternateCase"
+                                                            name="AlternateCase">
+                                                        <span style="font-size:12px;">Alternate</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 pl0 pr0">
+                                            <div class="col-md-8 col-sm-12 pl0" ng-if="Applicant.EmployerId == messages.IndividualEmployerId">
+                                                <h3 class="cst_blue_box box_width color_blue mt0" style="line-height:22px">Federal Subsidy</h3>
+                                            </div>
+                                            <div class="col-md-4 col-sm-12 pl0 pr0" ng-if="Applicant.EmployerId == messages.IndividualEmployerId">
+                                                <h3 class="cst_blue_box box_width color_blue mt0" style="line-height:22px">{{Case.SubsidyAmount | mycurrency:"$"}}</h3>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-5 pl0 pr0">
+                                            <a ng-if="readOnly" href="cases" class="hvr-radial-out-black btn tp-btn tp-btn-grey tp-btn-default pull-right">Close</a>
+                                            <a ng-if="!readOnly" href="javascript:void(0)" ng-click="close()" class="hvr-radial-out-black btn tp-btn tp-btn-grey tp-btn-default pull-right">Close</a>
+                                            <div class="case_status_dd">
+                                                <select required ng-disabled="{{readOnly}}" ng-readonly="{{readOnly}}" class="form-control" name="StatusId" id="StatusId2"
+                                                    ng-model="Case.StatusId">
+                                                    <option value="">Select Status</option>
+                                                    <option ng-repeat="code in statusCode" ng-disabled="code.StatusId==11" value="{{code.StatusId}}">{{code.StatusCode}}</option>
+                                                </select>
+                                            </div>
+                                            <a ng-if="ShowPrintEmail && graphResults.length > 0" href="javascript:void(0)" ng-click="print()" class="btn tp-btn tp-btn-blue pull-right mr10">
+                                                <i class="fa fa-print mr10"></i>Print</a>
+                                            <a ng-if="ShowPrintEmail && graphResults.length" 0 " href="javascript:void(0) " ng-click="mail() " class="btn tp-btn tp-btn-blue
+                                                pull-right mr10 "><i class="fa fa-envelope mr10 "></i>Send Email</a> 
+                                 <a ng-hide="readOnly " ng-if="ShowFinish " href="javascript:void(0) " ng-click="createCase(false)
+                                                " class="btn tp-btn actionBar tp-btn-orange pull-right mr10 ">Finish</a> 
+                              </div>
+                              <table border="0 " cellspacing="0 " cellpadding="0 ">
+                                 <tr>
+                                    <th width="600 " scope="col " style="background:#fff;text-align:left;font-size:16px;
+                                                padding:0 !important; "><span style="color:#000 ">Ranked in order of lowest to highest estimated total projected cost:</span></th>
+                                 </tr>
+                              </table>
+                              <div class="col-md-12 pl0 pr0 " ng-if="graphResults.length> 0">
+                                                <h2 ng-if="Applicant.EmployerId == messages.IndividualEmployerId || Applicant.EmployerId == messages.ShopEmployerId">Top 6 Plans</h2>
+                                                <div class="col-md-12 pl0 pr0">
+                                                    <div style="width:121px !important;" class="col-md-1 pl0 pr0" ng-if="graphResults.length > 0">
+                                                        <div class="col-md-12 pl0 pr0">
+                                                            <div class="form-group mb0">
+                                                                <label class="control-label" for="caseTitle">
+                                                                    <strong>Case title</strong>
+                                                                    <span class="color_rstpg_infor">{{Case.CaseTitle}}</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div style="display:none" class="col-md-12 pl0 pr0">
+                                                            <div class="form-group mb0">
+                                                                <label class="control-label" for="caseTitle">
+                                                                    <strong>Case Date/Time</strong>
+                                                                    <span class="color_rstpg_infor">{{Case.CreatedDateTime | date:'MM/dd/yyyy HH:mm:ss a'}}
+                                                                    </span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 pl0 pr0">
+                                                            <div class="form-group mb0">
+                                                                <label class="control-label" for="caseTitle">
+                                                                    <strong>Plan Year</strong>
+                                                                    <span class="color_rstpg_infor">{{Case.Year}}</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div ng-if="EmployerName !='' " class="col-md-12 pl0 pr0">
+                                                            <div class="form-group mb0">
+                                                                <label class="control-label" for="caseTitle">
+                                                                    <strong>Employer Name</strong>
+                                                                    <span class="color_rstpg_infor">{{EmployerName}}</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 pl0 pr0">
+                                                            <div class="form-group mb0">
+                                                                <label class="control-label" for="caseTitle">
+                                                                    <strong>First Last Name</strong>
+                                                                    <span class="color_rstpg_infor">{{Applicant.FirstName}} {{Applicant.LastName}}</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 pl0 pr0" ng-if="Applicant.EmployerId == messages.IndividualEmployerId || Applicant.EmployerId == messages.ShopEmployerId">
+                                                            <div class="form-group mb0">
+                                                                <label class="control-label" for="caseTitle">
+                                                                    <strong>HSA Contribution</strong>
+                                                                    <span class="color_rstpg_infor">{{Case.HSAAmount | mycurrency:"$"}}</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div ng-if="PlanType !='' " class="col-md-12 pl0 pr0">
+                                                            <div class="form-group mb0">
+                                                                <label class="control-label" for="Plan">
+                                                                    <strong>Plan</strong>
+                                                                    <span class="color_rstpg_infor">{{PlanType}}</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div ng-if="IssuerName !='' " class="col-md-12 pl0 pr0">
+                                                            <div class="form-group mb0">
+                                                                <label class="control-label" for="Carrier">
+                                                                    <strong>Carrier</strong>
+                                                                    <span class="color_rstpg_infor">{{IssuerName}}</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 pl0 pr0" ng-if="Applicant.EmployerId != messages.IndividualEmployerId && Applicant.EmployerId != messages.ShopEmployerId">
+                                                            <div class="form-group mb0">
+                                                                <label class="control-label" for="caseTitle">
+                                                                    <strong>Insurance Type </strong>
+                                                                    <span class="color_rstpg_infor">{{InsuranceName}}</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 pl0 pr0">
+                                                            <div class="form-group mb0">
+                                                                <label class="control-label" for="Carrier">
+                                                                    <strong>If you have any questions please contact:</strong>
+                                                                    <span class="color_rstpg_infor">{{customer.FirstName}} {{customer.LastName}}</span>
+                                                                </label>
+                                                                <label class="control-label" for="Carrier">
+                                                                    <span class="color_rstpg_infor">{{customer.Email}}</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div style="width:1133px !important;" class="col-md-11 pl0 pr0" data-width="{{data.width}}">
+                                                        <d3-bars data="data" height="450" style="width:1140px;float:left;"></d3-bars>
+                                                    </div>
+                                                    <div class="col-md-12 pl0 pr0" ng-if="graphResults.length > 0">
+                                                        <div id="holder" class="cst_graphResults" style="float:left">
+                                                            <div class="row_dummy two-column">
+                                                                <div class="col-md-6 pl0 pr0 removePrint"></div>
+                                                                <div class="col-md-12 pl0 pr0 ng-scope">
+                                                                    <div class="col-md-12 pl0 pr0">
+                                                                        <div id="table_resultpage" style="margin-top: 5px;" class="">
+                                                                            <table class="table_resultpage">
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td style="font-weight:bold;text-decoration:underline;" colspan="{{graphResults.length+1}}" class="fs18px cst-table-title-col">Premium Payments</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td class="cst-table-title-col">Plan Id</td>
+                                                                                        <td ng-repeat="graphResult in graphResults" width="" class="text-right table_result_data">{{graphResult.PlanIdIndiv1}}</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td class="cst-table-title-col">Actual Premium</td>
+                                                                                        <td ng-repeat="graphResult in graphResults" width="" class="text-right table_result_data">{{graphResult.GrossAnnualPremium
+                                                                                            | mycurrency:"$"}}</td>
+                                                                                    </tr>
+                                                                                    <tr ng-if="Applicant.EmployerId != messages.ShopEmployerId">
+                                                                                        <td class="cst-table-title-col" ng-if="Applicant.EmployerId != messages.IndividualEmployerId">Employer Contribution</td>
+                                                                                        <td class="text-left bg_lightblue color_blue td_titletag" ng-if="Applicant.EmployerId == messages.IndividualEmployerId">Estimated Federal Subsidy</td>
+                                                                                        <td ng-repeat="graphResult in graphResults" width="" class="text-right table_result_data">{{graphResult.FederalSubsidy | mycurrency:"$"}}</td>
+                                                                                    </tr>
+                                                                                    <tr ng-if="Applicant.EmployerId == messages.ShopEmployerId" style="font-size:15px;">
+                                                                                        <td style="border-right: 0px solid #000;border-left: 0px solid #000;">&nbsp;</td>
+                                                                                        <td ng-style="$index!=0 && {'border-left':'none','border-right':'none'}" style="border-bottom: 0px solid #000;border-top: 0px solid #000;border-right: 0px solid #000;border-left: 0px solid #000; text-align:right;"
+                                                                                            width="">
+                                                                                            <span style="border-bottom:0px solid #000;">&nbsp;</span>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="background-color:rgb(253, 231, 150);" class="cst-table-title-col">Your Net Annual Contribution</td>
+                                                                                        <td style="background-color:rgb(253, 231, 150) !important;" ng-repeat="graphResult in graphResults" width="" class="text-right table_result_data">{{graphResult.NetAnnualPremium |
+                                                                                            mycurrency:"$"}}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td class="cst-table-title-col">Your Net Monthly Contribution</td>
+                                                                                        <td ng-repeat="graphResult in graphResults" width="" class="text-right table_result_data">{{graphResult.MonthlyPremium | mycurrency:"$"}}</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="font-weight:bold;text-decoration:underline;" colspan="{{graphResults.length+2}}" class="fs18px cst-table-title-col">Medical Usage Payments by You</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td class="cst-table-title-col">Copays</td>
+                                                                                        <td ng-repeat="graphResult in graphResults" width="" class="text-right table_result_data">{{graphResult.Copays | mycurrency:"$"}}</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td class="cst-table-title-col">Payments Toward Deductible</td>
+                                                                                        <td ng-repeat="graphResult in graphResults" width="" class="text-right table_result_data">{{graphResult.PaymentsToDeductibleLimit
+                                                                                            | mycurrency:"$"}}</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td class="cst-table-title-col">Coinsurance Amount</td>
+                                                                                        <td ng-repeat="graphResult in graphResults" width="" class="text-right table_result_data">{{graphResult.CoinsuranceToOutOfPocketLimit
+                                                                                            | mycurrency:"$"}}</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td class="cst-table-title-col">Excluded Amount (Not Covered)</td>
+                                                                                        <td ng-repeat="graphResult in graphResults" width="" class="text-right table_result_data">{{graphResult.ExcludedAmount | mycurrency:"$"}}</td>
+                                                                                    </tr>
+                                                                                    <tr ng-if="Applicant.EmployerId != messages.IndividualEmployerId && Applicant.EmployerId != messages.ShopEmployerId">
+                                                                                        <td class="cst-table-title-col">Employer HSA Contribution</td>
+                                                                                        <td ng-repeat="graphResult in graphResults" width="" class="text-right table_result_data">{{-1 * graphResult.ContributedToYourHSAAccount
+                                                                                            | mycurrency:"$"}}</td>
+                                                                                    </tr>
+                                                                                    <tr ng-if="Applicant.EmployerId != messages.IndividualEmployerId && Applicant.EmployerId != messages.ShopEmployerId">
+                                                                                        <td class="cst-table-title-col">Employer HRA Reimbursement</td>
+                                                                                        <td ng-repeat="graphResult in graphResults" width="" class="text-right table_result_data">{{-1 * graphResult.EmployerHRAReimbursement
+                                                                                            | mycurrency:"$"}}</td>
+                                                                                    </tr>
+                                                                                    <tr style="border-left:0px; border-right:0px;" ng-if="Applicant.EmployerId == messages.IndividualEmployerId || Applicant.EmployerId == messages.ShopEmployerId">
+                                                                                        <td colspan="{{graphResults.length+1}}" class="cst-table-title-col">
+                                                                                            <span>&nbsp;</span>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td class="cst-table-title-col">Your HSA Contribution Tax Savings</td>
+                                                                                        <td ng-repeat="graphResult in graphResults" width="" class="text-right table_result_data">{{graphResult.TaxSavingFromHSAAccount
+                                                                                            | mycurrency:"$"}}</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="background-color:rgb(199, 230, 163);" class="cst-table-title-col">Your Net Out-of-Pocket Medical Costs
+                                                                                        </td>
+                                                                                        <td style="background-color:rgb(199, 230, 163) !important;" ng-repeat="graphResult in graphResults" width="" class="text-right table_result_data">{{graphResult.Medical | mycurrency:"$"}}</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td colspan="{{graphResults.length+1}}" class="cst-table-title-col"></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="font-weight:bold;" class="fs18px color-blue cst-table-title-col">YOUR TOTAL PAYMENTS</td>
+                                                                                        <td style="font-weight:bold;" ng-repeat="graphResult in graphResults" width="" class="text-right table_result_data color_blue">{{graphResult.TotalPaid | mycurrency:"$"}}</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td colspan="{{graphResults.length+1}}" class="cst-table-title-col"></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td class="cst-table-title-col">Payments by Insurance Company</td>
+                                                                                        <td ng-repeat="graphResult in graphResults" width="" class="text-right table_result_data">{{graphResult.PaymentsByInsuranceCo
+                                                                                            | mycurrency:"$"}}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="font-weight:bold;color:red;" class="cst-table-title-col">Worst Case Scenario (in-network)</td>
+                                                                                        <td style="font-weight:bold;color:red;" ng-repeat="graphResult in graphResults" width="" class="text-right table_result_data">{{graphResult.WorstCase | mycurrency:"$"}}</td>
+                                                                                    </tr>
+                                                                                    <tr ng-if="Applicant.EmployerId != messages.IndividualEmployerId && Applicant.EmployerId != messages.ShopEmployerId">
+                                                                                        <td class="cst-table-title-col">Your HSA Contribution Tax Savings</td>
+                                                                                        <td ng-repeat="graphResult in graphResults" width="" class="text-right table_result_data">{{(1 * graphResult.TotalEmployerContribution_Pre)
+                                                                                            | mycurrency:"$"}} / {{(1 * graphResult.TotalEmployerContribution_Post)
+                                                                                            | mycurrency:"$"}}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td colspan="{{graphResults.length+1}}" class="cst-table-title-col"></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="font-weight:bold;text-decoration:underline;" colspan="{{graphResults.length+1}}" class="fs18px cst-table-title-col">Health Plan Specifics</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td class="cst-table-title-col">Deductible (single / family)</td>
+                                                                                        <!-- <td ng-if="Case.UsageID == 1" ng-repeat="graphResult in graphResults" width="" class="text-right table_result_data"></td> -->
+                                                                                        <td ng-repeat="graphResult in graphResults" width="" class="text-right table_result_data">
+                                                                                            {{graphResult.DeductibleSingle | mycurrency:"$"}} / {{graphResult.DeductibleFamilyPerGroup | mycurrency:"$"}}
+                                                                                        </td>
+                                                                                        <!-- <td ng-if="Case.UsageID != 1" ng-repeat="graphResult in graphResults" width="" class="text-right table_result_data">
+                                                                                            {{graphResult.DeductibleFamilyPerPerson | mycurrency:"$"}} / {{graphResult.DeductibleFamilyPerGroup | mycurrency:"$"}}
+                                                                                        </td> -->
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td class="cst-table-title-col">Out-of-Pocket Limit (single / family)
+                                                                                        </td>
+                                                                                        <!-- <td ng-if="Case.UsageID == 1" ng-repeat="graphResult in graphResults" width="" class="text-right table_result_data"></td> -->
+                                                                                        <td ng-repeat="graphResult in graphResults" width="" class="text-right table_result_data">
+                                                                                            {{graphResult.OPLSingle | mycurrency:"$"}} / {{graphResult.OPLFamilyPerGroup | mycurrency:"$"}}
+                                                                                        </td>
+                                                                                        <!-- <td ng-if="Case.UsageID != 1" ng-repeat="graphResult in graphResults" width="" class="text-right table_result_data">
+                                                                                            {{graphResult.OPLFamilyPerPerson | mycurrency:"$"}} / {{graphResult.OPLFamilyPerGroup | mycurrency:"$"}}
+                                                                                        </td> -->
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td class="cst-table-title-col">Coinsurance Rate (in-network)</td>
+                                                                                        <td ng-repeat="graphResult in graphResults" width="" class="text-right table_result_data">{{graphResult.Coinsurance}}%</td>
+                                                                                    </tr>
+                                                                                    <tr class="removePrint">
+                                                                                        <td class="min-height100 cst-table-title-col">Medical Network</td>
+                                                                                        <td ng-repeat="graphResult in graphResults" width="" class="min-height100 text-right table_result_data">{{graphResult.MedicalNetwork}}</td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div ng-class="{'bubbles-grid-1': graphResults.length.toString() == '1' , 'bubbles-grid-2': graphResults.length.toString() == '2',
+                                          'bubbles-grid-3': graphResults.length.toString() == '3', 'bubbles-grid-4': graphResults.length.toString() == '4', 'bubbles-grid-5': graphResults.length.toString() == '5', } "
+                                                            style="width:200px;float:left">
+                                                            <div class="bubble-dark-yellow" ng-if="Applicant.EmployerId != messages.IndividualEmployerId && Applicant.EmployerId != messages.ShopEmployerId">
+                                                                <img src="images/1.png" width="30" height="30">
+                                                                <strong>Your annual premium cost</strong> , as a net of the total
+                                                                annual premium LESS your employer’s contribution to premium.
+                                                            </div>
+                                                            <div class="bubble-dark-yellow" ng-if="Applicant.EmployerId == messages.IndividualEmployerId || Applicant.EmployerId == messages.ShopEmployerId">
+                                                                <img src="images/1.png" width="30" height="30">
+                                                                <strong>Premiums</strong> paid by you, including Federal Subsidy.</div>
+                                                            <div class="bubble-green">
+                                                                <img src="images/2.png" width="30" height="30">
+                                                                <strong>Your medical expenses</strong> , as a net of total medical
+                                                                costs LESS the amount paid by your insurance company, your
+                                                                employer’s contribution to your HSA (if applicable), and
+                                                                tax savings from your HSA contribution (if applicable; adjusted
+                                                                to your stated tax bracket). Copays, deductibles, coinsurance
+                                                                rates, and out-of-pocket limits vary per plan.
+                                                            </div>
+                                                            <div class="bubble-blue">
+                                                                <img src="images/3.png" width="30" height="30">
+                                                                <strong>Your total cost</strong> : Your annual premium cost + your
+                                                                medical expense.
+                                                            </div>
+                                                            <div class="bubble-light-yellow" ng-if="Applicant.EmployerId != messages.IndividualEmployerId && 		Applicant.EmployerId != messages.ShopEmployerId">
+                                                                <img src="images/4.png" width="30" height="30">Your
+                                                                <span style="color:#f00;font-weight:bold;"> Worst Case Scenario(in-network)</span> costs are calculated
+                                                                as the sum of your annual premium and OOP limit, LESS your
+                                                                employer's contribution to HSA and tax savings from your
+                                                                own HSA contribution.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                    <div class="disclaimer mb10">
+                                        <strong>Assumptions</strong> - This estimate is based on the projected health usage provided
+                                        by you and the following key assumptions: 1) Medical charges are in-network for covered
+                                        services only; 2) All services are assumed to have started and ended in the same
+                                        coverage period; 3) Cost of services and prescription medications are estimates based
+                                        on average costs of these services unless otherwise provided by you; 4) Categories
+                                        with copays may have other charges that are not covered by the applicable copay;
+                                        5) Some of the referenced insurance plans have a limited number of visits for copays,
+                                        after which coinsurance applies, and some plans may have "Chronic Illness Support"
+                                        with a waiver of deductible and more favorable coinsurance; 6) Prescription drug
+                                        tiers are determined by the drug formulary provided by the employer; 7) Prescriptions
+                                        are generally quoted on 30 day supply - a 90 day supply may be slightly less expensive.</div>
+                                    <div class="disclaimer">
+                                        <strong>Disclaimer</strong> - This report includes general information and calculations regarding
+                                        medical charges based on projected usage and is intended to provide assistance with
+                                        decisions about health insurance plan choices. This report is for informational purposes
+                                        only and may not reflect all of the pricing factors and variables for all circumstances.
+                                        This report and any accompanying information or materials, written or verbal, are
+                                        not intended, and must not be taken as professional advice or recommendations. Professional
+                                        advice on specific insurance and benefits can be obtained by contacting a duly licensed
+                                        professional. While the figures and analyses herein are believed to be accurate and
+                                        reflect current industry trends, they are not warranted to be correct and MyHealthMath,
+                                        LLC disclaims any and all warranties of any type and shall have no liability for
+                                        any inaccuracy or incompleteness. </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                </form>
+                <div id="print_wizard" style="float: left;">
+                    <div ng-include src="'partials/cases/print.html'"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<div ng-include src="'partials/include/footer.html'"></div>
+<script type="text/ng-template" id="showBenefits.html">
+    <div class="modal-header">
+        <h4 class="modal-title">Please select benefit {{benefitName}}</h4>
+    </div>
+    <div class="modal-body">
+        <div ng-if="benefit.display !='1'" ng-repeat="benefit in benefits">
+            <input class="checkbox_modal" ng-model="benefitV[benefit.id]" ng-change="ChangesOccur();" type="checkbox" name="benefit[]" value="{{benefit.id}}" />
+            <label>{{benefit.name}}</label>
+        </div>
+        <div ng-hide="benefits.length">
+            <label>{{messages.NoBenefit}}</label>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn tp-btn tp-btn-blue pull-right" ng-click="getBenefit();closeThisDialog(0);">Ok</button>
+    </div>
+</script>
+<script type="text/ng-template" id="showCriticalillness.html">
+    <div class="modal-header">
+        <h4 class="modal-title">Please select critical illness</h4>
+    </div>
+    <div class="modal-body">
+        <div ng-repeat="critical in criticals">
+            <input class="checkbox_modal" ng-model="critical.checked" ng-change="ChangesOccur();" type="checkbox" name="critical[]" value="{{critical.IllnessId}}" />
+            <label>{{critical.IllnessName}}</label>
+        </div>
+        <div ng-hide="criticalillness.length">
+            <label>{{messages.NoCriticalIllness}}</label>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn tp-btn tp-btn-blue pull-right" ng-click="getCriticalIllness();closeThisDialog(0);">Ok</button>
+    </div>
+</script>
+<script type="text/ng-template" id="note.html">
+    <div class="modal-header">
+        <h4 class="modal-title">Comment Note</h4>
+    </div>
+    <div class="modal-body">
+        <textarea ng-readonly="{{readOnly}}" placeholder="Type something here.." ng-change="ChangesOccur();" class="form-control" ng-model="$parent.benefit_note" name="benefit_note" id="benefit_note"> </textarea>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn tp-btn tp-btn-blue pull-right" ng-click="updateNote(benefit_note);closeThisDialog(0);">Ok</button>
+    </div>
+</script>
+<script type="text/ng-template" id="BenefitUsages.html" class="test45 font-family-sanspro">
+    <div class="modal-header">
+        <h4 class="modal-title">Benefit Usages</h4>
+    </div>
+    <div class="modal-body">
+            <div ng-repeat="family in ngDialogData.Families">
+
+                    
+                            
+
+
+                            <div class="col-sm-12 col-md-12" >
+                            <div class="row"></div>
+                           <div class="row">	
+							<div class="col-sm-12 col-md-1">&nbsp;</div>
+                            <div class="col-sm-12 col-md-11 pull-right font-family-sanspro">
+
+                                    <!-- head -->
+                                        <div class="col-sm-12 col-md-1"><strong>ID#</strong></div>
+                                        <div class="col-sm-12 col-md-7"><strong>MHM Benefit</strong></div>
+                                        <div class="col-sm-12 col-md-2"><strong>Qty</strong></div>
+                                        <div class="col-sm-12 col-md-2"><strong>Cost</strong></div>
+    
+                                         <!--end  head -->    
+										
+                            </div>
+                            </div>
+							<!-- end row -->
+							<hr></hr>
+								
+							<div class="row font-family-sanspro">	
+							<div class="col-sm-12 col-md-1"><h2>{{$index +1}}</h2></div>
+								
+                                <div ng-repeat="iusage in family.BenefitUserDetails  | orderBy:'MHMMappingBenefitId'" class="col-sm-12 col-md-11 pull-right">
+                                    <div class="col-sm-3 col-md-1">{{iusage.MHMMappingBenefitId}}</div>
+                                        <div class="col-sm-3 col-md-7">{{iusage.UsageName}}</div>
+                                        <div class="col-sm-3 col-md-2">{{iusage.UsageQty}}</div>
+                                        <div class="col-sm-3 col-md-2">{{iusage.UsageCost | mycurrency:"$"}}</div>
+    
+                                    </div>     <!-- <div style="float:left;" class="box-modal-benefit" ng-repeat="iusage in family.BenefitUserDetails">test1234</div> -->
+                                   
+							</div>
+							<!-- end row -->
+							<hr></hr>
+    
+                            </div>
+                        
+                    
+
+              
+                </div>
+        <!-- {{ngDialogData}} -->
+        <!-- <div ng-repeat="family in ngDialogData">
+            <div>
+
+            </div>
+            <table>
+                <tr>{{$index +1}}abc</tr>
+                <tr>
+                    <td ng-repeat="iusage in family.BenefitUserDetails">{{iusage.UsageName}}</td>
+                </tr>
+            </table>   
+           
+        </div> -->
+        <!-- <div ng-repeat="item in QuickViewData"> -->
+           <!-- <input class="checkbox_modal" ng-model="critical.checked" ng-change="ChangesOccur();" type="checkbox" name="critical[]" value="{{critical.IllnessId}}" />
+            <label>{{critical.IllnessName}}</label> -->
+        <!-- </div> -->
+        <!-- <div ng-hide="criticalillness.length">
+            <label>{{messages.NoCriticalIllness}}</label>
+        </div> -->
+    </div>
+    <div class="modal-footer">
+        <!-- <button type="button" class="btn tp-btn tp-btn-blue pull-right" ng-click="getCriticalIllness();closeThisDialog(0);">Ok</button> -->
+    </div>
+</script>

@@ -1,0 +1,1339 @@
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+    <title>MHM PDF</title>
+    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet" />
+    <style>
+        th p,
+        td p {
+            margin: 6.5pt 0;
+        }
+    </style>
+</head> -->
+
+<body style="font-family: 'Hind', sans-serif;-webkit-print-color-adjust: exact;font-size: 8.5px;margin: 0;background: rgb(255, 255, 255);">
+
+    <div style="max-width: 1240px;margin: auto;width: 100%;">
+
+        <!-- ----Start Page 1----- -->
+        <div class="content-page-1">
+            <div style="max-width: 975px;margin: auto;width: 100%;">
+                <p>
+                    <img style="display: block; margin-left: auto; margin-right: auto; max-height: 81px;" src="http://192.168.0.31/mhm/images/logo.png"
+                        alt="MHM logo" />
+                </p>
+                <p style="text-align: center;margin: 0;padding: 14pt 0;font-size: 22pt;color: rgb(0, 0, 0);text-transform: uppercase;font-weight: bold;">
+                    YOUR HEALTH PLAN DECISION REPORT
+                </p>
+                <table style="border-bottom: 1pt dotted rgb(0, 0, 0);" width="100%">
+                    <tbody>
+                        <tr>
+                            <td style="text-align: center;font-size: 9pt;font-weight: normal;padding: 5px 0;">
+                                <strong style="font-size: 9pt;color: rgb(0, 0, 0);">{{Applicant.FirstName}} {{Applicant.LastName}}</strong> | {{UsageType | stringFixedLen:18}}
+                            </td>
+                            <td style="text-align: center;font-size: 9pt;font-weight: normal;">
+                                <strong>Plan Year</strong>: {{Case.JobMaster.PlanYearStartDt | date}} – {{Case.JobMaster.PlanYearEndDt
+                                | date}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;font-size: 9pt;font-weight: normal;padding-bottom: 20pt;">
+                                <strong>Your Current Plan:</strong> {{Applicant.CurrentPlan}}
+                            </td>
+                            <td style="text-align: center;font-size: 9pt;font-weight: normal;padding-bottom: 20pt;">
+                                <strong>Date of Interview:</strong> {{Case.InterviewDate | date}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="max-width: 1087px;margin: auto;width: 100%;">
+                <div style="padding: 12pt 0;">
+                    <p style="text-align: center;font-size: 9pt;">
+                        Options are ranked below in order of lowest to highest estimated total cost
+                    </p>
+                    <p style="text-align: center;font-size: 9pt;">
+                        If you switch from your current plan to the first-ranked plan, we estimate that you will save approximately
+                        <strong>&#36;1,408</strong> next year.
+                    </p>
+                </div>
+                <p style="text-align: left;">
+                    <strong>
+                        <img src="http://192.168.0.31/mhm/images/graph.png" alt="Your Optimal Plan" />
+                    </strong>
+                </p>
+                <p style="text-align: center;margin: 5px 0;font-size: 8.5pt;">
+                    <span style="">
+                        <strong style=" color: rgb(75,135,92);">Your Total Cost</strong>
+                    </span>
+                    =your estimated payments based on the expected medical services you reported in your phone interview
+                </p>
+                <p style="text-align: center;margin: 5px 0;font-size: 8.5pt;">
+                    <span style="color: RGB(64,111,162);">
+                        <strong>
+                            Worst-Case Scenario Cost
+                        </strong>
+                    </span>
+                    =the absolute most you could pay given extreme/unforeseen medical usage under a given plan
+                </p>
+            </div>
+        </div>
+        <!-- ----End Page 1----- -->
+
+        <!-- ----Start Page 2----- -->
+        <div class="content-page-2">
+            <p style="font-size: 14pt;color: rgb(0, 0, 0);font-style: normal;text-transform: uppercase;text-align: center;background-color: rgb(242, 171, 122);padding: 10px;padding-top: 11pt;">
+                <img src="http://192.168.0.31/mhm/images/doc.png" alt="COST OVERVIEW" style="vertical-align: middle;margin-top: -5px;" />
+                <span style="vertical-align: middle;margin-left: 10px;font-weight: 300;">COST OVERVIEW</span>
+            </p>
+            <div style="padding: 0 30px;">
+                <table style="width: 100%;text-align: center;border-collapse: collapse;border-spacing: 0;font-size: 8.5pt;">
+                    <thead>
+                        <tr>
+                            <td>
+                                <p>
+                                    <span class="c2"></span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>&#35;1</span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>&#35;2</span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>&#35;3</span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>&#35;4</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>
+                                    <span class="c2"></span>
+                                </p>
+                            </td>
+                            <td ng-repeat="graphResult in graphResults" style="background: rgb(43, 104, 129);color: rgb(255, 255, 255);border-right: 2.5pt solid rgb(255, 255, 255);font-size: 10pt;font-weight: 600;">
+                                <p>
+                                    <span class="c11">{{graphResult.PlanName}}</span>
+                                </p>
+                            </td>
+                            <!-- <td style="background: rgb(43, 104, 129);color: rgb(255, 255, 255);border-right: 2.5pt solid rgb(255, 255, 255);font-size: 10pt;font-weight: 600;">
+                <p>
+                  <span class="c11">ChoicePlus HRA PPO</span>
+                </p>
+              </td>
+              <td style="background: rgb(43, 104, 129);color: rgb(255, 255, 255);border-right: 2.5pt solid rgb(255, 255, 255);font-size: 10pt;font-weight: 600;">
+                <p>
+                  <span class="c11">Community HSA HMO</span>
+                </p>
+              </td>
+              <td style="background: rgb(43, 104, 129);color: rgb(255, 255, 255);border-right: 2.5pt solid rgb(255, 255, 255);font-size: 10pt;font-weight: 600;">
+                <p>
+                  <span class="c11">ChoicePlus HSA PPO</span>
+                </p>
+              </td> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="5" rowspan="1" style="padding: 0 10pt;">
+                                <p style="text-align: left;font-size: 12pt;font-weight: bold;">
+                                    <span>Your Cost Summary</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0 10pt;">
+                                <p style="text-align: left;">
+                                    <span>Your Premium</span>
+                                </p>
+                            </td>
+                            <td ng-repeat="graphResult in graphResults" style="padding: 0 10pt;">
+                                <p>
+                                    <span>{{graphResult.NetAnnualPremium | mycurrency:"$"}}</span>
+                                </p>
+                            </td>
+                            <!-- <td ng-if="Applicant.EmployerId == messages.ShopEmployerId" ng-repeat="graphResult in graphResults" style="padding: 0 10pt;">
+                                <p>
+                                    <span>{{graphResult.NetAnnualPremium | mycurrency:"$"}}</span>
+                                </p>
+                            </td> -->
+
+
+                            <!-- <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>&#36;4,116</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>&#36;3,609</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>&#36;4,141</span>
+                                </p>
+                            </td> -->
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 10pt;">
+                                <p style="text-align: left;">
+                                    <span>Your Out-of-Pocket Expenses</span>
+                                </p>
+                            </td>
+                            <td ng-repeat="graphResult in graphResults">
+                                <p>
+                                    <span ng-if="graphResult.Medical < 0" style="position:relative;right:-5px;">{{graphResult.Medical | mycurrency:"$"}}</span>
+                                    <span ng-if="graphResult.Medical >= 0">{{graphResult.Medical | mycurrency:"$"}}</span>
+                                </p>
+                            </td>
+                            <!-- <td>
+                                <p>
+                                    <span>&#36;4,340</span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>&#36;4,880</span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>&#36;5,000</span>
+                                </p>
+                            </td> -->
+                        </tr>
+                        <tr>
+                            <td style="background-color: rgb(192, 222, 201);border-top: 1px solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p style="text-align: left;">
+                                    <span>Your Total Cost</span>
+                                </p>
+                            </td>
+                            <td ng-repeat="graphResult in graphResults" style="background-color: rgb(192, 222, 201);border-top: 1px solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>{{graphResult.TotalPaid | mycurrency:"$"}}</u>
+                                </p>
+                            </td>
+                            <!-- <td style="background-color: rgb(192, 222, 201);border-top: 1px solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>&#36;8,456</u>
+                                </p>
+                            </td>
+                            <td style="background-color: rgb(192, 222, 201);border-top: 1px solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>&#36;8,489</u>
+                                </p>
+                            </td>
+                            <td style="background-color: rgb(192, 222, 201);border-top: 1px solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>&#36;9,141</u>
+                                </p>
+                            </td> -->
+                        </tr>
+                        <tr>
+                            <td colspan="5" rowspan="1" style="padding: 0 10pt;">
+                                <p style="text-align: left;font-style: italic;">
+                                    <span>(See page 3 for a comprehensive, line-by-line breakdown of Your Total Cost.)</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0 10pt;">
+                                <p style="text-align: left;">
+                                    <span>Your Premium</span>
+                                </p>
+                            </td>
+                            <td ng-if="Applicant.EmployerId != messages.ShopEmployerId" ng-repeat="graphResult in graphResults" style="padding: 0 10pt;">
+                                <p>
+                                    <span>{{graphResult.NetAnnualPremium | mycurrency:"$"}}</span>
+                                </p>
+                            </td>
+                            <td ng-if="Applicant.EmployerId == messages.ShopEmployerId" ng-repeat="graphResult in graphResults" style="padding: 0 10pt;">
+                                <p>
+                                    <span>{{graphResult.NetAnnualPremium | mycurrency:"$"}}</span>
+                                </p>
+                            </td>
+                            <!-- <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>&#36;4,116</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>&#36;3,609</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>&#36;4,141</span>
+                                </p>
+                            </td> -->
+                        </tr>
+                        <tr>
+                            <td style="padding: 0 10pt;">
+                                <p style="text-align: left;">
+                                    <span>Out-of-Pocket Limit (family)</span>
+                                </p>
+                            </td>
+                            <td ng-if="Case.UsageID == 1" ng-repeat="graphResult in graphResults" style="padding: 0 10pt;">
+                                <p>
+                                    <span> {{graphResult.OPLSingle | mycurrency:""}} / {{graphResult.OPLFamilyPerGroup | mycurrency:""}}
+                                    </span>
+                                </p>
+                            </td>
+                            <td ng-if="Case.UsageID != 1" ng-repeat="graphResult in graphResults" style="padding: 0 10pt;">
+                                <p>
+                                    <span> {{graphResult.OPLFamilyPerPerson | mycurrency:""}} / {{graphResult.OPLFamilyPerGroup
+                                        | mycurrency:""}}
+                                    </span>
+                                </p>
+                            </td>
+                            <!-- <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>&#36;6,000</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>&#36;10,000</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>&#36;6,000</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>&#36;6,000</span>
+                                </p>
+                            </td> -->
+                        </tr>
+                        <tr>
+                            <td style="padding: 0 10pt;">
+                                <p style="text-align: left;">
+                                    <span>Employer HSA Contribution</span>
+                                </p>
+                            </td>
+                            <td ng-repeat="graphResult in graphResults" style="padding: 0 10pt;">
+                                <p>
+                                    <span ng-if="graphResult.ContributedToYourHSAAccount != 0" style="position:relative;right:-5px;">{{-1 * graphResult.ContributedToYourHSAAccount | mycurrency:"$"}}</span>
+                                    <span ng-if="graphResult.ContributedToYourHSAAccount == 0">{{-1 * graphResult.ContributedToYourHSAAccount | mycurrency:"$"}}</span>
+                                </p>
+                            </td>
+                            <!-- <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>n/a</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>(&#36;1,000)</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>(&#36;1,000)</span>
+                                </p>
+                            </td> -->
+                        </tr>
+                        <tr>
+                            <td style="padding: 0 10pt;">
+                                <p style="text-align: left;">
+                                    <span>Your Estimated HSA Tax Savings* </span>
+                                </p>
+                            </td>
+                            <td ng-repeat="graphResult in graphResults">
+                                <p>
+                                    <span>
+                                        <span>{{ graphResult.TaxSavingFromHSAAccount | mycurrency:"$"}}</span>
+                                    </span>
+                                </p>
+                                <!-- <p>
+                                    <span ng-if="graphResult.TaxSavingFromHSAAccount >= 0">
+                                        <span>{{ graphResult.TaxSavingFromHSAAccount | mycurrency:"$"}}</span>
+                                    </span>
+                                </p> -->
+                            </td>
+                            <!-- <td ng-if="(Applicant.EmployerId == messages.IndividualEmployerId || Applicant.EmployerId == messages.ShopEmployerId)" ng-repeat="graphResult in graphResults">
+                <p>
+                  <span ng-if="graphResult.TaxSavingFromHSAAccount == 0">
+                    <span>{{graphResult.TaxSavingFromHSAAccount | mycurrency:"$"}}</span>
+                  </span>
+                </p>
+                <p>
+                                    <span ng-if="graphResult.TaxSavingFromHSAAccount != 0">{{graphResult.TaxSavingFromHSAAccount | mycurrency:"$"}}</span>
+                                </p> 
+              </td> -->
+
+                            <!-- <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>n/a</span>
+                                </p>
+                            </td> -->
+                            <!-- <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>n/a</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>&#36;0</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>&#36;0</span>
+                                </p>
+                            </td> -->
+                        </tr>
+                        <tr>
+                            <td style="background-color: #c3d4e7;border-top: 1pt solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p style="text-align: left;">
+                                    <span>Worst-Case Scenario Cost</span>
+                                </p>
+                            </td>
+                            <td ng-if="Applicant.EmployerId != messages.IndividualEmployerId && Applicant.EmployerId != messages.ShopEmployerId" style="background-color: #c3d4e7;border-top: 1pt solid rgb(0, 0, 0);padding: 0 10pt;"
+                                ng-repeat="graphResult in graphResults">
+                                <p>
+                                    <span>{{graphResult.WorstCase | mycurrency:"$"}}</span>
+                                </p>
+                            </td>
+                            <td ng-if="Applicant.EmployerId == messages.IndividualEmployerId || Applicant.EmployerId == messages.ShopEmployerId" style="background-color: #c3d4e7;border-top: 1pt solid rgb(0, 0, 0);padding: 0 10pt;"
+                                ng-repeat="graphResult in graphResults">
+                                <p>
+                                    <span>{{graphResult.WorstCase | mycurrency:"$"}}</span>
+                                </p>
+                            </td>
+                            <!-- <td style="background-color: #c3d4e7;border-top: 1pt solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>&#36;10,841</u>
+                                </p>
+                            </td>
+                            <td style="background-color: #c3d4e7;border-top: 1pt solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>&#36;14,116</u>
+                                </p>
+                            </td>
+                            <td style="background-color: #c3d4e7;border-top: 1pt solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>&#36;8,609</u>
+                                </p>
+                            </td>
+                            <td style="background-color: #c3d4e7;border-top: 1pt solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>&#36;9,141</u>
+                                </p>
+                            </td> -->
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="font-size: 8.5pt;color: rgb(0, 0, 0);font-weight: normal; line-height:20px; margin-top:30px">
+                    The Worst-Case Scenario Cost represents the maximum you would have to pay for in-network medical services under each plan
+                    in the “worst-case scenario” (such as an emergency, accident, or unexpected medical condition). These
+                    costs consider risk in addition to savings and may rank the plans in a different order. Compare these
+                    numbers between plans to understand how well you would be insured under each in the event of unforeseen
+                    medical expenses
+                </p>
+                <table style="width: 100%;text-align: center;border-collapse: collapse;border-spacing: 0;font-size: 8.5pt;margin-top: 38pt;">
+                    <thead>
+                        <tr>
+                            <td colspan="5" rowspan="1" style="padding: 0 10pt;">
+                                <p style="text-align: left;font-size: 12pt;font-weight: bold;">
+                                    <span>Plan Details (In-Network)</span>
+                                </p>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top-style: solid;border-left-style: solid;">
+                                <p style="text-align: left;">
+                                    <span>Deductible (individual / family)</span>
+                                </p>
+                            </td>
+                            <td ng-repeat="graphResult in graphResults" style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;">
+                                <p>
+                                    <span> {{graphResult.DeductibleSingle | mycurrency:""}} / {{graphResult.DeductibleFamilyPerGroup
+                                        | mycurrency:""}}</span>
+                                </p>
+                            </td>
+                            <!-- <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;">
+                                <p>
+                                    <span>$2,000 / $4,000</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;">
+                                <p>
+                                    <span>$1,500 / $3,000</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top-width: 0;border-right-style: solid;">
+                                <p>
+                                    <span>$1,500 / $3,000</span>
+                                </p>
+                            </td> -->
+                        </tr>
+                        <tr>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;border-left-style: solid;">
+                                <p style="text-align: left;">
+                                    <span>Embedded Deductible?†</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;">
+                                <p>
+                                    <span>✔</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;">
+                                <p>
+                                    <span>✔</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;">
+                                <p>
+                                    <span></span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;border-right-style: solid;">
+                                <p>
+                                    <span></span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;border-left-style: solid;">
+                                <p style="text-align: left;">
+                                    <span>Out-of-Pocket Limit (individual / family)</span>
+                                </p>
+                            </td>
+                            <td ng-repeat="graphResult in graphResults" style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;">
+                                <p>
+                                    <span>{{graphResult.OPLSingle | mycurrency:""}} / {{graphResult.OPLFamilyPerGroup | mycurrency:""}}</span>
+                                </p>
+                            </td>
+                            <!-- <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;">
+                                <p>
+                                    <span>$5,000 / $10,000</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;">
+                                <p>
+                                    <span>$3,000 / $6,000</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;border-right-style: solid;">
+                                <p>
+                                    <span>$3,000 / $6,000</span>
+                                </p>
+                            </td> -->
+                        </tr>
+                        <tr>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;border-left-style: solid;">
+                                <p style="text-align: left;">
+                                    <span>Embedded Out-of-Pocket Limit?‡</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;">
+                                <p>
+                                    <span>✔</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;">
+                                <p>
+                                    <span>✔</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;">
+                                <p>
+                                    <span></span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;border-right-style: solid;">
+                                <p>
+                                    <span></span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;border-left-style: solid;">
+                                <p style="text-align: left;">
+                                    <span>Coinsurance Rate</span>
+                                </p>
+                            </td>
+                            <td ng-repeat="graphResult in graphResults" style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;">
+                                <p>
+                                    <span>{{graphResult.Coinsurance}}%</span>
+                                </p>
+                            </td>
+                            <!-- <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;">
+                                <p>
+                                    <span>20%</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;">
+                                <p>
+                                    <span>0%</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;border-right-style: solid;">
+                                <p>
+                                    <span>15%</span>
+                                </p>
+                            </td> -->
+                        </tr>
+                        <tr>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;border-left-style: solid;">
+                                <p style="text-align: left;">
+                                    <span>Need referral from PCP to see specialist?</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;">
+                                <p>
+                                    <span>Yes</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;">
+                                <p>
+                                    <span>No</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;">
+                                <p>
+                                    <span>Yes</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;border-right-style: solid;">
+                                <p>
+                                    <span>No</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;border-left-style: solid;border-bottom-style: solid;">
+                                <p style="text-align: left;">
+                                    <span>Personal HSA Contribution</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;border-bottom-style: solid;">
+                                <p>
+                                    <span>n/a</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;border-bottom-style: solid;">
+                                <p>
+                                    <span>n/a</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;border-bottom-style: solid;">
+                                <p>
+                                    <span>$0</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;border: 1pt dotted rgb(0, 0, 0);border-top: 0;border-bottom-style: solid;border-right-style: solid;">
+                                <p>
+                                    <span>$0</span>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin: 30pt 0 5pt 0;width: 100%;display: block;float: left;">
+                    <span style="max-width: 224pt;height: 0.6pt;background: rgb(0,0,0);float: left;width: 100%;border-radius: 1pt;border: 0.5pt solid rgb(0,0,0);">{{Cases.TaxRate}}</span>
+                </p>
+                <div style="font-size: 8.5pt;">
+                    <p>
+                        <sup>&#42;&nbsp;</sup>We applied our default tax rate of 27% to your intended personal HSA contribution
+                        to calculate your tax savings. You can calculate a more accurate number yourself by multiplying your
+                        total estimated HSA contribution next year by your actual tax rate.
+                    </p>
+                    <p>
+                        <sup>&#8224;&nbsp;</sup>If a plan has an embedded deductible, then each family member on the plan is subject
+                        to the individual deductible only. Once a family member meets the individual deductible limit, any
+                        services that are subject to deductible are covered for that member. If the group collectively meets
+                        the family deductible, any services that are subject to deductible are covered for all family members
+                        going forward.
+                        <br/>
+                        <br/> If a plan has a non-embedded deductible, then the individual deductible does not apply. Services
+                        that are subject to deductible will only be covered once the group has collectively met the family
+                        deductible.
+                    </p>
+                    <p>
+                        <sup>&#8225;&nbsp;</sup> If a plan has an embedded out-of-pocket limit (OOPL), then each family member
+                        on the plan is subject to the individual OOPL only. Once a family member meets the individual OOPL,
+                        any covered services will be 100% covered for that member. If the group collectively meets the family
+                        OOPL, any covered services used by any family member will be 100% covered going forward. If a plan
+                        has a non-embedded OOPL, then the individual OOPL does not apply. Covered services will only be 100%
+                        covered once the group has collectively met the family OOPL
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- ----End Page 2----- -->
+
+        <!-- ----Start Page 3----- -->
+        <div class="content-page-3">
+            <p style="font-size: 14pt;font-color: #999;font-style: normal;text-transform: uppercase;text-align: center;background-color: rgb(242, 171, 122);padding: 10px;padding-top: 11pt;">
+                <img src="http://192.168.0.31/mhm/images/calc.png" alt="COST OVERVIEW" style="vertical-align: middle;margin-top: -5px;width: 22px;">
+                <span style="vertical-align: middle;margin-left: 10px;">YOUR TOTAL COST: WE DID THE MATH</span>
+            </p>
+            <div style="padding: 0 30px;">
+                <table style="width: 100%;text-align: center;border-collapse: collapse;border-spacing: 0;font-size: 8.5pt;">
+
+                    <thead style="border-bottom: 80px solid #fff;">
+                        <tr>
+                            <td>
+                                <p>
+                                    <span class="c2"></span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>#1</span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>#2</span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>#3</span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>#4</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr style="">
+                            <td>
+                                <p>
+                                    <span class="c2"></span>
+                                </p>
+                            </td>
+                            <td ng-repeat="graphResult in graphResults" style="background: rgb(43, 104, 129);color: rgb(255, 255, 255);border-right: 2.5pt solid rgb(255, 255, 255);font-size: 10pt;font-weight: 600;">
+                                <p>
+                                    <span class="c11">{{graphResult.PlanName}}</span>
+                                </p>
+                            </td>
+                            <!-- <td style="background: rgb(43, 104, 129);color: rgb(255, 255, 255);border-right: 2.5pt solid rgb(255, 255, 255);font-size: 10pt;font-weight: 600;">
+                <p>
+                  <span class="c11">ChoicePlus HRA PPO</span>
+                </p>
+              </td>
+              <td style="background: rgb(43, 104, 129);color: rgb(255, 255, 255);border-right: 2.5pt solid rgb(255, 255, 255);font-size: 10pt;font-weight: 600;">
+                <p>
+                  <span class="c11">Community HSA HMO</span>
+                </p>
+              </td>
+              <td style="background: rgb(43, 104, 129);color: rgb(255, 255, 255);border-right: 2.5pt solid rgb(255, 255, 255);font-size: 10pt;font-weight: 600;">
+                <p>
+                  <span class="c11">ChoicePlus HSA PPO</span>
+                </p>
+              </td> -->
+                        </tr>
+                    </thead>
+
+                    <tbody style="outline: 2px solid #000;outline-offset: 21pt;margin-top: -60px;">
+                        <tr>
+                            <td colspan="5" rowspan="1" style="padding: 0 10pt;">
+                                <p style="text-align: left;font-size: 12pt;font-weight: bold;margin-top: -37pt;margin-bottom: 31pt;">
+                                    <span>Your Total Cost</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0 10pt;">
+                                <p style="text-align: left;margin-top: -16pt;">
+                                    <span>Your Premium</span>
+                                </p>
+                            </td>
+                            <td ng-repeat="graphResult in graphResults" style="padding: 0 10pt;">
+                                <p style="margin-top: -16pt;">
+                                    <span>{{graphResult.NetAnnualPremium | mycurrency:"$"}}</span>
+                                </p>
+                            </td>
+                            <!-- <td style="padding: 0 10pt;">
+                                <p style="margin-top: -16pt;">
+                                    <span>$4,116</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;">
+                                <p style="margin-top: -16pt;">
+                                    <span>$3,609</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;">
+                                <p style="margin-top: -16pt;">
+                                    <span>$4,141</span>
+                                </p>
+                            </td> -->
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 10pt;">
+                                <p style="text-align: left;">
+                                    <span>Your Out-of-Pocket Expenses</span>
+                                </p>
+                            </td>
+                            <td ng-repeat="graphResult in graphResults">
+                                <p>
+                                    <span>{{graphResult.Medical | mycurrency:"$"}}</span>
+                                </p>
+                            </td>
+                            <!-- <td>
+                                <p>
+                                    <span>$4,340</span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>$4,880</span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>$5,000</span>
+                                </p>
+                            </td> -->
+                        </tr>
+                        <tr>
+                            <td style="background-color: rgb(192, 222, 201);border-top: 1px solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p style="text-align: left;">
+                                    <span>Your Total Cost</span>
+                                </p>
+                            </td>
+                            <td ng-repeat="graphResult in graphResults" style="background-color: rgb(192, 222, 201);border-top: 1px solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>{{graphResult.TotalPaid | mycurrency:"$"}}</u>
+                                </p>
+                            </td>
+                            <!-- <td style="background-color: rgb(192, 222, 201);border-top: 1px solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>$8,456</u>
+                                </p>
+                            </td>
+                            <td style="background-color: rgb(192, 222, 201);border-top: 1px solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>$8,489</u>
+                                </p>
+                            </td>
+                            <td style="background-color: rgb(192, 222, 201);border-top: 1px solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>$9,141</u>
+                                </p>
+                            </td> -->
+                        </tr>
+                    </tbody>
+
+                    <tbody>
+                        <tr>
+                            <td colspan="5" rowspan="1" style="padding: 0;">
+                                <p style="text-align: left;font-size: 10pt;font-weight: bold;padding-top: 30pt;">
+                                    <span style=" background-color: rgb(242, 171, 122); width: 20pt; height: 20pt; display: inline-table; border-radius: 20pt; text-align: center; margin-right: 10px; vertical-align: middle;">
+                                        <span style=" vertical-align: middle; display: table-cell;">1</span>
+                                    </span>
+                                    <span>Your Premium</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0 10pt;">
+                                <p style="text-align: left;">
+                                    <span>Gross Premium</span>
+                                </p>
+                            </td>
+                            <td ng-repeat="graphResult in graphResults" style="padding: 0 10pt;">
+                                <p>
+                                    <span>{{graphResult.GrossAnnualPremium | mycurrency:"$"}}</span>
+                                </p>
+                            </td>
+                            <!-- <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>$21,280</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>$20,772</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>$21,304</span>
+                                </p>
+                            </td> -->
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 10pt;">
+                                <p style="text-align: left;">
+                                    <span>Employer Contribution to Premium</span>
+                                </p>
+                            </td>
+                            <td ng-repeat="graphResult in graphResults">
+                                <p>
+                                    <span>{{ -1 * graphResult.FederalSubsidy | mycurrency:"$"}}</span>
+                                </p>
+                            </td>
+                            <!-- <td>
+                                <p>
+                                    <span>($17,163)</span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>($17,163)</span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>($17,163)</span>
+                                </p>
+                            </td> -->
+                        </tr>
+                        <tr>
+                            <td style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p style="text-align: left;">
+                                    <span>Your Premium</span>
+                                </p>
+                            </td>
+                            <td ng-repeat="graphResult in graphResults" style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>{{graphResult.NetAnnualPremium | mycurrency:"$"}}</u>
+                                </p>
+                            </td>
+                            <!-- <td style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>$4,116</u>
+                                </p>
+                            </td>
+                            <td style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>$3,609</u>
+                                </p>
+                            </td>
+                            <td style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>$4,141</u>
+                                </p>
+                            </td> -->
+                        </tr>
+                    </tbody>
+
+                    <tbody>
+                        <tr>
+                            <td colspan="5" rowspan="1" style="padding: 0;">
+                                <p style="text-align: left;font-size: 10pt;font-weight: bold;padding-top: 16pt;">
+                                    <span style=" background-color: rgb(242, 171, 122); width: 20pt; height: 20pt; display: inline-table; border-radius: 20pt; text-align: center; margin-right: 10px; vertical-align: middle;">
+                                        <span style=" vertical-align: middle; display: table-cell;">2</span>
+                                    </span>
+                                    <span>Your Out-of-Pocket Expenses</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0 10pt;">
+                                <p style="text-align: left;">
+                                    <span>(a) Your Medical Costs</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>$3,240</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>$5,340</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>$5,880</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>$6,000</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 10pt;">
+                                <p style="text-align: left;">
+                                    <span>(b) Your HSA/HRA Benefits</span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>($1,000)</span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>($1,000)</span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>($1,000)</span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>($1,000)</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p style="text-align: left;">
+                                    <span>Your Out-of-Pocket Expenses</span>
+                                </p>
+                            </td>
+                            <td ng-repeat="graphResult in graphResults" style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>{{graphResult.Medical | mycurrency:"$"}}</u>
+                                </p>
+                            </td>
+                            <!-- <td style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>$4,340</u>
+                                </p>
+                            </td>
+                            <td style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>$4,880</u>
+                                </p>
+                            </td>
+                            <td style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>$5,000</u>
+                                </p>
+                            </td> -->
+                        </tr>
+                    </tbody>
+
+                    <tbody>
+                        <tr>
+                            <td colspan="5" rowspan="1" style="padding: 0 10pt;">
+                                <p style="text-align: left;font-size: 10pt;font-weight: bold;padding-top: 16pt;">
+                                    <span style=" background-color: rgb(242, 171, 122); width: 20pt; height: 20pt; display: inline-table; border-radius: 20pt; text-align: center; margin-right: 10px; vertical-align: middle;">
+                                        <span style=" vertical-align: middle; display: table-cell;">a</span>
+                                    </span>
+                                    <span>Your Medical Costs
+                                        <i style=" font-weight: normal; font-size: 8.5pt;">(Costs of your expected medical services)</i>
+                                    </span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0px 49px;">
+                                <p style="text-align: left;">
+                                    <span>Deductible payments</span>
+                                </p>
+                            </td>
+                            <td ng-repeat="graphResult in graphResults" style="padding: 0 10pt;">
+                                <p>
+                                    <span>{{graphResult.PaymentsToDeductibleLimit | mycurrency:"$"}}</span>
+                                </p>
+                            </td>
+                            <!-- <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>$2,000</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>$3,000</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>$6,000</span>
+                                </p>
+                            </td> -->
+                        </tr>
+                        <tr>
+                            <td style="padding: 0px 49px;">
+                                <p style="text-align: left;">
+                                    <span>Copayments</span>
+                                </p>
+                            </td>
+                            <td ng-repeat="graphResult in graphResults">
+                                <p>
+                                    <span>{{graphResult.Copays | mycurrency:"$"}}</span>
+                                </p>
+                            </td>
+                            <!-- <td>
+                                <p>
+                                    <span>$2,700</span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>$2,880</span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>$1,080</span>
+                                </p>
+                            </td> -->
+                        </tr>
+                        <tr>
+                            <td style="padding: 0px 49px;">
+                                <p style="text-align: left;">
+                                    <span>Coinsurance</span>
+                                </p>
+                            </td>
+                            <td ng-repeat="graphResult in graphResults">
+                                <p>
+                                    <span>{{graphResult.CoinsuranceToOutOfPocketLimit | mycurrency:"$"}}</span>
+                                </p>
+                            </td>
+                            <!-- <td>
+                                <p>
+                                    <span>$640</span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>$0</span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>$1,920</span>
+                                </p>
+                            </td> -->
+                        </tr>
+                        <tr>
+                            <td style="padding: 0px 49px;">
+                                <p style="text-align: left;">
+                                    <span>Excluded Amount (Not Covered)</span>
+                                </p>
+                            </td>
+                            <td ng-repeat="graphResult in graphResults">
+                                <p>
+                                    <span>{{graphResult.ExcludedAmount | mycurrency:"$"}}</span>
+                                </p>
+                            </td>
+                            <!-- <td>
+                                <p>
+                                    <span>$0</span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>$0</span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>$0</span>
+                                </p>
+                            </td> -->
+                        </tr>
+                        <tr>
+                            <td style="background-color: rgb(225, 239, 230);border-top: 1px solid rgb(0, 0, 0);padding: 0px 49px;">
+                                <p style="text-align: left;">
+                                    <span>Your Medical Costs</span>
+                                </p>
+                            </td>
+                            <td style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>$3,240</u>
+                                </p>
+                            </td>
+                            <td style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>$5,340</u>
+                                </p>
+                            </td>
+                            <td style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>$5,880</u>
+                                </p>
+                            </td>
+                            <td style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>$6,000</u>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                    <tbody>
+                        <tr>
+                            <td colspan="5" rowspan="1" style="padding: 0 10pt;">
+                                <p style="text-align: left;font-size: 10pt;font-weight: bold;padding-top: 16pt;">
+                                    <span style=" background-color: rgb(242, 171, 122); width: 20pt; height: 20pt; display: inline-table; border-radius: 20pt; text-align: center; margin-right: 10px; vertical-align: middle;">
+                                        <span style="vertical-align: middle;display: table-cell;">b</span>
+                                    </span>
+                                    <span>Your HSA/HRA Benefits
+                                        <i style="font-weight: normal;font-size: 8.5pt;"> (Deducted from/applied to your medical costs)</i>
+                                    </span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0px 49px;">
+                                <p style="text-align: left;">
+                                    <span>Employer HSA Contribution</span>
+                                </p>
+                            </td>
+                            <td ng-repeat="graphResult in graphResults" style="padding: 0 10pt;">
+                                <p>
+                                    <span>{{-1 * graphResult.ContributedToYourHSAAccount | mycurrency:"$"}}</span>
+                                </p>
+                            </td>
+                            <!-- <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>n/a</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>($1,000)</span>
+                                </p>
+                            </td>
+                            <td style="padding: 0 10pt;">
+                                <p>
+                                    <span>($1,000)</span>
+                                </p>
+                            </td> -->
+                        </tr>
+                        <tr>
+                            <td style="padding: 0px 49px;">
+                                <p style="text-align: left;">
+                                    <span>Your Estimated HSA Tax Savings</span>
+                                </p>
+                            </td>
+                            <td ng-repeat="graphResult in graphResults">
+                                <p>
+                                    <span>{{graphResult.TaxSavingFromHSAAccount | mycurrency:"$"}}</span>
+                                </p>
+                            </td>
+                            <!-- <td>
+                                <p>
+                                    <span>n/a</span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>$0</span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>$0</span>
+                                </p>
+                            </td> -->
+                        </tr>
+                        <tr>
+                            <td style="padding: 0px 49px;">
+                                <p style="text-align: left;">
+                                    <span>Employer HRA Reimbursement</span>
+                                </p>
+                            </td>
+                            <td ng-repeat="graphResult in graphResults">
+                                <p>
+                                    <span>{{graphResult.HRAReimbursedAmt | mycurrency:"$"}}</span>
+                                </p>
+                            </td>
+                            <!-- <td>
+                                <p>
+                                    <span>($1,000)</span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>n/a</span>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span>n/a</span>
+                                </p>
+                            </td> -->
+                        </tr>
+                        <tr>
+                            <td style="background-color: rgb(225, 239, 230);border-top: 1px solid rgb(0, 0, 0);padding: 0px 49px;">
+                                <p style="text-align: left;">
+                                    <span>Your HSA/HRA Benefits</span>
+                                </p>
+                            </td>
+                            <td style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>($1,000)</u>
+                                </p>
+                            </td>
+                            <td style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>($1,000)</u>
+                                </p>
+                            </td>
+                            <td style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>($1,000)</u>
+                                </p>
+                            </td>
+                            <td style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);padding: 0 10pt;">
+                                <p>
+                                    <u>($1,000)</u>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+                <div style="font-size: 6pt;margin-top: 20pt;">
+                    <p>
+                        <strong>
+                            <u>Assumptions- </u>
+                        </strong> This estimate is based on the projected health usage provided by you and the following key assumptions:
+                        1) Medical charges are assumed to be in-network; 2) All services are assumed to have started and
+                        ended in the same coverage period; 3) Cost of services and prescription medications are estimates
+                        based on average costs of these services unless otherwise provided by you; 4) Some of the referenced
+                        insurance plans have a limited number of visits for copays, after which coinsurance applies, and
+                        some plans may have "Chronic Illness Support" with a waiver of deductible and more favorable coinsurance;
+                        5) Prescription drug tiers are determined by the drug formulary provided by the employer.
+                    </p>
+                    <p>
+                        <strong>
+                            <u>Disclaimer - </u>
+                        </strong> This report includes general information and calculations regarding medical charges based on projected
+                        usage and is intended to provide assistance with decisions about health insurance plan choices. This
+                        report is for informational purposes only and may not reflect all of the pricing factors and variables
+                        for all circumstances. This report and any accompanying information or materials, written or verbal,
+                        are not intended, and must not be taken as professional advice or recommendations. Professional advice
+                        on specific insurance and benefits can be obtained by contacting a duly licensed professional. While
+                        the figures and analyses herein are believed to be accurate and reflect current industry trends,
+                        they are not warranted to be correct and MyHealthMath, Inc. disclaims any and all warranties of any
+                        type and shall have no liability for any inaccuracy or incompleteness.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- ----End Page 3----- -->
+
+    </div>
+
+</body>
+
+<!-- </html> -->

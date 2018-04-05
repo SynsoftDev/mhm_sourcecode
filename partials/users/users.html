@@ -1,0 +1,157 @@
+﻿<head>
+<title>Users</title>
+</head>
+<style>
+.main-container {
+	padding-bottom: 0px;
+}
+.wrapper {
+	height: auto;
+	min-height: 100%;
+	padding-bottom: 40px;
+}
+#footer {
+	height: 40px;
+}
+</style>
+<div ng-include src="'partials/include/header.html'"></div>
+<div class="main-container pt0"><!--Main container start-->
+  <div class="tp-wizard-form_dummy"><!-- wizard form -->
+    <div class="container">
+      <div class="row_dummy">
+        <div class="col-md-12  pl0 pr0">
+          <p ng-show="flash.status" class="alert {{flash.type}}">{{flash.message}} <a class="close" ng-click="closeFlash()"><i class="fa fa-close"></i></a> </p>
+        </div>
+        <div class="col-md-6">          
+            <div class="input-group" id="adv-search">
+				<form ng-submit="setUsersList()" class="form-horizontal" role="form">
+					<input type="text" class="form-control" ng-model="TempSearch.searchby" placeholder="Search..." />
+				 <div style="display:none">
+					<button ng-click="setUsersList()" type="submit" class="hvr-radial-out btn tp-btn-blue adv_srch_btn"><i class="fa fa-search"></i></button>
+				  </div>
+				</form>	
+              <div class="input-group-btn">
+                <div class="btn-group" role="group">
+                  <div class="dropdown dropdown-lg">
+                    <button type="button" class="btn btn-default dropdown-toggle adv_srch_btn" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+						<form ng-submit="setUsersList()" class="form-horizontal" role="form">
+                      <div class="form-group_dummy">
+                        <h3 class="mb0 color_blue" for="filter">Filter by</h3>
+                      </div>
+                      <div class="form-group_dummy col-md-6 pl0">
+                        <label class="adv_search_typo" for="contain">Name</label>
+                        <input placeholder="Name" ng-model="TempSearch.searchByName" class="form-control" type="text" />
+                      </div>
+                      <div class="form-group_dummy col-md-6 pr0">
+                        <label class="adv_search_typo" for="contain">Email</label>
+                        <input placeholder="Email" ng-model="TempSearch.searchByEmail" class="form-control" type="text" />
+                      </div>
+                      <div class="form-group_dummy col-md-6 pl0">
+                        <label class="adv_search_typo" for="filter">User Role</label>
+                        <select ng-model="TempSearch.searchByRole" class="form-control">
+                          <option value="">All Users</option>
+                          <option value="Admin">Admin</option>
+                          <option value="Agent">Agent</option>
+                        </select>
+                      </div>
+                      <div class="form-group_dummy col-md-6 pr0">
+                        <label class="adv_search_typo" for="filter">Active?</label>
+                        <select ng-model="TempSearch.searchByIsActive" class="form-control">
+                          <option value="">All Users</option>
+                          <option value="true">Yes</option>
+                          <option value="false">No</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-md-6 pl0">
+                        <label class="adv_search_typo" for="filter">Locked?</label>
+                        <select ng-model="TempSearch.searchByLockedStatus" class="form-control">
+                          <option value="" >All User</option>
+                          <option value="false">No</option>
+                          <option value="true">Yes</option>
+                        </select>
+                      </div>
+                      <div style="display:none">
+                        <button ng-click="setUsersList()" type="submit" class="btn tp-btn-blue hvr-radial-out adv_srch_btn"><i class="fa fa-search"></i></button>
+                      </div>
+					   </form>
+                    </div>
+                  </div>
+                  <button ng-click="setUsersList()" type="submit" class="hvr-radial-out btn tp-btn tp-btn-blue adv_srch_btn"><i class="fa fa-search mr10"></i>Search</button>
+                  <button ng-click="resetUsersList()" type="button" class="hvr-radial-out-black btn tp-btn-grey adv_srch_btn" style=""><i class="fa fa-refresh mr10"></i>Reset</button>
+                </div>
+              </div>
+            </div>        
+        </div>
+      </div>
+      <div class="col-md-4 pull-right"> <a class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle mb20 pull-right" href="addUser"><i class="fa fa-plus mr10"></i> ADD NEW USER</a> </div>
+	  
+	  <div class="col-md-12 text-center list-title">
+			<h2 class="mb0">Users</h2>
+	  </div>
+      
+      <!-- end col 12-->
+      <div class="col-md-12">
+        <div class="btn-group pull-right mt10"> </div>
+        <table class="table table-bordered table-condensed f11 table-nowrap table-striped table-hover">
+          <thead>
+            <tr>
+              <th style="width:3%;">#ID</th>
+              <th style="width:15%;"><a ng-click="sort_by('Name')">Name<i class="fa fa-sort ml20"></i></a></th>
+              <th style="width:12%;"><a ng-click="sort_by('Email')">Email<i class="fa fa-sort ml20"></i></a></th>
+              <th style="width:12%;">Phone No.</th>
+              <th style="width:8%;"><a ng-click="sort_by('Role')">Role<i class="fa fa-sort ml20"></i></th>
+              <th style="width:10%;"><a ng-click="sort_by('IsActive')">Active?<i class="fa fa-sort ml20"></i></th>
+              <!--<th style="width:10%;"><a ng-click="sort_by('UserLockedStatus')">Is Locked<i class="fa fa-sort ml20"></i></th>-->
+              <th style="width:10%;"><a ng-click="sort_by('CreateDate')">Date created<i class="fa fa-sort ml20"></i></a></th>
+              <th style="width:10%;"><a ng-click="sort_by('LastLogin')">Last Login<i class="fa fa-sort ml20"></i></a></th>
+              <th style="width:10%;">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="user in users">
+              <td class="text-right" title="{{user.id}}">{{user.id}}</td>
+              <td class="text-left" title="{{user.Name}}">{{user.Name}}</td>
+              <td class="text-left" title="{{user.Email}}">{{user.Email}}</td>
+              <td class="text-right" title="{{user.Phone | tel}}">{{user.Phone | tel}}</td>
+              <td class="text-left" title="{{user.Role}}">{{user.Role}}</td>
+              <td class="text-left" title="{{userStatus[user.IsActive]}}">{{userStatus[user.IsActive]}}</td>
+              <!--<td class="text-left" title="{{userLockedStatusList[user.UserLockedStatus]}}">{{userLockedStatusList[user.UserLockedStatus]}}</td>-->
+              <td class="text-right" title="{{user.CreateDate | date:'MM/dd/yyyy hh:mm:ss'}}">{{user.CreateDate | date:'MM/dd/yyyy hh:mm:ss'}}</td>
+              <td class="text-right" title="{{user.LastLogin | date:'MM/dd/yyyy hh:mm:ss'}}">{{user.LastLogin | date:'MM/dd/yyyy hh:mm:ss'}}</td>
+              <td  width="160px" class="text-center">				
+					<a ng-if="user.UserLockedStatus" ng-click="UnlockUser($event)" id="{{user.Email}}" href="javascript:void(0)" title="Unlock" class="color_blue add_case_btn"><i id="{{user.Email}}" class="fa fa-unlock"></i> </a>
+					<a ng-if="user.CreatedBy && user.id != customer.id" href="editUser/{{user.id}}" title="Edit" class="color_green add_case_btn"><i class="fa fa-pencil"></i> </a> 
+					<a ng-if="user.CreatedBy && user.id != customer.id && user.IsActive == false" ng-click="changeStatus('true',$event)" id="{{user.id}}" data-alert="{{messages.confirmActivate}}" href="javascript:void(0)" title="Click to activate" class="color_orange view_case_btn"><i id="{{user.id}}" data-alert="{{messages.confirmActivate}}" class="fa fa-ban"></i> </a>
+					<a ng-if="user.CreatedBy && user.id != customer.id && user.IsActive == true" ng-click="changeStatus('false',$event)" id="{{user.id}}" data-alert="{{messages.confirmDeactivate}}" href="javascript:void(0)"  title="Click to inactive" class="color_orange view_case_btn"><i id="{{user.id}}" data-alert="{{messages.confirmDeactivate}}" class="fa fa-remove"></i> </a>				
+			  </td>
+            </tr>
+            <tr ng-if="!(TotalCount > 0)">
+              <td colspan="9">No Record Found.</td>
+            </tr>
+          </tbody>
+          <tfoot ng-if="TotalCount > 0">
+            <tr>
+              <td colspan="9"><span class="tot_rec_title ng-binding"> <i class="fa fa-check-circle mr10"></i>Total Records : {{TotalCount}} </span>
+                <div ng-if="TotalCount > pageSize" class="text-center">
+                  <ul class="pagination">
+                    <li ng-class="{disabled: page == 1}"> <a href="javascript:;" ng-click="prevPage()"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Prev</a> </li>
+                    <li ng-repeat="n in range() track by $index" ng-class="{active: n == page}" ng-click="setPage()"> <a href="javascript:;" ng-bind="n">1</a> </li>
+                    <li ng-if="page != (lastCount | number : 0)" ng-class="{disabled: page == (lastCount | number : 0)}"> <a ng-click="nextPage()" href="javascript:;" >Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></a> </li>
+                    <li ng-if="page == (lastCount | number : 0)" ng-class="{disabled: page == (lastCount | number : 0)}"> <a href="javascript:;" >Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></a> </li>
+                  </ul>
+                </div></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <!--end col 12--> 
+      
+    </div>
+    <!--end row--> 
+    
+  </div>
+</div>
+<!-- /.wizard form -->
+</div>
+<div ng-include src="'partials/include/footer.html'"></div>
