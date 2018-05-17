@@ -458,7 +458,7 @@ namespace MHM.Api.Controllers
         }
 
         /// <summary>
-        /// This is api is used to get All the benefits 
+        /// This is api is used to get All the benefits  (api/Benefit)
         /// </summary>
         /// <param name="searchBy">Search Value</param>
         /// <param name="sortby">Sort By Value</param>
@@ -511,11 +511,11 @@ namespace MHM.Api.Controllers
                                 break;
 
                             case "CreatedDateTime":
-                                oBenefitlist = desc ? oBenefitlist.OrderByDescending(x => x.CreatedDateTime).Skip(skipRows).Take(pageSize).ToList() : oBenefitlist.OrderBy(x => x.CreatedDateTime).Skip(skipRows).Take(pageSize).ToList();
+                                oBenefitlist = desc ? oBenefitlist.OrderByDescending(x => x.MHMBenefitID).Skip(skipRows).Take(pageSize).ToList() : oBenefitlist.OrderBy(x => x.MHMBenefitID).Skip(skipRows).Take(pageSize).ToList();
                                 break;
 
                             default:
-                                oBenefitlist = desc ? oBenefitlist.OrderByDescending(x => x.CreatedDateTime).Skip(skipRows).Take(pageSize).ToList() : oBenefitlist.OrderBy(x => x.CreatedDateTime).Skip(skipRows).Take(pageSize).ToList();
+                                oBenefitlist = desc ? oBenefitlist.OrderByDescending(x => x.MHMBenefitID).Skip(skipRows).Take(pageSize).ToList() : oBenefitlist.OrderBy(x => x.MHMBenefitID).Skip(skipRows).Take(pageSize).ToList();
                                 break;
                         }
 

@@ -1,4 +1,4 @@
-﻿angular.module('mhmApp.cases')
+angular.module('mhmApp.cases')
 
 	/**
 		Case Controller List all cases.
@@ -699,6 +699,10 @@
 			$scope.SelectedMonth = null;
 			$scope.SelectedYear = null;
 			$scope.SelectedYear = null;
+
+
+			$scope.pro_red = '30%';
+			$scope.pro_green = '17.5%';
 
 			// Interview Date Start
 			var numberOfYears = (new Date()).getYear() - 10;
@@ -1961,14 +1965,24 @@
 					// 	$scope.CurrentPlanName = CurrentPlanResult[0].PlanName;
 				} 
 				else
-									{
-										$scope.CurrentPlan = '';
-									}
+				{
+					$scope.CurrentPlan = '';
+				}
 				// else {
 				// 	data.CurrentPlan = '';
 				// 	$scope.CurrentPlan = '';
 				// 	$scope.CurrentPlanName = '';
 				// }
+console.log('$scope.CurrentPlanName',$scope.CurrentPlanName);
+				if($scope.CurrentPlanName == 'Waived')
+				{
+					$scope.CurrentPlanName = 'n/a (Waived)';
+				}
+				if($scope.CurrentPlanName == 'NewHire')
+				{
+					$scope.CurrentPlanName = 'n/a (New Hire)';
+				}
+console.log('$scope.CurrentPlanName',$scope.CurrentPlanName);
 
 				if (!($scope.Case.IssuerID && $scope.Case.IssuerID != 'null' && parseInt($scope.Case.IssuerID) != 'NaN')) {
 					data.IssuerId = "0";
@@ -2124,6 +2138,49 @@
 									$scope.graphResults = response.Plans;
 									$scope.Case.CasePlanResults = response.Plans;
 
+
+									// if($scope.Case.CasePlanResults.length === 1)
+									// {		
+									// 	$scope.pro_red = '62%';
+									// 	$scope.pro_green = '38%';
+									// }
+									// else if($scope.Case.CasePlanResults.length === 2)
+									// {		
+									// 	$scope.pro_red = '45%';
+									// 	$scope.pro_green = '27.5%';
+									// }
+									// else if($scope.Case.CasePlanResults.length === 3)
+									// {		
+									// 	$scope.pro_red = '35%';
+									// 	$scope.pro_green = '21.66%';
+									// }
+									// else if($scope.Case.CasePlanResults.length === 4)
+									// {		
+									// 	$scope.pro_red = '30%';
+									// 	$scope.pro_green = '17.5%';
+									// }
+
+									if($scope.Case.CasePlanResults.length === 1)
+									{		
+										$scope.pro_red = '70%';
+										$scope.pro_green = '30%';
+									}
+									else if($scope.Case.CasePlanResults.length === 2)
+									{		
+										$scope.pro_red = '50%';
+										$scope.pro_green = '25%';
+									}
+									else if($scope.Case.CasePlanResults.length === 3)
+									{		
+										$scope.pro_red = '40%';
+										$scope.pro_green = '20%';
+									}
+									else if($scope.Case.CasePlanResults.length === 4)
+									{		
+										$scope.pro_red = '30%';
+										$scope.pro_green = '17.5%';
+									}
+
 									if ($scope.CurrentPlan != '' && $scope.CurrentPlan != $scope.Case.CasePlanResults[0].PlanId) {
 										console.log('test')
 										var CurrentPlanResult = $filter('filter')($scope.Case.CasePlanResults, function (item) {
@@ -2147,6 +2204,15 @@
 									{
 										$scope.CurrentPlan = '';
 									} 
+
+									if($scope.CurrentPlanName == 'Waived')
+									{
+										$scope.CurrentPlanName = 'n/a (Waived)';
+									}
+									if($scope.CurrentPlanName == 'NewHire')
+									{
+										$scope.CurrentPlanName = 'n/a (New Hire)';
+									}
 
 									$scope.max = Math.max.apply(Math, $scope.Case.CasePlanResults.map(function (item) {
 										return item.WorstCase;
@@ -2231,7 +2297,7 @@
 
 
 			$scope.set_width = function (max, currentValue) {
-				return {
+			return {
 					width: currentValue * 100 / max + '%'
 				}
 			}
@@ -2438,12 +2504,14 @@
 							$scope.display.push({
 								"id": cat.CategoryId,
 								"name": cat.CategoryName,
-								"benefit": false
+								"benefit": false,
+								"categoryDisplayOrder": cat.CategoryDisplayOrder
 							});
 							$scope.Defaults.display.push({
 								"id": cat.CategoryId,
 								"name": cat.CategoryName,
-								"benefit": false
+								"benefit": false,
+								"categoryDisplayOrder": cat.CategoryDisplayOrder
 							});
 
 							$scope.display.push({
@@ -2454,7 +2522,8 @@
 								"default": cat.IsDefault,
 								"cat_id": cat.CategoryId,
 								"display": cat.IsDefault,
-								"defaultCost": cat.MHMBenefitCost
+								"defaultCost": cat.MHMBenefitCost,
+								"benefitDisplayOrder": cat.BenefitDisplayOrder
 							});
 
 							$scope.Defaults.display.push({
@@ -2465,7 +2534,8 @@
 								"default": cat.IsDefault,
 								"cat_id": cat.CategoryId,
 								"display": cat.IsDefault,
-								"defaultCost": cat.MHMBenefitCost
+								"defaultCost": cat.MHMBenefitCost,
+								"benefitDisplayOrder": cat.BenefitDisplayOrder
 							});
 
 							if (typeof $scope.UseBenefits.users.benefitsVal[cat.MHMBenefitID] == 'undefined') {
@@ -2515,7 +2585,8 @@
 								"default": cat.IsDefault,
 								"cat_id": cat.CategoryId,
 								"display": cat.IsDefault,
-								"defaultCost": cat.MHMBenefitCost
+								"defaultCost": cat.MHMBenefitCost,
+								"benefitDisplayOrder": cat.BenefitDisplayOrder
 							});
 
 							$scope.Defaults.display.push({
@@ -2526,7 +2597,8 @@
 								"default": cat.IsDefault,
 								"cat_id": cat.CategoryId,
 								"display": cat.IsDefault,
-								"defaultCost": cat.MHMBenefitCost
+								"defaultCost": cat.MHMBenefitCost,
+								"benefitDisplayOrder": cat.BenefitDisplayOrder
 							});
 
 							var test = {};
@@ -4019,9 +4091,19 @@ console.log(QuickViewData);
 								$scope.CurrentPlanName = CurrentPlanResult[0].PlanName;
 						}
 						else
-									{
-										$scope.CurrentPlan = '';
-									}
+						{
+							$scope.CurrentPlan = '';
+						}
+
+
+						if($scope.CurrentPlanName == 'Waived')
+						{
+							$scope.CurrentPlanName = 'n/a (Waived)';
+						}
+						if($scope.CurrentPlanName == 'NewHire')
+						{
+							$scope.CurrentPlanName = 'n/a (New Hire)';
+						}
 						
 						if ($routeParams.action == 'copy' && $scope.statusCode != undefined) {
 							var objCaseStatus = $filter('filter')($scope.statusCode, function (item) {

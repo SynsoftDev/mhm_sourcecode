@@ -79,20 +79,23 @@ namespace MHM.Api.ViewModel
         public long Id { get; set; }
         public string PlanId { get; set; }
         public string BenefitName { get; set; }
-        public bool? IsCovered { get; set; }
+        //public bool? IsCovered { get; set; }
         public string CostSharingType1 { get; set; }
-        public string CostSharingType2 { get; set; }
+        //public string CostSharingType2 { get; set; }
         public decimal? CopayInnTier1 { get; set; }
         public long? MHMBenefitId { get; set; }
         public decimal? CoinsInnTier1 { get; set; }
         public string BusinessYear { get; set; }
         public string Category { get; set; }
-        public int? Unassign { get; set; }
-        public long? IssuerId { get; set; }
+        //public int? Unassign { get; set; }
+        //public long? IssuerId { get; set; }
         public string IssuerName { get; set; }
         public int TotalCount { get; set; }
         public int pagecount { get; set; }
         public string PlanMarketingName { get; set; }
+
+        public int LimitQty { get; set; }
+        public string LimitUnit { get; set; }
     }
 
     public class CSRRateMst

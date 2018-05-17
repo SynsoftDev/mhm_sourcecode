@@ -1325,7 +1325,7 @@ angular.module('mhmApp.planattribute', ['ui.select'])
 										});
 									} else {
 										bootbox.alert(messages.saved, function () {
-											$location.path('insuranceplantype/planattribute');
+											// $location.path('insuranceplantype/planattribute');
 											$scope.$apply();
 										});
 									}

@@ -186,41 +186,47 @@
             <!-- end col 12-->
             <div class="col-md-12">
                 <table class="table table-bordered table-condensed table-nowrap table-striped table-hover">
+
                     <thead>
                         <tr>
-                            <th style="width:20%;"><a ng-click="sort_by('Id')">#PlanID<i class="fa fa-sort ml20"></i></a></th>
-                            <th style="width:20%;"><a ng-click="sort_by('BenefitName')">Benefit Name<i class="fa fa-sort ml20"></i></a></th>
-                            <th style="width:15%;">Business Year</th>
-                            <th style="width:15%;">#UnassignBen</th>
-                            <th style="width:15%;"><a ng-click="sort_by('MHMBenefitID')">MHMBenefitID<i class="fa fa-sort ml20"></i></a></th>
-                            <th style="width:18%;">Category</th>
-                            <th style="width:18%;"><a ng-click="sort_by('IsCovered')">Is Covered<i class="fa fa-sort ml20"></i></a></th>
-                            <th style="width:12%;">IssuerId</th>
-                            <th style="width:18%;"><a ng-click="sort_by('CostShareType1')">CostShareType1<i class="fa fa-sort ml20"></i></a></th>
-                            <th style="width:18%;"><a ng-click="sort_by('CostShareType2')">CostShareType2<i class="fa fa-sort ml20"></i></a></th>
-                            <th style="width:15%;">CopayInN1$</th>
-                            <th style="width:15%;">CoInsInN1%</th>
-                            <th style="width:18%;">Action</th>
+                            <th style="width:5.5%;"><a ng-click="sort_by('Id')">#PlanID<i class="fa fa-sort ml20"></i></a></th>
+                            <th style="width:21%;"><a ng-click="sort_by('BenefitName')">Benefit Name<i class="fa fa-sort ml20"></i></a></th>
+                            <th style="width:5.5%;">Business Year</th>
+                            <!-- <th style="width:15%;">#UnassignBen</th> -->
+                            <th style="width:7.5%;"><a ng-click="sort_by('MHMBenefitID')">MHMBenefitID<i class="fa fa-sort ml20"></i></a></th>
+                            <th style="width:18.5%;">Category</th>
+                           <!--  <th style="width:18%;"><a ng-click="sort_by('IsCovered')">Is Covered<i class="fa fa-sort ml20"></i></a></th> -->
+                            <!-- <th style="width:12%;">IssuerId</th> -->
+                            <th style="width:9%;"><a ng-click="sort_by('CostShareType1')">CostShareType1<i class="fa fa-sort ml20"></i></a></th>
+                           <!--  <th style="width:18%;"><a ng-click="sort_by('CostShareType2')">CostShareType2<i class="fa fa-sort ml20"></i></a></th> -->
+                            <th style="width:7%;">CopayInN1$</th>
+                            <th style="width:7%;">CoInsInN1%</th>
+                            <th style="width:5.5%;">LimitQty</th>
+                            <th style="width:6%;">Limit Unit</th>
+                            <th style="width:8%;">Action</th>
                             <!-- <th style="width:20%;">Year</th>
                           <th style="width:27%;"><a ng-click="sort_by('BenefitKey')">Benefit Key<i class="fa fa-sort ml20"></i></a></th>
                           <th style="width:15%;">Mrkt Cover</th>
                           <th style="width:20%;">State</th>  -->
                         </tr>
                     </thead>
+
                     <tbody>
                         <tr ng-repeat="planbenefit in planBenefits">
                             <td class="text-right" title="{{planbenefit.PlanId}}">{{planbenefit.PlanId}}</td>
                             <td class="text-left" title="{{planbenefit.BenefitName}}">{{planbenefit.BenefitName}}</td>
                             <td class="text-right" title="{{planbenefit.BusinessYear}}">{{planbenefit.BusinessYear}}</td>
-                            <td class="text-right" title="{{planbenefit.Unassign}}">{{planbenefit.Unassign}}</td>
+                            <!-- <td class="text-right" title="{{planbenefit.Unassign}}">{{planbenefit.Unassign}}</td> -->
                             <td class="text-right" title="{{planbenefit.MHMBenefitId}}">{{planbenefit.MHMBenefitId}}</td>
                             <td class="text-left" title="{{planbenefit.Category}}">{{planbenefit.Category}}</td>
-                            <td class="text-left" title="{{planbenefit.IsCovered}}">{{planbenefit.IsCovered}}</td>
-                            <td class="text-right" title="planbenefit.IssuerId">{{planbenefit.IssuerId}}</td>
+                            <!-- <td class="text-left" title="{{planbenefit.IsCovered}}">{{planbenefit.IsCovered}}</td> -->
+                            <!-- <td class="text-right" title="planbenefit.IssuerId">{{planbenefit.IssuerId}}</td> -->
                             <td class="text-left" title="{{planbenefit.CostSharingType1}}">{{planbenefit.CostSharingType1}}</td>
-                            <td class="text-left" title="{{planbenefit.CostSharingType2}}">{{planbenefit.CostSharingType2}}</td>
+                            <!-- <td class="text-left" title="{{planbenefit.CostSharingType2}}">{{planbenefit.CostSharingType2}}</td> -->
                             <td class="text-right" title="{{planbenefit.CopayInnTier1}}">{{planbenefit.CopayInnTier1}}</td>
                             <td class="text-right" title="{{planbenefit.CoinsInnTier1}}">{{planbenefit.CoinsInnTier1}}</td>
+                            <td class="text-right" title="{{planbenefit.LimitQty}}">{{planbenefit.LimitQty}}</td>
+                            <td class="text-right" title="{{planbenefit.LimitUnit}}">{{planbenefit.LimitUnit}}</td>
                             <td class="text-center">
                                 <a title="create new planbenefit" class="color_green add_case_btn" href="insuranceplantype/editplanbenefit/{{planbenefit.Id}}/copy"><i class="fa fa-plus"></i></a>
 
@@ -236,6 +242,7 @@
                             <td colspan="13">No Record Found.</td>
                         </tr>
                     </tbody>
+
                     <tfoot ng-if="TotalCount > 0">
                         <tr>
                             <td colspan="13"><span class="tot_rec_title"><i class="fa fa-check-circle mr10"></i> Total Records : {{TotalCount}}</span>
@@ -250,6 +257,8 @@
                             </td>
                         </tr>
                     </tfoot>
+                    
+
                 </table>
             </div>
             <!--end col 12-->

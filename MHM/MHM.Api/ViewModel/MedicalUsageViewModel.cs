@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace MHM.Api.ViewModel
 {
-    public class MedicalUsageViewModel:Response
+    public class MedicalUsageViewModel : Response
     {
         public List<MedicalUsagelistViewModel> MedicalsUsage { get; set; }
 
         public long RatingAreaId { get; set; }
     }
 
-    public class MedicalUsagelistViewModel 
+    public class MedicalUsagelistViewModel
     {
         public short CategoryId { get; set; }
 
@@ -27,6 +27,9 @@ namespace MHM.Api.ViewModel
         public bool? IsDefault { get; set; }
 
         public decimal? MHMBenefitCost { get; set; }
+
+        //public int CategoryDisplayOrder { get; set; }
+        //public int BenefitDisplayOrder { get; set; }
 
     }
 }

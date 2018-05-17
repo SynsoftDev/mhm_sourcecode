@@ -437,7 +437,6 @@ angular.module('mhmApp.job', ['multi-select'])
 					$scope.MarketCoverages = ((typeof response[11].data != 'undefined') && (response[11].data.Status)) ? response[11].data.lstMarketCoverage : [];
 					// alert($scope.action);
 					if ($scope.action == "add") {
-						console.log('$scope.job.JobNumber', $scope.job.JobNumber);
 						$scope.job.OldJobNumber = $scope.job.JobNumber;
 						$scope.job.JobNumber = $scope.NewJobNum;
 					}
@@ -657,6 +656,18 @@ angular.module('mhmApp.job', ['multi-select'])
 
 							if ($scope.job.IsHSAMatch)
 								$scope.isHSAMatchFlag = true;
+
+							// if($scope.NewJobNum != "" && $scope.NewJobNum != undefined && $scope.NewJobNum != null)
+							// {
+							// 	$scope.job.JobNumber = $scope.NewJobNum;
+							// }
+
+							if ($scope.action == "add") {
+								$scope.job.OldJobNumber = $scope.job.JobNumber;
+								$scope.job.JobNumber = $scope.NewJobNum;
+								console.log('a',$scope.job.OldJobNumber);
+								console.log('a',$scope.job.JobNumber);
+							}
 
 							$scope.getInsuranceType($scope.job.InsuranceTypeId);
 							$scope.dataLoading = false;

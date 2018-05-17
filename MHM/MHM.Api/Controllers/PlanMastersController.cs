@@ -591,18 +591,20 @@ namespace MHM.Api.Controllers
                         objPlanBenefit.Id = Convert.ToInt64(objReader["Id"]);
                         objPlanBenefit.PlanId = objReader["PlanId"].ToString();
                         objPlanBenefit.BenefitName = objReader["BenefitName"] != DBNull.Value ? objReader["BenefitName"].ToString() : "";
-                        objPlanBenefit.IsCovered = objReader["IsCovered"] != DBNull.Value ? (bool?)Convert.ToBoolean(objReader["IsCovered"]) : null;
+                        //objPlanBenefit.IsCovered = objReader["IsCovered"] != DBNull.Value ? (bool?)Convert.ToBoolean(objReader["IsCovered"]) : null;
                         objPlanBenefit.CostSharingType1 = objReader["CostSharingType1"] != DBNull.Value ? objReader["CostSharingType1"].ToString() : "";
-                        objPlanBenefit.CostSharingType2 = objReader["CostSharingType2"] != DBNull.Value ? objReader["CostSharingType2"].ToString() : "";
+                        //objPlanBenefit.CostSharingType2 = objReader["CostSharingType2"] != DBNull.Value ? objReader["CostSharingType2"].ToString() : "";
                         objPlanBenefit.CopayInnTier1 = objReader["CopayInnTier1"] != DBNull.Value ? (decimal?)Convert.ToDecimal(objReader["CopayInnTier1"]) : null;
                         objPlanBenefit.MHMBenefitId = objReader["MHMBenefitId"] != DBNull.Value ? (Int64?)Convert.ToInt64(objReader["MHMBenefitId"]) : null;
                         objPlanBenefit.CoinsInnTier1 = objReader["CoinsInnTier1"] != DBNull.Value ? (decimal?)Convert.ToDecimal(objReader["CoinsInnTier1"]) : null;
                         objPlanBenefit.BusinessYear = objReader["BusinessYear"] != DBNull.Value ? objReader["BusinessYear"].ToString() : "";
                         objPlanBenefit.Category = objReader["Category"] != DBNull.Value ? objReader["Category"].ToString() : "";
-                        objPlanBenefit.Unassign = objReader["Unassign"] != DBNull.Value ? (Int32?)Convert.ToInt32(objReader["Unassign"]) : null;
-                        objPlanBenefit.IssuerId = objReader["IssuerId"] != DBNull.Value ? (Int64?)Convert.ToInt64(objReader["IssuerId"]) : null;
+                        //objPlanBenefit.Unassign = objReader["Unassign"] != DBNull.Value ? (Int32?)Convert.ToInt32(objReader["Unassign"]) : null;
+                        //objPlanBenefit.IssuerId = objReader["IssuerId"] != DBNull.Value ? (Int64?)Convert.ToInt64(objReader["IssuerId"]) : null;
                         objPlanBenefit.IssuerName = objReader["IssuerName"] != DBNull.Value ? objReader["IssuerName"].ToString() : "";
                         objPlanBenefit.TotalCount = Convert.ToInt32(objReader["TotalCount"]);
+                        objPlanBenefit.LimitQty = objReader["LimitQty"] != DBNull.Value ? Convert.ToInt32( objReader["LimitQty"]) : 0;
+                        objPlanBenefit.LimitUnit = objReader["LimitUnit"] != DBNull.Value ?objReader["LimitUnit"].ToString() : "";
                         objPlanBenefitList.Add(objPlanBenefit);
                     }
                     total = objPlanBenefitList.First().TotalCount;
