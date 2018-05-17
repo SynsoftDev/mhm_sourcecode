@@ -1,3 +1,0 @@
-Api : GetCriticalillness
-Request :  
-Exception : {"Status":false,"Message":"The underlying provider failed on Open."}
