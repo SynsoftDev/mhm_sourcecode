@@ -72,6 +72,9 @@ namespace MHMDal.Models
         [StringLength(25)]
         public string JobTitle { get; set; }
 
+        [StringLength(20)]
+        public string PreferredLanguage { get; set; }
+
         [JsonIgnore]
         public virtual EmployerMst EmployerMst { get; set; }
         [JsonIgnore]

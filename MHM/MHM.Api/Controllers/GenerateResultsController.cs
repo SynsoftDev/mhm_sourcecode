@@ -72,89 +72,102 @@ namespace MHM.Api.Controllers
         [Route("api/GenerateResultsController/GetAllFinalNotSendCases")]
         public HttpResponseMessage GetAllFinalNotSendCases([FromUri]  List<int?> CaseStatusIds, string JobNumber, string JobRunStatus)
         {
-            using (var DB = new MHMDal.Models.MHM())
+            try
             {
-                var lstCases = DB.Cases.Where(r => r.JobNumber == JobNumber && CaseStatusIds.Contains(r.StatusId) && r.InProcessStatus == false).ToList();
-                if (JobRunStatus != null)
+
+
+                using (var DB = new MHMDal.Models.MHM())
                 {
-                    lstCases = lstCases.Where(r => r.CaseJobRunStatus == JobRunStatus).ToList();
-                }
-                Dictionary<string, object> res = new Dictionary<string, object>();
-                if (lstCases.Count() > 0)
-                {
-                    var oCase = lstCases.Take(1).FirstOrDefault();
-                    oCase.InProcessStatus = true;
-                    DB.SaveChanges();
-
-                    oCase.Applicant.City = oCase.Applicant.City != null ? oCase.Applicant.City.Decrypt() : null;
-                    oCase.Applicant.Email = oCase.Applicant.Email != null ? oCase.Applicant.Email.Decrypt() : null;
-                    oCase.Applicant.FirstName = oCase.Applicant.FirstName != null ? oCase.Applicant.FirstName.Decrypt() : null;
-                    oCase.Applicant.LastName = oCase.Applicant.LastName != null ? oCase.Applicant.LastName.Decrypt() : null;
-                    oCase.Applicant.Mobile = oCase.Applicant.Mobile != null ? oCase.Applicant.Mobile.Decrypt() : null;
-                    oCase.Applicant.Street = oCase.Applicant.Street != null ? oCase.Applicant.Street.Decrypt() : null;
-                    oCase.Applicant.State = oCase.Applicant.State != null ? oCase.Applicant.State.Decrypt() : null;
-                    oCase.Applicant.Zip = oCase.Applicant.Zip != null ? oCase.Applicant.Zip.Decrypt() : null;
-
-                    oCase.Notes = oCase.Notes != null ? oCase.Notes.Decrypt() : null;
-
-                    DateTime date;
-
-
-                    oCase.Families.ToList().ForEach(r =>
+                    var lstCases = DB.Cases.Where(r => r.JobNumber == JobNumber && CaseStatusIds.Contains(r.StatusId) && r.InProcessStatus == false).ToList();
+                    if (JobRunStatus != null)
                     {
-                        // r.Gender = r.Gender.Decrypt();
-                        r.Gender = GenerateEncryptedString.GetDecryptedString(r.Gender);
-                        var DOB = GenerateEncryptedString.GetDecryptedString(r.DOB);
-                        var status = DateTime.TryParse(DOB, out date);
-                        if (!status) { date = DateTime.Parse(DOB, CultureInfo.CreateSpecificCulture("fr-FR")); }
-                        r.DOB = date.ToString("MM/dd/yyyy");
-                        r.Criticalillnesses.ToList();
-                        r.BenefitUserDetails.ToList().ForEach(t => { t.UsageNotes = t.UsageNotes != null ? t.UsageNotes.Decrypt() : null; });
-                    });
-
-
-                    oCase.CasePlanResults.ToList().ForEach(r =>
+                        lstCases = lstCases.Where(r => r.CaseJobRunStatus == JobRunStatus).ToList();
+                    }
+                    Dictionary<string, object> res = new Dictionary<string, object>();
+                    if (lstCases.Count() > 0)
                     {
-                        r.GrossAnnualPremium = r.GrossAnnualPremium;
-                        r.FederalSubsidy = r.FederalSubsidy;
-                        r.NetAnnualPremium = r.NetAnnualPremium;
-                        r.MonthlyPremium = r.MonthlyPremium;
-                        r.Copays = r.Copays;
-                        r.PaymentsToDeductibleLimit = r.PaymentsToDeductibleLimit;
-                        r.CoinsuranceToOutOfPocketLimit = r.CoinsuranceToOutOfPocketLimit;
-                        r.ContributedToYourHSAAccount = r.ContributedToYourHSAAccount != null ? r.ContributedToYourHSAAccount : null;
-                        r.TaxSavingFromHSAAccount = r.TaxSavingFromHSAAccount;
-                        r.Medical = r.Medical;
-                        r.TotalPaid = r.TotalPaid;
-                        r.PaymentsByInsuranceCo = r.PaymentsByInsuranceCo;
-                        r.DeductibleSingle = r.DeductibleSingle;
-                        r.DeductibleFamilyPerPerson = r.DeductibleFamilyPerPerson;
-                        r.DeductibleFamilyPerGroup = r.DeductibleFamilyPerGroup;
-                        r.OPLSingle = r.OPLSingle;
-                        r.OPLFamilyPerPerson = r.OPLFamilyPerPerson;
-                        r.OPLFamilyPerGroup = r.OPLFamilyPerGroup;
-                        r.Coinsurance = r.Coinsurance;
-                        r.WorstCase = r.WorstCase;
-                        r.PlanName = r.PlanName;
-                        r.HRAReimbursedAmt = r.HRAReimbursedAmt;
-                        //test = test + 1;
-                    });
-                    oCase.CasePlanResults = oCase.CasePlanResults.Take(5).ToList();
-                    oCase.CaseStatusMst = oCase.CaseStatusMst;
-                    oCase.IssuerMst = oCase.IssuerMst;
+                        var oCase = lstCases.Take(1).FirstOrDefault();
+                        oCase.InProcessStatus = true;
+                        DB.SaveChanges();
 
-                    res.Add("Status", "true");
-                    res.Add("Message", "Success");
-                    res.Add("Case", oCase);
-                    res.Add("TotalCount", lstCases.Count);
+                        oCase.Applicant.City = oCase.Applicant.City != null ? oCase.Applicant.City.Decrypt() : null;
+                        oCase.Applicant.Email = oCase.Applicant.Email != null ? oCase.Applicant.Email.Decrypt() : null;
+                        oCase.Applicant.FirstName = oCase.Applicant.FirstName != null ? oCase.Applicant.FirstName.Decrypt() : null;
+                        oCase.Applicant.LastName = oCase.Applicant.LastName != null ? oCase.Applicant.LastName.Decrypt() : null;
+                        oCase.Applicant.Mobile = oCase.Applicant.Mobile != null ? oCase.Applicant.Mobile.Decrypt() : null;
+                        oCase.Applicant.Street = oCase.Applicant.Street != null ? oCase.Applicant.Street.Decrypt() : null;
+                        oCase.Applicant.State = oCase.Applicant.State != null ? oCase.Applicant.State.Decrypt() : null;
+                        oCase.Applicant.Zip = oCase.Applicant.Zip != null ? oCase.Applicant.Zip.Decrypt() : null;
+
+                        oCase.Notes = oCase.Notes != null ? oCase.Notes.Decrypt() : null;
+
+                        DateTime date;
+
+
+                        oCase.Families.ToList().ForEach(r =>
+                        {
+                            // r.Gender = r.Gender.Decrypt();
+                            r.Gender = GenerateEncryptedString.GetDecryptedString(r.Gender);
+                            var DOB = GenerateEncryptedString.GetDecryptedString(r.DOB);
+                            var status = DateTime.TryParse(DOB, out date);
+                            if (!status) { date = DateTime.Parse(DOB, CultureInfo.CreateSpecificCulture("fr-FR")); }
+                            r.DOB = date.ToString("MM/dd/yyyy");
+                            r.Criticalillnesses.ToList();
+                            r.BenefitUserDetails.ToList().ForEach(t => { t.UsageNotes = t.UsageNotes != null ? t.UsageNotes.Decrypt() : null; });
+                        });
+
+
+                        oCase.CasePlanResults.ToList().ForEach(r =>
+                        {
+                            r.GrossAnnualPremium = r.GrossAnnualPremium;
+                            r.FederalSubsidy = r.FederalSubsidy;
+                            r.NetAnnualPremium = r.NetAnnualPremium;
+                            r.MonthlyPremium = r.MonthlyPremium;
+                            r.Copays = r.Copays;
+                            r.PaymentsToDeductibleLimit = r.PaymentsToDeductibleLimit;
+                            r.CoinsuranceToOutOfPocketLimit = r.CoinsuranceToOutOfPocketLimit;
+                            r.ContributedToYourHSAAccount = r.ContributedToYourHSAAccount != null ? r.ContributedToYourHSAAccount : null;
+                            r.TaxSavingFromHSAAccount = r.TaxSavingFromHSAAccount;
+                            r.Medical = r.Medical;
+                            r.TotalPaid = r.TotalPaid;
+                            r.PaymentsByInsuranceCo = r.PaymentsByInsuranceCo;
+                            r.DeductibleSingle = r.DeductibleSingle;
+                            r.DeductibleFamilyPerPerson = r.DeductibleFamilyPerPerson;
+                            r.DeductibleFamilyPerGroup = r.DeductibleFamilyPerGroup;
+                            r.OPLSingle = r.OPLSingle;
+                            r.OPLFamilyPerPerson = r.OPLFamilyPerPerson;
+                            r.OPLFamilyPerGroup = r.OPLFamilyPerGroup;
+                            r.Coinsurance = r.Coinsurance;
+                            r.WorstCase = r.WorstCase;
+                            r.PlanName = r.PlanName;
+                            r.HRAReimbursedAmt = r.HRAReimbursedAmt;
+                            //test = test + 1;
+                        });
+                        oCase.CasePlanResults = oCase.CasePlanResults.Take(5).ToList();
+                        oCase.CaseStatusMst = oCase.CaseStatusMst;
+                        oCase.IssuerMst = oCase.IssuerMst;
+
+                        var objJobMaster = oCase.JobMaster;
+                        oCase.JobMaster = objJobMaster;
+
+                        res.Add("Status", "true");
+                        res.Add("Message", "Success");
+                        res.Add("Case", oCase);
+                        res.Add("TotalCount", lstCases.Count);
+                    }
+                    else
+                    {
+                        res.Add("Status", "true");
+                        res.Add("Message", "Success");
+                        res.Add("Case", "");
+                    }
+                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, res);
+                    return response;
                 }
-                else
-                {
-                    res.Add("Status", "true");
-                    res.Add("Message", "Success");
-                    res.Add("Case", "");
-                }
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, res);
+            }
+            catch (Exception ex)
+            {
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, ex.ToString());
                 return response;
             }
         }
@@ -225,13 +238,16 @@ namespace MHM.Api.Controllers
                     if (EmployerId == 99999)
                     {
                         IndividualSubsidy = new SubsidyCal().CalculateSubsidy(BusinessYear, Income, IsAmericanIndian, RatingAreaId, StateCode, fmlMemberList, SubsidyStatus, "Indi", out ACAPlanIdSub, out MemberRemoveMedicaidEligibility, out MemberRemoveChipEligibility, out FPL, out SecondLowestPlanId);
+                        oCase.MonthlySubsidy = IndividualSubsidy;
                     }
                     if (EmployerId == 100000)
                     {
                         ShopSubsidy = new SubsidyCal().CalculateSubsidy(BusinessYear, Income, IsAmericanIndian, RatingAreaId, StateCode, fmlMemberList, SubsidyStatus, "SHOP", out ACAPlanIdSub, out MemberRemoveMedicaidEligibility, out MemberRemoveChipEligibility, out FPL, out SecondLowestPlanId);
+                        oCase.MonthlySubsidy = ShopSubsidy;
                     }
 
-                    var data = objOptionSheet.CalculateOptionsNew(fmlMemberList, lstFamilyMemberUses, JobNumber, ZipCode, CountyName, Income, SubsidyStatus, UsageCode, Welness, HSAPercentage, TaxRate, (decimal)MaxEEHSA, IsAmericanIndian, ResultStatus, IndividualSubsidy, ShopSubsidy, RatingAreaId, ProgID, HSALimit, StateCode, ACAPlanIdSub, PlanTypeID, IssuerId, TierIntention,0);
+                    var data = objOptionSheet.CalculateOptionsNew(fmlMemberList, lstFamilyMemberUses, JobNumber, Income, SubsidyStatus, UsageCode, Welness, HSAPercentage, TaxRate, (decimal)MaxEEHSA, IsAmericanIndian, ResultStatus, IndividualSubsidy, ShopSubsidy, RatingAreaId, ProgID, HSALimit, StateCode, ACAPlanIdSub, PlanTypeID, IssuerId, TierIntention, 0);
+
 
                     bool caseStatus = UpdateCaseResults(oCase.CaseID, data);
 
@@ -241,6 +257,9 @@ namespace MHM.Api.Controllers
                         oCase.CaseJobRunStatus = Convert.ToString(MHM.Api.Models.EnumStatusModel.CaseJobRunStatus.GeneratedOnly);
                         oCase.CaseJobRunDt = DateTime.Now;
                         oCase.CaseJobRunUserID = ModifiedBy;
+                        oCase.HSALimit = HSALimit;
+                        oCase.HSAAmount = Convert.ToInt64(MaxEEHSA);
+                        oCase.FPL = FPL;
                         DB.SaveChanges();
 
                         var Job = DB.JobMasters.Where(r => r.JobNumber == oCase.JobNumber).FirstOrDefault();
@@ -426,6 +445,35 @@ namespace MHM.Api.Controllers
                     if (EmailSignText.Contains("##AgentEmail##")) { EmailSignText = EmailSignText.Replace("##AgentEmail##", JsonData.AgentEmail); }
                     if (EmailSignText.Contains("##AgentPhone##")) { EmailSignText = EmailSignText.Replace("##AgentPhone##", String.Format("{0:(###) ###-####}", Convert.ToInt64(JsonData.AgentPhone))); }
                     if (EmailBodyText.Contains("##PlanTotalCostRange##")) { EmailBodyText = EmailBodyText.Replace("##PlanTotalCostRange##", "$" + String.Format("{0:n0}", Convert.ToDecimal(JsonData.PlanTotalCostRange))); }
+                    if (EmailBodyText.Contains("##TotalEmployerContribution##"))
+                    {
+
+                        var str = "";
+                        if (Convert.ToDecimal(JsonData.EmployerHSAContribution) != 0 && Convert.ToDecimal(JsonData.EmployerHRAReimbursement) > 0)
+                        {
+                            str = "If you enroll in the " + JsonData.OptimalPlanName + " (your optimal plan), your employer will contribute approximately " + "$" + String.Format("{0:n0}", Convert.ToDecimal(JsonData.TotalEmployerContribution)) + " to your expenses. This contribution consists of:" + Environment.NewLine;
+                            str += "<ul><li>" + "$" + String.Format("{0:n0}", Convert.ToDecimal(JsonData.EmployerPremiumContribution)) + " to your premium</li>";
+                            str += "<li>" + "$" + String.Format("{0:n0}", Convert.ToDecimal(JsonData.EmployerHSAContribution)) + " to your health savings account, and</li>";
+                            str += "<li>an estimated " + "$" + String.Format("{0:n0}", Convert.ToDecimal(JsonData.EmployerHRAReimbursement)) + " in HRA reimbursements.</li></ul>";
+                        }
+                        else if (Convert.ToDecimal(JsonData.EmployerHSAContribution) != 0 && Convert.ToDecimal(JsonData.EmployerHRAReimbursement) == 0)
+                        {
+                            str = "If you enroll in the " + JsonData.OptimalPlanName + " (your optimal plan), your employer will contribute approximately " + "$" + String.Format("{0:n0}", Convert.ToDecimal(JsonData.TotalEmployerContribution)) + " to your expenses. This contribution consists of:" + Environment.NewLine;
+                            str += "<ul><li>" + "$" + String.Format("{0:n0}", Convert.ToDecimal(JsonData.EmployerPremiumContribution)) + " to your premium</li>";
+                            str += "<li>" + "$" + String.Format("{0:n0}", Convert.ToDecimal(JsonData.EmployerHSAContribution)) + " to your health savings account.</li></ul>";
+                        }
+                        else if (Convert.ToDecimal(JsonData.EmployerHSAContribution) == 0 && Convert.ToDecimal(JsonData.EmployerHRAReimbursement) > 0)
+                        {
+                            str = "If you enroll in the " + JsonData.OptimalPlanName + " (your optimal plan), your employer will contribute approximately " + "$" + String.Format("{0:n0}", Convert.ToDecimal(JsonData.TotalEmployerContribution)) + " to your expenses. This contribution consists of:" + Environment.NewLine;
+                            str += "<ul><li>" + "$" + String.Format("{0:n0}", Convert.ToDecimal(JsonData.EmployerPremiumContribution)) + " to your premium</li>";
+                            str += "<li>an estimated " + "$" + String.Format("{0:n0}", Convert.ToDecimal(JsonData.EmployerHRAReimbursement)) + " in HRA reimbursements.</li></ul>";
+                        }
+                        else if (Convert.ToDecimal(JsonData.EmployerHSAContribution) == 0 && Convert.ToDecimal(JsonData.EmployerHRAReimbursement) == 0)
+                        {
+                            str = "If you enroll in the " + JsonData.OptimalPlanName + " (your optimal plan), your employer will contribute approximately " + "$" + String.Format("{0:n0}", Convert.ToDecimal(JsonData.TotalEmployerContribution)) + " to your premium.";
+                        }
+                        EmailBodyText = EmailBodyText.Replace("##TotalEmployerContribution##", str);
+                    }
 
                     Mail = EmailBodyText + EmailSignText;
 

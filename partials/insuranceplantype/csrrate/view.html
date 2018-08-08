@@ -1,351 +1,253 @@
 ﻿<style>.main-container {padding-bottom:0px;}.wrapper{height:auto;}#footer{height:40px;position:relative !important;}</style>
-<head><title>{{title}}</title></head>
+<head>
+   <title>{{title}}</title>
+</head>
 <div ng-include src="'partials/include/header.html'"></div>
-<div class="main-container pt0" id="main-container" ng-hide="pageLoading"> 
-  <!--Main container start-->
-  <div class="row_dummy one-column grid-media-box1">
-    <div class="col-md-12">
-      <div class="tp-wizard-form" id="tp-wizard-form"><!-- wizard form -->
-        <div class="container">
-          <div class="row">
-            <p ng-show="flash.status" class="alert {{flash.type}}">{{flash.message}} <a class="close" ng-click="closeFlash()"><i class="fa fa-close"></i></a> </p>  
-			<!-- <div class="col-md-4 pull-right">	       
-				<a style="position:absolute;right:0;z-index:9;" title="Back" class="hvr-radial-out-black btn tp-btn tp-btn-grey dropdown-toggle pull-right" href="insuranceplantype/csrrate">Back</a>						
-			</div> -->
-            <!-- Smart Wizard -->       
-			<div class="swMain attr attr-label">       
-                  <div class="pb0 pt0"><!-- zipcode -->
-				  <div class="container">
-                      <div class="row_dummy">             
-                        <h1 class="title_planattr">{{title}}</h1>
-                        <div class="container cst-from-container">
-                                    <div class="row">
-                                        <div class="col-md-6 col-lg-6 col-sm-12">
-                                            <!-- <h2>Main</h2>  -->
-                                        </div>
-                                        <div class="col-md-6 col-lg-6 col-sm-12">
-                                            <a title="Back" class="hvr-radial-out-black btn tp-btn tp-btn-grey dropdown-toggle pull-right ml20" href="insuranceplantype/csrrate">Back</a>
-                                            <!-- <a ng-click="viewcsrrate()" href="javascript:void(0)" class="hvr-radial-out btn tp-btn tp-btn-blue pull-right mb20 ml20">Update</a> -->
+<div class="main-container pt0" id="main-container" ng-hide="pageLoading">
+   <!--Main container start-->
+   <div class="row_dummy one-column grid-media-box1">
+      <div class="col-md-12 pl0 pr0 ">
+         <div class="tp-wizard-form wiz-height" id="tp-wizard-form">
+            <!-- wizard form -->
+            <div class="container pl0 pr0">
+               <div class="row_dummy">
+                  <p ng-show="flash.status" class="alert {{flash.type}}">{{flash.message}} <a class="close" ng-click="closeFlash()"><i class="fa fa-close"></i></a> </p>                
+                  <!-- Smart Wizard -->       
+                  
+                  <div class="swMain attr attr-label">
+                     <div class="pb0 pt0">
+                        <!-- zipcode -->
+                        <div class="container_dummy">
+                           <div class="row_dummy">
+                              <!-- <h1 class="container title_planattr">{{title}}</h1> -->
+                              <div class="container cst-from-container pl0 pr0 ">
+                                 <div class="row_dummy">
+                                    <div class="col-md-6 col-lg-6 col-sm-12 pl0 pr0">
+                                        <h1 class="container title_planattr pl0 pr0">{{title}}</h1>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 col-sm-12">
+                                       <a title="Back" class="hvr-radial-out-black btn tp-btn tp-btn-grey dropdown-toggle pull-right ml20" href="insuranceplantype/csrrate">Back</a>
+                                       <!-- <a ng-click="viewcsrrate()" href="javascript:void(0)" class="hvr-radial-out btn tp-btn tp-btn-blue pull-right mb20 ml20">Update</a> -->
+                                       <a href="insuranceplantype/viewcsrrate/{{NextRecord}}/{{sortby}}/{{desc}}" class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle mb20 pull-right ml20" ng-disabled="nextButton"><i class="fa fa-angle-double-right mr10" aria-hidden="true"></i>Next Plan Rate</a>
+                                       <a href="insuranceplantype/viewcsrrate/{{PreviousRecord}}/{{sortby}}/{{desc}}" class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle mb20 pull-right ml20" ng-disabled="prevButton"><i class="fa fa-angle-double-left mr10" aria-hidden="true"></i>Prev Plan Rate</a>
+                                    </div>
+                                 </div>
+                                 <div class="one-column grid-media-box1">
+                                    <div class="col-md-12 pl0 pr0">
+                                       <div class="tp-wizard-form" id="tp-wizard-form">
+                                          <!-- wizard form -->
+                                          <!-- Smart Wizard -->
+                                          <div class="cst-wizard" id="rates-hr">
+                                             <div class="swMain">                                             
+                                                <div class="col-md-12 mb20 pl0 pr0 ">
+                                                   <div id="wizard" class="swMain test23">
+                                                      <ul>
+                                                         <li> <a href="#step-0"> 
+                                                            <span class="stepDesc">Main</span> </a> 
+                                                         </li>
+                                                         
+                                                         <li> <a href="#step-1">															
+                                                            <span class="stepDesc">Systems</span> </a> 
+                                                         </li>
+                                                      </ul>
 
-                                            <a href="insuranceplantype/viewcsrrate/{{NextRecord}}/{{sortby}}/{{desc}}" class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle mb20 pull-right ml20" ng-disabled="nextButton"><i class="fa fa-angle-double-right mr10" aria-hidden="true"></i>Next Plan Rate</a>
-                                            <a href="insuranceplantype/viewcsrrate/{{PreviousRecord}}/{{sortby}}/{{desc}}" class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle mb20 pull-right ml20" ng-disabled="prevButton"><i class="fa fa-angle-double-left mr10" aria-hidden="true"></i>Prev Plan Rate</a>
-                                        </div>
+
+
+                                                      <div class="wiz-content-border content">
+
+                                                            <div class="col-md-offset-0-5" id="step-0">
+                                                                <p> 
+                                                                <h3>Key Information</h3>
+                                                                </p>
+                                                                <div class="row">
+
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12">
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">
+                                                                        <label class="control-label">Plan ID</label>
+                                                                    </div>
+                                                                    <div class="col-md-7 col-lg-7 col-sm-12">
+                                                                        <input type="text" class="form-control" ng-model="csrate.PlanID" readonly/>
+                                                                    </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12">
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">
+                                                                        <label class="control-label">Plan Year</label>
+                                                                    </div>
+                                                                    <div class="col-md-7 col-lg-7 col-sm-12">
+                                                                        <select ng-model="csrate.BusinessYear" class="form-control" disabled>
+                                                                            <option value="">Select Year</option>
+                                                                            <option ng-repeat="year in years" value="{{year.val}}">{{year.val}}</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    </div>
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12">
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">
+                                                                        <label class="control-label">Usage Code/Rating Area ID</label>
+                                                                    </div>
+                                                                    <div class="col-md-7 col-lg-7 col-sm-12">
+                                                                        <input type="text" class="form-control" ng-model="csrate.RatingAreaId" readonly/>
+                                                                    </div>
+                                                                    </div>
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12">
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">
+                                                                        <label class="control-label">Rate Effective Date</label>
+                                                                    </div>
+                                                                    <div class="col-md-7 col-lg-7 col-sm-12">
+                                                                        <input ng-click="open_rate_date()" class="form-control datepicker" type="text" uib-datepicker-popup="MM/dd/yyyy" ng-model="csrate.RateEffectiveDate" is-open="rateEffDate.isOpned" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" readonly />
+                                                                    </div>
+                                                                    </div>
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12">
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">
+                                                                        <label class="control-label">Program ID/Age</label>
+                                                                    </div>
+                                                                    <div class="col-md-7 col-lg-7 col-sm-12">
+                                                                        <input type="text" class="form-control" ng-model="csrate.Age" readonly/>
+                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                                <hr>
+                                                                <p> 
+                                                                <h3>Premium Rates (Monthly)</h3>
+                                                                </p>
+                                                                <div class="row">
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12">
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">
+                                                                        <label class="control-label">Gross Premium </label>
+                                                                    </div>
+                                                                    <div class="col-md-7 col-lg-7 col-sm-12">
+                                                                        <input type="text" class="form-control" ng-model="csrate.GrpCostAmt" num-filter="2" readonly/>
+                                                                    </div>
+                                                                    </div>
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12">
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">
+                                                                        <label class="control-label">Employer Cash in Lieu</label>
+                                                                    </div>
+                                                                    <div class="col-md-7 col-lg-7 col-sm-12">
+                                                                        <input type="text" class="form-control" ng-model="csrate.GrpCashAmt" num-filter="2" readonly/>
+                                                                    </div>
+                                                                    </div>
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12">
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">
+                                                                        <label class="control-label">Employer Premium Contribution </label>
+                                                                    </div>
+                                                                    <div class="col-md-7 col-lg-7 col-sm-12">
+                                                                        <input type="text" class="form-control" ng-model="csrate.GrpEmplrPremAmt" num-filter="2" readonly/>
+                                                                    </div>
+                                                                    </div>
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12">
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">
+                                                                        <label class="control-label">Net Individual Tobacco Premium </label>
+                                                                    </div>
+                                                                    <div class="col-md-7 col-lg-7 col-sm-12">
+                                                                        <input type="text" class="form-control" ng-model="csrate.IndividualTobaccoRate" num-filter="2" readonly/>
+                                                                    </div>
+                                                                    </div>
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12">
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">
+                                                                        <label class="control-label">Net Individual Premium</label>
+                                                                    </div>
+                                                                    <div class="col-md-7 col-lg-7 col-sm-12">
+                                                                        <input type="text" class="form-control" ng-model="csrate.IndividualRate" num-filter="2" readonly/>
+                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--end row -->
+                                                                <hr>
+                                                                <p> 
+                                                                <h3>HSA Contributions</h3>
+                                                                </p>
+                                                                <div class="col-md-5 col-lg-5 col-sm-12 pl0 mb20">
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12  text-right">
+                                                                    <label class="control-label">Employer HSA Contribution</label>
+                                                                    </div>
+                                                                    <div class="col-md-7 col-lg-7 col-sm-12">
+                                                                    <input type="text" class="form-control" ng-model="csrate.GrpHSAAmt" num-filter="2" readonly/>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                            <!--  end id="step-0" -->
+
+                                                            <div class="col-md-offset-0-5" id="step-1">
+                                                                <p> 
+                                                                <h3>Metadata</h3>
+                                                                </p>
+                                                                <div class="row">
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12">
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">
+                                                                        <label class="control-label">Rate Record No.</label>
+                                                                    </div>
+                                                                    <div class="col-md-7 col-lg-7 col-sm-12">
+                                                                        <input type="text" class="form-control" ng-model="csrate.Id" readonly />
+                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                                <p> 
+                                                                <h3>History</h3>
+                                                                </p>
+                                                                <div class="row">
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12">
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">
+                                                                        <label class="control-label">Created By </label>
+                                                                    </div>
+                                                                    <div class="col-md-7 col-lg-7 col-sm-12">
+                                                                        <input type="text" class="form-control" ng-model="CreatedBy" readonly />
+                                                                    </div>
+                                                                    </div>
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12">
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">
+                                                                        <label class="control-label">Modified By</label>
+                                                                    </div>
+                                                                    <div class="col-md-7 col-lg-7 col-sm-12">
+                                                                        <input type="text" class="form-control" ng-model="ModifiedBy" readonly />
+                                                                    </div>
+                                                                    </div>
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12">
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">
+                                                                        <label class="control-label">Created Date</label>
+                                                                    </div>
+                                                                    <div class="col-md-7 col-lg-7 col-sm-12">
+                                                                        <input type="text" class="form-control" ng-model="csrate.CreatedDateTime" readonly />
+                                                                    </div>
+                                                                    </div>
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12">
+                                                                    <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">
+                                                                        <label class="control-label">Modified Date</label>
+                                                                    </div>
+                                                                    <div class="col-md-7 col-lg-7 col-sm-12">
+                                                                        <input type="text" class="form-control" ng-model="csrate.ModifiedDateTime" readonly />
+                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--  end id="step-1" -->
+
+                                                        </div>
+
+
+
+
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <!-- end cst-wizard -->
+                                       </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-2 col-lg-2 col-sm-12 text-right">
-                                            <label class="control-label">#ID</label>
-                                        </div>
-                                        <div class="col-md-3 col-lg-3 col-sm-12">
-                                            <input type="text" class="form-control" ng-model="csrate.Id" readonly />
-                                        </div>
-                                         <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                        <div class="col-md-2 col-lg-2 col-sm-12 text-right">
-                                            <label class="control-label">Business Year</label>
-                                        </div>
-                                        <div class="col-md-3 col-lg-3 col-sm-12">
-                                            <select ng-model="csrate.BusinessYear" class="form-control" disabled>
-                                                <option value="">Select Year</option>
-                                                <option ng-repeat="year in years" value="{{year.val}}">{{year.val}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <hr class="cst_hr">
-                                    <div class="row">
-                                        <div class="col-md-2 col-lg-2 col-sm-12 text-right">
-                                            <label class="control-label">PlanID</label>
-                                        </div>
-                                        <div class="col-md-3 col-lg-3 col-sm-12">
-                                            <input type="text" class="form-control" ng-model="csrate.PlanID" readonly/>
-                                        </div>
-                                        <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                        <div class="col-md-2 col-lg-2 col-sm-12 text-right">
-                                            <label class="control-label">Rate Effective Date</label>
-                                        </div>
-                                        <div class="col-md-3 col-lg-3 col-sm-12">
-                                            <input ng-click="open_rate_date()" class="form-control datepicker" type="text" uib-datepicker-popup="MM/dd/yyyy" ng-model="csrate.RateEffectiveDate" is-open="rateEffDate.isOpned" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" readonly />
-                                        </div>
-                                    </div>
-                                    <hr class="cst_hr">
-                                    <div class="row">
-                                        <div class="col-md-2 col-lg-2 col-sm-12 text-right">
-                                            <label class="control-label">Rating Area Id/UsageCode</label>
-                                        </div>
-                                        <div class="col-md-3 col-lg-3 col-sm-12">
-                                            <input type="text" class="form-control" ng-model="csrate.RatingAreaId" readonly/>
-                                        </div>
-                                        <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                        <div class="col-md-2 col-lg-2 col-sm-12 text-right">
-                                            <label class="control-label">Indiv Plan Rate</label>
-                                        </div>
-                                        <div class="col-md-3 col-lg-3 col-sm-12">
-                                            <input type="text" class="form-control" ng-model="csrate.IndividualRate" num-filter="2" readonly/>
-                                        </div>
-                                    </div>
-                                    <hr class="cst_hr">
-                                    <div class="row">
-                                        <div class="col-md-2 col-lg-2 col-sm-12 text-right">
-                                            <label class="control-label">Age/Program Id</label>
-                                        </div>
-                                        <div class="col-md-3 col-lg-3 col-sm-12">
-                                            <input type="text" class="form-control" ng-model="csrate.Age" readonly/>
-                                        </div>
-                                        <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                        <div class="col-md-2 col-lg-2 col-sm-12 text-right">
-                                            <label class="control-label">Indiv Plan Tobac Rate</label>
-                                        </div>
-                                        <div class="col-md-3 col-lg-3 col-sm-12">
-                                            <input type="text" class="form-control" ng-model="csrate.IndividualTobaccoRate" num-filter="2" readonly/>
-                                        </div>
-                                    </div>
-                                    <hr class="cst_hr">
-                                    <div class="row">
-                                        <div class="col-md-2 col-lg-2 col-sm-12 text-right">
-                                            <label class="control-label">Created By </label>
-                                        </div>
-                                        <div class="col-md-3 col-lg-3 col-sm-12">
-                                            <input type="text" class="form-control" ng-model="CreatedBy" readonly />
-                                        </div>
-                                         <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                         <div class="col-md-2 col-lg-2 col-sm-12 text-right">
-                                            <label class="control-label">Grp Actual Premium</label>
-                                        </div>
-                                        <div class="col-md-3 col-lg-3 col-sm-12">
-                                            <input type="text" class="form-control" ng-model="csrate.GrpCostAmt" num-filter="2" readonly/>
-                                        </div>
-                                    </div>
-                                    <hr class="cst_hr">
-                                    <div class="row">
-                                        <div class="col-md-2 col-lg-2 col-sm-12 text-right">
-                                            <label class="control-label">Created Date/Time</label>
-                                        </div>
-                                        <div class="col-md-3 col-lg-3 col-sm-12">
-                                            <input type="text" class="form-control" ng-model="csrate.CreatedDateTime" readonly />
-                                        </div>
-                                        <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                        <div class="col-md-2 col-lg-2 col-sm-12 text-right">
-                                            <label class="control-label">Grp Emplyr Contrib to Prem</label>
-                                        </div>
-                                        <div class="col-md-3 col-lg-3 col-sm-12">
-                                            <input type="text" class="form-control" ng-model="csrate.GrpEmplrPremAmt" num-filter="2" readonly/>
-                                        </div>
-                                    </div>
-                                    <hr class="cst_hr">
-                                    <div class="row">
-                                        <div class="col-md-2 col-lg-2 col-sm-12 text-right">
-                                            <label class="control-label">Last Modified By</label>
-                                        </div>
-                                        <div class="col-md-3 col-lg-3 col-sm-12">
-                                            <input type="text" class="form-control" ng-model="ModifiedBy" readonly />
-                                        </div>
-                                         <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                        <div class="col-md-2 col-lg-2 col-sm-12  text-right">
-                                            <label class="control-label">Grp Emplyr Contrib to HSA</label>
-                                        </div>
-                                        <div class="col-md-3 col-lg-3 col-sm-12">
-                                            <input type="text" class="form-control" ng-model="csrate.GrpHSAAmt" num-filter="2" readonly/>
-                                        </div>
-                                    </div>
-                                    <hr class="cst_hr">
-                                    <div class="row">
-                                        <div class="col-md-2 col-lg-2 col-sm-12 text-right">
-                                            <label class="control-label">Modified Date/Time</label>
-                                        </div>
-                                        <div class="col-md-3 col-lg-3 col-sm-12">
-                                            <input type="text" class="form-control" ng-model="csrate.ModifiedDateTime" readonly />
-                                        </div>
-                                         <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                        <div class="col-md-2 col-lg-2 col-sm-12 text-right">
-                                            <label class="control-label">Grp Emplyr Cash in Lieu</label>
-                                        </div>
-                                        <div class="col-md-3 col-lg-3 col-sm-12">
-                                            <input type="text" class="form-control" ng-model="csrate.GrpCashAmt" num-filter="2" readonly/>
-                                        </div>
-                                    </div>
-                                </div>              
-						<!-- <div id="container_csttab">
-							Pestaña 1 activa por defecto
-							<input id="tab-1" type="radio" name="tab-group" checked="checked" />
-							<label for="tab-1">Main</label>
-								Pestaña 2 inactiva por defecto
-							<input id="tab-2" type="radio" name="tab-group" />
-							<label for="tab-2">Properties</label>
-							Pestaña 3 inactiva por defecto
-							<input id="tab-3" type="radio" name="tab-group" />
-							<label for="tab-3">Tab 3</label>
-							Contenido a mostrar/ocultar
-							<div id="content">
-								content 1
-								<div id="content-1" class="tab-content animated fadeIn">            
-									<p class="cst_planbg left"> 
-										Start : Row 1
-										<span class="col-md-12">
-											<span class="col-md-2">
-												#ID - &nbsp; 
-												<strong title="{{csrate.Id}}">&nbsp;{{csrate.Id}}</strong>
-											</span>
-											<span class="col-md-2">
-												Year - &nbsp; 
-												<strong title="{{csrate.BusinessYear}}">&nbsp;{{csrate.BusinessYear}}</strong>
-											</span>
-											<span class="col-md-2">
-												State - &nbsp; 
-												<select ng-model="csrate.StateCode" class="form-control view-dropdown" disabled>
-													<option ng-repeat="state in states" value="{{state.StateCode}}">{{state.StateName}}</option>
-												</select>
-											</span>
-											<span class="col-md-2">
-												Mrkt Cover - &nbsp; 
-												<strong title="{{csrate.MrktCover}}">&nbsp;{{csrate.MrktCover}}</strong>
-											</span>
-										</span>
-										End : Row 1
-										
-										Start : Row 2
-										<span class="col-md-12">
-											<span class="col-md-2">
-												Plan ID - &nbsp; 
-												<strong title="{{csrate.PlanID}}">&nbsp;{{csrate.PlanID}}</strong>
-											</span>
-											<span class="col-md-2">
-												Plan Name - &nbsp; 
-												<strong title="{{csrate.PlanMarketingName}}">&nbsp;{{csrate.PlanMarketingName}}</strong>
-											</span>
-										</span>
-										End : Row 2
-										
-										Start : Row 3
-										<span class="col-md-12">
-											<span class="col-md-2">
-												Rating Area - &nbsp; 
-												<select ng-model="csrate.RatingAreaId" class="form-control view-dropdown" disabled>
-													<option ng-repeat="area in ratingareas" value="{{area.RatingAreaID}}">{{area.RatingAreaName}}</option>
-												</select>
-											</span>
-											<span class="col-md-2">
-												Age - &nbsp; 
-												<strong title="{{csrate.Age}}">&nbsp;{{csrate.Age}}</strong>
-											</span>
-											<span class="col-md-2">
-												Individual Rate - &nbsp; 
-												<strong title="{{csrate.IndividualRate | number : 2}}">&nbsp;{{csrate.IndividualRate | number : 2}}</strong>
-											</span>
-											<span class="col-md-2">
-												Individual Tobacco Rate - &nbsp; 
-												<strong title="{{csrate.IndividualTobaccoRate | number : 2}}">&nbsp;{{csrate.IndividualTobaccoRate | number : 2}}</strong>
-											</span>
-											<span class="col-md-2">
-												Rate Effective - &nbsp; 
-												<strong title="{{csrate.RateEffectiveDate | date:'MM/dd/yyyy hh:mm:ss'}}">&nbsp;{{csrate.RateEffectiveDate | date:'MM/dd/yyyy hh:mm:ss'}}</strong>
-											</span>
-										</span>
-										End : Row 3
-										
-										Start : Row 4
-										<span class="col-md-12">
-											<span class="col-md-2">
-												Grp Ins Prem Cost - &nbsp; 
-												<strong title="{{csrate.GrpCostAmt | number : 2}}">&nbsp;{{csrate.GrpCostAmt | number : 2}}</strong>
-											</span>
-											<span class="col-md-2">
-												Grp Contrib to Premium - &nbsp; 
-												<strong title="{{csrate.GrpEmplrPremAmt | number : 2}}">&nbsp;{{csrate.GrpEmplrPremAmt | number : 2}}</strong>
-											</span>
-											<span class="col-md-2">
-												Grp Contrib to HSA - &nbsp; 
-												<strong title="{{csrate.GrpHSAAmt | number : 2}}">&nbsp;{{csrate.GrpHSAAmt | number : 2}}</strong>
-											</span>
-											<span class="col-md-2">
-												Grp Cash In Lieu Of - &nbsp; 
-												<strong title="{{csrate.GrpCashAmt | number : 2}}">&nbsp;{{csrate.GrpCashAmt | number : 2}}</strong>
-											</span>
-										</span>
-										End : Row 4										
-									</p>          
-								</div>
-								content 2
-								<div id="content-2">
-									<p class="cst_planbg column-left">
-									
-										Start : Row 1
-										<span class="col-md-12">
-											<span class="col-md-2">
-												#ID - &nbsp; 
-												<strong title="{{csrate.Id}}">&nbsp;{{csrate.Id}}</strong>
-											</span>
-											<span class="col-md-2">
-												Year - &nbsp; 
-												<strong title="{{csrate.BusinessYear}}">&nbsp;{{csrate.BusinessYear}}</strong>
-											</span>
-											<span class="col-md-2">
-												Mrkt Cover - &nbsp; 
-												<strong title="{{csrate.MrktCover}}">&nbsp;{{csrate.MrktCover}}</strong>
-											</span>
-											<span class="col-md-2">
-												Plan ID - &nbsp; 
-												<strong title="{{csrate.PlanID}}">&nbsp;{{csrate.PlanID}}</strong>
-											</span>
-											<span class="col-md-2">
-												Plan Name - &nbsp; 
-												<strong title="{{csrate.PlanMarketingName}}">&nbsp;{{csrate.PlanMarketingName}}</strong>
-											</span>
-										</span>
-										End : Row 1
-										
-										Start : Row 2
-										<span class="col-md-12">
-											<span class="col-md-2">
-												Created By - &nbsp; 
-												<strong title="{{csrate.Createdby}}">&nbsp;{{csrate.Createdby}}</strong>
-											</span>
-											<span class="col-md-2">
-												Created - &nbsp; 
-												<strong title="{{csrate.CreatedDateTime | date:'MM/dd/yyyy hh:mm:ss'}}">&nbsp;{{csrate.CreatedDateTime | date:'MM/dd/yyyy hh:mm:ss'}}</strong>
-											</span>
-										</span>
-										End : Row 2
-											
-										Start : Row 3
-										<span class="col-md-12">
-											<span class="col-md-2">
-												Modified By - &nbsp; 
-												<strong title="{{csrate.ModifiedBy}}">&nbsp;{{csrate.ModifiedBy}}</strong>
-											</span>
-											<span class="col-md-2">
-												Modified - &nbsp; 
-												<strong title="{{csrate.ModifiedDateTime | date:'MM/dd/yyyy hh:mm:ss'}}">&nbsp;{{csrate.ModifiedDateTime | date:'MM/dd/yyyy hh:mm:ss'}}</strong>
-											</span>
-										</span>
-										End : Row 3
-										
-									</p>            	
-								</div>
-								Contenido de la Pestaña 3
-								<div id="content-3">
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis, aperiam, enim odit placeat minus ab vero molestiae ad fugit maiores eaque saepe debitis assumenda ut ipsam eius sit repellendus dolore.</p>
-										<ul>
-										<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae, in magni illo dolore dicta vero.</li>
-										<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti, minus, aspernatur voluptatem doloribus labore modi.</li>
-										<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora, exercitationem quia id accusamus beatae sunt? Dolorum mollitia sint debitis delectus.</li>
-										</ul>
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis, accusantium, provident ab quo sed blanditiis perspiciatis distinctio aut voluptatibus cum odio quaerat iure vel dolorum fugit explicabo suscipit tenetur. Sed!</p>
-								</div>
-							</div>
-						</div> -->
-						<!-- Newsletter form -->                        
-						<!-- <div class="row col-md-12">-->                          
-						<!--</div>-->
-						<!-- end col row col-md 12-->
+                                 </div>
+                              </div>
+                           </div>
                         </div>
-                      </div>
-                    </div>
-                  </div>      
-              </div>           
-            <!--end col 12-->           
-          </div>
-          <!--end row-->           
-        </div>
+                     </div>
+                  </div>
+               </div>
+               <!--end col 12-->           
+            </div>
+            <!--end row-->           
+         </div>
       </div>
-    </div>
-  </div>
-  <!-- /.wizard form --> 
+   </div>
+</div>
+<!-- /.wizard form --> 
 <div ng-include src="'partials/include/footer.html'"></div>

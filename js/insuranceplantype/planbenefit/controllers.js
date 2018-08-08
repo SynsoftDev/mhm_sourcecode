@@ -492,6 +492,7 @@ angular.module('mhmApp.planbenefit', ['ui.select'])
 					idleState = true; }, messages.sessionTimeout);
 			});
 			$("body").trigger("mousemove");
+			$('#wizard').smartWizard({ enableAllSteps: true });
 		});
 
 		$scope.getMoreResultPlanId = function(value) {
@@ -606,7 +607,7 @@ angular.module('mhmApp.planbenefit', ['ui.select'])
 
 		/*if($routeParams.id){
 			$scope.id = $routeParams.id;		
-			$scope.title='Insurance Plan Benefit #'+ $routeParams.id ;			
+			$scope.title='Plan Benefit #'+ $routeParams.id ;			
 			PlanbenefitService.get($routeParams.id,function (response) {					
 				if (response.Status) {					
                     $scope.planBenefit=response.PlanBenefits;
@@ -622,7 +623,7 @@ angular.module('mhmApp.planbenefit', ['ui.select'])
 		if($routeParams.id && $routeParams.sortby && $routeParams.desc) {
 			$scope.dataLoading = true;
 			$scope.id = $routeParams.id;
-			$scope.title ='Insurance Plan Benefit #'+ $routeParams.id;
+			$scope.title ='Plan Benefit #'+ $routeParams.id;
 			$scope.data = {'id': $routeParams.id, 'eventType': $scope.eventType, 'sortby': $routeParams.sortby, 'desc': $routeParams.desc};
 			PlanbenefitService.getData($scope.data, function (response) {					
 				if (response.Status) {
@@ -679,6 +680,7 @@ angular.module('mhmApp.planbenefit', ['ui.select'])
 					idleState = true; }, messages.sessionTimeout);
 			});
 			$("body").trigger("mousemove");
+			$('#wizard').smartWizard({ enableAllSteps: true });
 		});
 		
 		PlanbenefitService.waitForLayoutView(function(response){	
@@ -741,7 +743,7 @@ angular.module('mhmApp.planbenefit', ['ui.select'])
 		$scope.ModifiedBy = '';
 		$scope.CostSharingTypes = [];
 		$scope.LimitUnits = [];
-		$scope.title ='Insurance Plan Benefit';
+		$scope.title ='Plan Benefit';
 		$scope.PlanIds = [];
 		$scope.IssuerIds = [];
 		$scope.BusinessYears = [];
@@ -763,7 +765,7 @@ console.log('2')
         	$scope.readOnly = true;
         	$scope.actionBtnText = "Update";
         	$scope.showBtn = false;
-        	$scope.title ='Insurance Plan Benefit #'+ $routeParams.id;
+        	$scope.title ='Plan Benefit #'+ $routeParams.id;
         }
 		
 			if($routeParams.id) {
@@ -840,7 +842,8 @@ console.log('2')
 					idleState = true; }, messages.sessionTimeout);
 			});
 			$("body").trigger("mousemove");
-
+			$('#wizard').smartWizard({ enableAllSteps: true });
+$.validator.setDefaults({ ignore: '' });
 			$("#createPlanBenefitForm").validate({
 				errorElement: 'span',
 				errorClass: 'error',
@@ -874,6 +877,12 @@ console.log('2')
 						maxlength: 16,
 					},
 					coinsInnTier2: {
+						maxlength: 16,
+					},
+					maxCoinsInnTier1Amt: {
+						maxlength: 16,
+					},
+					maxCoinsInnTier2Amt: {
 						maxlength: 16,
 					},
 					copayOutofNet: {
@@ -1098,12 +1107,12 @@ console.log('2')
 						});
 				
 				} else {
-					if ($scope.ApprovalStatus === 5 && IsChangesOccur) {
-						bootbox.alert('This Benefit plan status is in production and cannot be edited', function() {
-							$scope.$apply();
-						});
-						return;
-					}
+					// if ($scope.ApprovalStatus === 5 && IsChangesOccur) {
+					// 	bootbox.alert('This Benefit plan status is in production and cannot be edited', function() {
+					// 		$scope.$apply();
+					// 	});
+					// 	return;
+					// }
 					
 					if ($scope.planBenefit.LimitQty > 0 && !$scope.planBenefit.LimitUnit && IsChangesOccur) {
 						bootbox.alert(messages.limitUnit, function() {
@@ -1228,12 +1237,12 @@ console.log('2')
 						});
 				
 				} else {
-					if ($scope.ApprovalStatus === 5) {
-						bootbox.alert('This Benefit plan status is in production and cannot be edited', function() {
-							$scope.$apply();
-						});
-						return;
-					}
+					// if ($scope.ApprovalStatus === 5) {
+					// 	bootbox.alert('This Benefit plan status is in production and cannot be edited', function() {
+					// 		$scope.$apply();
+					// 	});
+					// 	return;
+					// }
 					
 					if ($scope.planBenefit.LimitQty > 0 && !$scope.planBenefit.LimitUnit) {
 						bootbox.alert(messages.limitUnit, function() {
@@ -1371,7 +1380,7 @@ console.log('1')
         $scope.readOnly = false;
     	$scope.actionBtnText = "Create";
     	$scope.showBtn = true;
-    	$scope.title ='New Insurance Plan Benefit';
+    	$scope.title ='New Plan Benefit';
     	$scope.hideFields = true;
 		
 		$scope.breadcrumbHTML='<li><a href="">Home</a></li><li><a href="insuranceplantype/planbenefit">Plan Benefit</a></li><li class="active">'+$scope.title+'</li>'; 	
@@ -1388,7 +1397,8 @@ console.log('1')
 					idleState = true; }, messages.sessionTimeout);
 			});
 			$("body").trigger("mousemove");
-
+			$('#wizard').smartWizard({ enableAllSteps: true });
+$.validator.setDefaults({ ignore: '' });
 			$("#createPlanBenefitForm").validate({
 				errorElement: 'span',
 				errorClass: 'error',
@@ -1422,6 +1432,12 @@ console.log('1')
 						maxlength: 16,
 					},
 					coinsInnTier2: {
+						maxlength: 16,
+					},
+					maxCoinsInnTier1Amt: {
+						maxlength: 16,
+					},
+					maxCoinsInnTier2Amt: {
 						maxlength: 16,
 					},
 					copayOutofNet: {

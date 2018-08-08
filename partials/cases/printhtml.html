@@ -1,0 +1,1322 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+    <title>MHM PDF</title>
+ 
+
+    <style>
+
+th p,  td p {
+	margin: 2px 0;
+}
+p {
+	color: #000 !important;
+	src: url('') format('truetype');
+	letter-spacing: 0px;
+	color: #f00;
+	line-height: 24px;
+}
+#print_body {
+	background: #f00;
+}
+
+/* hind-guntur-300 - latin */
+
+@font-face {
+	font-family: 'Hind Guntur';
+	font-style: normal;
+	font-weight: 300;  
+	src: url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-300.woff2'); /* IE9 Compat Modes */
+	src: local('Hind Guntur Light'), local('HindGuntur-Light'),  url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-300.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */  url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-300.woff2') format('woff2'), /* Super Modern Browsers */  url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-300.woff') format('woff'), /* Modern Browsers */  url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-300.ttf') format('truetype'), /* Safari, Android, iOS */  url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-300.svg#HindGuntur') format('svg'),url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-300.eot') format('embedded-opentype'); /* Legacy iOS */
+}
+
+/* hind-guntur-regular - latin */
+@font-face {
+	font-family: 'Hind Guntur';
+	font-style: normal;
+	font-weight: 400;
+	src: url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-regular.woff2'); /* IE9 Compat Modes */
+	src: local('Hind Guntur Regular'), local('HindGuntur-Regular'),  url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */  url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */  url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-regular.woff') format('woff'), /* Modern Browsers */  url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */  url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-regular.svg#HindGuntur') format('svg'), url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-regular.eot') format('embedded-opentype'); /* Legacy iOS */
+}
+
+/* hind-guntur-regular - latin */
+@font-face {
+	font-family: 'Hind Guntur';
+	font-style: italic;
+	font-weight: 400;
+	src: url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-regular.woff2'); /* IE9 Compat Modes */
+	src: local('Hind Guntur Regular'), local('HindGuntur-Regular'),  url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */  url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */  url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-regular.woff') format('woff'), /* Modern Browsers */  url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */  url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-regular.svg#HindGuntur') format('svg'), url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-regular.eot') format('embedded-opentype'); /* Legacy iOS */
+}
+/* hind-guntur-500 - latin */
+@font-face {
+	font-family: 'Hind Guntur';
+	font-style: normal;
+	font-weight: 500;
+	src: url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-500.woff2'); /* IE9 Compat Modes */
+	src: local('Hind Guntur Medium'), local('HindGuntur-Medium'),  url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */  url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-500.woff2') format('woff2'), /* Super Modern Browsers */  url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-500.woff') format('woff'), /* Modern Browsers */  url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-500.ttf') format('truetype'), /* Safari, Android, iOS */  url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-500.svg#HindGuntur') format('svg'),url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-500.eot') format('embedded-opentype'); /* Legacy iOS */
+}
+/* hind-guntur-600 - latin */
+@font-face {
+	font-family: 'Hind Guntur';
+	font-style: normal;
+	font-weight: 600;
+	src: url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-600.woff2'); /* IE9 Compat Modes */
+	src: local('Hind Guntur SemiBold'), local('HindGuntur-SemiBold'),  url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-600.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */  url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-600.woff2') format('woff2'), /* Super Modern Browsers */  url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-600.woff') format('woff'), /* Modern Browsers */  url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-600.ttf') format('truetype'), /* Safari, Android, iOS */  url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-600.svg#HindGuntur') format('svg'), url('http://test.myhealthmath.com/css/hind-guntur-v3-latin/hind-guntur-v3-latin-600.eot') format('embedded-opentype'); /* Legacy iOS */
+}
+body{
+  font-family:'Hind Guntur';-webkit-print-color-adjust: exact;font-size: 14px;margin: 0;
+background: rgb(255, 255, 255);color:#000;padding:0;margin:0 auto;line-height:normal;
+}
+
+</style>
+   <link href="https://fonts.googleapis.com/css?family=Lato:400i" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    </head>
+    
+<body id="print_body" style="padding:0;margin:0;">
+  
+  <!-- Pdf for generate 4 or less than plan -->
+<div ng-if="graphResults.length<=4">
+
+<div style="max-width: 1060px;margin: auto;width: 100%;float:left;font-family:'Hind Guntur';margin-top:53px;" >
+      <div style="font-family:'Hind Guntur';margin-bottom: 8px;width:100%;float:left;margin-top:10px;font-size: 14pt;
+        color: rgb(0, 0, 0);font-style: normal;text-transform: uppercase;text-align: center;background-color: rgb(242, 171, 122);padding-top: 7pt;padding-bottom:7pt">
+         <img src="{{messages.base_url}}/images/Summary2new.png" alt="SUMMARY" style="vertical-align: middle;margin-top:-10px;width: 23px;" />
+          <span style="font-weight:300;font-size: 24.5px;font-family:'Hind Guntur';margin-left:6px;">SUMMARY</span> 
+      </div>
+    </div>
+<div style="max-width: 920px;margin:0 auto;width: 100%;float:left"> 
+      
+      <!-- -Start Page 1- -->
+<div class="content-page-1" style="margin-bottom:0px;width:100%;float:left;">
+    <div style="height: auto">
+      <div style="max-width: 850px;margin: 0 auto;width: 100%;">
+        <p style="margin-bottom:15px;font-family:'Hind Guntur';"> <img style="display: block; margin-left: -10px; margin-right: auto;width: 161px;" src="{{messages.base_url}}/images/MyHealthMathlogo.png"
+                        alt="MHM logo" /> </p>
+        <p style="text-align: center;margin: 0;padding:0 0 10.5px 150px;font-size: 42px;color:#000;text-transform: uppercase;
+        font-weight: 600; font-family:'Hind Guntur';letter-spacing:0px;line-height:45px;letter-spacing:1.5px">YOUR PLAN ANALYSIS REPORT </p>
+        <table style="color:#000;font-family:'Hind Guntur';width: 700px;margin: 0 auto;line-height:20px;margin-left:140px;">
+              <tbody>
+            <tr>
+                  <td style="text-align: center;font-size:15px;font-weight: normal;padding:0;font-family:'Hind Guntur';"><strong style="color: rgb(0, 0, 0);">{{Applicant.FirstName}} {{Applicant.LastName}}</strong> | {{UsageType }} </td>
+                  <td style="text-align: center;font-size:15px;font-weight: 400;font-family:'Hind Guntur';"><strong>Plan Year</strong>: {{Case.JobMaster.PlanYearStartDt | date:'MM/dd/yy'}} &#45; {{Case.JobMaster.PlanYearEndDt | date:'MM/dd/yy'}} </td>
+                </tr>
+            <tr>
+                  <td style="text-align: center;font-size:15px;font-weight: 400;padding-bottom: 20pt;font-family:'Hind Guntur';"><span ng-if=" CurrentPlanName != ''"><strong>Your Current Plan:</strong> {{CurrentPlanName}}</span> </td>
+                  <td style="text-align: center;font-size:15px;font-weight: 400;padding-bottom: 20pt;font-family:'Hind Guntur';"><strong>Date of Interview:</strong> {{InterviewDate | date:'MMMM dd, yyyy'}} </td>
+                </tr>
+          </tbody>
+            </table>
+      </div>
+          <div style="border-bottom: 1.5px dashed #000;letter-spacing:-5px;margin-left: 15%;margin-left: 8%; width: 100%;border-width:2pt;"></div>
+
+          
+          <div style="max-width: 1087px;margin: auto;width: 100%;font-family:'Hind Guntur';"> 
+       
+        <div style="padding-top: 6pt;padding-bottom:0px;font-family:'Hind Guntur';line-height: 22px;margin-top: 3px;width:116%;">
+              <p style="text-align: center;font-size: 15px;margin-bottom:0;color:#000;font-family:'Hind Guntur';"> Options are ranked below in order of lowest to highest estimated total cost. </p>
+             
+              <p ng-if=" CurrentPlan != '' && CurrentPlan.toString() != graphResults[0].PlanId.toString()" style="text-align: center;font-size: 15px;margin-bottom:0;margin-top:0;font-family:'Hind Guntur';"> If you switch from your current plan to the first-ranked plan, we estimate that you will save approximately<strong>&nbsp;{{DifferenceAmount | mycurrency:"$"}}</strong> next year. </p>
+
+              <p ng-if=" CurrentPlan === '' || CurrentPlan.toString() === graphResults[0].PlanId.toString() " style="text-align: center;font-size: 15px;margin-bottom:0;margin-top:0;font-family:'Hind Guntur';"><strong>&nbsp;</strong> </p>
+         </div>
+        
+        <!-- //graph start -->
+
+        <!-- NOTE THIS HTML IS FOR WEBPAGE AND WILL NOT REFLECT CHANGES ON PRINT PDF -->
+        <div style="width:100%;float:left;">
+              <h3 style="font-size: 24.5px;padding: 5px 70px;color:#000;font-family:'Hind Guntur';">
+                <img src="{{messages.base_url}}/images/arrow.png" style="left: 78px;width: 70px;position: absolute;top: 420px;font-family:'Hind Guntur';"> 
+                        <span style="margin-left:90px;font-family:'Hind Guntur';">Your Optimal Plan</span>
+              </h3>
+                        <image src="{{messages.base_url}}/images/circle.png" style="position: absolute;width: 125px;left: 24px;top: 482px;font-family:'Hind Guntur';">
+        </div>
+        <div style="width:100%;margin-left: 50px; display: table;vertical-align: middle;" ng-repeat="graphResult in graphResults">
+              <div style="width:10%;display: table-cell;vertical-align: middle;position: relative;left: -13px;">
+            <div id="restrict" style="text-align: center;font-size: 17.5px;line-height: 30px;margin-top:0px;color: #000;font-family:'Hind Guntur';width:100px;">               
+                  <span style="position:relative;left:-8px;top:-18px;">
+                  #{{$index +1}} <br>
+                  {{graphResult.PlanName}}
+                  </span>                  
+            </div>
+          </div>
+
+
+              <div style="width:98%;float:left;border-left:1px solid #000;border-top:0.5px solid #ddd;border-bottom:0.5px solid #ddd;padding:30px 0;border-width: thin;color:#000;">
+           
+                <div ng-style="set_width(max, graphResult.NetAnnualPremium + graphResult.Medical)" style="height:76px;float:left;background:RGB(191,219,201);text-align: center;font-size:18.5px;color:#000;line-height:0;">
+
+                    <span ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) > 25" style="text-align:center;min-width:400px;line-height: 86px;">
+                      Your Total Cost:<strong style="font-weight: 600">&nbsp;{{graphResult.NetAnnualPremium + graphResult.Medical | mycurrency:"$"}}</strong>
+                    </span>
+
+                    <span ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) > 16 && check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) <= 25" style="text-align:center;line-height: 86px;position: absolute;left: 380px;">
+                      Your Total Cost:<strong style="font-weight: 600">&nbsp;{{graphResult.NetAnnualPremium + graphResult.Medical | mycurrency:"$"}}</strong>
+                    </span>
+
+                    <span ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) > 10 && check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) <= 16" style="text-align:center;width:330px;line-height: 86px;position: absolute;">
+                      Your Total Cost:<strong style="font-weight: 600">&nbsp;{{graphResult.NetAnnualPremium + graphResult.Medical | mycurrency:"$"}}</strong>
+                    </span>            
+
+                    <span ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) == 10" style="text-align:center;min-width:200px;position:absolute;left:145px;line-height: 86px;">
+                        Your Total Cost:<strong style="font-weight: 600">&nbsp;{{graphResult.NetAnnualPremium + graphResult.Medical | mycurrency:"$"}}</strong>
+                    </span>
+
+                    <span ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) < 10  && check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) > 0" style="text-align:center;min-width:200px;position:absolute;left:187px;line-height: 86px;">
+                      Your Total Cost:<strong style="font-weight: 600">&nbsp;{{graphResult.NetAnnualPremium + graphResult.Medical  | mycurrency:"$"}}</strong>
+                    </span>
+                    
+                     <span ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) < 0" style="text-align:center;min-width:200px;position:absolute;left:170px;line-height: 86px;">
+                        Your Total Cost:<strong style="font-weight: 600">&nbsp;{{graphResult.NetAnnualPremium + graphResult.Medical | mycurrency:"$"}}</strong>
+                     </span>             
+
+                     <span ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) == 0" style="text-align:center;min-width:200px;position:absolute;left:154px;line-height: 86px;">
+                          Your Total Cost:<strong style="font-weight: 600">&nbsp;{{graphResult.NetAnnualPremium + graphResult.Medical | mycurrency:"$"}}</strong>
+                     </span>
+
+                </div>              
+
+            <!-- <div style="float:left;padding-top:26px;padding-bottom:24px;background:RGB(191,219,201);text-align: center;font-size:18.5px;color:#000">
+              Your Total Cost:<strong>=&nbsp;{{graphResult.NetAnnualPremium + graphResult.Medical | mycurrency:"$"}}</strong> 
+            </div> -->
+
+          <div ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) > 25" style="font-family:'Hind Guntur';width:25%;float:left;text-align: left;padding: 2px 0;margin-top: 17px;left: 17px;position: relative;margin-bottom: 16px;">
+                <h6 style="font-family:'Hind Guntur';color:#000;margin:0;font-size:14px;font-weight:400;line-height: 20px;">                    
+              Premium: {{graphResult.NetAnnualPremium | mycurrency:"$"}}
+              <!-- <div ng-if="check_width(max, graphResult.Medical) > 40" ng-style="set_width(max, graphResult.Medical)">
+                  Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                </div>-->      
+                <!-- <div>
+                  Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                </div> -->
+                <div ng-if="$index == 0">
+                  Out-of-Pocket*:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                </div>
+                <div ng-if="$index > 0">
+                  Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                </div>
+                </h6>
+          </div>
+
+
+
+
+          <div ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) > 16 && check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) <= 25" style="font-family:'Hind Guntur';width:25%;float:left;text-align: left;padding: 2px 0;margin-top: 17px;left: 330px;position: relative;margin-bottom: 16px;">
+            <h6 style="font-family:'Hind Guntur';color:#000;margin:0;font-size:14px;font-weight:400;line-height: 20px;">                    
+          Premium: {{graphResult.NetAnnualPremium | mycurrency:"$"}}
+
+          <!-- <div ng-if="check_width(max, graphResult.Medical) > 40" ng-style="set_width(max, graphResult.Medical)">
+              Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+            </div>-->
+
+            <!-- <div>
+              Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+            </div> -->
+            <div ng-if="$index == 0">
+              Out-of-Pocket*:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+            </div>
+            <div ng-if="$index > 0">
+              Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+            </div>
+            </h6>
+           </div>
+
+
+
+
+            <div ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) > 10 && check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) <= 16" style="font-family:'Hind Guntur';width:25%;float:left;text-align: left;padding: 2px 0;margin-top: 17px;left: 270px;position: relative;margin-bottom: 16px;">
+                  <h6 style="font-family:'Hind Guntur';color:#000;margin:0;font-size:14px;font-weight:400;line-height: 20px;">                    
+                Premium: {{graphResult.NetAnnualPremium | mycurrency:"$"}}
+
+                <!-- <div ng-if="check_width(max, graphResult.Medical) > 40" ng-style="set_width(max, graphResult.Medical)">
+                    Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                  </div>-->
+
+                  <!-- <div>
+                    Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                  </div> -->
+                  <div ng-if="$index == 0">
+                    Out-of-Pocket*:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                  </div>
+                  <div ng-if="$index > 0">
+                    Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                  </div>
+                  </h6>
+            </div>
+
+
+            <div ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) == 10" style="font-family:'Hind Guntur';width:25%;float:left;text-align: left;padding: 2px 0;margin-top: 17px;left: 190px;position: relative;margin-bottom:16px;">
+                <h6 style="font-family:'Hind Guntur';color:#000;margin:0;font-size:14px;font-weight:400;line-height: 20px;">                  
+              Premium: {{graphResult.NetAnnualPremium | mycurrency:"$"}}
+              <!-- <div ng-if="check_width(max, graphResult.Medical) > 40" ng-style="set_width(max, graphResult.Medical)">
+                  Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                </div>       -->    
+                <!-- <div>
+                  Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                </div> -->
+                <div ng-if="$index == 0">
+                  Out-of-Pocket*:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                </div>
+                <div ng-if="$index > 0">
+                  Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                </div>
+                </h6>
+            </div>
+
+
+            <div ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) < 10 && check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) > 0" style="font-family:'Hind Guntur';width:25%;float:left;text-align: left;padding: 2px 0;margin-top: 17px;left: 250px;position: relative;margin-bottom:16px;">
+                <h6 style="font-family:'Hind Guntur';color:#000;margin:0;font-size:14px;font-weight:400;line-height: 20px;">                  
+              Premium: {{graphResult.NetAnnualPremium | mycurrency:"$"}}
+              <!-- <div ng-if="check_width(max, graphResult.Medical) > 40" ng-style="set_width(max, graphResult.Medical)">
+                  Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                </div>       -->    
+                <!-- <div>
+                  Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                </div> -->
+                <div ng-if="$index == 0">
+                  Out-of-Pocket*:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                </div>
+                <div ng-if="$index > 0">
+                  Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                </div>
+                </h6>
+             </div>
+
+          
+            <div ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) < 0" style="font-family:'Hind Guntur';width:25%;float:left;text-align: left;padding: 2px 0;margin-top: 17px;left: 260px;position: relative;margin-bottom:16px;">
+                <h6 style="font-family:'Hind Guntur';color:#000;margin:0;font-size:14px;font-weight:400;line-height: 20px;">                  
+              Premium: {{graphResult.NetAnnualPremium | mycurrency:"$"}}
+              <!-- <div ng-if="check_width(max, graphResult.Medical) > 40" ng-style="set_width(max, graphResult.Medical)">
+                  Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                </div>       -->    
+                <!-- <div>
+                  Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                </div> -->
+                <div ng-if="$index == 0">
+                  Out-of-Pocket*:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                </div>
+                <div ng-if="$index > 0">
+                  Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                </div>
+                </h6>
+            </div>
+
+
+            <div ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) == 0" style="font-family:'Hind Guntur';width:25%;float:left;text-align: left;padding: 2px 0;margin-top: 17px;left: 217px;position: relative;margin-bottom:16px;">
+                <h6 style="font-family:'Hind Guntur';color:#000;margin:0;font-size:14px;font-weight:400;line-height: 20px;">                  
+              Premium: {{graphResult.NetAnnualPremium | mycurrency:"$"}}
+              <!-- <div ng-if="check_width(max, graphResult.Medical) > 40" ng-style="set_width(max, graphResult.Medical)">
+                  Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                </div>       -->
+                <!-- <div>
+                  Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                </div> -->
+                <div ng-if="$index == 0">
+                  Out-of-Pocket*:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                </div>
+                <div ng-if="$index > 0">
+                  Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                </div>
+                </h6>
+            </div>
+
+            <div style="width:100%;float:left;border:1pt solid #fff;"></div>
+            <div ng-style="set_width(max, graphResult.WorstCase)" style="font-family:'Hind Guntur';float:left;background:#a7bdd9;padding: 5px 0 2px 0;text-align: center;font-size:14px;color:#000;max-width: 70%;">Worst-Case Scenario Cost: {{graphResult.WorstCase | mycurrency:"$"}}</div>
+
+          </div>
+
+
+            </div>
+        
+        <!-- end graph main div-->
+        
+        <div style="width:12%;float:left;">&nbsp;</div>
+        <div style="width:88%;float:left;margin-left:149px;">
+              <p style="margin-bottom:0;text-align:left;margin-top:5px; font-size: 15px; float: left; width: 113%;margin-top: 15px;color:#000;font-family:'Hind Guntur';line-height:25px"> <span> <strong style=" color: rgb(75,135,92);font-family:'Hind Guntur';">Your Total Cost</strong> </span> = your premium + net out-of-pocket expenses based on the expected medical usage you reported</p>            
+
+              <p style="margin-top:0;text-align:left;margin-bottom:0;font-size: 15px;float: left; width: 113%;color:#000;font-family:'Hind Guntur';line-height:25px"> <span style="color: RGB(64,111,162);font-family:'Hind Guntur';"> <strong> Worst-Case Scenario Cost </strong> </span> = the maximum you could pay under a plan given extreme/unforeseen medical usage (see page 2) </p>
+
+              <p style="margin-top:0;text-align:left;margin-bottom:5px;font-size: 15px;float: left; width: 113%;color:#000;font-family:'Hind Guntur';line-height:25px"> <span style="color:#000;font-family:'Hind Guntur';"><span style="position:absolute;left:145px;">*</span> Out-of-Pocket </span> = your share of payments for medical services like doctor visits, tests, prescriptions, and procedures, less HSA/HRA </p>
+
+            </div>
+      </div>
+        </div>
+    <div style="width:1030px;float:left;margin-top:23px;font-family:'Hind Guntur';color:#000;font-size:15px;">
+          <div style="width:364px;float:left;">&nbsp;</div>
+          <div style="width:320px;float:left;text-align:center;font-family:'Hind Guntur';color:#000;font-size:15px;">1</div>
+          <div style="width:332px;float:left;text-align:right;font-family:'Hind Guntur';color:#000;letter-spacing: 0px;font-size:15px;">{{Case.CaseID}}</div>
+        </div>
+</div>
+</div>
+
+<!-- ----End Page 1----- --> 
+
+
+<!-- ----Start Page 2----- -->
+
+<div style="max-width:1060px;margin:0 auto;width:100%;float:left;font-family:'Hind Guntur';">
+      <div style="margin-bottom: 12px;width:100%;float:left;margin-top:60px;font-size: 14pt;
+                color: rgb(0, 0, 0);font-style: normal;text-transform: uppercase;text-align: center;background-color: rgb(242, 171, 122);padding-top: 7pt;padding-bottom: 7pt;font-family:'Hind Guntur';"> <img src="{{messages.base_url}}/images/CostDetails.png" alt="SUMMARY" style="vertical-align: middle;margin-top:0px;width: 18px;" />
+                 <span style="vertical-align: middle;font-weight: 300;font-size: 24.5px;font-family:'Hind Guntur';margin-left:6px;">COST DETAILS</span> </div>
+</div>
+<div style="max-width: 1030px;margin: auto;width: 100%;font-family:'Hind Guntur';float:left;margin-left:7px;">
+      <div class="content-page-2" style="max-width:1050px;margin:0 auto;width: 100%;float:left;font-family:'Hind Guntur';"> 
+   
+    <div style="padding: 0 5px;width:100%;float:left;padding-left:5px;">
+          <table style="width: 100%;text-align: center;border-collapse: collapse;border-spacing: 0;font-size: 15px; margin-top: 20px;font-family:'Hind Guntur';">
+        <thead>
+          <tr>
+            <td width="287px"><p> <span class="c2"></span> </p></td>
+            <td ng-repeat="graphResult in graphResults"><p style="font-family:'Hind Guntur';"> <span>#{{$index +1}}</span> </p></td>       
+          </tr>
+          <tr>
+            <td><p> <span class="c2"></span> </p></td>
+            <td ng-repeat="graphResult in graphResults" 
+                            style="font-family:'Hind Guntur';background: rgb(43, 104, 129);color:#fff;border-right: 2.5pt solid rgb(255, 255, 255);font-size: 17.5px;font-weight: 500;height:55px;min-height:55px;max-height: 55px;">
+                            <p style="font-family:'Hind Guntur';font-weight: 500;margin:0 0;line-height: 20px;">
+                            <span style="position: relative;top: 3px;color: #fff;font-weight: 500;border-radius: 4px;font-family: 'Hind Guntur';word-wrap: break-word;word-break: break-all;" class="c11">{{graphResult.PlanName}}</span> 
+                            </p>
+            </td>
+          </tr>
+            </thead>
+        <tbody>
+          <tr>
+            <td colspan="5" rowspan="1" style="padding: 0 10pt 5pt 10pt;"><p style="text-align: left;font-size: 21px;font-weight: bold;color:#000;font-family:'Hind Guntur';"> <span>Your Cost Overview</span> </p></td>
+          </tr>
+          <tr>
+            <td style="padding: 5px 10pt 0 10pt;width:30%;"><p style="text-align: left;font-family:'Hind Guntur';letter-spacing: 0px;line-height: 20px;"> <span>Your Premium</span> </p></td>
+            <td ng-repeat="graphResult in graphResults" style="padding: 5px 10pt 0 10pt;width:17.5%;"><p style="font-family:'Hind Guntur';line-height: 20px;"> <span>{{graphResult.NetAnnualPremium | mycurrency:"$"}}</span> </p></td>
+          </tr>
+          <tr>
+            <td style="padding: 5px 10pt 0 10pt;width:{{pro_red}};"><p style="text-align: left;font-family:'Hind Guntur';letter-spacing: 0px;line-height: 20px;"> <span>Your Net Out-of-Pocket Expenses</span> </p></td>
+            <td style="width:{{pro_green}};padding:5px 10pt 0 10pt;" ng-repeat="graphResult in graphResults"><p style="font-family:'Hind Guntur';line-height:20px;"> <span ng-if="graphResult.Medical < 0" style="position:relative;">{{graphResult.Medical | mycurrency:"$"}}</span> <span ng-if="graphResult.Medical >= 0">{{graphResult.Medical | mycurrency:"$"}}</span> </p></td>
+          </tr>
+          <tr>
+            <td style="background-color: rgb(192, 222, 201);border-top: 1px solid rgb(0, 0, 0);padding: 5px 10pt 0 10pt;width:30%;"><p style="text-align: left;font-family:'Hind Guntur';line-height: 20px;"> <span>Your Total Cost</span> </p></td>
+            <td ng-repeat="graphResult in graphResults" style="background-color: rgb(192, 222, 201);border-top: 1px solid rgb(0, 0, 0);padding:5px 10pt 0 10pt;width:17.5%;"><p style="font-family:'Hind Guntur';line-height: 20px;"> <u>{{graphResult.TotalPaid | mycurrency:"$"}}</u> </p></td>
+          </tr>
+          <tr>
+            <td colspan="5" rowspan="1" style="padding:0 10pt;"><p style="letter-spacing:-0.2px;text-align: left;font-style: italic; margin-top: 20px;margin-bottom: 28px;font-family:'Hind Guntur';line-height:20px;"> <span style="font-style: italic;">(See page 3 for a comprehensive, line-by-line breakdown of Your Total Cost.)</span> </p></td>
+          </tr>
+          <tr>
+            <td style="padding: 5px 10pt 0 10pt;"><p style="text-align: left;font-family:'Hind Guntur';line-height: 20px;"> <span>Your Premium</span> </p></td>
+            <td ng-if="Applicant.EmployerId != messages.ShopEmployerId" ng-repeat="graphResult in graphResults" style="padding:5px 10pt 0 10pt;font-family:'Hind Guntur';"><p style="font-family:'Hind Guntur';line-height: 20px;"> <span>{{graphResult.NetAnnualPremium | mycurrency:"$"}}</span> </p></td>
+            <td ng-if="Applicant.EmployerId == messages.ShopEmployerId" ng-repeat="graphResult in graphResults" style="padding: 5px 10pt 0 10pt;font-family:'Hind Guntur';"><p style="line-height: 20px;"> <span>{{graphResult.NetAnnualPremium | mycurrency:"$"}}</span> </p></td>
+          </tr>
+          <tr>
+            <td style="padding: 5px 10pt 0 10pt;font-family:'Hind Guntur';"><p style="text-align: left;font-family:'Hind Guntur';line-height: 20px;"> <span ng-if="Case.UsageID == 1">Out-of-Pocket Limit (individual)</span> <span ng-if="Case.UsageID != 1">Out-of-Pocket Limit (family)</span> </p></td>
+            <td ng-if="Case.UsageID == 1" ng-repeat="graphResult in graphResults" style="padding: 5px 10pt 0 10pt;"><p style="line-height: 20px;"> <span> {{graphResult.OPLSingle | mycurrency:"$"}} </span> </p></td>
+            <td ng-if="Case.UsageID != 1" ng-repeat="graphResult in graphResults" style="padding: 5px 10pt 0 10pt;"><p style="line-height: 20px;"> <span> {{graphResult.OPLFamilyPerGroup | mycurrency:"$"}} </span> </p></td>
+          </tr>
+          <tr>
+            <td style="padding:5px 10pt 0 10pt;"><p style="text-align: left;line-height: 20px;"> <span>Employer HSA Contribution</span> </p></td>
+            <td ng-repeat="graphResult in graphResults" style="padding:5px 10pt 0 10pt;"><p style="line-height: 20px;"> <span ng-if="graphResult.ContributedToYourHSAAccount != 0" style="position:relative;">{{-1 * graphResult.ContributedToYourHSAAccount | mycurrency:"$"}}</span> <span ng-if="graphResult.ContributedToYourHSAAccount == 0">{{-1 * graphResult.ContributedToYourHSAAccount | mycurrency:"$"}}</span> </p></td>
+          </tr>
+          <tr>
+            <td style="padding: 5px 10pt 0 10pt;"><p style="text-align: left;line-height: 20px;"> <span>Your Estimated HSA Tax Savings<sup style="line-height:0">*</sup></span> </p></td>
+            <td ng-repeat="graphResult in graphResults"><p style="line-height: 20px;padding: 5px 10pt 0 10pt;"> <span> <span>{{ graphResult.TaxSavingFromHSAAccount | mycurrency:"$"}}</span> </span> </p></td>
+          </tr>
+          <tr>
+            <td style="background-color: #c3d4e7;border-top: 1pt solid rgb(0, 0, 0);padding: 5px 10pt 0 10pt;"><p style="text-align: left;font-family:'Hind Guntur';line-height: 20px;"> <span>Worst-Case Scenario Cost</span> </p></td>
+            <td ng-if="Applicant.EmployerId != messages.IndividualEmployerId && Applicant.EmployerId != messages.ShopEmployerId" style="background-color: #c3d4e7;border-top: 1pt solid rgb(0, 0, 0);padding: 5px 10pt 0 10pt;"
+                                ng-repeat="graphResult in graphResults"><p style="font-family:'Hind Guntur';line-height: 20px;"> <span style="text-decoration:underline;">{{graphResult.WorstCase | mycurrency:"$"}}</span> </p></td>
+            <td ng-if="Applicant.EmployerId == messages.IndividualEmployerId || Applicant.EmployerId == messages.ShopEmployerId" style="background-color: #c3d4e7;border-top: 1pt solid rgb(0, 0, 0);padding:5px 10pt 0 10pt;"
+                                ng-repeat="graphResult in graphResults"><p style="font-family:'Hind Guntur';line-height: 20px;"> <span style="text-decoration:underline;">{{graphResult.WorstCase | mycurrency:"$"}}</span> </p></td>
+          </tr>
+            </tbody>
+      </table>
+          <p style="text-align:left;font-size:15px;color: rgb(0, 0, 0);font-weight: 400; line-height:20px; margin-top:20px;font-family:'Hind Guntur';margin-bottom:40px;padding:0 10pt;letter-spacing: -0.2px"> The Worst-Case Scenario Cost represents the maximum you would have to pay for in-network medical services under each plan
+        in the “worst-case scenario” (such as an emergency, accident, or unexpected medical condition). These
+        costs consider risk in addition to savings and may rank the plans in a different order. Compare these
+        numbers between plans to understand how well you would be insured under each in the event of unforeseen
+        medical expenses. 
+      
+      
+      </p>
+          <p style="text-align: left;font-size: 21px;font-weight: bold;margin-bottom: 7px;font-family:'Hind Guntur';float:left;width:100%;margin-top:-1px;padding-left: 10pt;"> <span>Plan Details (In-Network)</span> </p>
+          <table style="width: 100%;text-align: center;border-collapse: collapse;border-spacing: 0;font-size: 15px;margin-top:0pt;border: 1.2pt solid #000;outline: 2pt solid #000;outline-offset: -1px;overflow: hidden;box-sizing: border-box;">
+        <!-- <thead>
+              <tr>
+            <td colspan="5" rowspan="1" style="padding:5px 10pt 0 10pt;font-family:'Hind Guntur';">
+              <p style="text-align: left;font-size: 25px;font-weight: bold;margin-bottom: 13px;font-family:'Hind Guntur';">
+                                    <span>Plan Details (In-Network)</span>
+                                </p> 
+              </td>
+          </tr>
+            </thead> -->
+        <tbody>
+              <tr>
+            <td style="width:{{pro_red}};border-top: 0;padding: 5px 10pt 0 10pt;border: 1pt dashed #7F7F7F;border-top-style: inherit;border-left-style: dashed;font-family:'Hind Guntur';"><p style="text-align: left;font-family:'Hind Guntur';line-height:20px;"> <span>Deductible (individual / family)</span> </p></td>
+            <td ng-repeat="graphResult in graphResults" style="width:{{pro_green}};padding:5px 10pt 0 10pt;border: 1pt dashed #7F7F7F;border-top: 0;"><p style="font-family:'Hind Guntur';line-height:20px;"> <span> {{graphResult.DeductibleSingle | mycurrency:"$"}} / {{graphResult.DeductibleFamilyPerGroup
+                | mycurrency:"$"}}</span> </p></td>
+          </tr>
+              <tr>
+            <td style="padding: 5px 10pt 0 10pt;border: 1pt dashed #7F7F7F;border-top: 0;border-left-style: dashed;"><p style="text-align: left;font-family:'Hind Guntur';line-height:20px;"> 
+              <span>Embedded Deductible?<sup style="line-height:0;font-weight: normal;font-family: 'Lato', sans-serif;">†</sup></span> </p></td>
+            <td ng-repeat="graphResult in graphResults" style="padding: 5px 10pt 0 10pt;border:1pt dashed #7F7F7F;border-top: 0;"><p style="font-family:'Hind Guntur';line-height:20px;"> 
+              <span ng-if="graphResult.DeductibleSingle== graphResult.DeductibleFamilyPerPerson" style="position:relative; ">✔</span> <span ng-if="graphResult.DeductibleSingle!= graphResult.DeductibleFamilyPerPerson"></span> </p></td>
+          </tr>
+              <tr>
+            <td style="padding: 5px 10pt 0 10pt;border: 1pt dashed #7F7F7F;border-top: 0;border-left-style: dashed;"><p style="text-align: left;font-family:'Hind Guntur';line-height:20px;"> <span>Out-of-Pocket Limit (individual / family)</span> </p></td>
+            <td ng-repeat="graphResult in graphResults" style="padding: 5px 10pt 0 10pt;border:1pt dashed #7F7F7F;border-top: 0;"><p style="font-family:'Hind Guntur';line-height:20px;"> <span>{{graphResult.OPLSingle | mycurrency:"$"}} / {{graphResult.OPLFamilyPerGroup | mycurrency:"$"}}</span> </p></td>
+          </tr>
+              <tr>
+            <td style="padding: 5px 10pt 0 10pt;border: 1pt dashed #7F7F7F;border-top: 0;border-left-style: dashed;"><p style="text-align: left;font-family:'Hind Guntur';line-height:20px;"> 
+              <span>Embedded Out-of-Pocket Limit?<sup style="line-height:0;font-weight: normal;font-family: 'Lato', sans-serif;">‡</sup></span> </p></td>
+            <td ng-repeat="graphResult in graphResults" style="padding:5px 10pt 0 10pt;border:  1pt dashed #7F7F7F;border-top: 0;"><p style="font-family:'Hind Guntur';line-height:20px;"> <span ng-if="graphResult.OPLFamilyPerPerson== graphResult.OPLSingle" style="position:relative; ">✔</span> <span ng-if="graphResult.OPLFamilyPerPerson!= graphResult.OPLSingle"></span> </p></td>
+          </tr>
+              <tr>
+            <td style="padding:5px 10pt 0 10pt;border: 1pt dashed #7F7F7F;border-top: 0;border-left-style: dashed;"><p style="text-align: left;font-family:'Hind Guntur';line-height:20px;"> <span>Coinsurance Rate</span> </p></td>
+            <td ng-repeat="graphResult in graphResults" style="padding:5px 10pt 0 10pt;border: 1pt dashed #7F7F7F;border-top: 0;"><p style="font-family:'Hind Guntur';line-height:20px;"> <span>{{graphResult.Coinsurance}}%</span> </p></td>
+          </tr>
+              <tr>
+            <td style="width:{{pro_red}};padding: 5px 10pt 0 10pt;border: 1pt dashed #7F7F7F;border-top: 0;border-left-style: dashed;"><p style="text-align: left;font-family:'Hind Guntur';line-height:20px;"> <span>Need referral from PCP to see specialist?</span> </p></td>
+            <td ng-repeat="graphResult in graphResults" style="width:{{pro_green}};padding: 5px 10pt 0 10pt;border: 1pt dashed #7F7F7F;border-top: 0;"><p style="font-family:'Hind Guntur';line-height:20px;"> <span ng-if="graphResult.ReferralForSpecialist == true">Yes</span> <span ng-if="graphResult.ReferralForSpecialist == false">No</span> </p></td>
+          </tr>
+              <tr>
+            <td style="padding: 5px 10pt 0 10pt;border: 1pt dashed #7F7F7F;border-top: 0;border-left-style: dashed;border-bottom-style: dashed;"><p style="text-align: left;font-family:'Hind Guntur';line-height:20px;"> <span>Personal HSA Contribution</span> </p></td>
+            <td ng-repeat="graphResult in graphResults" style="padding: 5px 10pt 0 10pt;border: 1pt dashed #7F7F7F;border-top: 0;border-bottom-style: dashed;"><p style="font-family:'Hind Guntur';line-height:20px;"> <span>{{graphResult.PersonalHSAContribution | mycurrency:"$"}}</span> </p></td>
+          </tr>
+            </tbody>
+      </table>
+          <!-- <p style="margin: 30pt 0 5pt 0;width: 100%;display: block;float: left;font-family:'Hind Guntur';">
+                    <span style="max-width: 224pt;height: 0.6pt;background: rgb(0,0,0);float: left;width: 100%;border-radius: 1pt;border: 1pt solid #ddd">{{Case.TaxRate}}</span>
+                </p> -->
+          <div style="font-size: 13px;font-family:'Hind Guntur';">
+        <p style="text-align: justify;font-family:'Hind Guntur';margin-top:40px;line-height:22px;letter-spacing: -0.2px;"> <sup>&#42;&nbsp;</sup>We applied our default tax rate of {{Case.TaxRate}}% to your intended personal HSA contribution
+              to calculate your tax savings. You can calculate a more accurate number yourself by multiplying your
+              total estimated HSA contribution next year by your actual marginal tax rate. </p>
+        <p style="text-align: justify;font-family:'Hind Guntur';margin-top:10px;line-height:22px;letter-spacing: -0.2px;"> <sup style="font-weight: normal;font-family: 'Lato', sans-serif;">&#8224;&nbsp;</sup>If a plan has an embedded deductible, then each family member on the plan is subject
+              to the individual deductible only. Once a family member meets the individual deductible limit, any
+              services that are subject to deductible are covered for that member. If the group collectively meets
+              the family deductible, any services that are subject to deductible are covered for all family members
+              going forward. <br/>
+              If a plan has a non-embedded deductible, then the individual deductible does not apply. Services
+              that are subject to deductible will only be covered once the group has collectively met the family
+              deductible. </p>
+        <p style="text-align: justify;font-family:'Hind Guntur';margin-top:5px;line-height:22px;letter-spacing: -0.2px;"> <sup style="font-weight: normal;font-family: 'Lato', sans-serif;">&#8225;&nbsp;</sup>If a plan has an embedded out-of-pocket limit (OOPL), then each family member
+              on the plan is subject to the individual OOPL only. Once a family member meets the individual OOPL,
+              any covered services will be 100% covered for that member. If the group collectively meets the family
+              OOPL, any covered services used by any family member will be 100% covered going forward.<br> If a plan
+              has a non-embedded OOPL, then the individual OOPL does not apply. Covered services will only be 100%
+              covered once the group has collectively met the family OOPL. </p>
+      </div>
+        </div>
+    <div style="width:1030px;float:left;margin-top:52px;font-family:'Hind Guntur';color:#000;font-size:15px;">
+          <div style="width:360px;;float:left;">&nbsp;</div>
+          <div style="width:320px;;float:left;text-align:center;font-family:'Hind Guntur';color:#000;font-size:15px;">2</div>
+          <div style="width:330px;;float:left;text-align:right;font-family:'Hind Guntur';color:#000;letter-spacing: 0px;font-size:15px;">{{Case.CaseID}}</div>
+        </div>
+  </div>
+    </div>
+<!-- End Page 2- --> 
+
+
+<!-- Start Page 3- -->
+
+<div style="max-width: 1060px;margin: 0 auto;width: 100%;float:left;;font-family:'Hind Guntur';">
+      <div style="font-family:'Hind Guntur';margin-bottom: 12px;width:100%;float:left;margin-top:60px;font-size: 14pt;
+                color: rgb(0, 0, 0);font-style: normal;text-transform: uppercase;text-align: center;
+                background-color: rgb(242, 171, 122);padding-top: 7pt;padding-bottom:7px;"> <img src="{{messages.base_url}}/images/YourTotalCost.png" alt="SUMMARY" style="vertical-align: middle;margin-top: 0px;width: 17.5px;" /> <span style="font-family:'Hind Guntur';vertical-align: middle;margin-left: 6px;font-size: 24.5px;font-weight:300;color:#000;">Your Total Cost: A Closer Look</span> </div>
+</div>
+<div style="max-width: 1030px;margin: auto;width: 100%;font-family:'Hind Guntur';margin-left:7px;">
+      <div class="content-page-3" style="max-width:1030px;margin:0 auto;width: 100%;float:left;font-family:'Hind Guntur';">     
+      
+    <div style="padding: 0 5px;width:100%;float:left;padding-left:5px;">
+          <table style="width: 100%;text-align: center;border-collapse: collapse;border-spacing: 0;font-size: 15px; margin-top: 17px;font-family:'Hind Guntur';">
+        <thead>
+
+            <tr>
+            <td><p style="font-family:'Hind Guntur';"> <span class="c2"></span> </p></td>
+            <td ng-repeat="graphResult in graphResults" ><p style="font-family:'Hind Guntur';font-size:15px;"> <span>#{{$index +1}}</span> </p></td>      
+           </tr>
+
+              <tr style="font-family:'Hind Guntur';">
+            <td><p style="font-family:'Hind Guntur';"> <span class="c2"></span> </p></td>
+
+            
+            <td ng-repeat="graphResult in graphResults" style="background: rgb(43, 104, 129);
+                            color: rgb(255, 255, 255);border-right: 2.5pt solid rgb(255, 255, 255);font-size: 17.5px;font-weight: 600;height:55px;min-height:55px;max-height: 55px;">
+                            <p style="font-family:'Hind Guntur';font-weight: 500;margin:0 0;color:#fff;line-height: 20px;">
+                              <span style="position: relative;top: 3px;color: #fff;font-weight: 500;border-radius: 4px;font-family: 'Hind Guntur';word-wrap: break-word;word-break: break-all;" class="c11">{{graphResult.PlanName}}</span>
+                             </p>
+                            </td>
+          </tr>
+            </thead>
+            <thead>    
+                <tr>
+                  <td colspan="6" rowspan="1" style="padding:0pt 10pt;">&nbsp;</td>                    
+                </tr>
+             </thead>
+        <tbody style="outline: 2px solid #000;outline-offset: 8pt;margin-top: -60px;font-family:'Hind Guntur';">
+              <tr>
+            <td colspan="5" rowspan="1" style="padding: 0 10pt;"><p style="text-align: left;font-size: 21px;font-weight: bold;margin-top: 0pt;margin-bottom: 28pt;font-family:'Hind Guntur';letter-spacing: -0.7px;"> <span>Your Total Cost</span> </p></td>
+          </tr>
+              <tr>
+            <td style="padding: 5px 10pt 0 10pt;width:{{pro_red}};" ><p style="text-align: left;margin-top: -16pt;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;line-height: 20px"> <span style="font-family:'Hind Guntur';font-weight:400;">(1) Your Premium</span> </p></td>
+            <td ng-repeat="graphResult in graphResults" style="padding: 5px 10pt 0 10pt;width:{{pro_green}};">
+            <p style="margin-top: -16pt;font-family:'Hind Guntur';line-height: 20px;"> <span>{{graphResult.NetAnnualPremium | mycurrency:"$"}}</span> </p></td>
+          </tr>
+              <tr>
+            <td style="padding: 5px 10pt 0 10pt;"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;line-height: 20px;"> <span style="font-family:'Hind Guntur';font-weight:400;">(2) Your Net Out-of-Pocket Expenses</span> </p></td>
+            <td style="padding: 5px 10pt 0 10pt;" ng-repeat="graphResult in graphResults"><p style="font-family:'Hind Guntur';line-height: 20px;"> <span>{{graphResult.Medical | mycurrency:"$"}}</span> </p></td>
+          </tr>
+              <tr>
+            <td style="background-color: rgb(192, 222, 201);border-top: 1px solid rgb(0, 0, 0);padding:5px 10pt 0 10pt;"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';line-height: 20px;"> <span>Your Total Cost</span> </p></td>
+            <td ng-repeat="graphResult in graphResults" style="background-color: rgb(192, 222, 201);border-top: 1px solid rgb(0, 0, 0);padding: 5px 10pt 0 10pt;">
+              <p style="font-family:'Hind Guntur';line-height: 20px;"> <u>{{graphResult.TotalPaid | mycurrency:"$"}}</u> </p></td>
+          </tr>
+            </tbody>
+        <tbody>
+              <tr>
+            <td colspan="5" rowspan="1" style=""><p style="padding-top: 30pt;text-align: left;font-size: 15px;font-family:'Hind Guntur';line-height: 20px;"> <span style=" background-color: rgb(242, 171, 122); width: 32px; height: 32px;display: inline-table; border-radius: 20pt; text-align: center; margin-right: 10px; vertical-align: middle;    position: relative;top: -4px;"> <span style="width: 32px; height: 32px;vertical-align: middle; display: table-cell;font-family:'Hind Guntur';top: 4px;position: relative;left: -1.5px;">1</span> </span> <span style="font-size:17.5px;font-weight:600;font-family:'Hind Guntur';">Your Premium</span> </p></td>
+          </tr>
+              <tr>
+            <td style="padding: 5px 10pt 0 0;"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';line-height: 20px;"> <span style="text-align: left;font-weight:400;font-family:'Hind Guntur';padding-left: 45px;">Gross Premium</span> </p></td>
+            <td ng-repeat="graphResult in graphResults" style="padding:  5px 10pt 0 10pt"><p style="font-family:'Hind Guntur';line-height: 20px;"> <span>{{graphResult.GrossAnnualPremium | mycurrency:"$"}}</span> </p></td>
+          </tr>
+          <tr>
+            <td style="padding: 5px 10pt 0 0;"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';line-height: 20px;"> <span style="text-align: left;font-weight:400;font-family:'Hind Guntur';padding-left: 45px">Employer Contribution to Premium</span> </p></td>
+            <td ng-repeat="graphResult in graphResults"><p style="font-family:'Hind Guntur';padding:5px 10pt 0 10pt;line-height: 20px"> <span>{{ -1 * graphResult.FederalSubsidy | mycurrency:"$"}}</span> </p></td>
+          </tr>
+              <tr>
+            <td style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);"><p style="top: 3px;position: relative;text-align: left;font-weight:400;font-family:'Hind Guntur';line-height: 20px;"> <span style="text-align: left;font-weight:400;font-family:'Hind Guntur';padding-left: 45px"></span>Your Premium</span> </p></td>
+            <td ng-repeat="graphResult in graphResults" style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);padding: 5px 10pt 0 10pt;">
+              <p style="font-family:'Hind Guntur';line-height: 20px;"> <u>{{graphResult.NetAnnualPremium | mycurrency:"$"}}</u> </p></td>
+          </tr>
+            </tbody>
+        <tbody>
+              <tr>
+              <td colspan="5" rowspan="1" style="padding: 5px 10pt 0 0;" style="font-family:'Hind Guntur';">
+            <p style="text-align: left;font-size: 15px;padding-top: 16pt;font-family:'Hind Guntur';line-height: 20px;"> <span style="background-color: rgb(242, 171, 122); width: 32px; height: 32px; display: inline-table; border-radius: 20pt; text-align: center; margin-right: 10px; vertical-align: middle;position: relative;top: -4px;"> <span style="top: 3px;position: relative;left: -1px; vertical-align: middle; display: table-cell;font-family:'Hind Guntur';font-weight:400;width: 32px; height: 32px;">2</span> </span> <span style="font-size:17.5px;font-weight:600;letter-spacing: 0px;font-family:'Hind Guntur';">Your Net Out-of-Pocket Expenses</span> </p>
+              </td>
+          </tr>
+              <tr>
+            <td style="padding: 5px 10pt 0 0"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;padding-left: 45px;line-height: 20px;margin: 2px 0;"> <span>(a) Your Medical Costs</span> </p></td>
+            <td ng-repeat="graphResult in graphResults" style="letter-spacing: 0px;"><p style="font-family:'Hind Guntur';line-height: 20px;padding: 5px 10pt 0 10pt;"> <span>{{graphResult.PaymentsToDeductibleLimit + graphResult.Copays + graphResult.CoinsuranceToOutOfPocketLimit
+                + graphResult.ExcludedAmount | mycurrency:"$"}}</span> </p></td>
+          </tr>
+              <tr>
+            <td style="padding: 5px 10pt 0 0"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;padding-left: 45px;line-height: 20px;"> <span>(b) Your HSA/HRA Benefits</span> </p></td>
+            <td ng-repeat="graphResult in graphResults"><p style="font-family:'Hind Guntur';padding: 5px 10pt 0 10pt;line-height: 20px"> <span><!-- {{graphResult.TaxSavingFromHSAAccount + graphResult.HRAReimbursedAmt + (-1 * graphResult.ContributedToYourHSAAccount)
+                | mycurrency:"$"}} -->
+     {{graphResult.TaxSavingFromHSAAccount + (-1 * graphResult.HRAReimbursedAmt) + (-1 * graphResult.ContributedToYourHSAAccount)
+                | mycurrency:"$"}}
+                </span> </p></td>
+          </tr>
+              <tr>
+            <td style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);"><p style="top: 3px;position: relative;line-height:20px;text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;padding-left: 45px;"> <span>Your Out-of-Pocket Expenses</span> </p></td>
+            <td ng-repeat="graphResult in graphResults" style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);padding: 5px 10pt 0 10pt;">
+              <p style="font-family:'Hind Guntur';line-height:20px;"> <u>{{graphResult.Medical | mycurrency:"$"}}</u> </p></td>
+          </tr>
+            </tbody>
+        <tbody style="letter-spacing:0px;">
+              <tr style="letter-spacing:0px;">
+            <td colspan="5" rowspan="1" style="padding: 5px 10pt 0 25pt;"><p style="text-align: left;font-size: 15px;padding-top: 16pt;font-family:'Hind Guntur';line-height: 20px;"> <span style=" background-color: rgb(242, 171, 122); width: 32px; height: 32px;display: inline-table; border-radius: 20pt; text-align: center; margin-right: 10px; vertical-align: middle;position: relative;top: -4px;"> <span style=" vertical-align: middle; display: table-cell;top: 2px;position: relative;left:-1px;width: 32px; height: 32px;">a</span> </span> <span style="font-size:17.5px;font-weight:700;font-family:'Hind Guntur';">Your Medical Costs <span style="font-weight: 400; font-size: 15px;font-family:'Hind Guntur';letter-spacing: 0px;">(Costs of your expected medical services)</span> </span> </p></td>
+                                    
+          </tr>
+              <tr style="letter-spacing:0px;">
+            <td style="padding:5px 10pt 0 70px;"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;line-height: 20px;"> <span style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;    padding-left: 10px;">Deductible payments</span> </p></td>
+            <td ng-repeat="graphResult in graphResults" style="padding: 5px 10pt 0 10pt;"><p style="font-family:'Hind Guntur';line-height: 20px;"> <span>{{graphResult.PaymentsToDeductibleLimit | mycurrency:"$"}}</span> </p></td>
+          </tr>
+              <tr>
+            <td style="padding: 5px 10pt 0 70px;"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing:0px;line-height: 20px;"> <span style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing:0px;    padding-left: 10px;">Copayments</span> </p></td>
+            <td ng-repeat="graphResult in graphResults"><p style="font-family:'Hind Guntur';padding: 5px 10pt 0 10pt;line-height: 20px;"> <span>{{graphResult.Copays | mycurrency:"$"}}</span> </p></td>
+          </tr>
+              <tr>
+            <td style="padding: 5px 10pt 0 70px;"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing:0px;line-height: 20px;"> <span style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing:0px;    padding-left: 10px;">Coinsurance</span> </p></td>
+            <td ng-repeat="graphResult in graphResults"><p style="font-family:'Hind Guntur';padding: 5px 10pt 0 10pt;line-height: 20px;"> <span>{{graphResult.CoinsuranceToOutOfPocketLimit | mycurrency:"$"}}</span> </p></td>
+          </tr>
+              <tr style="letter-spacing:0px;">
+            <td style="padding: 5px 10pt 0 80px;"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;line-height: 20px;"> <span style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;">Excluded Amount (Not Covered)</span> </p></td>
+            <td ng-repeat="graphResult in graphResults"><p style="font-family:'Hind Guntur';padding: 5px 10pt 0 10pt;line-height: 20px;"> <span>{{graphResult.ExcludedAmount | mycurrency:"$"}}</span> </p></td>
+          </tr>
+              <tr style="letter-spacing:0px;">
+            <td style="background-color: rgb(225, 239, 230);border-top: 1px solid rgb(0, 0, 0);padding: 5px 10pt 0 70px;"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;line-height: 20px;"> <span style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;padding-left: 10px;">Your Medical Costs</span> </p></td>
+            <td ng-repeat="graphResult in graphResults" style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);padding: 5px 10pt 0 10pt;">
+              <p style="font-family:'Hind Guntur';line-height: 20px;">
+                <u>{{graphResult.PaymentsToDeductibleLimit + graphResult.Copays + graphResult.CoinsuranceToOutOfPocketLimit
+                + graphResult.ExcludedAmount | mycurrency:"$"}}</u> </p></td>
+          </tr>
+            </tbody>
+        <tbody style="letter-spacing:0px;">
+              <tr style="letter-spacing:0px">
+            <td colspan="5" rowspan="1" style="padding:5px 10pt 0 25pt;letter-spacing:0px"><p style="text-align: left;font-size: 15px;padding-top: 16pt;font-family:'Hind Guntur';line-height: 20px;"> <span style="font-family:'Hind Guntur'; background-color: rgb(242, 171, 122); width: 32px; height: 32px; display: inline-table; border-radius: 20pt; text-align: center; margin-right: 10px; vertical-align: middle;position: relative;top: -4px;"> <span style="vertical-align: middle;display: table-cell;top: 3px;position: relative;width: 32px; height: 32px;">b</span> </span> <span style="font-size:17.5px;font-weight:700;font-family:'Hind Guntur';letter-spacing: 0px;">Your HSA/HRA Benefits <span style="font-weight:400;font-size:15px;font-family:'Hind Guntur';"> (Deducted from/applied to your medical costs)</span> </span> </p></td>
+          </tr>
+              <tr style="letter-spacing:0px;">
+            <td style="padding:5px 10pt 0 70px;"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;line-height: 20px;"> <span style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;padding-left: 10px;">Employer HSA Contribution</span> </p></td>
+            <td ng-repeat="graphResult in graphResults" style="padding: 5px 10pt 0 10pt;"><p style="font-family:'Hind Guntur';line-height: 20px;"> <span>{{-1 * graphResult.ContributedToYourHSAAccount | mycurrency:"$"}}</span> </p></td>
+          </tr>
+              <tr style="letter-spacing:0px">
+            <td style="padding: 5px 10pt 0 80px;"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;line-height: 20px;"> <span style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;">Your Estimated HSA Tax Savings</span> </p></td>
+            <td ng-repeat="graphResult in graphResults"><p style="line-height: 20px;padding: 5px 10pt 0 10pt"> <span>{{graphResult.TaxSavingFromHSAAccount | mycurrency:"$"}}</span> </p></td>
+          </tr>
+              <tr>
+            <td style="padding: 5px 10pt 0 80px;letter-spacing:0px;"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing:0px;line-height: 20px;"> <span style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing:0px;">Employer HRA Reimbursement</span> </p></td>
+            <td ng-repeat="graphResult in graphResults"><p style="font-family:'Hind Guntur';line-height: 20px;padding: 5px 10pt 0 10pt"> <span>{{-1 * graphResult.HRAReimbursedAmt | mycurrency:"$"}}</span> </p></td>
+          </tr>
+              <tr style="letter-spacing:0px;">
+            <td style="background-color: rgb(225, 239, 230);border-top: 1px solid rgb(0, 0, 0);padding: 5px 10pt 0 70px;letter-spacing:0px;"><p style="line-height: 20px;text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;line-height: 20px;"> <span style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;padding-left: 10px;">Your HSA/HRA Benefits</span> </p></td>
+            <td ng-repeat="graphResult in graphResults" style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);padding: 5px 10pt 0 10pt;">
+              <p style="font-family:'Hind Guntur';line-height: 20px;"> 
+                <u>{{graphResult.TaxSavingFromHSAAccount + (-1 * graphResult.HRAReimbursedAmt) + (-1 * graphResult.ContributedToYourHSAAccount)
+                | mycurrency:"$"}}</u> </p></td>
+          </tr>
+            </tbody>
+      </table>
+          <div style="font-size: 10.5px;margin-top: 40pt;line-height: 16px;">
+        <p style="font-family:'Hind Guntur';line-height: 14px;"> <strong style="font-family:'Hind Guntur';"> <u style="font-weight:bold;text-decoration:underline;font-family:'Hind Guntur';">Assumptions</u> </strong> - This estimate is based on the projected health usage provided by you and the following key assumptions:
+              1) Medical charges are assumed to be in-network; 2) All services are assumed to have started and
+              ended in the same coverage period; 3) Cost of services and prescription medications are estimates
+              based on average costs of these services unless otherwise provided by you; 4) Some of the referenced
+              insurance plans have a limited number of visits for copays, after which coinsurance applies, and
+              some plans may have "Chronic Illness Support" with a waiver of deductible and more favorable coinsurance;
+              5) Prescription drug tiers are determined by the drug formulary provided by the employer. </p>
+        <p style="font-family:'Hind Guntur';line-height: 14px;"> <strong style="font-family:'Hind Guntur';"> <u style="font-weight:bold;text-decoration:underline;font-family:'Hind Guntur';">Disclaimer</u> </strong> - This report includes general information and calculations regarding medical charges based on projected
+              usage and is intended to provide assistance with decisions about health insurance plan choices. This
+              report is for informational purposes only and may not reflect all of the pricing factors and variables
+              for all circumstances. This report and any accompanying information or materials, written or verbal,
+              are not intended, and must not be taken as professional advice or recommendations. Professional advice
+              on specific insurance and benefits can be obtained by contacting a duly licensed professional. While
+              the figures and analyses herein are believed to be accurate and reflect current industry trends,
+              they are not warranted to be correct and MyHealthMath, Inc. disclaims any and all warranties of any
+              type and shall have no liability for any inaccuracy or incompleteness. </p>
+      </div>
+        </div>
+    <div style="width:1030px;float:left;margin-top:40px;font-family:'Hind Guntur';color:#000;font-size:15px;">
+          <div style="width:360px;;float:left;">&nbsp;</div>
+          <div style="width:320px;;float:left;text-align:center;font-family:'Hind Guntur';color:#000;font-size:15px;">3</div>
+          <div style="width:330px;;float:left;text-align:right;color:#000;letter-spacing: 0px;font-size:15px;">{{Case.CaseID}}</div>
+        </div>
+  </div>
+      <!-- End Page 3- --> 
+      
+    </div>
+</div>
+
+
+
+ <!-- Pdf for generate 5 plan -->
+ <div ng-if="graphResults.length==5">
+
+  <div style="max-width: 1060px;margin: auto;width: 100%;float:left;font-family:'Hind Guntur';margin-top:53px;" >
+        <div style="font-family:'Hind Guntur';margin-bottom: 8px;width:100%;float:left;margin-top:10px;font-size: 14pt;
+          color: rgb(0, 0, 0);font-style: normal;text-transform: uppercase;text-align: center;background-color: rgb(242, 171, 122);padding-top: 7pt;padding-bottom:7pt">
+           <img src="{{messages.base_url}}/images/Summary2new.png" alt="SUMMARY" style="vertical-align: middle;margin-top:-10px;width: 23px;" />
+            <span style="font-weight:300;font-size: 24.5px;font-family:'Hind Guntur';margin-left:6px;">SUMMARY</span> 
+        </div>
+      </div>
+  <div style="max-width: 920px;margin:0 auto;width: 100%;float:left"> 
+        
+        <!-- -Start Page 1- -->
+  <div class="content-page-1" style="margin-bottom:0px;width:100%;float:left">
+      <div style="height:auto">
+        <div style="max-width: 850px;margin: 0 auto;width: 100%;">
+          <p style="margin-bottom:15px;font-family:'Hind Guntur';"> <img style="display: block; margin-left: -10px; margin-right: auto;width: 161px;" src="{{messages.base_url}}/images/MyHealthMathlogo.png"
+                          alt="MHM logo" /> </p>
+          <p style="text-align: center;margin: 0;padding:0 0 10.5px 150px;font-size: 42px;color:#000;text-transform: uppercase;
+          font-weight: 600; font-family:'Hind Guntur';letter-spacing:0px;line-height:45px;letter-spacing:1.5px">YOUR PLAN ANALYSIS REPORT </p>
+          <table style="color:#000;font-family:'Hind Guntur';width: 700px;margin: 0 auto;line-height:20px;margin-left:140px;">
+                <tbody>
+              <tr>
+                    <td style="text-align: center;font-size:15px;font-weight: normal;padding:0;font-family:'Hind Guntur';"><strong style="color: rgb(0, 0, 0);">{{Applicant.FirstName}} {{Applicant.LastName}}</strong> | {{UsageType }} </td>
+                    <td style="text-align: center;font-size:15px;font-weight: 400;font-family:'Hind Guntur';"><strong>Plan Year</strong>: {{Case.JobMaster.PlanYearStartDt | date:'MM/dd/yy'}} &#45; {{Case.JobMaster.PlanYearEndDt | date:'MM/dd/yy'}} </td>
+                  </tr>
+              <tr>
+                    <td style="text-align: center;font-size:15px;font-weight: 400;padding-bottom: 20pt;font-family:'Hind Guntur';"><span ng-if=" CurrentPlan != ''"><strong>Your Current Plan:</strong> {{CurrentPlanName}}</span> </td>
+                    <td style="text-align: center;font-size:15px;font-weight: 400;padding-bottom: 20pt;font-family:'Hind Guntur';"><strong>Date of Interview:</strong> {{InterviewDate | date:'MMMM dd, yyyy'}} </td>
+                  </tr>
+            </tbody>
+              </table>
+        </div>
+            <div style="border-bottom: 1.5px dashed #000;letter-spacing:-5px;margin-left: 15%;margin-left: 8%; width: 100%;border-width:2pt;"></div>
+  
+            
+            <div style="max-width: 1087px;margin: auto;width: 100%;font-family:'Hind Guntur';"> 
+         
+          <div style="padding-top: 6pt;padding-bottom:0px;font-family:'Hind Guntur';line-height: 22px;margin-top: 3px;width:116%;">
+                <p style="text-align: center;font-size: 15px;margin-bottom:0;color:#000;font-family:'Hind Guntur';"> Options are ranked below in order of lowest to highest estimated total cost. </p>
+               
+                <p ng-if=" CurrentPlan != '' && CurrentPlan.toString() != graphResults[0].PlanId.toString()" style="text-align: center;font-size: 15px;margin-bottom:0;margin-top:0;font-family:'Hind Guntur';"> If you switch from your current plan to the first-ranked plan, we estimate that you will save approximately<strong>&nbsp;{{DifferenceAmount | mycurrency:"$"}}</strong> next year. </p>
+  
+                <p ng-if=" CurrentPlan === '' || CurrentPlan.toString() === graphResults[0].PlanId.toString() " style="text-align: center;font-size: 15px;margin-bottom:0;margin-top:0;font-family:'Hind Guntur';"><strong>&nbsp;</strong> </p>
+           </div>
+          
+          <!-- //graph start -->
+          <div style="width:100%;float:left;">
+                <h3 style="font-size: 24.5px;padding: 5px 70px;color:#000;font-family:'Hind Guntur';"><img src="{{messages.base_url}}/images/arrow.png" style="left: 90px;
+                          width: 60px;position: absolute;top: 415px;font-family:'Hind Guntur';"> <span style="margin-left:90px;font-family:'Hind Guntur';">Your Optimal Plan</span></h3>
+                          <image src="{{messages.base_url}}/images/circle.png" style="position: absolute;width: 125px;left: 22px;top: 460px;font-family:'Hind Guntur';">
+          </div>
+  
+          <div style="width:100%;margin-left: 50px; display: table;vertical-align: middle;" ng-repeat="graphResult in graphResults">
+            <div style="width:10%;display: table-cell;vertical-align: middle;position: relative;left: -13px;">
+              <div id="restrict" style="text-align: center;font-size: 17.5px;line-height: 30px;margin-top:0px;color: #000;font-family:'Hind Guntur';width:100px;">                 
+                    <span style="position:relative;left:-8px;top:-18px;">
+                    #{{$index +1}} <br>
+                    {{graphResult.PlanName}}
+                    </span>                    
+               </div>
+            </div>
+  
+  
+                <div style="width:88%;float:left;border-left:1px solid #000;border-top:0.5px solid #ddd;border-bottom:0.5px solid #ddd;padding:10px 0;border-width: thin;color:#000;">
+             
+                  <div ng-style="set_width(max, graphResult.NetAnnualPremium + graphResult.Medical)" style="height:76px;float:left;background:RGB(191,219,201);text-align: center;font-size:18.5px;color:#000;line-height:0;">
+  
+                      <span ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) > 28" style="text-align:center;min-width:400px;line-height: 86px;">Your Total Cost:<strong style="font-weight: 600">&nbsp;{{graphResult.NetAnnualPremium + graphResult.Medical | mycurrency:"$"}}</strong>
+                      </span>    
+                                   
+  
+                      <span ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) > 16 && check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) <= 28" style="text-align:center;line-height: 86px;position: absolute;left: 380px;">
+                        Your Total Cost:<strong style="font-weight: 600">&nbsp;{{graphResult.NetAnnualPremium + graphResult.Medical | mycurrency:"$"}}</strong>
+                      </span>  
+  
+  
+                      <span ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) > 10 && check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) <= 16" style="text-align:center;width:330px;line-height: 86px;position: absolute;">
+                        Your Total Cost:<strong style="font-weight: 600">&nbsp;{{graphResult.NetAnnualPremium + graphResult.Medical | mycurrency:"$"}}</strong>
+                      </span>               
+  
+                      <span ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) == 10" style="text-align:center;min-width:200px;position:absolute;left:145px;line-height: 86px;">
+                          Your Total Cost:<strong style="font-weight: 600">&nbsp;{{graphResult.NetAnnualPremium + graphResult.Medical | mycurrency:"$"}}</strong>
+                      </span>
+  
+                      <span ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) < 10  && check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) > 0" style="text-align:center;min-width:200px;position:absolute;left:187px;line-height: 86px;">
+                        Your Total Cost:<strong style="font-weight: 600">&nbsp;{{graphResult.NetAnnualPremium + graphResult.Medical  | mycurrency:"$"}}</strong>
+                      </span>
+                      
+                       <span ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) < 0" style="text-align:center;min-width:200px;position:absolute;left:170px;line-height: 86px;">
+                          Your Total Cost:<strong style="font-weight: 600">&nbsp;{{graphResult.NetAnnualPremium + graphResult.Medical | mycurrency:"$"}}</strong>
+                       </span>                 
+  
+                       <span ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) == 0" style="text-align:center;min-width:200px;position:absolute;left:154px;line-height: 86px;">
+                            Your Total Cost:<strong style="font-weight: 600">&nbsp;{{graphResult.NetAnnualPremium + graphResult.Medical | mycurrency:"$"}}</strong>
+                       </span> 
+  
+                  </div>              
+  
+              <!-- <div style="float:left;padding-top:26px;padding-bottom:24px;background:RGB(191,219,201);text-align: center;font-size:18.5px;color:#000">
+                Your Total Cost:<strong>=&nbsp;{{graphResult.NetAnnualPremium + graphResult.Medical | mycurrency:"$"}}</strong> 
+              </div> -->
+  
+            <div ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) > 28" style="font-family:'Hind Guntur';width:25%;float:left;text-align: left;padding: 2px 0;margin-top: 17px;left: 17px;position: relative;margin-bottom: 16px;">
+                  <h6 style="font-family:'Hind Guntur';color:#000;margin:0;font-size:14px;font-weight:400;line-height: 20px;">                    
+                Premium: {{graphResult.NetAnnualPremium | mycurrency:"$"}}
+                <!-- <div ng-if="check_width(max, graphResult.Medical) > 40" ng-style="set_width(max, graphResult.Medical)">
+                    Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                  </div>-->      
+                  <!-- <div>
+                    Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                  </div> -->
+                  <div ng-if="$index == 0">
+                    Out-of-Pocket*:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                  </div>
+                  <div ng-if="$index > 0">
+                    Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                  </div>
+                  </h6>
+            </div>
+  
+  
+  
+  
+            <div ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) > 16 && check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) <= 28" style="font-family:'Hind Guntur';width:25%;float:left;text-align: left;padding: 2px 0;margin-top: 17px;left: 330px;position: relative;margin-bottom: 16px;">
+              <h6 style="font-family:'Hind Guntur';color:#000;margin:0;font-size:14px;font-weight:400;line-height: 20px;">                    
+            Premium: {{graphResult.NetAnnualPremium | mycurrency:"$"}}
+  
+            <!-- <div ng-if="check_width(max, graphResult.Medical) > 40" ng-style="set_width(max, graphResult.Medical)">
+                Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+              </div>-->
+  
+              <!-- <div>
+                Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+              </div> -->
+              <div ng-if="$index == 0">
+                Out-of-Pocket*:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+              </div>
+              <div ng-if="$index > 0">
+                Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+              </div>
+              </h6>
+             </div>
+  
+  
+  
+  
+              <div ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) > 10 && check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) <= 16" style="font-family:'Hind Guntur';width:25%;float:left;text-align: left;padding: 2px 0;margin-top: 17px;left: 270px;position: relative;margin-bottom: 16px;">
+                    <h6 style="font-family:'Hind Guntur';color:#000;margin:0;font-size:14px;font-weight:400;line-height: 20px;">                    
+                  Premium: {{graphResult.NetAnnualPremium | mycurrency:"$"}}
+  
+                  <!-- <div ng-if="check_width(max, graphResult.Medical) > 40" ng-style="set_width(max, graphResult.Medical)">
+                      Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                    </div>-->
+  
+                    <!-- <div>
+                      Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                    </div> -->
+                    <div ng-if="$index == 0">
+                      Out-of-Pocket*:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                    </div>
+                    <div ng-if="$index > 0">
+                      Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                    </div>
+                    </h6>
+              </div>
+  
+  
+              <div ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) == 10" style="font-family:'Hind Guntur';width:25%;float:left;text-align: left;padding: 2px 0;margin-top: 17px;left: 190px;position: relative;margin-bottom:16px;">
+                  <h6 style="font-family:'Hind Guntur';color:#000;margin:0;font-size:14px;font-weight:400;line-height: 20px;">                  
+                Premium: {{graphResult.NetAnnualPremium | mycurrency:"$"}}
+                <!-- <div ng-if="check_width(max, graphResult.Medical) > 40" ng-style="set_width(max, graphResult.Medical)">
+                    Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                  </div>       -->    
+                  <div>
+                    Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                  </div>
+                  </h6>
+              </div>
+  
+  
+              <div ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) < 10 && check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) > 0" style="font-family:'Hind Guntur';width:25%;float:left;text-align: left;padding: 2px 0;margin-top: 17px;left: 250px;position: relative;margin-bottom:16px;">
+                  <h6 style="font-family:'Hind Guntur';color:#000;margin:0;font-size:14px;font-weight:400;line-height: 20px;">                  
+                Premium: {{graphResult.NetAnnualPremium | mycurrency:"$"}}
+                <!-- <div ng-if="check_width(max, graphResult.Medical) > 40" ng-style="set_width(max, graphResult.Medical)">
+                    Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                  </div>       -->    
+                  <!-- <div>
+                    Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                  </div> -->
+                  <div ng-if="$index == 0">
+                    Out-of-Pocket*:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                  </div>
+                  <div ng-if="$index > 0">
+                    Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                  </div>
+                  </h6>
+               </div>
+  
+            
+              <div ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) < 0" style="font-family:'Hind Guntur';width:25%;float:left;text-align: left;padding: 2px 0;margin-top: 17px;left: 260px;position: relative;margin-bottom:16px;">
+                  <h6 style="font-family:'Hind Guntur';color:#000;margin:0;font-size:14px;font-weight:400;line-height: 20px;">                  
+                Premium: {{graphResult.NetAnnualPremium | mycurrency:"$"}}
+                <!-- <div ng-if="check_width(max, graphResult.Medical) > 40" ng-style="set_width(max, graphResult.Medical)">
+                    Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                  </div>       -->    
+                  <!-- <div>
+                    Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                  </div> -->
+                  <div ng-if="$index == 0">
+                    Out-of-Pocket*:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                  </div>
+                  <div ng-if="$index > 0">
+                    Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                  </div>
+                  
+                  </h6>
+              </div>
+  
+  
+              <div ng-if="check_width(max, graphResult.NetAnnualPremium + graphResult.Medical) == 0" style="font-family:'Hind Guntur';width:25%;float:left;text-align: left;padding: 2px 0;margin-top: 17px;left: 217px;position: relative;margin-bottom:16px;">
+                  <h6 style="font-family:'Hind Guntur';color:#000;margin:0;font-size:14px;font-weight:400;line-height: 20px;">                  
+                Premium: {{graphResult.NetAnnualPremium | mycurrency:"$"}}
+                <!-- <div ng-if="check_width(max, graphResult.Medical) > 40" ng-style="set_width(max, graphResult.Medical)">
+                    Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                  </div>       -->
+                  <!-- <div>
+                    Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                  </div> -->
+                  <div ng-if="$index == 0">
+                    Out-of-Pocket*:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                  </div>
+                  <div ng-if="$index > 0">
+                    Out-of-Pocket:&nbsp;{{graphResult.Medical | mycurrency:"$"}}
+                  </div>
+                  </h6>
+              </div>
+  
+              <div style="width:100%;float:left;border:1pt solid #fff;"></div>
+              <div ng-style="set_width(max, graphResult.WorstCase)" style="font-family:'Hind Guntur';float:left;background:#a7bdd9;padding: 5px 0 2px 0;text-align: center;font-size:14px;color:#000;max-width: 70%;">Worst-Case Scenario Cost: {{graphResult.WorstCase | mycurrency:"$"}}</div>
+  
+            </div>
+  
+  
+              </div>
+          
+          <!-- end graph main div-->
+          
+          <div style="width:12%;float:left;">&nbsp;</div>
+          <div style="width:88%;float:left;margin-left:149px;">
+                <p style="margin-bottom:0;text-align:left;margin-top:5px; font-size: 15px; float: left; width: 113%;margin-top: 15px;color:#000;font-family:'Hind Guntur';line-height:25px"> <span> <strong style=" color: rgb(75,135,92);font-family:'Hind Guntur';">Your Total Cost</strong> </span> = your premium + net out-of-pocket expenses based on the expected medical usage you reported</p>
+               
+                <p style="margin-top:0;text-align:left;margin-bottom:0;font-size: 15px;float: left; width: 113%;color:#000;font-family:'Hind Guntur';line-height:25px"> <span style="color: RGB(64,111,162);font-family:'Hind Guntur';"> <strong> Worst-Case Scenario Cost </strong> </span> = the maximum you could pay under a plan given extreme/unforeseen medical usage (see page 2) </p>
+
+                <p style="margin-top:0;text-align:left;margin-bottom:5px;font-size: 15px;float: left; width: 113%;color:#000;font-family:'Hind Guntur';line-height:25px"> <span style="color:#000;font-family:'Hind Guntur';"> <span style="position:absolute;left:150px;">*</span>Out-of-Pocket</span> = your share of payments for medical services like doctor visits, tests, prescriptions, and procedures, less HSA/HRA </p>
+
+              </div>
+        </div>
+          </div>
+            <div style="width:1030px;float:left;margin-top:23px;font-family:'Hind Guntur';color:#000;font-size:15px;">
+                  <div style="width:364px;float:left;">&nbsp;</div>
+                  <div style="width:320px;float:left;text-align:center;font-family:'Hind Guntur';color:#000;font-size:15px;">1</div>
+                  <div style="width:332px;float:left;text-align:right;font-family:'Hind Guntur';color:#000;letter-spacing: 0px;font-size:15px;">{{Case.CaseID}}</div>
+                </div>
+          </div>
+  </div>
+  
+  <!-- ----End Page 1----- --> 
+  
+  
+  <!-- ----Start Page 2----- -->
+  
+  <div style="max-width:1060px;margin:0 auto;width:100%;float:left;font-family:'Hind Guntur';">
+        <div style="margin-bottom: 12px;width:100%;float:left;margin-top:40px;font-size: 14pt;
+                  color: rgb(0, 0, 0);font-style: normal;text-transform: uppercase;text-align: center;background-color: rgb(242, 171, 122);padding-top: 7pt;padding-bottom:7px;font-family:'Hind Guntur';"> <img src="{{messages.base_url}}/images/CostDetails.png" alt="SUMMARY" style="vertical-align: middle;margin-top:0px;width: 18px;" />
+                   <span style="vertical-align: middle;font-weight: 300;font-size: 24.5px;font-family:'Hind Guntur';margin-left:6px;">COST DETAILS</span> </div>
+  </div>
+  <div style="max-width: 1030px;margin: auto;width: 100%;font-family:'Hind Guntur';float:left;margin-left:7px;">
+        <div class="content-page-2" style="max-width:1030px;margin:0 auto;width: 100%;float:left;font-family:'Hind Guntur';"> 
+     
+      <div style="padding: 0 5px;width:100%;float:left;padding-left:5px;">
+            <table style="width: 100%;text-align: center;border-collapse: collapse;border-spacing: 0;font-size: 15px; margin-top: 20px;font-family:'Hind Guntur';">
+          <thead>
+            <tr>
+              <td><p> <span class="c2"></span> </p></td>
+              <td ng-repeat="graphResult in graphResults"><p style="font-family:'Hind Guntur';"> <span>#{{$index +1}}</span> </p></td>       
+            </tr>
+            <tr>
+                <td><p> <span class="c2"></span> </p></td>
+                <td ng-repeat="graphResult in graphResults" style="font-family:'Hind Guntur';background: rgb(43, 104, 129);color:#fff;border-right: 2.5pt solid rgb(255, 255, 255);font-size: 17.5px;font-weight: 500;height:55px;min-height:55px;max-height: 55px;">
+
+                <p style="font-family:'Hind Guntur';font-weight: 500;margin:0 0;line-height: 20px;">
+                     <span style="position: relative;top: 3px;color: #fff;font-weight: 500;border-radius: 4px;font-family: 'Hind Guntur';word-wrap: break-word;" class="c11">{{graphResult.PlanName}}</span> 
+                </p>
+                </td>
+            </tr>
+              </thead>
+          <tbody>
+            <tr>
+              <td colspan="5" rowspan="1" style="padding: 0 10pt 5pt 10pt;"><p style="text-align: left;font-size: 21px;font-weight: bold;color:#000;font-family:'Hind Guntur';"> <span>Your Cost Overview</span> </p></td>
+            </tr>
+            <tr>
+              <td style="padding: 5px 10pt 0 10pt;"><p style="text-align: left;font-family:'Hind Guntur';letter-spacing: 0px;line-height: 20px;"> <span>abcYour Premium</span> </p></td>
+              <td ng-repeat="graphResult in graphResults" style="padding: 5px 10pt 0 10pt;"><p style="font-family:'Hind Guntur';line-height: 20px;"> <span>{{graphResult.NetAnnualPremium | mycurrency:"$"}}</span> </p></td>
+            </tr>
+
+
+            <tr>
+              <td style="padding: 5px 10pt 0 10pt;width:{{pro_red}};"><p style="text-align: left;font-family:'Hind Guntur';letter-spacing: 0px;line-height: 20px;"> <span>Your Out-of-Pocket Expenses</span> </p></td>
+              <td style="width:{{pro_green}};padding:5px 10pt 0 10pt;" ng-repeat="graphResult in graphResults"><p style="font-family:'Hind Guntur';line-height:20px;"> <span ng-if="graphResult.Medical < 0" style="position:relative;">{{graphResult.Medical | mycurrency:"$"}}</span> <span ng-if="graphResult.Medical >= 0">{{graphResult.Medical | mycurrency:"$"}}</span> </p></td>
+            </tr>
+            <tr>
+              <td style="background-color: rgb(192, 222, 201);border-top: 1px solid rgb(0, 0, 0);padding: 5px 10pt 0 10pt;"><p style="text-align: left;font-family:'Hind Guntur';line-height: 20px;"> <span>Your Total Cost</span> </p></td>
+              <td ng-repeat="graphResult in graphResults" style="background-color: rgb(192, 222, 201);border-top: 1px solid rgb(0, 0, 0);padding:5px 10pt 0 10pt;width:14%;"><p style="font-family:'Hind Guntur';line-height: 20px;"> <u>{{graphResult.TotalPaid | mycurrency:"$"}}</u> </p></td>
+            </tr>
+            <tr>
+              <td colspan="5" rowspan="1" style="padding:0 10pt;"><p style="letter-spacing:-0.2px;text-align: left;font-style: italic; margin-top: 20px;margin-bottom: 28px;font-family:'Hind Guntur';line-height:20px;"> <span style="font-style: italic;">(See page 3 for a comprehensive, line-by-line breakdown of Your Total Cost.)</span> </p></td>
+            </tr>
+            <tr>
+              <td style="padding: 5px 10pt 0 10pt;"><p style="text-align: left;font-family:'Hind Guntur';line-height: 20px;"> <span>Your Premium</span> </p></td>
+              <td ng-if="Applicant.EmployerId != messages.ShopEmployerId" ng-repeat="graphResult in graphResults" style="padding:5px 10pt 0 10pt;font-family:'Hind Guntur';"><p style="font-family:'Hind Guntur';line-height: 20px;"> <span>{{graphResult.NetAnnualPremium | mycurrency:"$"}}</span> </p></td>
+              <td ng-if="Applicant.EmployerId == messages.ShopEmployerId" ng-repeat="graphResult in graphResults" style="padding: 5px 10pt 0 10pt;font-family:'Hind Guntur';"><p style="line-height: 20px;"> <span>{{graphResult.NetAnnualPremium | mycurrency:"$"}}</span> </p></td>
+            </tr>
+            <tr>
+              <td style="padding: 5px 10pt 0 10pt;font-family:'Hind Guntur';"><p style="text-align: left;font-family:'Hind Guntur';line-height: 20px;"> <span ng-if="Case.UsageID == 1">Out-of-Pocket Limit (individual)</span> <span ng-if="Case.UsageID != 1">Out-of-Pocket Limit (family)</span> </p></td>
+              <td ng-if="Case.UsageID == 1" ng-repeat="graphResult in graphResults" style="padding: 5px 10pt 0 10pt;"><p style="line-height: 20px;"> <span> {{graphResult.OPLSingle | mycurrency:"$"}} </span> </p></td>
+              <td ng-if="Case.UsageID != 1" ng-repeat="graphResult in graphResults" style="padding: 5px 10pt 0 10pt;"><p style="line-height: 20px;"> <span> {{graphResult.OPLFamilyPerGroup | mycurrency:"$"}} </span> </p></td>
+            </tr>
+            <tr>
+              <td style="padding:5px 10pt 0 10pt;"><p style="text-align: left;line-height: 20px;"> <span>Employer HSA Contribution</span> </p></td>
+              <td ng-repeat="graphResult in graphResults" style="padding:5px 10pt 0 10pt;"><p style="line-height: 20px;"> <span ng-if="graphResult.ContributedToYourHSAAccount != 0" style="position:relative;">{{-1 * graphResult.ContributedToYourHSAAccount | mycurrency:"$"}}</span> <span ng-if="graphResult.ContributedToYourHSAAccount == 0">{{-1 * graphResult.ContributedToYourHSAAccount | mycurrency:"$"}}</span> </p></td>
+            </tr>
+            <tr>
+              <td style="padding: 5px 10pt 0 10pt;"><p style="text-align: left;line-height: 20px;"> <span>Your Estimated HSA Tax Savings<sup style="line-height:0">*</sup></span> </p></td>
+              <td ng-repeat="graphResult in graphResults"><p style="line-height: 20px;padding: 5px 10pt 0 10pt;"> <span> <span>{{ graphResult.TaxSavingFromHSAAccount | mycurrency:"$"}}</span> </span> </p></td>
+            </tr>
+            <tr>
+              <td style="background-color: #c3d4e7;border-top: 1pt solid rgb(0, 0, 0);padding: 5px 10pt 0 10pt;"><p style="text-align: left;font-family:'Hind Guntur';line-height: 20px;"> <span>Worst-Case Scenario Cost</span> </p></td>
+              <td ng-if="Applicant.EmployerId != messages.IndividualEmployerId && Applicant.EmployerId != messages.ShopEmployerId" style="background-color: #c3d4e7;border-top: 1pt solid rgb(0, 0, 0);padding: 5px 10pt 0 10pt;"
+                                  ng-repeat="graphResult in graphResults"><p style="font-family:'Hind Guntur';line-height: 20px;"> <span style="text-decoration:underline;">{{graphResult.WorstCase | mycurrency:"$"}}</span> </p></td>
+              <td ng-if="Applicant.EmployerId == messages.IndividualEmployerId || Applicant.EmployerId == messages.ShopEmployerId" style="background-color: #c3d4e7;border-top: 1pt solid rgb(0, 0, 0);padding:5px 10pt 0 10pt;"
+                                  ng-repeat="graphResult in graphResults"><p style="font-family:'Hind Guntur';line-height: 20px;"> <span style="text-decoration:underline;">{{graphResult.WorstCase | mycurrency:"$"}}</span> </p></td>
+            </tr>
+              </tbody>
+        </table>
+            <p style="text-align:left;font-size:15px;color: rgb(0, 0, 0);font-weight: 400; line-height:20px; margin-top:20px;font-family:'Hind Guntur';margin-bottom:40px;padding:0 10pt;letter-spacing: -0.2px"> The Worst-Case Scenario Cost represents the maximum you would have to pay for in-network medical services under each plan
+          in the “worst-case scenario” (such as an emergency, accident, or unexpected medical condition). These
+          costs consider risk in addition to savings and may rank the plans in a different order. Compare these
+          numbers between plans to understand how well you would be insured under each in the event of unforeseen
+          medical expenses. </p>
+            <p style="text-align: left;font-size: 21px;font-weight: bold;margin-bottom: 7px;font-family:'Hind Guntur';float:left;width:100%;margin-top:-1px;padding-left: 10pt;"> <span>Plan Details (In-Network)</span> </p>
+            <table style="width: 100%;text-align: center;border-collapse: collapse;border-spacing: 0;font-size: 15px;margin-top:0pt;border: 1.2pt solid #000;outline: 2pt solid #000;outline-offset: -1px;overflow: hidden;box-sizing: border-box;">
+          <!-- <thead>
+                <tr>
+              <td colspan="5" rowspan="1" style="padding:5px 10pt 0 10pt;font-family:'Hind Guntur';">
+                <p style="text-align: left;font-size: 25px;font-weight: bold;margin-bottom: 13px;font-family:'Hind Guntur';">
+                                      <span>Plan Details (In-Network)</span>
+                                  </p> 
+                </td>
+            </tr>
+              </thead> -->
+          <tbody>
+                <tr>
+              <td style="width:{{pro_red}};border-top: 0;padding: 5px 10pt 0 10pt;border: 1pt dashed #7F7F7F;border-top-style: inherit;border-left-style: dashed;
+              font-family:'Hind Guntur';"><p style="text-align: left;font-family:'Hind Guntur';line-height:20px;"> <span>Deductible (individual / family)</span> </p></td>
+              <td ng-repeat="graphResult in graphResults" style="width:{{pro_green}};padding:5px 10pt 0 10pt;border: 1pt dashed #7F7F7F;border-top: 0;"><p style="font-family:'Hind Guntur';line-height:20px;"> <span> {{graphResult.DeductibleSingle | mycurrency:"$"}} / {{graphResult.DeductibleFamilyPerGroup
+                  | mycurrency:"$"}}</span> </p></td>
+            </tr>
+                <tr>
+              <td style="padding: 5px 10pt 0 10pt;border: 1pt dashed #7F7F7F;border-top: 0;border-left-style: dashed;"><p style="text-align: left;font-family:'Hind Guntur';line-height:20px;"> 
+                <span>Embedded Deductible?<sup style="line-height:0;font-weight: normal;font-family: 'Lato', sans-serif;">†</sup></span> </p></td>
+              <td ng-repeat="graphResult in graphResults" style="padding: 5px 10pt 0 10pt;border:1pt dashed #7F7F7F;border-top: 0;"><p style="font-family:'Hind Guntur';line-height:20px;"> 
+                <span ng-if="graphResult.DeductibleSingle== graphResult.DeductibleFamilyPerPerson" style="position:relative; ">✔</span> <span ng-if="graphResult.DeductibleSingle!= graphResult.DeductibleFamilyPerPerson"></span> </p></td>
+            </tr>
+                <tr>
+              <td style="padding: 5px 10pt 0 10pt;border: 1pt dashed #7F7F7F;border-top: 0;border-left-style: dashed;"><p style="text-align: left;font-family:'Hind Guntur';line-height:20px;"> <span>Out-of-Pocket Limit (individual / family)</span> </p></td>
+              <td ng-repeat="graphResult in graphResults" style="padding: 5px 10pt 0 10pt;border:1pt dashed #7F7F7F;border-top: 0;"><p style="font-family:'Hind Guntur';line-height:20px;"> <span>{{graphResult.OPLSingle | mycurrency:"$"}} / {{graphResult.OPLFamilyPerGroup | mycurrency:"$"}}</span> </p></td>
+            </tr>
+                <tr>
+              <td style="padding: 5px 10pt 0 10pt;border: 1pt dashed #7F7F7F;border-top: 0;border-left-style: dashed;"><p style="text-align: left;font-family:'Hind Guntur';line-height:20px;"> 
+                <span>Embedded Out-of-Pocket Limit?<sup style="line-height:0;font-weight: normal;font-family: 'Lato', sans-serif;">‡</sup></span> </p></td>
+              <td ng-repeat="graphResult in graphResults" style="padding:5px 10pt 0 10pt;border:  1pt dashed #7F7F7F;border-top: 0;"><p style="font-family:'Hind Guntur';line-height:20px;"> <span ng-if="graphResult.OPLFamilyPerPerson== graphResult.OPLSingle" style="position:relative; ">✔</span> <span ng-if="graphResult.OPLFamilyPerPerson!= graphResult.OPLSingle"></span> </p></td>
+            </tr>
+                <tr>
+              <td style="padding:5px 10pt 0 10pt;border: 1pt dashed #7F7F7F;border-top: 0;border-left-style: dashed;"><p style="text-align: left;font-family:'Hind Guntur';line-height:20px;"> <span>Coinsurance Rate</span> </p></td>
+              <td ng-repeat="graphResult in graphResults" style="padding:5px 10pt 0 10pt;border: 1pt dashed #7F7F7F;border-top: 0;"><p style="font-family:'Hind Guntur';line-height:20px;"> <span>{{graphResult.Coinsurance}}%</span> </p></td>
+            </tr>
+                <tr>
+              <td style="width:{{pro_red}};padding: 5px 10pt 0 10pt;border: 1pt dashed #7F7F7F;border-top: 0;border-left-style: dashed;"><p style="text-align: left;font-family:'Hind Guntur';line-height:20px;"> <span>Need referral from PCP to see specialist?</span> </p></td>
+              <td ng-repeat="graphResult in graphResults" style="width:{{pro_green}};padding: 5px 10pt 0 10pt;border:1pt dashed #7F7F7F;border-top: 0;"><p style="font-family:'Hind Guntur';line-height:20px;"> <span ng-if="graphResult.ReferralForSpecialist == true">Yes</span> <span ng-if="graphResult.ReferralForSpecialist == false">No</span> </p></td>
+            </tr>
+                <tr>
+              <td style="padding: 5px 10pt 0 10pt;border: 1pt dashed #7F7F7F;border-top: 0;border-left-style: dashed;border-bottom-style: dashed;"><p style="text-align: left;font-family:'Hind Guntur';line-height:20px;"> <span>Personal HSA Contribution</span> </p></td>
+              <td ng-repeat="graphResult in graphResults" style="padding: 5px 10pt 0 10pt;border: 1pt dashed #7F7F7F;border-top: 0;border-bottom-style: dashed;"><p style="font-family:'Hind Guntur';line-height:20px;"> <span>{{graphResult.PersonalHSAContribution | mycurrency:"$"}}</span> </p></td>
+            </tr>
+              </tbody>
+        </table>
+            <!-- <p style="margin: 30pt 0 5pt 0;width: 100%;display: block;float: left;font-family:'Hind Guntur';">
+                      <span style="max-width: 224pt;height: 0.6pt;background: rgb(0,0,0);float: left;width: 100%;border-radius: 1pt;border: 1pt solid #ddd">{{Case.TaxRate}}</span>
+                  </p> -->
+            <div style="font-size: 13px;font-family:'Hind Guntur';">
+          <p style="text-align: justify;font-family:'Hind Guntur';margin-top:40px;line-height:22px;letter-spacing: -0.2px;"> <sup>&#42;&nbsp;</sup>We applied our default tax rate of {{Case.TaxRate}}% to your intended personal HSA contribution
+                to calculate your tax savings. You can calculate a more accurate number yourself by multiplying your
+                total estimated HSA contribution next year by your actual marginal tax rate. </p>
+          <p style="text-align: justify;font-family:'Hind Guntur';margin-top:10px;line-height:22px;letter-spacing: -0.2px;"> <sup style="font-weight: normal;font-family: 'Lato', sans-serif;">&#8224;&nbsp;</sup>If a plan has an embedded deductible, then each family member on the plan is subject
+                to the individual deductible only. Once a family member meets the individual deductible limit, any
+                services that are subject to deductible are covered for that member. If the group collectively meets
+                the family deductible, any services that are subject to deductible are covered for all family members
+                going forward. <br/>
+                If a plan has a non-embedded deductible, then the individual deductible does not apply. Services
+                that are subject to deductible will only be covered once the group has collectively met the family
+                deductible. </p>
+          <p style="text-align: justify;font-family:'Hind Guntur';margin-top:5px;line-height:22px;letter-spacing: -0.2px;"> <sup style="font-weight: normal;font-family: 'Lato', sans-serif;">&#8225;&nbsp;</sup>If a plan has an embedded out-of-pocket limit (OOPL), then each family member
+                on the plan is subject to the individual OOPL only. Once a family member meets the individual OOPL,
+                any covered services will be 100% covered for that member. If the group collectively meets the family
+                OOPL, any covered services used by any family member will be 100% covered going forward.<br> If a plan
+                has a non-embedded OOPL, then the individual OOPL does not apply. Covered services will only be 100%
+                covered once the group has collectively met the family OOPL. </p>
+        </div>
+          </div>
+      <div style="width:1030px;float:left;margin-top:52px;font-family:'Hind Guntur';color:#000;font-size:15px;">
+            <div style="width:360px;;float:left;">&nbsp;</div>
+            <div style="width:320px;;float:left;text-align:center;font-family:'Hind Guntur';color:#000;font-size:15px;">2</div>
+            <div style="width:330px;;float:left;text-align:right;font-family:'Hind Guntur';color:#000;letter-spacing: 0px;font-size:15px;">{{Case.CaseID}}</div>
+          </div>
+    </div>
+      </div>
+  <!-- End Page 2- --> 
+  
+  
+  <!-- Start Page 3- -->
+  
+  <div style="max-width: 1060px;margin: 0 auto;width: 100%;float:left;;font-family:'Hind Guntur';">
+        <div style="font-family:'Hind Guntur';margin-bottom: 12px;width:100%;float:left;margin-top:40px;font-size: 14pt;
+                  color: rgb(0, 0, 0);font-style: normal;text-transform: uppercase;text-align: center;
+                  background-color: rgb(242, 171, 122);padding-top:7pt;padding-bottom:7pt;"> <img src="{{messages.base_url}}/images/YourTotalCost.png" alt="SUMMARY" style="vertical-align: middle;margin-top: 0px;width: 17.5px;" /> <span style="font-family:'Hind Guntur';vertical-align: middle;margin-left: 6px;font-size: 24.5px;font-weight:300;color:#000;">Your Total Cost: A Closer Look</span> </div>
+  </div>
+
+
+    <div style="max-width: 1030px;margin: auto;width: 100%;font-family:'Hind Guntur';margin-left:7px;">
+          <div class="content-page-3" style="max-width:1030px;margin:0 auto;width: 100%;float:left;font-family:'Hind Guntur';">     
+          
+        <div style="padding: 0 5px;width:100%;float:left;padding-left:5px;">
+              <table style="width: 100%;text-align: center;border-collapse: collapse;border-spacing: 0;font-size: 15px; margin-top: 17px;font-family:'Hind Guntur';">
+            <thead>
+    
+              <tr>
+                <td><p style="font-family:'Hind Guntur';"> <span class="c2"></span> </p></td>
+                <td ng-repeat="graphResult in graphResults" ><p style="font-family:'Hind Guntur';font-size:15px;"> <span>#{{$index +1}}</span> </p></td>      
+              </tr>
+    
+              <tr style="font-family:'Hind Guntur';">
+                  <td><p style="font-family:'Hind Guntur';"> <span class="c2"></span> </p></td>
+                  <td ng-repeat="graphResult in graphResults" style="background: rgb(43, 104, 129);
+                                  color: rgb(255, 255, 255);border-right: 2.5pt solid rgb(255, 255, 255);font-size: 17.5px;font-weight: 600;height:55px;min-height:55px;max-height: 55px;">
+                  <p style="font-family:'Hind Guntur';font-weight: 500;margin:0 0;color:#fff;line-height: 20px;">
+                       <span style="position: relative;top: 3px;color: #fff;font-weight: 500;border-radius: 4px;font-family: 'Hind Guntur';word-wrap: break-word;" class="c11">{{graphResult.PlanName}}</span>
+                  </p>
+                  </td>
+              </tr>
+                </thead>
+
+
+                <thead>    
+                  <tr>
+                    <td colspan="6" rowspan="1" style="padding:0pt 10pt;">&nbsp;</td>                    
+                  </tr>
+               </thead>
+            <tbody style="outline: 2px solid #000;outline-offset: 8pt;margin-top: 60px;font-family:'Hind Guntur';">
+               <tr>
+                <td colspan="6" rowspan="1" style="padding: 0 10pt;"><p style="text-align: left;font-size: 21px;font-weight: bold;margin-top:0;margin-bottom: 28pt;font-family:'Hind Guntur';letter-spacing: -0.7px;"> <span>Your Total Cost</span> </p></td>
+              </tr>
+                  <tr>
+                <td style="padding: 5px 10pt 0 10pt;width:{{pro_red}};" ><p style="text-align: left;margin-top: -16pt;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;line-height: 20px"> <span style="font-family:'Hind Guntur';font-weight:400;">(1) Your Premium</span> </p></td>
+                <td ng-repeat="graphResult in graphResults" style="padding: 5px 10pt 0 10pt;width:{{pro_green}};">
+                <p style="margin-top: -16pt;font-family:'Hind Guntur';line-height: 20px;"> <span>{{graphResult.NetAnnualPremium | mycurrency:"$"}}</span> </p></td>
+              </tr>
+              <tr>
+                <td style="padding: 5px 10pt 0 10pt;"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;line-height: 20px;"> <span style="font-family:'Hind Guntur';font-weight:400;">(2) Your Net Out-of-Pocket Expenses</span> </p></td>
+                <td style="padding: 5px 10pt 0 10pt;" ng-repeat="graphResult in graphResults"><p style="font-family:'Hind Guntur';line-height: 20px;"> <span>{{graphResult.Medical | mycurrency:"$"}}</span> </p></td>
+              </tr>
+                  <tr>
+                <td style="background-color: rgb(192, 222, 201);border-top: 1px solid rgb(0, 0, 0);padding:5px 10pt 0 10pt;"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';line-height: 20px;"> <span>Your Total Cost</span> </p></td>
+                <td ng-repeat="graphResult in graphResults" style="background-color: rgb(192, 222, 201);border-top: 1px solid rgb(0, 0, 0);padding: 5px 10pt 0 10pt;">
+                  <p style="font-family:'Hind Guntur';line-height: 20px;"> <u>{{graphResult.TotalPaid | mycurrency:"$"}}</u> </p></td>
+              </tr>
+                </tbody>
+            <tbody>
+                  <tr>
+                <td colspan="5" rowspan="1" style=""><p style="padding-top: 30pt;text-align: left;font-size: 15px;font-family:'Hind Guntur';line-height: 20px;"> <span style=" background-color: rgb(242, 171, 122); width: 32px; height: 32px;display: inline-table; border-radius: 20pt; text-align: center; margin-right: 10px; vertical-align: middle;    position: relative;top: -4px;"> <span style=" vertical-align: middle; display: table-cell;font-family:'Hind Guntur';top: 4px;position: relative;left: -1.5px;width: 32px; height: 32px;">1</span> </span> <span style="font-size:17.5px;font-weight:600;font-family:'Hind Guntur';">Your Premium</span> </p></td>
+              </tr>
+                  <tr>
+                <td style="padding: 5px 10pt 0 0;"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';line-height: 20px;"> <span style="text-align: left;font-weight:400;font-family:'Hind Guntur';padding-left: 45px;">Gross Premium</span> </p></td>
+                <td ng-repeat="graphResult in graphResults" style="padding:  5px 10pt 0 10pt"><p style="font-family:'Hind Guntur';line-height: 20px;"> <span>{{graphResult.GrossAnnualPremium | mycurrency:"$"}}</span> </p></td>
+              </tr>
+              <tr>
+                <td style="padding: 5px 10pt 0 0;"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';line-height: 20px;"> <span style="text-align: left;font-weight:400;font-family:'Hind Guntur';padding-left: 45px">Employer Contribution to Premium</span> </p></td>
+                <td ng-repeat="graphResult in graphResults"><p style="font-family:'Hind Guntur';padding:5px 10pt 0 10pt;line-height: 20px"> <span>{{ -1 * graphResult.FederalSubsidy | mycurrency:"$"}}</span> </p></td>
+              </tr>
+                  <tr>
+                <td style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);"><p style="top: 3px;position: relative;text-align: left;font-weight:400;font-family:'Hind Guntur';line-height: 20px;"> <span style="text-align: left;font-weight:400;font-family:'Hind Guntur';padding-left: 45px"></span>Your Premium</span> </p></td>
+                <td ng-repeat="graphResult in graphResults" style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);padding: 5px 10pt 0 10pt;">
+                  <p style="font-family:'Hind Guntur';line-height: 20px;"> <u>{{graphResult.NetAnnualPremium | mycurrency:"$"}}</u> </p></td>
+              </tr>
+                </tbody>
+            <tbody>
+                  <tr>
+                  <td colspan="5" rowspan="1" style="padding: 5px 10pt 0 0;" style="font-family:'Hind Guntur';">
+                <p style="text-align: left;font-size: 15px;padding-top: 16pt;font-family:'Hind Guntur';line-height: 20px;"> <span style="background-color: rgb(242, 171, 122); width: 32px; height: 32px; display: inline-table; border-radius: 20pt; text-align: center; margin-right: 10px; vertical-align: middle;position: relative;top: -4px;"> <span style="top: 3px;position: relative;left: -1px; vertical-align: middle; display: table-cell;font-family:'Hind Guntur';font-weight:400;width: 32px; height: 32px;">2</span> </span> <span style="font-size:17.5px;font-weight:600;letter-spacing: 0px;font-family:'Hind Guntur';">Your Net Out-of-Pocket Expenses</span> </p>
+                  </td>
+              </tr>
+                  <tr>
+                <td style="padding: 5px 10pt 0 0"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;padding-left: 45px;line-height: 20px;margin: 2px 0;"> <span>(a) Your Medical Costs</span> </p></td>
+                <td ng-repeat="graphResult in graphResults" style="letter-spacing: 0px;"><p style="font-family:'Hind Guntur';line-height: 20px;padding: 5px 10pt 0 10pt;"> <span>{{graphResult.PaymentsToDeductibleLimit + graphResult.Copays + graphResult.CoinsuranceToOutOfPocketLimit
+                    + graphResult.ExcludedAmount | mycurrency:"$"}}</span> </p></td>
+              </tr>
+                  <tr>
+                <td style="padding: 5px 10pt 0 0"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;padding-left: 45px;line-height: 20px;"> <span>(b) Your HSA/HRA Benefits</span> </p></td>
+                <td ng-repeat="graphResult in graphResults"><p style="font-family:'Hind Guntur';padding: 5px 10pt 0 10pt;line-height: 20px"> <span><!-- {{graphResult.TaxSavingFromHSAAccount + graphResult.HRAReimbursedAmt + (-1 * graphResult.ContributedToYourHSAAccount)
+                    | mycurrency:"$"}} -->
+         {{graphResult.TaxSavingFromHSAAccount + (-1 * graphResult.HRAReimbursedAmt) + (-1 * graphResult.ContributedToYourHSAAccount)
+                    | mycurrency:"$"}}
+                    </span> </p></td>
+              </tr>
+                  <tr>
+                <td style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);"><p style="top: 3px;position: relative;line-height:20px;text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;padding-left: 45px;"> <span>Your Out-of-Pocket Expenses</span> </p></td>
+                <td ng-repeat="graphResult in graphResults" style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);padding: 5px 10pt 0 10pt;">
+                  <p style="font-family:'Hind Guntur';line-height:20px;"> <u>{{graphResult.Medical | mycurrency:"$"}}</u> </p></td>
+              </tr>
+                </tbody>
+            <tbody style="letter-spacing:0px;">
+                  <tr style="letter-spacing:0px;">
+                <td colspan="5" rowspan="1" style="padding: 5px 10pt 0 25pt;"><p style="text-align: left;font-size: 15px;padding-top: 16pt;font-family:'Hind Guntur';line-height: 20px;"> <span style=" background-color: rgb(242, 171, 122); width: 32px; height: 32px;display: inline-table; border-radius: 20pt; text-align: center; margin-right: 10px; vertical-align: middle;position: relative;top: -4px;"> <span style="width: 32px; height: 32px; vertical-align: middle; display: table-cell;top: 2px;position: relative;left:-1px;">a</span> </span> <span style="font-size:17.5px;font-weight:700;font-family:'Hind Guntur';">Your Medical Costs <span style="font-weight: 400; font-size: 15px;font-family:'Hind Guntur';letter-spacing: 0px;">(Costs of your expected medical services)</span> </span> </p></td>
+                                        
+              </tr>
+                  <tr style="letter-spacing:0px;">
+                <td style="padding:5px 10pt 0 70px;"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;line-height: 20px;"> <span style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;    padding-left: 10px;">Deductible payments</span> </p></td>
+                <td ng-repeat="graphResult in graphResults" style="padding: 5px 10pt 0 10pt;"><p style="font-family:'Hind Guntur';line-height: 20px;"> <span>{{graphResult.PaymentsToDeductibleLimit | mycurrency:"$"}}</span> </p></td>
+              </tr>
+                  <tr>
+                <td style="padding: 5px 10pt 0 70px;"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing:0px;line-height: 20px;"> <span style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing:0px;    padding-left: 10px;">Copayments</span> </p></td>
+                <td ng-repeat="graphResult in graphResults"><p style="font-family:'Hind Guntur';padding: 5px 10pt 0 10pt;line-height: 20px;"> <span>{{graphResult.Copays | mycurrency:"$"}}</span> </p></td>
+              </tr>
+                  <tr>
+                <td style="padding: 5px 10pt 0 70px;"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing:0px;line-height: 20px;"> <span style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing:0px;    padding-left: 10px;">Coinsurance</span> </p></td>
+                <td ng-repeat="graphResult in graphResults"><p style="font-family:'Hind Guntur';padding: 5px 10pt 0 10pt;line-height: 20px;"> <span>{{graphResult.CoinsuranceToOutOfPocketLimit | mycurrency:"$"}}</span> </p></td>
+              </tr>
+                  <tr style="letter-spacing:0px;">
+                <td style="padding: 5px 10pt 0 80px;"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;line-height: 20px;"> <span style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;">Excluded Amount (Not Covered)</span> </p></td>
+                <td ng-repeat="graphResult in graphResults"><p style="font-family:'Hind Guntur';padding: 5px 10pt 0 10pt;line-height: 20px;"> <span>{{graphResult.ExcludedAmount | mycurrency:"$"}}</span> </p></td>
+              </tr>
+                  <tr style="letter-spacing:0px;">
+                <td style="background-color: rgb(225, 239, 230);border-top: 1px solid rgb(0, 0, 0);padding: 5px 10pt 0 70px;"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;line-height: 20px;"> <span style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;padding-left: 10px;">Your Medical Costs</span> </p></td>
+                <td ng-repeat="graphResult in graphResults" style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);padding: 5px 10pt 0 10pt;">
+                  <p style="font-family:'Hind Guntur';line-height: 20px;">
+                    <u>{{graphResult.PaymentsToDeductibleLimit + graphResult.Copays + graphResult.CoinsuranceToOutOfPocketLimit
+                    + graphResult.ExcludedAmount | mycurrency:"$"}}</u> </p></td>
+              </tr>
+                </tbody>
+            <tbody style="letter-spacing:0px;">
+                  <tr style="letter-spacing:0px">
+                <td colspan="5" rowspan="1" style="padding:5px 10pt 0 25pt;letter-spacing:0px"><p style="text-align: left;font-size: 15px;padding-top: 16pt;font-family:'Hind Guntur';line-height: 20px;"> <span style="font-family:'Hind Guntur'; background-color: rgb(242, 171, 122); width: 32px; height: 32px; display: inline-table; border-radius: 20pt; text-align: center; margin-right: 10px; vertical-align: middle;position: relative;top: -4px;"> <span style="vertical-align: middle;display: table-cell;top: 3px;position: relative;width: 32px; height: 32px;">b</span> </span> <span style="font-size:17.5px;font-weight:700;font-family:'Hind Guntur';letter-spacing: 0px;">Your HSA/HRA Benefits <span style="font-weight:400;font-size:15px;font-family:'Hind Guntur';"> (Deducted from/applied to your medical costs)</span> </span> </p></td>
+              </tr>
+                  <tr style="letter-spacing:0px;">
+                <td style="padding:5px 10pt 0 70px;"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;line-height: 20px;"> <span style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;padding-left: 10px;">Employer HSA Contribution</span> </p></td>
+                <td ng-repeat="graphResult in graphResults" style="padding: 5px 10pt 0 10pt;"><p style="font-family:'Hind Guntur';line-height: 20px;"> <span>{{-1 * graphResult.ContributedToYourHSAAccount | mycurrency:"$"}}</span> </p></td>
+              </tr>
+                  <tr style="letter-spacing:0px">
+                <td style="padding: 5px 10pt 0 80px;"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;line-height: 20px;"> <span style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;">Your Estimated HSA Tax Savings</span> </p></td>
+                <td ng-repeat="graphResult in graphResults"><p style="line-height: 20px;padding: 5px 10pt 0 10pt"> <span>{{graphResult.TaxSavingFromHSAAccount | mycurrency:"$"}}</span> </p></td>
+              </tr>
+                  <tr>
+                <td style="padding: 5px 10pt 0 80px;letter-spacing:0px;"><p style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing:0px;line-height: 20px;"> <span style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing:0px;">Employer HRA Reimbursement</span> </p></td>
+                <td ng-repeat="graphResult in graphResults"><p style="font-family:'Hind Guntur';line-height: 20px;padding: 5px 10pt 0 10pt"> <span>{{-1 * graphResult.HRAReimbursedAmt | mycurrency:"$"}}</span> </p></td>
+              </tr>
+                  <tr style="letter-spacing:0px;">
+                <td style="background-color: rgb(225, 239, 230);border-top: 1px solid rgb(0, 0, 0);padding: 5px 10pt 0 70px;letter-spacing:0px;"><p style="line-height: 20px;text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;line-height: 20px;"> <span style="text-align: left;font-weight:400;font-family:'Hind Guntur';letter-spacing: 0px;padding-left: 10px;">Your HSA/HRA Benefits</span> </p></td>
+                <td ng-repeat="graphResult in graphResults" style="background-color: rgb(225, 239, 230);border-top: 1pt solid rgb(0, 0, 0);padding: 5px 10pt 0 10pt;">
+                  <p style="font-family:'Hind Guntur';line-height: 20px;"> 
+                    <u>{{graphResult.TaxSavingFromHSAAccount + (-1 * graphResult.HRAReimbursedAmt) + (-1 * graphResult.ContributedToYourHSAAccount)
+                    | mycurrency:"$"}}</u> </p></td>
+              </tr>
+                </tbody>
+          </table>
+              <div style="font-size: 10.5px;margin-top: 40pt;line-height: 16px;">
+            <p style="font-family:'Hind Guntur';line-height: 14px;"> <strong style="font-family:'Hind Guntur';"> <u style="font-weight:bold;text-decoration:underline;font-family:'Hind Guntur';">Assumptions</u> </strong> - This estimate is based on the projected health usage provided by you and the following key assumptions:
+                  1) Medical charges are assumed to be in-network; 2) All services are assumed to have started and
+                  ended in the same coverage period; 3) Cost of services and prescription medications are estimates
+                  based on average costs of these services unless otherwise provided by you; 4) Some of the referenced
+                  insurance plans have a limited number of visits for copays, after which coinsurance applies, and
+                  some plans may have "Chronic Illness Support" with a waiver of deductible and more favorable coinsurance;
+                  5) Prescription drug tiers are determined by the drug formulary provided by the employer. </p>
+            <p style="font-family:'Hind Guntur';line-height: 14px;"> <strong style="font-family:'Hind Guntur';"> <u style="font-weight:bold;text-decoration:underline;font-family:'Hind Guntur';">Disclaimer</u> </strong> - This report includes general information and calculations regarding medical charges based on projected
+                  usage and is intended to provide assistance with decisions about health insurance plan choices. This
+                  report is for informational purposes only and may not reflect all of the pricing factors and variables
+                  for all circumstances. This report and any accompanying information or materials, written or verbal,
+                  are not intended, and must not be taken as professional advice or recommendations. Professional advice
+                  on specific insurance and benefits can be obtained by contacting a duly licensed professional. While
+                  the figures and analyses herein are believed to be accurate and reflect current industry trends,
+                  they are not warranted to be correct and MyHealthMath, Inc. disclaims any and all warranties of any
+                  type and shall have no liability for any inaccuracy or incompleteness. </p>
+          </div>
+            </div>
+        <div style="width:1030px;float:left;margin-top:40px;font-family:'Hind Guntur';color:#000;font-size:15px;">
+              <div style="width:360px;;float:left;">&nbsp;</div>
+              <div style="width:320px;;float:left;text-align:center;font-family:'Hind Guntur';color:#000;font-size:15px;">3</div>
+              <div style="width:330px;;float:left;text-align:right;color:#000;letter-spacing: 0px;font-size:15px;">{{Case.CaseID}}</div>
+            </div>
+      </div>
+          <!-- End Page 3- --> 
+          
+        </div>
+    </div>
+
+
+
+
+
+</body>
+
+
+
+    
+    <!-- </html> -->

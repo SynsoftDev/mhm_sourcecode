@@ -30,7 +30,7 @@ namespace MHMBLL
             if (value != null) return (decimal)value; else return 0;
         }
 
-        public List<CasePlanResult> CalculateOptionsNew(List<FamilyMemberList> lstFamilyMembers, List<FamilyMemberUsesList> lstFamilyMemberUses, string JobNumber, string ZipCode, string CountyName, decimal Income, bool SubsidyStatus, int UsageCode, bool Welness, decimal HSAPercentage, decimal TaxRate, decimal MaxEEHSA, bool IsAmericanIndian, bool ResultStatus, decimal IndividualSubsidy, decimal ShopSubsidy, long RatingAreaId, string ProgID, decimal HSALimit, string StateCode, int ACAPlanIdSub, int PlanTypeID, long IssuerId, int TierIntention, int CurrentPlan)
+        public List<CasePlanResult> CalculateOptionsNew(List<FamilyMemberList> lstFamilyMembers, List<FamilyMemberUsesList> lstFamilyMemberUses, string JobNumber, decimal Income, bool SubsidyStatus, int UsageCode, bool Welness, decimal HSAPercentage, decimal TaxRate, decimal MaxEEHSA, bool IsAmericanIndian, bool ResultStatus, decimal IndividualSubsidy, decimal ShopSubsidy, long RatingAreaId, string ProgID, decimal HSALimit, string StateCode, int ACAPlanIdSub, int PlanTypeID, long IssuerId, int TierIntention, int CurrentPlan)
         {
             List<PlanAttributeMst> lstPlanAttributeMst = new List<PlanAttributeMst>();
             //PlanAttributeMst objPlanAttribute;
@@ -72,7 +72,7 @@ namespace MHMBLL
             var OrgionallstFamilyMembers = lstFamilyMembers;
 
             //Fetching Job related plans
-            var jobDetail = jobMaster.GetJobMaster().Where(r => r.JobNumber == JobNumber);
+            var jobDetail = jobMaster.GetJobMaster().Where(r => r.JobNumber == JobNumber).ToList();
 
             var lstJobPlansId = jobDetail.Select(r => r.JobPlansMsts.Select(t => new { t.BusinessYear, t.PlanId }).ToList()).FirstOrDefault();
             var lstPlans = lstPlanAttributeMst.Where(r => lstJobPlansId.Select(t => t.BusinessYear).Contains(r.BusinessYear) && lstJobPlansId.Select(t => t.PlanId).Contains(r.PlanId)).ToList();
@@ -343,7 +343,7 @@ namespace MHMBLL
                         CasePlanResult PlanResult = new CasePlanResult()
                         {
                             PlanId = objPlanAttribute.Id,
-                            PersonalHSAContribution = PersonalHSACon,
+                            PersonalHSAContribution = Convert.ToInt64(PersonalHSACon),
                             ReferralForSpecialist = objPlanAttribute.ReferralForSpecialist,
 
                             GovtPlanNumber = objPlanAttribute.PlanNumber,
@@ -423,7 +423,7 @@ namespace MHMBLL
                     Coinsurance = entry.Coinsurance,
                     WorstCase = entry.WorstCase,
                     MedicalNetwork = entry.MedicalNetwork,
-                    PlanName = entry.PlanName.Length > 20 ? entry.PlanName.Substring(0, 20) : entry.PlanName,
+                    PlanName = entry.PlanName.Length > 44 ? entry.PlanName.Substring(0, 44) : entry.PlanName,
                     HRAReimbursedAmt = entry.HRAReimbursedAmt,
                     EmployerHRAReimbursement = entry.EmployerHRAReimbursement,
                     TotalEmployerContribution_Pre = entry.TotalEmployerContribution_Pre,
@@ -462,7 +462,7 @@ namespace MHMBLL
                 Coinsurance = entry.Coinsurance,
                 WorstCase = entry.WorstCase,
                 MedicalNetwork = entry.MedicalNetwork,
-                PlanName = entry.PlanName.Length > 20 ? entry.PlanName.Substring(0, 20) : entry.PlanName,
+                PlanName = entry.PlanName.Length > 44 ? entry.PlanName.Substring(0, 44) : entry.PlanName,
                 HRAReimbursedAmt = entry.HRAReimbursedAmt,
                 EmployerHRAReimbursement = entry.EmployerHRAReimbursement,
                 TotalEmployerContribution_Pre = entry.TotalEmployerContribution_Pre,

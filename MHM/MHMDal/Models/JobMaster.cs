@@ -125,6 +125,10 @@ namespace MHMDal.Models
 
         public DateTime? PlanYearEndDt { get; set; }
 
+        public int? PayPeriodsPerYear { get; set; }
+
+        public Boolean? WellnessOffered { get; set; }
+
         [JsonIgnore]
         public virtual ICollection<Case> Cases { get; set; }
         [JsonIgnore]

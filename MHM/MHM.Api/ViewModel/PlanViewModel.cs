@@ -111,6 +111,7 @@ namespace MHM.Api.ViewModel
         public string IssuerName { get; set; }
         public string PlanName { get; set; }
         public int TotalCount { get; set; }
+        public string BusinessYear { get; internal set; }
     }
 
     public class PlanAttributeList

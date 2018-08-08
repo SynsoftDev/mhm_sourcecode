@@ -1,552 +1,741 @@
 <style>
-.main-container {
-	padding-bottom: 0px;
-}
-.wrapper {
-	height: auto;
-}
-#footer {
-	height: 40px;
-	position: relative !important;
-}
+  .main-container {
+  padding-bottom: 0px;
+  }
+  .wrapper {
+  height: auto;
+  }
+  #footer {
+  height: 40px;
+  position: relative !important;
+  }
+
+  /* added */
+  .main-container {
+    padding-bottom: 0px;
+    }
+    .wrapper {
+    height: auto;
+    }
+    #footer {
+    height: 40px;
+    position: relative !important;
+    }
+    .multiSelect {
+    overflow: auto;
+    }
+    .multiSelect .select {
+    /* margin-right: 20px;*/
+    float: left;
+    }
+    .multiSelect .text {
+    clear: both;
+    font-size: 11px;
+    }
+    .multiSelect .dotShow::after {
+    content: ":";
+    }
+    .btn.mover {
+    display: block;
+    margin-top: 25px;
+    vertical-align: top;
+    }
+    .btn.mover.left {
+    padding: 3px 20px 2px;
+    }
+    .btn.mover.right {
+    margin-top: 24px;
+    padding: 3px 20px 2px;
+    }
+    .btn.mover i {
+    margin: 0;
+    }
+    /* demo css */
+    .mul-select label.control-label.ng-binding,
+    .mul-select select {
+    width: 100%;
+    }
+    .mul-select select option {
+    border: none;
+    }
+    .mul-select select {
+    padding: 5px;
+    border: 1px solid #cccccc;
+    border-radius: 2px;
+    min-width: 180px;
+    }
+    /*Select with checkbox*/
+    .mul-select .select ul {
+    min-width: 180px;
+    border: 2px solid #3b84f2;
+    padding: 5px;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    height: 200px;
+    overflow-y: scroll;
+    }
+    .mul-select .checkbox input[type=checkbox] {
+    margin-left: 0;
+    position: relative;
+    }
+    .select.buttons {
+    margin-top: 90px;
+    }
+    .multiSelect label {
+    margin: 10px;
+    }
+    .multiSelect .btn {
+    margin: 10px;
+    }
+    .multiSelect .pool {
+    border: 1px solid #999;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 5px;
+    height: 150px;
+    overflow-y: scroll;
+    }
+    .multiSelect .pool ul {
+    list-style: none;
+    padding-left: 0px;
+    }
+    .multiSelect .pool ul li {
+    width: 100%;
+    padding: 4px 8px 4px 4px;
+    border-bottom: 1px dotted #CFCFCF;
+    }
+    .multiSelect .pool ul li a:hover {
+    text-decoration: none;
+    }
+    .swMain .buttonNext,
+    .swMain .buttonPrevious {
+    display: none;
+    }
 </style>
 <head>
-<title>View Job</title>
+  <title>View Job</title>
 </head>
-
 <div ng-include src="'partials/include/header.html'"></div>
-<div class="main-container pt0" id="main-container" ng-hide="pageLoading"> 
+<div class="main-container pt0" id="main-container" ng-hide="pageLoading">
   <!--Main container start-->
   <div class="row_dummy one-column grid-media-box1">
-    <div class="col-md-12">
-      <div class="tp-wizard-form" id="tp-wizard-form"><!-- wizard form -->
-        <div class="container">
-          <div class="row">
-            <p ng-show="flash.status" class="alert {{flash.type}}">{{flash.message}} <a class="close" ng-click="closeFlash()"><i class="fa fa-close"></i></a> </p>
-            
-            <!-- Smart Wizard -->
-            <div class="swMain">
-              <div class="pb0 pt0"><!-- zipcode -->
-                <div class="container">
-                  <div class="row_dummy">
-                    <div class="col-md-6 pull">
-                      <h1 class="title_planattr">View Job</h1>
-                    </div>
-                    <div class="col-md-6 pull-right"> <a style="position:relative;right:0;z-index:9;top:15px" title="Back" class="hvr-radial-out-black btn tp-btn pull-right" href="masters/job">Back</a> </div>
-                    <div class="col-md-12 mb20">
-                      <div id="wizard" class="swMain">
-                        <ul>
-                          <li> <a href="#step-0"> <span class="stepDesc">Job Details<br />
-                            <small><b>Job Details</b></small> </span> </a> </li>
-                          <li> <a href="#step-1"> 
-                            <!--  <label class="stepNumber">1</label>--> 
-                            <span class="stepDesc">Email Info<br />
-                            <small><b>Email Info</b></small> </span> </a> </li>
-                          <!--<li> <a href="#step-2" > 
-                                    <!--<label class="stepNumber">2</label>--> 
-                          <!--<span class="stepDesc"> Email Info<br />
-                                    <small><b>Email Info</b></small> </span> </a> </li>-->
-                        </ul>
-                        <div id="step-0">
-                          <div class="col-md-12 pd20">
-                            <div class="row">
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> Employer </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <select ng-model="job.EmployerId" class="form-control view-dropdown" disabled >
-                                  <option value="">Select Employer</option>
-                                  <option ng-repeat="employer in employers" value="{{employer.EmployerId}}">{{employer.EmployerName}}</option>
-                                </select>
-                              </div>
-                              <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> Job Number </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <input type="text" class="form-control view-dropdown" ng-model="job.JobNumber" name="jobNo" id="jobNo" placeholder="Job Number" readonly />
-                              </div>
-                            </div>
-                            <hr class="cst_hr">
-                            
-                            <!--<span class="col-md-12">
-																	
-																		Employer : &nbsp;
-																		<select ng-model="job.EmployerId" class="form-control view-dropdown" disabled >
-																			<option value="">Select Employer</option>
-																			<option ng-repeat="employer in employers" value="{{employer.EmployerId}}">{{employer.EmployerName}}</option>
-																		</select>
-																	
-																</span>
-																<span class="col-md-12">
-																	
-																		Job Number : &nbsp;
-																		<input type="text" class="form-control view-dropdown" ng-model="job.JobNumber" name="jobNo" id="jobNo" placeholder="Job Number" readonly />
-																	
-																</span>-->
-                            
-                            <div class="row">
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> Job Description </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <textarea ng-readonly="{{readOnly}}" ng-maxlength="200" ng-model="job.JobDesc" placeholder="Write Job Description ...." name="jobDescription" id="jobDescription" rows="2" class="form-control view-dropdown" disabled ></textarea>
-                              </div>
-                              <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> Job Year </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <select ng-model="job.JobYear" class="form-control view-dropdown" disabled >
-                                  <option value="">Select Job Year</option>
-                                  <option ng-repeat="year in jobyears" value="{{year.val}}">{{year.val}}</option>
-                                </select>
-                              </div>
-                            </div>
-                            <hr class="cst_hr">
-                            
-                            <!--	<span class="col-md-12">
-																	
-																		Job Description : &nbsp;
-																		<textarea ng-readonly="{{readOnly}}" ng-maxlength="200" ng-model="job.JobDesc" placeholder="Write Job Description ...." name="jobDescription" id="jobDescription" rows="2" class="form-control view-dropdown" disabled ></textarea>
-																
-																</span>
-																<span class="col-md-12">
-																	
-																		Job Year : &nbsp;
-																		<select ng-model="job.JobYear" class="form-control view-dropdown" disabled >
-																			<option value="">Select Job Year</option>
-																			<option ng-repeat="year in jobyears" value="{{year.val}}">{{year.val}}</option>
-																		</select>
-																	
-																</span>-->
-                            
-                            <div class="row">
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> Job Status </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <input type="text" class="form-control view-dropdown" ng-model="job.JobStatus" name="jobStatus" id="jobStatus" placeholder="Job Status" readonly />
-                              </div>
-                              <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> Job Start Date </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <input class="form-control view-dropdown datepicker" type="text" uib-datepicker-popup="MM/dd/yyyy" ng-model="job.JobDateStart" is-open="startDate.isOpned" max-date="maxStartDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" readonly />
-                              </div>
-                            </div>
-                            <hr class="cst_hr">
-                            
-                            <!--<span class="col-md-12">
-																
-																		Job Status : &nbsp;
-																		<input type="text" class="form-control view-dropdown" ng-model="job.JobStatus" name="jobStatus" id="jobStatus" placeholder="Job Status" readonly />
-																	
-																</span>
-																<span class="col-md-12">
-																	
-																		Job Start Date - &nbsp;
-																		<input class="form-control view-dropdown datepicker" type="text" uib-datepicker-popup="MM/dd/yyyy" ng-model="job.JobDateStart" is-open="startDate.isOpned" max-date="maxStartDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" readonly />
-																
-																</span>-->
-                            
-                            <div class="row">
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> Job End Date </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <input class="form-control view-dropdown datepicker" type="text" uib-datepicker-popup="MM/dd/yyyy" ng-model="job.JobDateEnd" is-open="endDate.isOpned" min-date="minEndDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" readonly />
-                              </div>
-                              <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> ComparisonJobNum </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <input type="text" class="form-control view-dropdown" name="comparisonJobNum" id="comparisonJobNum" ng-model="job.ComparisonJobNum" readonly />
-                              </div>
-                            </div>
-                            <hr class="cst_hr">
-                            
-                            <!--	<span class="col-md-12">	
-																	
-																		Job End Date - &nbsp;
-																		<input class="form-control view-dropdown datepicker" type="text" uib-datepicker-popup="MM/dd/yyyy" ng-model="job.JobDateEnd" is-open="endDate.isOpned" min-date="minEndDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" readonly />
-																	
-																</span>
+        <div class="container pl0 pr0"> <h1 class="title_job">View Job</h1></div>
+     <div class="col-md-12_dummy">
+        <div class="tp-wizard-form" id="tp-wizard-form">
+           <!-- wizard form -->
+           <div class="container cst-from-container pt0">
+              <div class="row">
+                 <p ng-show="flash.status" class="alert {{flash.type}}">{{flash.message}} <a class="close" ng-click="closeFlash()"><i class="fa fa-close"></i></a> </p>
+                 <!-- Smart Wizard -->
+                 <div class="swMain attr attr-label label-margin">
+                    <div class="pb0 pt0">
+                       <!-- zipcode -->
+                       <div class="container pl0 pr0">
+                          <div class="row_dummy">
 
-																
 
-																<span class="col-md-12">	
-																	
-																		ComparisonJobNum - &nbsp;
-																		<input type="text" class="form-control view-dropdown" name="comparisonJobNum" id="comparisonJobNum" ng-model="job.ComparisonJobNum" readonly />
-																	
-																</span>-->
-                            
-                            <div class="row">
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> JobCopiedFrom </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <input type="text" class="form-control view-dropdown" name="jobCopiedFrom" id="jobCopiedFrom" ng-model="job.JobCopiedFrom" readonly />
-                              </div>
-                              <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> AcctMgr </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <input type="text" class="form-control view-dropdown" name="acctMgr" id="acctMgr" ng-model="job.AcctMgr" readonly />
-                              </div>
-                            </div>
-                            <hr class="cst_hr">
-                            
-                            <!--<span class="col-md-12">	
-																	
-																		JobCopiedFrom - &nbsp;
-																		<input type="text" class="form-control view-dropdown" name="jobCopiedFrom" id="jobCopiedFrom" ng-model="job.JobCopiedFrom" readonly />
-																</span>
-																<span class="col-md-12">	
-																	
-																		AcctMgr - &nbsp;
-																		<input type="text" class="form-control view-dropdown" name="acctMgr" id="acctMgr" ng-model="job.AcctMgr" readonly />
-																</span>-->
-                            
-                            <div class="row">
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> ExpectedCompletionDt </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <input class="form-control view-dropdown datepicker" type="text" name="jobExpectedCompletionDt" id="jobExpectedCompletionDt" uib-datepicker-popup="MM/dd/yyyy" ng-model="job.ExpectedCompletionDt" is-open="jobExpectedCompletionDt.isOpned" min-date="minEndDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" readonly />
-                              </div>
-                              <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> PlanYearStartDt </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <input class="form-control view-dropdown datepicker" type="text" name="jobPlanYearStartDate" id="jobPlanYearStartDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="job.PlanYearStartDt" is-open="jobPlanYearStartDate.isOpned" min-date="minEndDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" readonly />
-                              </div>
-                            </div>
-                            <hr class="cst_hr">
-                            <!--
-																<span class="col-md-12">	
-																	
-																		ExpectedCompletionDt - &nbsp;
-																		<input class="form-control view-dropdown datepicker" type="text" name="jobExpectedCompletionDt" id="jobExpectedCompletionDt" uib-datepicker-popup="MM/dd/yyyy" ng-model="job.ExpectedCompletionDt" is-open="jobExpectedCompletionDt.isOpned" min-date="minEndDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" readonly />
-																</span>
-																<span class="col-md-12">	
-																	
-																		PlanYearStartDt - &nbsp;
-																		<input class="form-control view-dropdown datepicker" type="text" name="jobPlanYearStartDate" id="jobPlanYearStartDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="job.PlanYearStartDt" is-open="jobPlanYearStartDate.isOpned" min-date="minEndDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" readonly />
-																</span>-->
-                            
-                            <div class="row">
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> JobPlansSelectionLockedDt </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <input class="form-control view-dropdown datepicker" type="text" name="jobPlansSelectionLockedDate" id="jobPlansSelectionLockedDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="job.JobPlansSelectionLockedDt" is-open="jobPlansSelectionLockedDate.isOpned" min-date="minEndDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" readonly />
-                              </div>
-                              <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> JobPlansSelectionLocked </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <select ng-model="job.JobPlansSelectionLocked" disabled name="jobPlansSelectionLocked" id="jobPlansSelectionLocked" class="form-control">
-                                  <option value="" disabled>Select JobPlansSelectionLocked </option>
-                                  <option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}} </option>
-                                </select>
-                              </div>
-                            </div>
-                            <hr class="cst_hr">
-                            
-                            <!--				
-																<span class="col-md-12">	
-																	
-																		JobPlansSelectionLockedDt - &nbsp;
-																		<input class="form-control view-dropdown datepicker" type="text" name="jobPlansSelectionLockedDate" id="jobPlansSelectionLockedDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="job.JobPlansSelectionLockedDt" is-open="jobPlansSelectionLockedDate.isOpned" min-date="minEndDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" readonly />
-																</span>
-																<span class="col-md-12">	
-																	
-																		JobPlansSelectionLocked - &nbsp;
-																		
-																		 <select ng-model="job.JobPlansSelectionLocked" disabled name="jobPlansSelectionLocked" id="jobPlansSelectionLocked" class="form-control">
-																			<option value="" disabled>Select JobPlansSelectionLocked </option>
-																			<option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}}
-																			</option>
-																		</select>
-																</span>-->
-                            
-                            <div class="row">
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> JobCensusImportDt </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <input class="form-control view-dropdown datepicker" type="text" name="jobCensusImportDate" id="jobCensusImportDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="job.JobCensusImportDt" is-open="jobCensusImportDate.isOpned" min-date="minEndDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" readonly />
-                              </div>
-                              <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> HRAMaxReimbursePrimary </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <input type="text" class="form-control view-dropdown" name="jobHRAMaxReimbursePrimary" id="jobHRAMaxReimbursePrimary" ng-model="job.HRAMaxReimbursePrimary" readonly />
-                              </div>
-                            </div>
-                            <hr class="cst_hr">
-                            
-                            <!--	<span class="col-md-12">	
-																	
-																		JobCensusImportDt - &nbsp;
-																		<input class="form-control view-dropdown datepicker" type="text" name="jobCensusImportDate" id="jobCensusImportDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="job.JobCensusImportDt" is-open="jobCensusImportDate.isOpned" min-date="minEndDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" readonly />
-																</span>
-																<span class="col-md-12">	
-																	
-																		HRAMaxReimbursePrimary - &nbsp;
-																		<input type="text" class="form-control view-dropdown" name="jobHRAMaxReimbursePrimary" id="jobHRAMaxReimbursePrimary" ng-model="job.HRAMaxReimbursePrimary" readonly />
-																</span>-->
-                            
-                            <div class="row">
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> HRAMaxReimburseDependent </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <input type="text" class="form-control view-dropdown" name="jobHRAMaxReimburseDependent" id="jobHRAMaxReimburseDependent" ng-model="job.HRAMaxReimburseDependent" readonly />
-                              </div>
-                              <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> HRADedLimitPrimary </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <input type="text" class="form-control view-dropdown" name="jobHRADedLimitDependent" id="jobHRADedLimitDependent" ng-model="job.HRADedLimitDependent" readonly />
-                              </div>
-                            </div>
-                            <hr class="cst_hr">
-                            
-                            <!--<span class="col-md-12">	
-																	
-																		HRAMaxReimburseDependent - &nbsp;
-																		<input type="text" class="form-control view-dropdown" name="jobHRAMaxReimburseDependent" id="jobHRAMaxReimburseDependent" ng-model="job.HRAMaxReimburseDependent" readonly />
-																		
-																</span>
-																<span class="col-md-12">	
-																	
-																		HRADedLimitPrimary - &nbsp;
-																		<input type="text" class="form-control view-dropdown" name="jobHRADedLimitPrimary" id="jobHRADedLimitPrimary" ng-model="job.HRADedLimitPrimary" readonly />
-																</span>-->
-                            
-                            <div class="row">
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> HRADedLimitDependent </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <input type="text" class="form-control view-dropdown" name="jobHRADedLimitDependent" id="jobHRADedLimitDependent" ng-model="job.HRADedLimitDependent" readonly />
-                              </div>
-                              <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> HRACanCoverPremium </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <select ng-model="job.HRACanCoverPremium" disabled name="jobHRACanCoverPremium" id="jobHRACanCoverPremium" class="form-control">
-                                  <option value="" disabled>Select HRACanCoverPremium </option>
-                                  <option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}} </option>
-                                </select>
-                              </div>
-                            </div>
-                            <hr class="cst_hr">
-                            
-                            <!--<span class="col-md-12">	
-																	
-																		HRADedLimitDependent - &nbsp;
-																		<input type="text" class="form-control view-dropdown" name="jobHRADedLimitDependent" id="jobHRADedLimitDependent" ng-model="job.HRADedLimitDependent" readonly />
-																</span>
-																<span class="col-md-12">	
-																	
-																		HRACanCoverPremium - &nbsp;
-																		<!--<input type="text" class="form-control view-dropdown" ng-model="job.HRACanCoverPremium" name="jobHRACanCoverPremium" id="jobHRACanCoverPremium" readonly />--> 
-                            <!-- <select ng-model="job.HRACanCoverPremium" disabled name="jobHRACanCoverPremium" id="jobHRACanCoverPremium" class="form-control">
-																			<option value="" disabled>Select HRACanCoverPremium </option>
-																			<option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}}
-																			</option>
-																		</select>--> 
-                            <!--</span>-->
-                            
-                            <div class="row">
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> HRAReimburseRatePrimary </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <input type="text" class="form-control view-dropdown" name="jobHRAReimburseRatePrimary" id="jobHRAReimburseRatePrimary" ng-model="job.HRAReimburseRatePrimary" readonly />
-                              </div>
-                              <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> HRAReimburseRateDependent </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <input type="text" class="form-control view-dropdown" name="jobHRAReimburseRateDependent" id="jobHRAReimburseRateDependent" ng-model="job.HRAReimburseRateDependent" readonly />
-                              </div>
-                            </div>
-							<hr class="cst_hr">
-							<div class="row">
-								<div class="col-md-2 col-lg-2 col-sm-12 text-right"> HSA Match Flag &nbsp; </div>
-								<div class="col-md-3 col-lg-3 col-sm-12">
-									<input class="checkbox_modal" type="checkbox" name="jobHSAMatchFlag" value="true" ng-model="job.IsHSAMatch" disabled/>
-								</div>
-							</div>
-							<hr class="cst_hr">
-							<div ng-if="isHSAMatchFlag" class="row">
-								<div class="col-md-2 col-lg-2 col-sm-12 text-right">HSA Match Limit 1 </div>
-								<div class="col-md-3 col-lg-3 col-sm-12">
-									<input class="form-control view-dropdown" name="jobHSAMatchLimit1" id="jobHSAMatchLimit1" ng-model="job.HSAMatchLimit1" readonly />
-								</div>
-								<div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-								<div class="col-md-2 col-lg-2 col-sm-12 text-right">HSA Match Rate 1 </div>
-								<div class="col-md-3 col-lg-3 col-sm-12">
-									<input class="form-control view-dropdown" name="jobHSAMatchRate1" id="jobHSAMatchRate1" ng-model="job.HSAMatchRate1" readonly />
-								</div>								
-							</div>
-							<hr class="cst_hr">
-							<div ng-if="isHSAMatchFlag" class="row">
-								<div class="col-md-2 col-lg-2 col-sm-12 text-right">HSA Match Limit 2</div>
-								<div class="col-md-3 col-lg-3 col-sm-12">
-									<input class="form-control view-dropdown" name="jobHSAMatchLimit2" id="jobHSAMatchLimit2" ng-model="job.HSAMatchLimit2" readonly />
-								</div>
-								<div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-								<div class="col-md-2 col-lg-2 col-sm-12 text-right">HSA Match Rate 2 </div>
-								<div class="col-md-3 col-lg-3 col-sm-12">
-									<input class="form-control view-dropdown" name="jobHSAMatchRate2" id="jobHSAMatchRate2" ng-model="job.HSAMatchRate2" readonly />
-								</div>								
-							</div><hr class="cst_hr">
-							<div ng-if="isHSAMatchFlag" class="row">
-								<div class="col-md-2 col-lg-2 col-sm-12 text-right">HSA Match Limit 3 </div>
-								<div class="col-md-3 col-lg-3 col-sm-12">
-									<input class="form-control view-dropdown" name="jobHSAMatchLimit3" id="jobHSAMatchLimit3" ng-model="job.HSAMatchLimit3" readonly />
-								</div>
-								<div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-								<div class="col-md-2 col-lg-2 col-sm-12 text-right">HSA Match Rate 3 </div>
-								<div class="col-md-3 col-lg-3 col-sm-12">
-									<input class="form-control view-dropdown" name="jobHSAMatchRate3" id="jobHSAMatchRate3" ng-model="job.HSAMatchRate3" readonly />
-								</div>								
-							</div><hr class="cst_hr">
-							<div ng-if="isHSAMatchFlag" class="row">
-								<div class="col-md-2 col-lg-2 col-sm-12 text-right">HSA Match Limit 4 </div>
-								<div class="col-md-3 col-lg-3 col-sm-12">
-									<input class="form-control view-dropdown" name="jobHSAMatchLimit4" id="jobHSAMatchLimit4" ng-model="job.HSAMatchLimit4" readonly />
-								</div>
-								<div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-								<div class="col-md-2 col-lg-2 col-sm-12 text-right">HSA Match Rate 4 </div>
-								<div class="col-md-3 col-lg-3 col-sm-12">
-									<input class="form-control view-dropdown" name="jobHSAMatchRate4" id="jobHSAMatchRate4" ng-model="job.HSAMatchRate4" readonly />
-								</div>								
-							</div>								
-                            <hr class="cst_hr">
-                            
-                            <!--	<span class="col-md-12">	
-																	
-																		HRAReimburseRatePrimary - &nbsp;
-																		<input type="text" class="form-control view-dropdown" name="jobHRAReimburseRatePrimary" id="jobHRAReimburseRatePrimary" ng-model="job.HRAReimburseRatePrimary"readonly />
-																</span>
-																<span class="col-md-12">	
-																	
-																		HRAReimburseRateDependent - &nbsp;
-																		<input type="text" class="form-control view-dropdown" name="jobHRAReimburseRateDependent" id="jobHRAReimburseRateDependent" ng-model="job.HRAReimburseRateDependent" readonly />
-																</span>-->
-                            
-                            <div class="row">
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> CreatedDateTime </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <input class="form-control view-dropdown datepicker" type="text" name="jobCreatedDateTime" id="jobCreatedDateTime" uib-datepicker-popup="MM/dd/yyyy" ng-model="job.CreatedDateTime" is-open="jobCreatedDateTime.isOpned" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" readonly />
-                              </div>
-                              <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> Createdby </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <input type="text" class="form-control view-dropdown" name="jobCreatedby" id="jobCreatedby" ng-model="CreatedByName" readonly />
-                              </div>
-                            </div>
-                            <hr class="cst_hr">
-                            <!--
-																	<span class="col-md-12">	
-																	
-																		CreatedDateTime - &nbsp;
-																		<input class="form-control view-dropdown datepicker" type="text" name="jobCreatedDateTime" id="jobCreatedDateTime" uib-datepicker-popup="MM/dd/yyyy" ng-model="job.CreatedDateTime" is-open="jobCreatedDateTime.isOpned" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" readonly />
-																</span>
-																	<span class="col-md-12">	
-																	
-																		Createdby - &nbsp;
-																		<input type="text" class="form-control view-dropdown" name="jobCreatedby" id="jobCreatedby" ng-model="CreatedbyName" readonly />
-																</span>-->
-                            
-                            <div class="row">
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> ModifiedDateTime </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <input class="form-control view-dropdown datepicker" type="text" name="jobModifiedDateTime" id="jobModifiedDateTime" uib-datepicker-popup="MM/dd/yyyy" ng-model="job.ModifiedDateTime" is-open="jobModifiedDateTime.isOpned" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" readonly />
-                              </div>
-                              <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> ModifiedBy </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <input type="text" class="form-control view-dropdown" name="jobModifiedBy" id="jobModifiedBy" ng-model="ModifiedByName" readonly />
-                              </div>
-                            </div>
-                            <hr class="cst_hr">
-                            
-                            <!--		<span class="col-md-12">	
-																	
-																		ModifiedDateTime - &nbsp;
-																		<input class="form-control view-dropdown datepicker" type="text" name="jobModifiedDateTime" id="jobModifiedDateTime" uib-datepicker-popup="MM/dd/yyyy" ng-model="job.ModifiedDateTime" is-open="jobModifiedDateTime.isOpned" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" readonly />
-																</span>
-																	<span class="col-md-12">	
-																	
-																		ModifiedBy - &nbsp;
-																		<input type="text" class="form-control view-dropdown" name="jobModifiedBy" id="jobModifiedBy" ng-model="ModifiedByName" readonly />
-																</span>--> 
-                            
-                            <!-- ======================================================================================== -->
-                            
-                            <div class="row">
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> Job Run Status : </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12">
-                                <h3 class="label label-default cst-label-default">{{job.JobRunStatus}}</h3>
-                              </div>
-                              <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                              <div class="col-md-2 col-lg-2 col-sm-12 text-right"> &nbsp; </div>
-                              <div class="col-md-3 col-lg-3 col-sm-12"> &nbsp; </div>
-                            </div>
-                            <hr class="cst_hr">
-                            
-                            <!--	<span class="col-md-12">	
-																	<br/>
-																	Job Run Status : &nbsp;
-																	<h3 class="label label-default">{{job.JobRunStatus}}</h3>
-																</span>--> 
+                         <div class="row_dummy">
+                                <div class="col-md-4 col-lg-4 col-sm-12 pl0 pr0"> 
+
+
+                                        <div class="col-md-12 col-lg-12 col-sm-12 pl0 pr0 pl0 pr0">
+
+                                                <form class="form-horizontal">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-xs-3 pt0 pl0">Job Status
+                                                                <span class="required">*</span></label>
+                                                        <div class="col-xs-9 pl0">
+                                                                <select ng-model="job.JobStatus" class="form-control" name="jobStatus" id="jobStatus" ng-change="jobStatusChange();">
+                                                                        <option value="">Select Job Status</option>
+                                                                        <option ng-repeat="status in jobStatus" value="{{status}}">{{status}}</option>
+                                                                     </select>
+                                                        </div>
+                                                    </div>
+                                                                                                
+                                                </form>
+
+
+                                    </div> <!--end col-md-4 col-lg-4 -->
+                                </div> <!--col-md-6 col-lg-6 col-sm-12 -->
+
+
+
+                             <div class="col-md-7 col-lg-7 col-sm-12 pull-right pr0"> <a style="z-index:9;" title="Back" class="hvr-radial-out-black btn tp-btn pull-right" href="masters/job">Back</a> </div>
                           </div>
-                        </div>
-                        <div id="step-1"> 
-                          <!--<h3 class="tp-title mb0 color_blue">Email Info</h3>--> 
-                          <span class="col-md-12"> Subject Text : &nbsp;
-                          <input type="text" class="form-control view-dropdown" ng-model="job.EmailSubjText" name="subText" id="subText" placeholder="Subject Text" readonly />
-                          </span> <span class="col-md-12"> Body Text : &nbsp;
-                          <text-angular name="bodyText" class="html-editor" ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6', 'p', 'ul', 'ol', 'bold','italics', 'underline', 'quote', 'strikeThrough', 'indent', 'outdent', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'html', 'insertImage', 'insertLink', 'insertVideo']]"
-																		ng-model="job.EmailBodyText"></text-angular>
-                          </span> <span class="col-md-12"> Sign Text : &nbsp;
-                          <text-angular name="signText" class="html-editor" ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6', 'p', 'ul', 'ol', 'bold','italics', 'underline', 'quote', 'strikeThrough', 'indent', 'outdent', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'html', 'insertImage', 'insertLink', 'insertVideo']]"
-																		ng-model="job.EmailSignText"></text-angular>
-                          </span> </div>
-                        <!--  <div id="step-2"> <span class="col-md-3">
-                             step2
-                                </div>--> 
-                      </div>
+                            <!-- end row -->
+                         
+
+
+                             <div class="col-md-12_dummy mb20" id="job-hr">
+                              <div class="cst-wizard">
+                                <div id="wizard" class="swMain test23">
+                                   <ul>
+                                      <li> <a href="#step-0"> <span class="stepDesc">Job Details<br />
+                                         </span> </a>
+                                      </li>
+
+
+                                    
+
+                                     <li>
+                                            <a href="#step-1">
+                                            <span class="stepDesc">Assign Plans
+
+
+                                            </span>
+                                            </a>
+                                         </li>
+
+
+                                      <li> <a href="#step-2">
+                                         <span class="stepDesc">Email Template
+                                         </span> </a>
+                                      </li>
+
+                                      <li>
+                                            <a href="#step-3">
+                                            <span class="stepDesc"> Census Import
+
+
+                                            </span>
+                                            </a>
+                                         </li>
+                                         <li> <a href="#step-4"> <span class="stepDesc">Systems<br />
+                                         </span> </a>
+                                      </li>
+
+                                   </ul>
+
+
+                                   <div class="wiz-content-border">     
+
+                                   <div class="col-md-offset-0-5" id="step-0">
+                                      <p>
+                                          <h3>Key Information</h3>
+                                      </p>
+
+                                      <div class="row">
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+                                              <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label"> Job Number </div>
+                                            <div class="col-md-6 col-lg-6 col-sm-12">
+                                               <input type="text" class="form-control view-dropdown_dummy" ng-model="job.JobNumber" name="jobNo" id="jobNo" placeholder="Job Number" readonly />
+                                            </div>
+                                          </div>
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+                                              <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label"> Job Year </div>
+                                              <div class="col-md-6 col-lg-6 col-sm-12">
+                                                  <select ng-model="job.JobYear" class="form-control view-dropdown_dummy" disabled >
+                                                     <option value="">Select Job Year</option>
+                                                     <option ng-repeat="year in jobyears" value="{{year.val}}">{{year.val}}</option>
+                                                  </select>
+                                               </div>
+                                          </div>
+
+                                        </div> 
+                                        <!-- end row -->
+
+
+                                        <div class="row">
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+                                              <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label"> Job Title </div>
+                                              <div class="col-md-6 col-lg-6 col-sm-12">
+                                                 <input ng-readonly="{{readOnly}}" ng-maxlength="200" ng-model="job.JobDesc" placeholder="Write Job Description ...." name="jobDescription" id="jobDescription" rows="2" class="form-control view-dropdown_dummy" disabled />
+                                              </div>
+                                          </div>
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+                                            <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Job Type </div>
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+                                                  <select ng-model="job.JobType" name="jobType" id="jobType" class="form-control" ng-change="chagesOccur();" readonly>
+                                                <option value="" disabled>Select Job Type </option>
+                                                <option value="New Hire" >New Hire </option>
+                                                 <option value="Open Enrollment" >Open Enrollment </option>
+                                                  <option value="Experiential​" >Experiential​ </option>
+                                             </select>
+                                             </div>
+                                      </div>
+
+
+                                        </div> 
+                                        <!-- end row -->
+
+
+                                        <div class="row">
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+                                            <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label"> Employer </div>
+                                            <div class="col-md-6 col-lg-6 col-sm-12">
+                                               <select ng-model="job.EmployerId" class="form-control view-dropdown_dummy" disabled >
+                                                  <option value="">Select Employer</option>
+                                                  <option ng-repeat="employer in employers" value="{{employer.EmployerId}}">{{employer.EmployerName}}</option>
+                                               </select>
+                                            </div>
+                                          </div>
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+                                            <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">
+                                                Job Zip Code
+                                                <span class="required">*</span>
+                                             </div>
+                                             <div class="col-md-6 col-lg-6 col-sm-12">
+                                                <input type="text" class="form-control view-dropdown_dummy" ng-model="job.CaseZipCode" name="zipCode" id="zipCode" placeholder="Case Zip Code"
+                                                   ng-change="chagesOccur();" readonly/>
+                                             </div>
+                                          </div>
+
+                                        </div> 
+                                        <!-- end row -->
+
+
+                                        <div class="row">
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+                                              <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label"> Plan Year Start Date </div>
+                                              <div class="col-md-6 col-lg-6 col-sm-12">
+                                                 <input class="form-control view-dropdown_dummy datepicker" type="text" name="jobPlanYearStartDate" id="jobPlanYearStartDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="job.PlanYearStartDt" is-open="jobPlanYearStartDate.isOpned" min-date="minEndDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" readonly />
+                                              </div>
+                                          </div>
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+                                            <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label"> Wellness Program Offered</div>
+                                                                            <div class="col-md-6 col-lg-6 col-sm-12">
+                                                                               <select ng-model="job.WellnessOffered" name="jobWellnessOffered" id="jobWellnessOffered" class="form-control" ng-change="chagesOccur();" readonly>
+                                                                                  <option value="" disabled>Select Wellness Offered </option>
+                                                                                  <option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}} </option>
+                                                                               </select>
+                                                                            </div>
+                                          </div>
+
+                                        </div> 
+                                        <!-- end row -->
+
+
+                                        <div class="row">
+
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+                                            <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">  Plan Year End Date </div>
+                                            <div class="col-md-6 col-lg-6 col-sm-12">
+                                               <input ng-click="jobPlanYearEndDate.isOpned=true;" class="form-control" type="text" name="jobPlanYearEndDate"
+                                                  id="jobPlanYearEndDate" uib-datepicker-popup="MM/dd/yyyy"
+                                                  ng-model="job.PlanYearEndDt" is-open="jobPlanYearEndDate.isOpned"
+                                                  datepicker-options="dateOptions"
+                                                  date-disabled="disabled(date, mode)" close-text="Close"
+                                                  ng-change="chagesOccur();" readonly/>
+                                            </div>
+                                          </div>
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+                                            <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label"> No. of Pay Periods / Year </div>
+                                            <div class="col-md-6 col-lg-6 col-sm-12">
+                                               <input class="form-control" type="text" name="jobPayPeriodsPerYear" id="jobPayPeriodsPerYear" ng-model="job.PayPeriodsPerYear" Only-digits ng-change="chagesOccur();" readonly/>
+                                            </div>
+                                          </div>
+
+
+
+
+                                      </div>
+                                      <!--  end row -->
+                                      <hr>
+
+                                      <p>
+                                          <h3>Sales/Client</h3>
+                                      </p>
+                                      <div class="row">
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+
+                                              <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">  Interview Period Start Date </div>
+                                              <div class="col-md-6 col-lg-6 col-sm-12">
+                                                 <input class="form-control view-dropdown_dummy datepicker" type="text" uib-datepicker-popup="MM/dd/yyyy" ng-model="job.JobDateStart" is-open="startDate.isOpned" max-date="maxStartDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" readonly />
+                                              </div>
+                                          </div>
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+
+                                              <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label"> Plan Selections Locked</div>
+                                              <div class="col-md-6 col-lg-6 col-sm-12">
+                                             <!--     <input class="form-control view-dropdown_dummy datepicker" type="text" name="jobPlansSelectionLockedDate" id="jobPlansSelectionLockedDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="job.JobPlansSelectionLockedDt" is-open="jobPlansSelectionLockedDate.isOpned" min-date="minEndDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" readonly /> -->
+
+    <select ng-model="job.JobPlansSelectionLocked" name="jobPlansSelectionLocked" id="jobPlansSelectionLocked" class="form-control" ng-change="chagesOccur();" readonly disabled>
+    <option value="" disabled="">Select Plan Selection Locked </option>
+    <option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}} </option>
+</select>
+           
+
+                                              </div>
+                                          </div>
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+
+                                              <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label"> Interview Period End Date </div>
+                                              <div class="col-md-6 col-lg-6 col-sm-12">
+                                                 <input class="form-control view-dropdown_dummy datepicker" type="text" uib-datepicker-popup="MM/dd/yyyy" ng-model="job.JobDateEnd" is-open="endDate.isOpned" min-date="minEndDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" readonly />
+                                              </div>
+                                          </div>
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+                                          <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Plan Selections Locked Date</div>
+                                            <div class="col-md-6 col-lg-6 col-sm-12">
+                                               <input class="form-control view-dropdown_dummy datepicker" type="text" name="jobPlansSelectionLockedDate" id="jobPlansSelectionLockedDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="job.JobPlansSelectionLockedDt" is-open="jobPlansSelectionLockedDate.isOpned" min-date="minEndDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" readonly />
+                                            </div>
+                                          </div>
+
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+
+                                              <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label"> Account Manager </div>
+                                              <div class="col-md-6 col-lg-6 col-sm-12">
+                                                 <input type="text" class="form-control view-dropdown_dummy" name="acctMgr" id="acctMgr" ng-model="job.AcctMgr" readonly />
+                                              </div>
+                                          </div>
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+
+                                              <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label"> Census Import Date </div>
+                                              <div class="col-md-6 col-lg-6 col-sm-12">
+                                                 <input class="form-control view-dropdown_dummy datepicker" type="text" name="jobCensusImportDate" id="jobCensusImportDate" uib-datepicker-popup="MM/dd/yyyy" ng-model="job.JobCensusImportDt" is-open="jobCensusImportDate.isOpned" min-date="minEndDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" readonly />
+                                              </div>
+                                          </div>
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+
+                                              <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label"> Comparison Job No. </div>
+                                              <div class="col-md-6 col-lg-6 col-sm-12">
+                                                 <input type="text" class="form-control view-dropdown_dummy" name="comparisonJobNum" id="comparisonJobNum" ng-model="job.ComparisonJobNum" readonly />
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <hr>
+
+
+                                      <p>
+                                          <h3>HRA</h3>
+                                      </p>
+                                      <div class="row">
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+
+                                          <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">HRA Reimbursement Rate - Individual</div>
+                                              <div class="col-md-6 col-lg-6 col-sm-12">
+                                                 <input type="text" class="form-control view-dropdown_dummy" name="jobHRAReimburseRatePrimary" id="jobHRAReimburseRatePrimary" ng-model="job.HRAReimburseRatePrimary" readonly />
+                                              </div>
+                                          </div>
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+                                          <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">HRA Reimbursement Rate - Family</div>
+                                            <div class="col-md-6 col-lg-6 col-sm-12">
+                                               <input type="text" class="form-control view-dropdown_dummy" name="jobHRAReimburseRateDependent" id="jobHRAReimburseRateDependent" ng-model="job.HRAReimburseRateDependent" readonly />
+                                            </div>
+                                          </div>
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+
+                                              <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label"> Max HRA Reimbursement - Individual </div>
+                                            <div class="col-md-6 col-lg-6 col-sm-12">
+                                               <input type="text" class="form-control view-dropdown_dummy" name="jobHRAMaxReimbursePrimary" id="jobHRAMaxReimbursePrimary" ng-model="job.HRAMaxReimbursePrimary" readonly />
+                                            </div>
+                                          </div>
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+
+                                              <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label"> Max HRA Reimbursement - Family </div>
+                                              <div class="col-md-6 col-lg-6 col-sm-12">
+                                                 <input type="text" class="form-control view-dropdown_dummy" name="jobHRAMaxReimburseDependent" id="jobHRAMaxReimburseDependent" ng-model="job.HRAMaxReimburseDependent" readonly />
+                                              </div>
+                                          </div>
+
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+                                              <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label"> HRA Deductible Limit - Individual </div>
+                                              <div class="col-md-6 col-lg-6 col-sm-12">
+                                                 <input type="text" class="form-control view-dropdown_dummy" name="jobHRADedLimitDependent" id="jobHRADedLimitDependent" ng-model="job.HRADedLimitDependent" readonly />
+                                              </div>
+                                          </div>
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+                                              <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">HRA Deductible Limit - Family</div>
+                                            <div class="col-md-6 col-lg-6 col-sm-12">
+                                               <input type="text" class="form-control view-dropdown_dummy" name="jobHRADedLimitDependent" id="jobHRADedLimitDependent" ng-model="job.HRADedLimitDependent" readonly />
+                                            </div>
+                                          </div>
+
+
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+                                            <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">HRA Can Cover Premium</div>
+                                           
+                                            <div class="col-md-6 col-lg-6 col-sm-12">
+                                                    <select ng-model="job.HRACanCoverPremium" disabled name="jobHRACanCoverPremium" id="jobHRACanCoverPremium" class="form-control">
+                                                       <option value="" disabled>Select HRACanCoverPremium </option>
+                                                       <option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}} </option>
+                                                    </select>
+                                                 </div>
+                                        </div>
+
+                                      </div>
+                                      <hr>
+
+
+                                      <p>
+                                          <h3>HSA</h3>
+                                      </p>
+                                      <div class="row">
+                                            <div class="col-md-6 col-lg-6 col-sm-12 mb3">
+
+                                                    <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label row">HSA Match Flag</div>
+                                                    <div class="col-md-6 col-lg-6 col-sm-12 ml20">
+                                                       <input class="checkbox_modal tabs-checkbox" type="checkbox" name="jobHSAMatchFlag" value="true" ng-model="job.IsHSAMatch" disabled/>
+                                                    </div>
+                                             </div>
+                                      </div>
+                                     
+                                      <div class="row">
+
+                                          <div class="col-md-6 col-lg-6 col-sm-12">                                        
+                                              <div ng-if="isHSAMatchFlag" class="row">
+                                                  <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">HSA Match Limit 1 </div>
+                                                  <div class="col-md-6 col-lg-6 col-sm-12">
+                                                     <input class="form-control view-dropdown_dummy" name="jobHSAMatchLimit1" id="jobHSAMatchLimit1" ng-model="job.HSAMatchLimit1" readonly />
+                                                  </div>
+
+                                                  <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">HSA Match Rate 1 </div>
+                                                  <div class="col-md-6 col-lg-6 col-sm-12">
+                                                     <input class="form-control view-dropdown_dummy" name="jobHSAMatchRate1" id="jobHSAMatchRate1" ng-model="job.HSAMatchRate1" readonly />
+                                                  </div>
+                                               </div>
+
+                                          </div>
+
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+
+                                              <div ng-if="isHSAMatchFlag" class="row">
+                                                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">HSA Match Limit 2</div>
+                                                <div class="col-md-6 col-lg-6 col-sm-12">
+                                                   <input class="form-control view-dropdown_dummy" name="jobHSAMatchLimit2" id="jobHSAMatchLimit2" ng-model="job.HSAMatchLimit2" readonly />
+                                                </div>
+
+                                                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">HSA Match Rate 2 </div>
+                                                <div class="col-md-6 col-lg-6 col-sm-12">
+                                                   <input class="form-control view-dropdown_dummy" name="jobHSAMatchRate2" id="jobHSAMatchRate2" ng-model="job.HSAMatchRate2" readonly />
+                                                </div>
+                                             </div>
+
+                                          </div>
+
+
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+
+                                              <div ng-if="isHSAMatchFlag" class="row">
+                                                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">HSA Match Limit 3 </div>
+                                                <div class="col-md-6 col-lg-6 col-sm-12">
+                                                   <input class="form-control view-dropdown_dummy" name="jobHSAMatchLimit3" id="jobHSAMatchLimit3" ng-model="job.HSAMatchLimit3" readonly />
+                                                </div>
+                                                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">HSA Match Rate 3 </div>
+                                                <div class="col-md-6 col-lg-6 col-sm-12">
+                                                   <input class="form-control view-dropdown_dummy" name="jobHSAMatchRate3" id="jobHSAMatchRate3" ng-model="job.HSAMatchRate3" readonly />
+                                                </div>
+                                             </div>
+
+                                          </div>
+
+                                          <div class="col-md-6 col-lg-6 col-sm-12">
+                                              <div ng-if="isHSAMatchFlag" class="row">
+                                                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">HSA Match Limit 4 </div>
+                                                <div class="col-md-6 col-lg-6 col-sm-12">
+                                                   <input class="form-control view-dropdown_dummy" name="jobHSAMatchLimit4" id="jobHSAMatchLimit4" ng-model="job.HSAMatchLimit4" readonly />
+                                                </div>
+                                                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">HSA Match Rate 4 </div>
+                                                <div class="col-md-6 col-lg-6 col-sm-12">
+                                                   <input class="form-control view-dropdown_dummy" name="jobHSAMatchRate4" id="jobHSAMatchRate4" ng-model="job.HSAMatchRate4" readonly />
+                                                </div>
+                                             </div>
+                                          </div>
+                                      </div>
+                                     </div>
+                                    <!--========================================================================= -->
+                                  
+                                   <div class="" id="step-1">
+                                        <div class="grid_job_dropdowns">
+                                           <div class="col-md-2 col-sm-12">
+                                              Issuer Id
+                                              <select ng-model="planFiltersData.issuerId" class="form-control">
+                                                 <option value=''>All</option>
+                                                 <option ng-repeat="id in issuerIds" value="{{id.Id}}">{{id.Id}} : {{id.IssuerName}} ({{id.IssuerCode}})</option>
+                                              </select>
+                                           </div>
+                                           <div class="col-md-2 col-sm-12">
+                                              State Code
+                                              <select ng-model="planFiltersData.stateCode" class="form-control">
+                                                 <option value=''>All</option>
+                                                 <option ng-repeat="state in States" value="{{state.StateCode}}">{{state.StateCode}}</option>
+                                              </select>
+                                           </div>
+                                           <div class="col-md-2 col-sm-12">
+                                              Plan Type
+                                              <select ng-model="planFiltersData.planType" class="form-control">
+                                                 <option value=''>All</option>
+                                                 <option ng-repeat="plan in Plans" value="{{plan.PlanID}}">{{plan.PlanType}}</option>
+                                              </select>
+                                           </div>
+                                           <div class="col-md-2 col-sm-12">
+                                              Job Year
+                                              <select ng-model="planFiltersData.businessYear" class="form-control">
+                                                 <option value=''>All</option>
+                                                 <option ng-repeat="year in years" value="{{year.val}}">{{year.val}}</option>
+                                              </select>
+                                           </div>
+                                           <div class="col-md-2 col-sm-12">
+                                              Group Name
+                                              <select ng-model="planFiltersData.groupName" class="form-control">
+                                                 <option value=''>All</option>
+                                                 <option ng-repeat="groupName in GroupNames" value="{{groupName}}">{{groupName}}</option>
+                                              </select>
+                                           </div>
+                                           <div class="col-md-2 col-sm-12">
+                                              Market Coverage
+                                              <select ng-model="planFiltersData.marketCoverage" class="form-control">
+                                                 <option value=''>All</option>
+                                                 <option ng-repeat="mrktCvr in MarketCoverages" value="{{mrktCvr}}">{{mrktCvr}}</option>
+                                              </select>
+                                           </div>
+                                        </div>
+                                        <div class="grid_job_dropdowns">
+                                           <div class="col-md-2 col-sm-12 pull-left">
+                                              <input class="hvr-radial-out-black btn tp-btn-grey adv_srch_btn width_100 " type="button" ng-click="getPlanInfo(1)" value="Filter">
+                                           </div>
+                                           <div class="col-md-2 col-sm-12 pull-left">
+                                              <input class="hvr-radial-out-black btn tp-btn-grey adv_srch_btn width_100 " type="button" ng-click="resetFilters()" value="Reset">
+                                           </div>
+                                           <div class="col-md-4 col-sm-12 pull-right">
+                                              <input class="width_100 hvr-radial-out btn tp-btn tp-btn-blue ng-binding" type="button" ng-click="AddPlans()" value="Save Plan Selection">
+                                           </div>
+                                        </div>
+                                        <div class="grid_job_dropdowns">
+                                           <div class="col-md-12 col-sm-12">
+                                              <div class="mul-select">
+                                                 <multi-select ng-model="userSelectedPlans" available="allPlans" selected-label="Current allPlans" available-label="Available allPlans"
+                                                    display="r as r.SelectedPlanTitle" title="r as r"
+                                                    config="selectConfig" ng-change="JobPlanSelectionLockedChange();">
+                                                 </multi-select>
+                                              </div>
+                                           </div>
+                                        </div>
+                                     </div>
+                                    <!--========================================================================= -->
+                                   <div id="step-2">
+                                      <span class="col-md-12"> Subject Text : &nbsp;
+                                      <input type="text" class="form-control view-dropdown_dummy" ng-model="job.EmailSubjText" name="subText" id="subText" placeholder="Subject Text" readonly />
+                                      </span>
+                                      <span class="col-md-12">
+                                         Body Text : &nbsp;
+                                         <text-angular name="bodyText" class="html-editor" ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6', 'p', 'ul', 'ol', 'bold','italics', 'underline', 'quote', 'strikeThrough', 'indent', 'outdent', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'html', 'insertImage', 'insertLink', 'insertVideo']]"
+                                            ng-model="job.EmailBodyText"></text-angular>
+                                      </span>
+                                      <span class="col-md-12">
+                                         Sign Text : &nbsp;
+                                         <text-angular name="signText" class="html-editor" ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6', 'p', 'ul', 'ol', 'bold','italics', 'underline', 'quote', 'strikeThrough', 'indent', 'outdent', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'html', 'insertImage', 'insertLink', 'insertVideo']]"
+                                            ng-model="job.EmailSignText"></text-angular>
+                                      </span>
+                                   </div>
+                                    <!--========================================================================= -->
+                                   <div class="" id="step-3">
+                                        <h3>&nbsp;</h3>
+                                        <div class="col-sm-12 col-md-3 col-lg-3 pull-right">
+                                           <div class="browse-select jobcstfileuploadbtn">
+                                              <input type="file" name="file" class="form-control xyz" onchange="angular.element(this).scope().loadFile(this.files)" />
+                                              <span> Select File </span>
+                                           </div>
+                                           <div class="browse-select jobcstbtn">
+                                              <a class="hvr-radial-out btn tp-btn tp-btn-blue pull-left mb20 ml50 ng-binding" href="javascript:void(0)" ng-click="ImportCensusCases()">Import</a>
+                                           </div>
+                                        </div>
+                                        <div class="row_dummy">
+                                           <div class="col-md-12">
+                                              <table class="table table-bordered table-condensed f11 table-nowrap table-striped table-hover">
+                                                 <thead>
+                                                    <tr>
+                                                       <th>First Name</th>
+                                                       <th>Last Name</th>
+                                                       <th>Street</th>
+                                                       <th>City</th>
+                                                       <th>State</th>
+                                                       <th>Zip</th>
+                                                       <th>Email</th>
+                                                       <th>Mobile</th>
+                                                       <th>MAGI</th>
+                                                       <th>Cur. Plan</th>
+                                                       <th>Wellness</th>
+                                                       <th>UsageID</th>
+                                                       <th>HireDate</th>
+                                                       <th>EREmpId</th>
+                                                       <th>JobTitle</th>
+                                                       <th>CaseTitle</th>
+                                                    </tr>
+                                                 </thead>
+                                                 <tbody>
+                                                    <tr ng-repeat="item in CensusData">
+                                                       <td class="text-left" title="{{item.FirstName}}">{{item.FirstName}}</td>
+                                                       <td class="text-left" title="{{item.LastName}}">{{item.LastName}}</td>
+                                                       <td class="text-left" title="{{item.Street}}">{{item.Street}}</td>
+                                                       <td class="text-left" title="{{item.City}}">{{item.City}}</td>
+                                                       <td class="text-left" title="{{item.State}}">{{item.State}}</td>
+                                                       <td class="text-left" title="{{item.Zip}}">{{item.Zip}}</td>
+                                                       <td class="text-left" title="{{item.Email}}">{{item.Email}}</td>
+                                                       <td class="text-left" title="{{item.Mobile}}">{{item.Mobile}}</td>
+                                                       <td class="text-left" title="{{item.MAGI}}">{{item.MAGI}}</td>
+                                                       <td class="text-left" title="{{item.CurrentPlan}}">{{item.CurrentPlan}}</td>
+                                                       <td class="text-left" title="{{item.Wellness}}">{{item.Wellness}}</td>
+                                                       <td class="text-left" title="{{item.UsageID}}">{{item.UsageID}}</td>
+                                                       <td class="text-left" title="{{item.HireDate}}">{{item.HireDate | date:'MM/dd/yyyy'}}</td>
+                                                       <td class="text-left" title="{{item.EREmpId}}">{{item.EREmpId}}</td>
+                                                       <td class="text-left" title="{{item.JobTitle}}">{{item.JobTitle}}</td>
+                                                       <td class="text-left" title="{{item.CaseTitle}}">{{item.CaseTitle}}</td>
+                                                    </tr>
+                                                 </tbody>
+                                              </table>
+                                           </div>
+                                        </div>
+                                   </div>
+                                    <!--========================================================================= -->
+                                    <div class="col-md-offset-0-5" id="step-4">
+                                            <p>
+                                                <h3>History</h3>
+                                            </p>
+                                         <div class="row">
+                                                <div class="col-md-6 col-lg-6 col-sm-12">
+                                                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Created By</div>
+                                                  <div class="col-md-6 col-lg-6 col-sm-12">
+                                                     <input type="text" class="form-control view-dropdown_dummy" name="jobCreatedby" id="jobCreatedby" ng-model="CreatedByName" readonly />
+                                                  </div>
+                                                </div>
+                                                <div class="col-md-6 col-lg-6 col-sm-12">
+                                                  <div class="col-md-3 col-lg-3 col-sm-12 text-right control-label"> Modified By </div>
+                                                    <div class="col-md-6 col-lg-6 col-sm-12">
+                                                       <input type="text" class="form-control view-dropdown_dummy" name="jobModifiedBy" id="jobModifiedBy" ng-model="ModifiedByName" readonly />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-lg-6 col-sm-12">
+                                                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label"> CreatedDateTime </div>
+                                                  <div class="col-md-6 col-lg-6 col-sm-12">
+                                                     <input class="form-control view-dropdown_dummy datepicker" type="text" name="jobCreatedDateTime" id="jobCreatedDateTime" uib-datepicker-popup="MM/dd/yyyy" ng-model="job.CreatedDateTime" is-open="jobCreatedDateTime.isOpned" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" readonly />
+                                                  </div>
+                                                </div>
+                                                <div class="col-md-6 col-lg-6 col-sm-12">
+                                                  <div class="col-md-3 col-lg-3 col-sm-12 text-right control-label"> Modified Date </div>
+                                                    <div class="col-md-6 col-lg-6 col-sm-12">
+                                                       <input class="form-control view-dropdown_dummy datepicker" type="text" name="jobModifiedDateTime" id="jobModifiedDateTime" uib-datepicker-popup="MM/dd/yyyy" ng-model="job.ModifiedDateTime" is-open="jobModifiedDateTime.isOpned" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" readonly />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-lg-6 col-sm-12">
+                                                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label"> Job Copied From </div>
+                                                  <div class="col-md-6 col-lg-6 col-sm-12">
+                                                     <input type="text" class="form-control view-dropdown_dummy" name="jobCopiedFrom" id="jobCopiedFrom" ng-model="job.JobCopiedFrom" readonly />
+                                                  </div>
+                                                </div>
+                                            </div>
+                                            <!--  end row -->
+                                         </div>
+                                    <!--========================================================================= -->
+                                     </div>
+
+
+
+                                </div>
+                              </div>
+
+
+                             </div>
+                          </div>
+                       </div>
                     </div>
-                    
-                    <!--<div id="container_csttab_dummy" class="edit_container_csttab_dummy">
-										
-										
-											
-											
-										
-											<div id="content_dummy">
-												
-												<div id="content-1_dummy" class="tab-content animated fadeIn">
-													<span class="inner_content cst_planbg">
-													
-														
-															
-															
-															<div class="col-md-8 pr0 mb20">
-																<h3 class="tp-title mb0 color_blue">Email Info</h3>
-																<span class="col-md-12">
-																	
-																		Subject Text : &nbsp;
-																		<input type="text" class="form-control view-dropdown" ng-model="job.EmailSubjText" name="subText" id="subText" placeholder="Subject Text" readonly />
-																
-																</span>
-																<span class="col-md-12">
-																
-																		Body Text : &nbsp;
-																		<text-angular name="bodyText" class="html-editor" ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6', 'p', 'ul', 'ol', 'bold','italics', 'underline', 'quote', 'strikeThrough', 'indent', 'outdent', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'html', 'insertImage', 'insertLink', 'insertVideo']]"
-																		ng-model="job.EmailBodyText"></text-angular>
-																	
-																</span>
-																<span class="col-md-12">
-																
-																		Sign Text : &nbsp;
-																		<text-angular name="signText" class="html-editor" ta-toolbar="[['h1','h2','h3', 'h4', 'h5', 'h6', 'p', 'ul', 'ol', 'bold','italics', 'underline', 'quote', 'strikeThrough', 'indent', 'outdent', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'html', 'insertImage', 'insertLink', 'insertVideo']]"
-																		ng-model="job.EmailSignText"></text-angular>
-																
-																</span>
-															</div>
-															
-														
-
-
-													</span>  
-												</div>
-											</div>							
-										</div>--> 
-                  </div>
-                </div>
+                 </div>
               </div>
-            </div>
-          </div>
-          <!--end row--> 
+              <!--end row-->
+           </div>
+           <!--end container-->
         </div>
-        <!--end container--> 
-      </div>
-    </div>
+     </div>
   </div>
 </div>
 <!-- /.wizard form -->

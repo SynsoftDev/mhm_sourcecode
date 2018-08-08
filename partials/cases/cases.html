@@ -31,7 +31,7 @@
             </a>
           </p>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 pl0">
           <div class="input-group" id="adv-search">
             <form ng-submit="setCaseList()" class="form-horizontal" role="form" name="caseForm">
               <input type="text" class="form-control" ng-model="TempSearch.searchby" placeholder="Search Case #ID..." ng-pattern="/^[0-9]{1,20}$/"
@@ -166,11 +166,11 @@
 
 
         <div class="col-md-3 pull-right">
-          <a title="Export Cases" ng-click="exportReport();" class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle mb20 mr10 pull-right"
+          <a title="Export Cases" ng-click="exportReport();" class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle mr10 pull-right"
             href="javascript:void(0)">
             <i class="fa fa-file-excel-o mr10" aria-hidden="true"></i> Export</a>
 
-          <a title="create new case" class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle mb20 pull-right mr10" href="newCase">
+          <a title="create new case" class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle pull-right mr10" href="newCase">
             <i class="fa fa-plus mr10"></i>Add Case</a>
         </div>
 
@@ -189,7 +189,7 @@
       <div class="row_dummy">
 
         <!-- end col 4-->
-        <div class="col-md-12">
+        <div class="col-md-12 pl0 pr0">
           <table class="table table-bordered table-condensed f11 table-nowrap table-striped table-hover">
             <thead>
               <tr>
@@ -268,7 +268,7 @@
             </tbody>
             <tfoot ng-if="TotalCount > 0">
               <tr>
-                <td colspan="12">
+                <td colspan="13">
                   <span class="tot_rec_title">
                     <i class="fa fa-check-circle mr10"></i> Total Records : {{TotalCount}}</span>
                   <div ng-if="TotalCount > pageSize" class="text-center">

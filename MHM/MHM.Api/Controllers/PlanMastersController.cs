@@ -247,6 +247,7 @@ namespace MHM.Api.Controllers
                         objCSRRate.Id = Convert.ToInt64(objReader["Id"]);
                         objCSRRate.PlanId = objReader["PlanID"].ToString();
                         objCSRRate.RatingAreaId = Convert.ToInt64(objReader["RatingAreaId"]);
+                        objCSRRate.BusinessYear = objReader["BusinessYear"].ToString();
                         objCSRRate.Age = objReader["Age"] != DBNull.Value ? objReader["Age"].ToString() : "";
                         objCSRRate.IndividualRate = objReader["IndividualRate"] != DBNull.Value ? (decimal?)Convert.ToDecimal(objReader["IndividualRate"]) : null;
                         objCSRRate.GrpCostAmt = objReader["GrpCostAmt"] != DBNull.Value ? (decimal?)Convert.ToDecimal(objReader["GrpCostAmt"]) : null;
@@ -603,8 +604,8 @@ namespace MHM.Api.Controllers
                         //objPlanBenefit.IssuerId = objReader["IssuerId"] != DBNull.Value ? (Int64?)Convert.ToInt64(objReader["IssuerId"]) : null;
                         objPlanBenefit.IssuerName = objReader["IssuerName"] != DBNull.Value ? objReader["IssuerName"].ToString() : "";
                         objPlanBenefit.TotalCount = Convert.ToInt32(objReader["TotalCount"]);
-                        objPlanBenefit.LimitQty = objReader["LimitQty"] != DBNull.Value ? Convert.ToInt32( objReader["LimitQty"]) : 0;
-                        objPlanBenefit.LimitUnit = objReader["LimitUnit"] != DBNull.Value ?objReader["LimitUnit"].ToString() : "";
+                        objPlanBenefit.LimitQty = objReader["LimitQty"] != DBNull.Value ? Convert.ToInt32(objReader["LimitQty"]) : 0;
+                        objPlanBenefit.LimitUnit = objReader["LimitUnit"] != DBNull.Value ? objReader["LimitUnit"].ToString() : "";
                         objPlanBenefitList.Add(objPlanBenefit);
                     }
                     total = objPlanBenefitList.First().TotalCount;
@@ -926,15 +927,16 @@ namespace MHM.Api.Controllers
                                         DB.PlanBenefitMsts.AddRange(lstPlanBenefits);
                                         DB.SaveChanges();
 
-                                        var lstCSRRates = DB.CSR_Rate_Mst.Where(r => r.PlanID == OldPlan.StandardComponentId && r.BusinessYear == OldPlan.BusinessYear).ToList();
-
-                                        lstCSRRates.ForEach(r => r.PlanID = objPlanAttribute.StandardComponentId);
-
-                                        lstCSRRates.ForEach(r => r.BusinessYear = objPlanAttribute.BusinessYear);
-                                        lstCSRRates.ForEach(r => r.CreatedDateTime = System.DateTime.Now);
-                                        lstCSRRates.ForEach(r => r.Createdby = objPlanAttribute.Createdby);
-                                        DB.CSR_Rate_Mst.AddRange(lstCSRRates);
-                                        DB.SaveChanges();
+                                        if (OldPlan.StandardComponentId != objPlanAttribute.StandardComponentId)
+                                        {
+                                            var lstCSRRates = DB.CSR_Rate_Mst.Where(r => r.PlanID == OldPlan.StandardComponentId && r.BusinessYear == OldPlan.BusinessYear).ToList();
+                                            lstCSRRates.ForEach(r => r.PlanID = objPlanAttribute.StandardComponentId);
+                                            lstCSRRates.ForEach(r => r.BusinessYear = objPlanAttribute.BusinessYear);
+                                            lstCSRRates.ForEach(r => r.CreatedDateTime = System.DateTime.Now);
+                                            lstCSRRates.ForEach(r => r.Createdby = objPlanAttribute.Createdby);
+                                            DB.CSR_Rate_Mst.AddRange(lstCSRRates);
+                                            DB.SaveChanges();
+                                        }
 
                                         dbContextTransaction.Commit();
                                     }
@@ -2500,7 +2502,7 @@ namespace MHM.Api.Controllers
             {
                 try
                 {
-                    var JobMasters = DB.JobMasters.OrderByDescending(r => r.CreatedDateTime).Select(t => new { t.JobNumber, t.JobDesc, t.JobYear, t.EmployerMst.EmployerName, t.EmployerId, t.CaseZipCode, t.PlanYearStartDt, t.PlanYearEndDt }).ToList();
+                    var JobMasters = DB.JobMasters.OrderByDescending(r => r.CreatedDateTime).Select(t => new { t.JobNumber, t.JobDesc, t.JobYear, t.EmployerMst.EmployerName, t.EmployerId, t.CaseZipCode, t.PlanYearStartDt, t.PlanYearEndDt, t.WellnessOffered, t.PayPeriodsPerYear }).ToList();
                     if (JobMasters.Count > 0)
                     {
                         res.Add("Status", true);
@@ -2556,7 +2558,7 @@ namespace MHM.Api.Controllers
                                 {
                                     objJobMaster.Createdby = objJobMaster.Createdby;
                                     objJobMaster.ModifiedBy = objJobMaster.ModifiedBy;
-                                    objJobMaster.ModifiedDateTime = DateTime.Now;
+                                    objJobMaster.ModifiedDateTime = null;
                                     objJobMaster.JobCopiedFrom = objJobMaster.OldJobNumber;
                                     DB.JobMasters.Add(objJobMaster);
                                     DB.SaveChanges();
@@ -2807,7 +2809,8 @@ namespace MHM.Api.Controllers
 
 
                     List<PlanAttributeMst> lstJobPlans = DB.JobPlansMsts.Where(r => r.JobNumber == JobNumber).Select(r => r.PlanAttributeMst).ToList();
-                    lstPlans1 = DB.PlanAttributeMsts.ToList().Where(r => !lstJobPlans.Contains(r) && r.ApprovalStatus == 5).ToList();
+                    lstPlans1 = DB.PlanAttributeMsts.ToList().Where(r => !lstJobPlans.Contains(r)).ToList();
+                    //lstPlans1 = DB.PlanAttributeMsts.ToList().Where(r => !lstJobPlans.Contains(r) && r.ApprovalStatus == 5).ToList();
                     //lstPlans1 = DB.PlanAttributeMsts.ToList().Where(r => !lstJobPlans.Any(t => t.Id == r.Id)).ToList();
                     if (filters != null && filters.Count() > 0)
                     {
@@ -2945,6 +2948,7 @@ namespace MHM.Api.Controllers
                             objJob.JobDateStart = objJobMaster.JobDateStart;
                             objJob.JobDateEnd = objJobMaster.JobDateEnd;
                             objJob.JobYear = objJobMaster.JobYear;
+                            objJob.JobType = objJobMaster.JobType;
 
                             objJob.ComparisonJobNum = objJobMaster.ComparisonJobNum;
                             objJob.JobCopiedFrom = objJobMaster.JobCopiedFrom;
@@ -2973,7 +2977,8 @@ namespace MHM.Api.Controllers
                             objJob.HSAMatchLimit4 = objJobMaster.HSAMatchLimit4;
                             objJob.HSAMatchRate4 = objJobMaster.HSAMatchRate4;
 
-
+                            objJob.PayPeriodsPerYear = objJobMaster.PayPeriodsPerYear;
+                            objJob.WellnessOffered = objJobMaster.WellnessOffered;
 
                             objJob.ModifiedDateTime = System.DateTime.Now;
                             objJob.ModifiedBy = objJobMaster.ModifiedBy;
@@ -3032,7 +3037,7 @@ namespace MHM.Api.Controllers
 
             try
             {
-                List<string> lstJobStatus = Enum.GetValues(typeof(MHM.Api.Models.EnumStatusModel.JobStatus)).Cast<MHM.Api.Models.EnumStatusModel.JobStatus>().Select(r => r.ToString()).OrderBy(t => t).ToList();
+                List<string> lstJobStatus = Enum.GetValues(typeof(MHM.Api.Models.EnumStatusModel.JobStatus)).Cast<MHM.Api.Models.EnumStatusModel.JobStatus>().Select(r => r.ToString()).ToList();
                 if (lstJobStatus.Count() > 0)
                 {
                     res.Add("Status", true);
@@ -3615,18 +3620,17 @@ namespace MHM.Api.Controllers
                             var objApplication = new Applicant();
                             objApplication.FirstName = record.FirstName.Trim().Encrypt();
                             objApplication.LastName = record.LastName.Trim().Encrypt();
-                            objApplication.Street = record.Street.Trim().Encrypt();
+                            objApplication.Street = string.IsNullOrEmpty(record.Street) ? "".Encrypt() : record.Street.Trim().Encrypt();
                             objApplication.City = record.City.Trim().Encrypt();
                             objApplication.State = record.State.Trim().Encrypt();
                             objApplication.Zip = record.Zip.Trim().Encrypt();
                             objApplication.Email = record.Email.Trim().Encrypt();
                             objApplication.Mobile = record.Mobile.Replace("-", "").Trim().Encrypt();
-                            objApplication.CurrentPlan = record.CurrentPlan.Trim();
-                            objApplication.CurrentPremium = record.CurrentPremium.Replace("$", "").Replace(",", "").Trim();
+                            objApplication.CurrentPlan = string.IsNullOrEmpty(record.Street) ? "" : record.CurrentPlan.Trim();
                             objApplication.CreatedDateTime = DateTime.Now;
-                            objApplication.HireDate = Convert.ToDateTime(record.HireDate);
-                            objApplication.EREmpId = record.EREmpId.Trim();
-                            objApplication.JobTitle = record.JobTitle.Trim();
+                            objApplication.HireDate = string.IsNullOrEmpty(record.HireDate) ? (DateTime?)null : Convert.ToDateTime(record.HireDate);
+                            objApplication.EREmpId = string.IsNullOrEmpty(record.EREmpId) ? "" : record.EREmpId.Trim();
+                            objApplication.JobTitle = string.IsNullOrEmpty(record.JobTitle) ? "" : record.JobTitle.Trim();
                             objApplication.EmployerId = EmployerId;
                             DB.Applicants.Add(objApplication);
                             DB.SaveChanges();
@@ -3635,7 +3639,8 @@ namespace MHM.Api.Controllers
                             objCase.ApplicantID = objApplication.ApplicantID;
                             objCase.MAGIncome = Convert.ToDecimal(record.MAGI.Replace("$", "").Replace(",", "").Trim());
                             objCase.UsageID = Convert.ToInt32(record.UsageID);
-                            objCase.PreviousYrHSA = record.PrevYrHSA == "Y" ? true : false;
+                            objCase.PreviousYrHSA = false;
+                            objCase.Welness = record.Wellness == "Y" ? true : false;
                             objCase.CreatedDateTime = System.DateTime.Now;
                             objCase.JobNumber = JobNumber;
                             objCase.ZipCode = JobMst.CaseZipCode;
@@ -3652,7 +3657,6 @@ namespace MHM.Api.Controllers
                                 objCase.CaseTitle = record.CaseTitle;
                             else
                                 objCase.CaseTitle = !String.IsNullOrEmpty(record.LastName) ? record.LastName.Substring(0, 2) : "";
-                            objCase.Welness = false;
 
                             objCase.CaseReferenceId = RowNumber;
                             objCase.CaseSource = "Imported: " + FileName + " Row:  ##" + RowNumber;
@@ -3682,6 +3686,11 @@ namespace MHM.Api.Controllers
                         }
                     }
                 }
+
+
+                JobMaster objJob = DB.JobMasters.Where(r => r.JobNumber == JobNumber).FirstOrDefault();
+                objJob.JobCensusImportDt = System.DateTime.Now;
+                DB.SaveChanges();
 
                 if (lstNotSuccessPlanAttribute.Count > 0)
                 {

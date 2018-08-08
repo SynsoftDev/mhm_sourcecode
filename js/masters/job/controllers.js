@@ -375,6 +375,8 @@ angular.module('mhmApp.job', ['multi-select'])
 				$scope.job.HSAMatchLimit4 = 0;
 				$scope.job.HSAMatchRate4 = 0;
 				$scope.isHSAMatchFlag = false;
+				$scope.job.PayPeriodsPerYear = 0;
+				$scope.job.WellnessOffered = false;
 
 				for (var i = 2015; i < 2045; i++) {
 					$scope.years.push({ "val": i });
@@ -418,6 +420,37 @@ angular.module('mhmApp.job', ['multi-select'])
 				}, true);
 
 				// End Check validation Plan Start date and Plan end Date 17/02/2018
+
+				$scope.set_width = function (max, currentValue) {
+				if(max >10000)
+					currentValue = currentValue*90/100;
+				else if(max >12500)
+					currentValue = currentValue*80/100;
+				else if(max >15000)
+					currentValue = currentValue*70/100;
+				else if(max >20000)
+					currentValue = currentValue*60/100;
+			return {
+					width: Math.round(currentValue * 100 / max) + '%'
+				}
+			}
+
+			$scope.check_width = function (max, currentValue) {
+				if(max >10000)
+					currentValue = currentValue*90/100;
+				else if(max >12500)
+					currentValue = currentValue*80/100;
+				else if(max >15000)
+					currentValue = currentValue*70/100;
+				else if(max >20000)
+					currentValue = currentValue*60/100;
+				return Math.round(currentValue * 100 / max);
+			}
+
+
+				$scope.pro_red = '30%';
+				$scope.pro_green = '17.5%';
+
 
 				JobService.waitForLayoutCreate(function (response) {
 					$rootScope.pageLoading = false;
@@ -472,10 +505,19 @@ angular.module('mhmApp.job', ['multi-select'])
 				$scope.jobStatusChange = function () {
 					if ($scope.action != "add") {
 						if ($scope.job.CurrentJobStatus == "New" && ($scope.job.JobStatus == "Open" || $scope.job.JobStatus == "Cancelled" || $scope.job.JobStatus == "Billed" || $scope.job.JobStatus == "Closed"))
+						{
 							console.log('$scope.job.CurrentJobStatus', $scope.job.CurrentJobStatus);
-						$scope.job.JobPlansSelectionLocked = 'true';
-						$scope.job.JobPlansSelectionLockedDt = new Date();
+							$scope.job.JobPlansSelectionLocked = 'true';
+							$scope.job.JobPlansSelectionLockedDt = new Date();
+						}
 					}
+				}
+
+				$scope.jobPlansSelectionChange = function () {
+						if ($scope.job.JobPlansSelectionLocked == 'true' )
+						{
+							$scope.job.JobPlansSelectionLockedDt = new Date();
+						}
 				}
 
 				/**
@@ -483,9 +525,7 @@ angular.module('mhmApp.job', ['multi-select'])
 				*/
 				$scope.addJob = function () {
 
-					console.log($("#createJobForm").valid());
 					if ($("#createJobForm").valid()) {
-
 						if ($scope.job.EmailSignText == '' || $scope.job.EmailBodyText == '') {
 							$scope.formInvalid = true;
 							return;
@@ -495,13 +535,21 @@ angular.module('mhmApp.job', ['multi-select'])
 
 						if ($scope.action != "add") {
 
-							if (IsJobDetailsChange) {
-								bootbox.alert('This Job is ' + $scope.job.CurrentJobStatus + ' and cannot be edited', function () {
+							// if (IsJobDetailsChange) {
+							// 	bootbox.alert('This Job is ' + $scope.job.CurrentJobStatus + ' and cannot be edited', function () {
+							// 		$scope.$apply();
+							// 	});
+							// 	return;
+							// }
+							$scope.job.CurrentJobStatus = $scope.job.JobStatus;
+						}
+
+						if(new Date($scope.job.PlanYearStartDt) > new Date($scope.job.PlanYearEndDt))
+						{
+							bootbox.alert('PlanYearStartDt is later than PlanYearEndDt', function () {
 									$scope.$apply();
 								});
 								return;
-							}
-							$scope.job.CurrentJobStatus = $scope.job.JobStatus;
 						}
 
 						$scope.dataLoading = true;
@@ -550,6 +598,7 @@ angular.module('mhmApp.job', ['multi-select'])
 						}
 
 						if ($scope.job.ExpectedCompletionDt) {
+							$scope.job.ExpectedCompletionDt = $filter('date')(new Date($scope.job.ExpectedCompletionDt), 'MM/dd/yyyy');
 						}
 						if ($scope.job.PlanYearStartDt) {
 							$scope.job.PlanYearStartDt = $filter('date')(new Date($scope.job.PlanYearStartDt), 'MM/dd/yyyy');
@@ -631,15 +680,23 @@ angular.module('mhmApp.job', ['multi-select'])
 							$scope.ModifiedByName = response.ModifiedByName;
 							$scope.job.JobPlansSelectionLocked = $scope.job.JobPlansSelectionLocked ? $scope.job.JobPlansSelectionLocked.toString() : "false";
 							$scope.job.HRACanCoverPremium = $scope.job.HRACanCoverPremium ? $scope.job.HRACanCoverPremium.toString() : "false";
-							$scope.job.JobDateStart = new Date($scope.job.JobDateStart);
-							$scope.job.JobDateEnd = new Date($scope.job.JobDateEnd);
-							$scope.job.ExpectedCompletionDt = new Date($scope.job.ExpectedCompletionDt);
-							$scope.job.PlanYearStartDt = new Date($scope.job.PlanYearStartDt);
+							$scope.job.WellnessOffered = $scope.job.WellnessOffered ? $scope.job.WellnessOffered.toString() : "false";
+							
+							if($scope.job.JobDateStart)
+								$scope.job.JobDateStart = new Date($scope.job.JobDateStart);
+							if($scope.job.JobDateEnd)
+								$scope.job.JobDateEnd = new Date($scope.job.JobDateEnd);
+							if($scope.job.ExpectedCompletionDt)
+								$scope.job.ExpectedCompletionDt = new Date($scope.job.ExpectedCompletionDt);
+							if($scope.job.PlanYearStartDt)
+								$scope.job.PlanYearStartDt = new Date($scope.job.PlanYearStartDt);
 							if ($scope.job.PlanYearEndDt != null) {
 								$scope.job.PlanYearEndDt = new Date($scope.job.PlanYearEndDt);
 							}
-							$scope.job.JobPlansSelectionLockedDt = new Date($scope.job.JobPlansSelectionLockedDt);
-							$scope.job.JobCensusImportDt = new Date($scope.job.JobCensusImportDt);
+							if($scope.job.JobPlansSelectionLockedDt)
+								$scope.job.JobPlansSelectionLockedDt = new Date($scope.job.JobPlansSelectionLockedDt);
+							if($scope.job.JobCensusImportDt)
+								$scope.job.JobCensusImportDt = new Date($scope.job.JobCensusImportDt);
 
 							$scope.job.CurrentJobStatus = $scope.job.JobStatus;
 
@@ -665,8 +722,8 @@ angular.module('mhmApp.job', ['multi-select'])
 							if ($scope.action == "add") {
 								$scope.job.OldJobNumber = $scope.job.JobNumber;
 								$scope.job.JobNumber = $scope.NewJobNum;
-								console.log('a',$scope.job.OldJobNumber);
-								console.log('a',$scope.job.JobNumber);
+								// console.log('a',$scope.job.OldJobNumber);
+								// console.log('a',$scope.job.JobNumber);
 							}
 
 							$scope.getInsuranceType($scope.job.InsuranceTypeId);
@@ -713,10 +770,10 @@ angular.module('mhmApp.job', ['multi-select'])
 
 					var messageText = '';
 					if (action == 'NoSend') {
-						messageText = 'Generate Results?<br><input type="checkbox" value="2" id="chkFinalSent"> Final - Sent <input type="checkbox" value="3" id="chkNew"> New<br><input type="checkbox" value="5" id="chkFinalNotSent"> Final - Not Sent <input type="checkbox" value="6" id="chkTest"> Test <input type="checkbox" value="8" id="chkTestSent"> Test - Sent <input type="checkbox" value="9" id="chkFinalhold"> Final - Hold <input type="checkbox" value="10" id="chkNoshow">No Show <input type="checkbox" value="1" id="chkOpen"> InProcess Other  <input type="checkbox" value="12" id="chkInProcessMed"> InProcess Med Use <input type="checkbox" value="13" id="chkInProcessRx"> InProcess Rx Tiers <input type="checkbox" value="14" id="chkInProcessFollow"> InProcess Follow Up<br/> <input type="checkbox" value="15" id="chkInProcessSystem"> InProcess System Issue <input type="checkbox" value="16" id="chkNewLY"> New - LY Copy';
+						messageText = '<div> <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button> <h2 class="text-left mb0">Generate Results?</h2></div><div class="modal-body pull-left"> <div class="col-md-12 text-left"> <input type="checkbox" value="3" id="chkNew"> <label>New</label> </div><div class="col-md-12 text-left"> <input type="checkbox" value="16" id="chkNewLY"> <label>New - LY Copy</label> </div><div class="col-md-12 text-left"> <input type="checkbox" value="10" id="chkNoshow"> <label>No Show </label> </div><div class="col-md-12 text-left"> <input type="checkbox" value="12" id="chkInProcessMed"> <label>InProcess Med Use </label> </div><div class="col-md-12 text-left"> <input type="checkbox" value="13" id="chkInProcessRx"> <label>InProcess Rx Tiers </label> </div><div class="col-md-12 text-left"> <input type="checkbox" value="14" id="chkInProcessFollow"> <label>InProcess Follow Up</label> </div><div class="col-md-12 text-left"> <input type="checkbox" value="15" id="chkInProcessSystem"> <label>InProcess System Issue</label> </div><div class="col-md-12 text-left"> <input type="checkbox" value="1" id="chkOpen"> <label>InProcess Other </label> </div><div class="col-md-12 text-left"> <input type="checkbox" value="5" id="chkFinalNotSent"> <label>Final - Not Sent</label> </div><div class="col-md-12 text-left"> <input type="checkbox" value="9" id="chkFinalhold"> <label>Final - Hold </label> </div><div class="col-md-12 text-left"> <input type="checkbox" value="2" id="chkFinalSent"> <label>Final - Sent</label> </div><div class="col-md-12 text-left"> <input type="checkbox" value="6" id="chkTest"> <label>Test</label> </div><div class="col-md-12 text-left"> <input type="checkbox" value="8" id="chkTestSent"> <label>Test - Sent </label> </div></div>';
 					}
 					else {
-						messageText = messages.confirmationJobReportSend + '<br><input type="checkbox" value="2" id="chkFinalSent"> Final - Sent <input type="checkbox" value="3" id="chkNew"> New<br><input type="checkbox" value="5" id="chkFinalNotSent"> Final - Not Sent <input type="checkbox" value="6" id="chkTest"> Test <input type="checkbox" value="8" id="chkTestSent"> Test - Sent <input type="checkbox" value="9" id="chkFinalhold"> Final - Hold <input type="checkbox" value="10" id="chkNoshow"> No Show <input type="checkbox" value="1" id="chkOpen"> InProcess Other <input type="checkbox" value="12" id="chkInProcessMed"> InProcess Med Use <input type="checkbox" value="13" id="chkInProcessRx"> InProcess Rx Tiers <input type="checkbox" value="14" id="chkInProcessFollow"> InProcess Follow Up<br/> <input type="checkbox" value="15" id="chkInProcessSystem"> InProcess System Issue <input type="checkbox" value="16" id="chkNewLY"> New - LY Copy';
+						messageText = '<div> <h2 class="mb0 text-left">'+messages.confirmationJobReportSend+'</h2> </button></div><div class="modal-body pull-left"> <div class="col-md-12 text-left"> <input type="checkbox" value="3" id="chkNew"> <label>New</label> </div><div class="col-md-12 text-left"> <input type="checkbox" value="16" id="chkNewLY"> <label>New - LY Copy</label> </div><div class="col-md-12 text-left"> <input type="checkbox" value="10" id="chkNoshow"> <label>No Show</label> </div><div class="col-md-12 text-left"> <input type="checkbox" value="12" id="chkInProcessMed"> <label>InProcess Med Use</label> </div><div class="col-md-12 text-left"> <input type="checkbox" value="13" id="chkInProcessRx"> <label>InProcess Rx Tiers</label> </div><div class="col-md-12 text-left"> <input type="checkbox" value="14" id="chkInProcessFollow"> <label>InProcess Follow Up</label> </div><div class="col-md-12 text-left"> <input type="checkbox" value="15" id="chkInProcessSystem"> <label>InProcess System Issue</label> </div><div class="col-md-12 text-left"> <input type="checkbox" value="1" id="chkOpen"> <label>InProcess Other</label> </div><div class="col-md-12 text-left"> <input type="checkbox" value="5" id="chkFinalNotSent"> <label>Final - Not Sent</label> </div><div class="col-md-12 text-left"> <input type="checkbox" value="9" id="chkFinalhold"> <label>Final - Hold</label> </div><div class="col-md-12 text-left"> <input type="checkbox" value="2" id="chkFinalSent"> <label>Final - Sent</label> </div><div class="col-md-12 text-left"> <input type="checkbox" value="6" id="chkTest"> <label>Test</label> </div><div class="col-md-12 text-left"> <input type="checkbox" value="8" id="chkTestSent"> <label>Test - Sent</label> </div></div>';
 						//CaseStatusIds.push(5);
 					}
 
@@ -791,9 +848,11 @@ angular.module('mhmApp.job', ['multi-select'])
 					});
 				}
 
+
+				$scope.CurrentPlanName = '';
+				$scope.CurrentPlan = '';
 				function callServiceForEachItem(action, CaseStatusIds) {
 					$scope.dataLoading = true;
-					console.log($scope.jobRunStatus);
 					JobService.getAllCases($scope.jobNo, $scope.jobRunStatus, CaseStatusIds, function (response) {
 						$scope.Case = {};
 
@@ -805,9 +864,6 @@ angular.module('mhmApp.job', ['multi-select'])
 							$scope.caseLoadingText = 'Case No. ' + $scope.Case.CaseID + ' Processing';
 							$scope.Applicant = $scope.Case.Applicant;
 
-							//console.log($scope.caseLoadingText);
-							// $("#print_wizard").show();
-							//$("#createJobForm").hide();				
 							if (action == 'NoSend') {
 
 								console.log('Generate-Not Send')
@@ -953,65 +1009,152 @@ angular.module('mhmApp.job', ['multi-select'])
 									if (response.Status) {
 										$scope.GeneratedOnly = $scope.GeneratedOnly + 1;
 										$scope.graphResults = response.Plans;
+	
+								var MaxWorstCase = Math.max.apply(Math, $scope.graphResults.map(function (item) {
+									return item.WorstCase;
+								})) + 3000;
 
-										$scope.data.post = [];
+								var MaxTotalCost = Math.max.apply(Math, $scope.graphResults.map(function (item) {
+									return item.NetAnnualPremium + item.Medical
+								})) + 3000;
 
-										angular.forEach($scope.graphResults, function (e) {
-											$scope.data.post.push({ "State": e.PlanName, "Rank": e.Rank, "Your Net Annual Premium  Contribution": parseFloat(e.NetAnnualPremium), "Your Net Out-of-Pocket Medical Costs": parseFloat(e.Medical) });
-										});
+								$scope.max = MaxTotalCost > MaxWorstCase ? MaxTotalCost : MaxWorstCase;
 
-										$scope.data.width = ($scope.graphResults.length * 184) + ($scope.graphResults.length * 32.5);
-										$("#holderHtml").find('d3-bars').html('')
-										$scope.Case.CreatedDateTime = new Date();
+								if($scope.graphResults.length === 1)
+								{		
+									$scope.pro_red = '70%';
+									$scope.pro_green = '30%';
+								}
+								else if($scope.graphResults.length === 2)
+								{		
+									$scope.pro_red = '50%';
+									$scope.pro_green = '25%';
+								}
+								else if($scope.graphResults.length === 3)
+								{		
+									$scope.pro_red = '40%';
+									$scope.pro_green = '20%';
+								}
+								else if($scope.graphResults.length === 4)
+								{		
+									$scope.pro_red = '30%';
+									$scope.pro_green = '17.5%';
+								}
 
-										$("#print_wizard").show();
-										console.log('$scope.data.width', $scope.data.width)
-										$rootScope.updateGraph($("#holderHtml").find('d3-bars'), true, function () {
+								$scope.CurrentPlanName = $scope.Applicant.CurrentPlan;
+								if ($scope.Case.Applicant.CurrentPlan != '' && $scope.Case.Applicant.CurrentPlan != 'Waived' && $scope.Case.Applicant.CurrentPlan != 'NewHire' && $scope.graphResults.length > 0) {
+									$scope.CurrentPlan = $scope.Case.Applicant.CurrentPlan;
+									var CurrentPlanResult = $filter('filter')($scope.graphResults, function (item) {
+										return item.PlanId == $scope.CurrentPlan;
+									});
+									if (CurrentPlanResult.length > 0){
+											$scope.CurrentPlanName = CurrentPlanResult[0].PlanName;
+											$scope.DifferenceAmount = CurrentPlanResult[0].TotalPaid - $scope.Case.CasePlanResults[0].TotalPaid;
+									}
+								}
+								else
+								{
+									$scope.CurrentPlan = '';
+								}
 
-											var PlanTotalCostRange = 0;
-											if ($scope.graphResults.length > 0) {
 
-												PlanTotalCostRange = $scope.graphResults[$scope.graphResults.length - 1].TotalPaid - $scope.graphResults[0].TotalPaid;
+								if($scope.CurrentPlanName == 'Waived')
+								{
+									$scope.CurrentPlanName = 'n/a (Waived)';
+								}
+								if($scope.CurrentPlanName == 'NewHire')
+								{
+									$scope.CurrentPlanName = 'n/a (New Hire)';
+								}
 
-											}
 
-											$timeout(function () {
 
-												$("#print_wizard").hide();
+									$scope.data.post = [];
 
-												var Html = btoa(unescape(encodeURIComponent('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><body style="font-family: calibri !important;  font-size: 15px !important; color: rgb(51, 51, 51) !important;  margin: 0px auto !important;padding: 10px !important; ">' + $("#print_wizard").html() + '</body></html>')));
+									angular.forEach($scope.graphResults, function (e) {
+										$scope.data.post.push({ "State": e.PlanName, "Rank": e.Rank, "Your Net Annual Premium  Contribution": parseFloat(e.NetAnnualPremium), "Your Net Out-of-Pocket Medical Costs": parseFloat(e.Medical) });
+									});
 
-												var xhr = new XMLHttpRequest();
-												xhr.open('post', messages.serverLiveHost + messages.sendMailwithUpdate, true);
-												xhr.setRequestHeader('Content-type', 'application/json');
-												xhr.send(JSON.stringify({ ApplicantEmail: $scope.Applicant.Email, AgentEmail: $scope.customer.Email, CaseTitle: $scope.Case.CaseTitle, ApplicantName: $scope.Applicant.FirstName, AgentName: $scope.customer.FirstName, AgentPhone: $scope.customer.Phone, Html: Html, JobNumber: $scope.Case.JobNumber, CaseId: $scope.Case.CaseID, ModifiedBy: $scope.customer.id, PlanTotalCostRange: PlanTotalCostRange }));
+									$scope.data.width = ($scope.graphResults.length * 184) + ($scope.graphResults.length * 32.5);
+									$("#holderHtml").find('d3-bars').html('')
+									$scope.Case.CreatedDateTime = new Date();
 
-												xhr.onreadystatechange = function () {
+									$("#print_wizard").show();
+									console.log('$scope.data.width', $scope.data.width)
 
-													if (xhr.readyState == 4) {
-														if (xhr.status == 200) {
+									//$rootScope.updateGraph($("#holderHtml").find('d3-bars'), true, function () {
 
-															$scope.data = {};
-															$scope.data.post = [];
-															console.log(xhr.statusText)
-															$scope.ReportSent = $scope.ReportSent + 1;
-															callServiceForEachItem('Send', CaseStatusIds);
+										var PlanTotalCostRange = 0;
+										var EmployerHSAContribution = 0;
+										var EmployerPremiumContribution = 0;
+										var EmployerHRAReimbursement = 0;
+										var TotalEmployerContribution = 0;
+										var OptimalPlanName = '';
 
-														} else if (xhr.status === 400) {
-															console.log(xhr.responseText)
-															$scope.SendError = $scope.SendError + 1;
-															callServiceForEachItem('Send', CaseStatusIds);
-														}
-														else {
-															console.log("Error", xhr.statusText);
-															$scope.SendError = $scope.SendError + 1;
-															callServiceForEachItem('Send', CaseStatusIds);
-														}
+										if ($scope.graphResults.length > 0) {
+
+											PlanTotalCostRange = $scope.graphResults[$scope.graphResults.length - 1].TotalPaid - $scope.graphResults[0].TotalPaid;
+											EmployerHSAContribution = $scope.graphResults[0].ContributedToYourHSAAccount;
+											EmployerPremiumContribution = $scope.graphResults[0].FederalSubsidy;
+											EmployerHRAReimbursement = $scope.graphResults[0].HRAReimbursedAmt;
+											TotalEmployerContribution = EmployerHSAContribution + EmployerPremiumContribution + EmployerHRAReimbursement;
+											OptimalPlanName = $scope.graphResults[0].PlanName;
+										}
+
+										$timeout(function () {
+
+											$("#print_wizard").hide();
+
+											var Html = btoa(unescape(encodeURIComponent('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><body style="font-family: calibri !important;  font-size: 15px !important; color: rgb(51, 51, 51) !important;  margin: 0px auto !important;padding: 10px !important; ">' + $("#print_wizard").html() + '</body></html>')));
+
+											var xhr = new XMLHttpRequest();
+											xhr.open('post', messages.serverLiveHost + messages.sendMailwithUpdate, true);
+											xhr.setRequestHeader('Content-type', 'application/json');
+											xhr.send(JSON.stringify({ 
+												ApplicantEmail: $scope.Applicant.Email, 
+												AgentEmail: $scope.customer.Email, 
+												CaseTitle: $scope.Case.CaseTitle, 
+												ApplicantName: $scope.Applicant.FirstName, 
+												AgentName: $scope.customer.FirstName, 
+												AgentPhone: $scope.customer.Phone, 
+												Html: Html, 
+												JobNumber: $scope.Case.JobNumber, 
+												CaseId: $scope.Case.CaseID, 
+												ModifiedBy: $scope.customer.id, 
+												PlanTotalCostRange: PlanTotalCostRange,
+												EmployerHSAContribution : EmployerHSAContribution,
+												EmployerPremiumContribution : EmployerPremiumContribution,
+												EmployerHRAReimbursement : EmployerHRAReimbursement,
+												TotalEmployerContribution : TotalEmployerContribution,
+												OptimalPlanName : OptimalPlanName
+											}));
+
+											xhr.onreadystatechange = function () {
+
+												if (xhr.readyState == 4) {
+													if (xhr.status == 200) {
+
+														$scope.data = {};
+														$scope.data.post = [];
+														console.log(xhr.statusText)
+														$scope.ReportSent = $scope.ReportSent + 1;
+														callServiceForEachItem('Send', CaseStatusIds);
+
+													} else if (xhr.status === 400) {
+														console.log(xhr.responseText)
+														$scope.SendError = $scope.SendError + 1;
+														callServiceForEachItem('Send', CaseStatusIds);
+													}
+													else {
+														console.log("Error", xhr.statusText);
+														$scope.SendError = $scope.SendError + 1;
+														callServiceForEachItem('Send', CaseStatusIds);
 													}
 												}
-											}, 3000);
+											}
+										}, 3000);
 
-										})
+									//})
 
 
 
@@ -1421,12 +1564,12 @@ angular.module('mhmApp.job', ['multi-select'])
 						return;
 					}
 
-					if ($scope.job.CurrentJobStatus == "Open" || $scope.job.CurrentJobStatus == "Cancelled" || $scope.job.CurrentJobStatus == "Billed" || $scope.job.CurrentJobStatus == "Closed") {
-						bootbox.alert('This Job is ' + $scope.job.CurrentJobStatus + ' and cannot be edited', function () {
-							$scope.$apply();
-						});
-						return;
-					}
+					// if ($scope.job.CurrentJobStatus == "Open" || $scope.job.CurrentJobStatus == "Cancelled" || $scope.job.CurrentJobStatus == "Billed" || $scope.job.CurrentJobStatus == "Closed") {
+					// 	bootbox.alert('This Job is ' + $scope.job.CurrentJobStatus + ' and cannot be edited', function () {
+					// 		$scope.$apply();
+					// 	});
+					// 	return;
+					// }
 
 					var SelectedPlanIds = [];
 					$scope.userSelectedPlans.forEach(function (entry) {

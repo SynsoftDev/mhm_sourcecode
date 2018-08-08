@@ -445,6 +445,7 @@ angular.module('mhmApp.csrrate', ['ui.select'])
 					}, messages.sessionTimeout);
 				});
 				$("body").trigger("mousemove");
+				$('#wizard').smartWizard({ enableAllSteps: true });
 			});
 
 		}])
@@ -487,7 +488,7 @@ angular.module('mhmApp.csrrate', ['ui.select'])
 			if ($routeParams.id && $routeParams.sortby && $routeParams.desc) {
 				$scope.dataLoading = true;
 				$scope.id = $routeParams.id;
-				$scope.title = 'Insurance CSR Rate #' + $routeParams.id;
+				$scope.title = 'Rate #' + $routeParams.id;
 				$scope.data = { 'id': $routeParams.id, 'eventType': $scope.eventType, 'sortby': $routeParams.sortby, 'desc': $routeParams.desc };
 
 				CsrrateService.getData($scope.data, function (response) {
@@ -543,6 +544,7 @@ angular.module('mhmApp.csrrate', ['ui.select'])
 					}, messages.sessionTimeout);
 				});
 				$("body").trigger("mousemove");
+				$('#wizard').smartWizard({ enableAllSteps: true });
 			});
 
 			/*CsrrateService.waitForLayoutView(function(response){	
@@ -583,7 +585,7 @@ angular.module('mhmApp.csrrate', ['ui.select'])
 			$scope.CreatedBy = '';
 			$scope.formInvalid = false;
 			$scope.ModifiedBy = '';
-			$scope.title = 'Insurance CSR Rate';
+			$scope.title = 'Rate';
 			$scope.PlanIds = [];
 			$scope.BusinessYears = [];
 			$scope.ratingAreaId = [];
@@ -606,7 +608,7 @@ angular.module('mhmApp.csrrate', ['ui.select'])
 				$scope.readOnly = true;
 				$scope.actionBtnText = "Update";
 				$scope.showBtn = false;
-				$scope.title = 'Insurance CSR Rate #' + $routeParams.id;
+				$scope.title = 'Rate #' + $routeParams.id;
 			}
 
 			
@@ -687,6 +689,9 @@ angular.module('mhmApp.csrrate', ['ui.select'])
 						idleState = true;
 					}, messages.sessionTimeout);
 				});
+				
+				$('#wizard').smartWizard({ enableAllSteps: true });
+				$.validator.setDefaults({ ignore: '' });
 				$("#createCSRRateForm").validate({
 					errorElement: 'span',
 					errorClass: 'error',
@@ -871,12 +876,12 @@ angular.module('mhmApp.csrrate', ['ui.select'])
 						});
 					} else {
 						
-						if ($scope.ApprovalStatus === 5) {
-							bootbox.alert('This csrrate plan status is in production and cannot be edited', function() {
-								$scope.$apply();
-							});
-							return;
-						}
+						// if ($scope.ApprovalStatus === 5) {
+						// 	bootbox.alert('This csrrate plan status is in production and cannot be edited', function() {
+						// 		$scope.$apply();
+						// 	});
+						// 	return;
+						// }
 					
 						data.ModifiedBy = $scope.customer.id;
 						CsrrateService.UpdateCSRRate(data, function (response) {
@@ -974,12 +979,12 @@ angular.module('mhmApp.csrrate', ['ui.select'])
 						});
 					} else {
 						
-						if ($scope.ApprovalStatus === 5) {
-							bootbox.alert('This csrrate plan status is in production and cannot be edited', function() {
-								$scope.$apply();
-							});
-							return;
-						}
+						// if ($scope.ApprovalStatus === 5) {
+						// 	bootbox.alert('This csrrate plan status is in production and cannot be edited', function() {
+						// 		$scope.$apply();
+						// 	});
+						// 	return;
+						// }
 						
 						data.ModifiedBy = $scope.customer.id;
 						CsrrateService.UpdateCSRRate(data, function (response) {
@@ -1125,7 +1130,7 @@ angular.module('mhmApp.csrrate', ['ui.select'])
 		$scope.readOnly = false;
 		$scope.actionBtnText = "Create";
 		$scope.showBtn = true;
-		$scope.title = 'New Insurance CSR Rate';
+		$scope.title = 'New Rate';
 		$scope.hideFields = true;
 
 		$scope.breadcrumbHTML = '<li><a href="">Home</a></li><li><a href="insuranceplantype/csrrate">Rates</a></li><li class="active">' + $scope.title + '</li>';
@@ -1142,6 +1147,8 @@ angular.module('mhmApp.csrrate', ['ui.select'])
 					idleState = true;
 				}, messages.sessionTimeout);
 			});
+			$('#wizard').smartWizard({ enableAllSteps: true });
+			$.validator.setDefaults({ ignore: '' });
 			$("#createCSRRateForm").validate({
 				errorElement: 'span',
 				errorClass: 'error',

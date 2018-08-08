@@ -18,9 +18,9 @@ namespace MHM.Api.Models
         {
             New,
             Open,
-            Closed,
             Billed,
-            Cancelled
+            Cancelled,
+            Closed
         }
 
         public enum CaseJobRunStatus

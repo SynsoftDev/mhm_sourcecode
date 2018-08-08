@@ -123,6 +123,7 @@ namespace MHM.Api.Controllers
         public HttpResponseMessage CalculatePlans(string ZipCode, string CountyName, decimal Income, bool SubsidyStatus, int UsageCode, long IssuerId, int PlanTypeID, long EmployerId, string JobNumber, string BusinessYear, bool Welness, int TierIntention, JObject jObject, DateTime? DedBalAvailDate, decimal HSAPercentage = 0, decimal TaxRate = 0, bool IsAmericanIndian = false, bool ResultStatus = false, decimal DedBalAvailToRollOver = 0)
         {
             Response oResponse = new Response();
+            Dictionary<string, object> res = new Dictionary<string, object>();
 
             try
             {
@@ -156,19 +157,23 @@ namespace MHM.Api.Controllers
                     ShopSubsidy = new SubsidyCal().CalculateSubsidy(BusinessYear, Income, IsAmericanIndian, RatingAreaId, StateCode, fmlMemberList, SubsidyStatus, "SHOP", out ACAPlanIdSub, out MemberRemoveMedicaidEligibility, out MemberRemoveChipEligibility, out FPL, out SecondLowestPlanId);
                 }
 
-                var data = objOptionSheet.CalculateOptionsNew(fmlMemberList, lstFamilyMemberUses, JobNumber, ZipCode, CountyName, Income, SubsidyStatus, UsageCode, Welness, HSAPercentage, TaxRate, (decimal)MaxEEHSA, IsAmericanIndian, ResultStatus, IndividualSubsidy, ShopSubsidy, RatingAreaId, ProgID, HSALimit, StateCode, ACAPlanIdSub, PlanTypeID, IssuerId, TierIntention, 0);
-                
+                var data = objOptionSheet.CalculateOptionsNew(fmlMemberList, lstFamilyMemberUses, JobNumber, Income, SubsidyStatus, UsageCode, Welness, HSAPercentage, TaxRate, (decimal)MaxEEHSA, IsAmericanIndian, ResultStatus, IndividualSubsidy, ShopSubsidy, RatingAreaId, ProgID, HSALimit, StateCode, ACAPlanIdSub, PlanTypeID, IssuerId, TierIntention, 0);
+                if (data.Count > 4)
+                {
+                    data.ForEach(r => r.PlanName = r.PlanName.Length > 34 ? r.PlanName.Substring(0, 34) : r.PlanName);
+                }
+                res.Add("HSALimit", HSALimit);
+                res.Add("HSAAmount", Convert.ToInt64(MaxEEHSA));
+
                 if (data.Count() > 0)
                 {
-                    Dictionary<string, object> res = new Dictionary<string, object>();
+
                     res.Add("Status", "true");
                     res.Add("Message", "Success");
                     res.Add("Plans", data);
                     res.Add("ChipEligibilityCount", MemberRemoveChipEligibility);
                     res.Add("MedicaidEligibilityCount", MemberRemoveMedicaidEligibility);
                     //res.Add("SubsidyAmount", decimal.Round(Subsidy));
-                    res.Add("HSALimit", HSALimit);
-                    res.Add("HSAAmount", MaxEEHSA);
                     res.Add("FPL", FPL);
                     res.Add("SecondLowestPlanId", SecondLowestPlanId);
                     HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, res);
@@ -176,9 +181,9 @@ namespace MHM.Api.Controllers
                 }
                 else
                 {
-                    oResponse.Status = false;
-                    oResponse.Message = "No plan found matching the selected criteria.";
-                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, oResponse);
+                    res.Add("Status", false);
+                    res.Add("Message", "No plan found matching the selected criteria.");
+                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, res);
                     return response;
                 }
             }

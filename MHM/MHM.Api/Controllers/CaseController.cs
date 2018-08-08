@@ -11,25 +11,16 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using SynSecurity;
-using System.Transactions;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Threading.Tasks;
 using MHM.Api.Helpers;
-using MHM.Api.Models;
-using Winnovative;
-using Newtonsoft.Json.Linq;
 using System.Web;
 using ClosedXML.Excel;
 using System.IO;
 using System.Data.Entity;
 using SelectPdf;
-using System.Data.Entity.Infrastructure;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Spreadsheet;
 using System.Data.Entity.Validation;
-using System.Diagnostics;
 using System.Globalization;
 using System.Threading;
 using MHMBLL;
@@ -102,6 +93,7 @@ namespace MHM.Api.Controllers
                                 oApplicant.Email = oCase.Applicant.Email.Encrypt();
                                 oApplicant.Mobile = oCase.Applicant.Mobile.Encrypt();
                                 oApplicant.InsuranceTypeId = oCase.Applicant.InsuranceTypeId;
+                                oApplicant.PreferredLanguage = oCase.Applicant.PreferredLanguage;
                                 oApplicant.Createdby = oCase.Createdby;
                                 oApplicant.CreatedDateTime = oCase.CreatedDateTime;
 
@@ -345,6 +337,7 @@ namespace MHM.Api.Controllers
                                     oApplicant.Email = oCase.Applicant.Email.Encrypt();
                                     oApplicant.Mobile = oCase.Applicant.Mobile.Encrypt();
                                     oApplicant.InsuranceTypeId = oCase.Applicant.InsuranceTypeId;
+                                    oApplicant.PreferredLanguage = oCase.Applicant.PreferredLanguage;
                                     oApplicant.ModifiedBy = oCase.ModifiedBy;
                                     oApplicant.ModifiedDateTime = DateTime.Now;
                                     DB.SaveChanges();
@@ -1624,7 +1617,6 @@ namespace MHM.Api.Controllers
 
                     int webPageHeight = 0;
 
-
                     // instantiate a html to pdf converter object
                     HtmlToPdf converter = new HtmlToPdf();
 
@@ -1633,12 +1625,16 @@ namespace MHM.Api.Controllers
                     converter.Options.PdfPageOrientation = pdfOrientation;
                     converter.Options.WebPageWidth = webPageWidth;
                     converter.Options.WebPageHeight = webPageHeight;
+                    //converter.Options.EmbedFonts = false;
 
                     // create a new pdf document converting an url
                     PdfDocument doc = converter.ConvertHtmlString(htmlString, baseUrl);
 
                     // save pdf document
                     byte[] outPdfBuffer = doc.Save();
+
+
+                    //doc.Save("test.pdf");
 
                     // close pdf document
                     doc.Close();
@@ -1679,6 +1675,35 @@ namespace MHM.Api.Controllers
                         if (EmailSignText.Contains("##AgentEmail##")) { EmailSignText = EmailSignText.Replace("##AgentEmail##", JsonData.AgentEmail); }
                         if (EmailSignText.Contains("##AgentPhone##")) { EmailSignText = EmailSignText.Replace("##AgentPhone##", String.Format("{0:(###) ###-####}", Convert.ToInt64(JsonData.AgentPhone))); }
                         if (EmailBodyText.Contains("##PlanTotalCostRange##")) { EmailBodyText = EmailBodyText.Replace("##PlanTotalCostRange##", "$" + String.Format("{0:n0}", Convert.ToDecimal(JsonData.PlanTotalCostRange))); }
+                        if (EmailBodyText.Contains("##TotalEmployerContribution##"))
+                        {
+
+                            var str = "";
+                            if (Convert.ToDecimal(JsonData.EmployerHSAContribution) != 0 && Convert.ToDecimal(JsonData.EmployerHRAReimbursement) > 0)
+                            {
+                                str = "If you enroll in the " + JsonData.OptimalPlanName + " (your optimal plan), your employer will contribute approximately " + "$" + String.Format("{0:n0}", Convert.ToDecimal(JsonData.TotalEmployerContribution)) + " to your expenses. This contribution consists of:" + Environment.NewLine;
+                                str += "<ul style=" + "'margin-bottom:-10px;'" + "><li>" + "$" + String.Format("{0:n0}", Convert.ToDecimal(JsonData.EmployerPremiumContribution)) + " to your premium,</li>";
+                                str += "<li>" + "$" + String.Format("{0:n0}", Convert.ToDecimal(JsonData.EmployerHSAContribution)) + " to your health savings account, and</li>";
+                                str += "<li>an estimated " + "$" + String.Format("{0:n0}", Convert.ToDecimal(JsonData.EmployerHRAReimbursement)) + " in HRA reimbursements</li></ul>";
+                            }
+                            else if (Convert.ToDecimal(JsonData.EmployerHSAContribution) != 0 && Convert.ToDecimal(JsonData.EmployerHRAReimbursement) == 0)
+                            {
+                                str = "If you enroll in the " + JsonData.OptimalPlanName + " (your optimal plan), your employer will contribute approximately " + "$" + String.Format("{0:n0}", Convert.ToDecimal(JsonData.TotalEmployerContribution)) + " to your expenses. This contribution consists of:" + Environment.NewLine;
+                                str += "<ul style=" + "'margin-bottom:-10px;'" + "><li>" + "$" + String.Format("{0:n0}", Convert.ToDecimal(JsonData.EmployerPremiumContribution)) + " to your premium</li>";
+                                str += "<li>" + "$" + String.Format("{0:n0}", Convert.ToDecimal(JsonData.EmployerHSAContribution)) + " to your health savings account</li></ul>";
+                            }
+                            else if (Convert.ToDecimal(JsonData.EmployerHSAContribution) == 0 && Convert.ToDecimal(JsonData.EmployerHRAReimbursement) > 0)
+                            {
+                                str = "If you enroll in the " + JsonData.OptimalPlanName + " (your optimal plan), your employer will contribute approximately " + "$" + String.Format("{0:n0}", Convert.ToDecimal(JsonData.TotalEmployerContribution)) + " to your expenses. This contribution consists of:" + Environment.NewLine;
+                                str += "<ul style=" + "'margin-bottom:-10px;'" + "><li>" + "$" + String.Format("{0:n0}", Convert.ToDecimal(JsonData.EmployerPremiumContribution)) + " to your premium</li>";
+                                str += "<li>an estimated " + "$" + String.Format("{0:n0}", Convert.ToDecimal(JsonData.EmployerHRAReimbursement)) + " in HRA reimbursements</li></ul>";
+                            }
+                            else if (Convert.ToDecimal(JsonData.EmployerHSAContribution) == 0 && Convert.ToDecimal(JsonData.EmployerHRAReimbursement) == 0)
+                            {
+                                str = "If you enroll in the " + JsonData.OptimalPlanName + " (your optimal plan), your employer will contribute approximately " + "$" + String.Format("{0:n0}", Convert.ToDecimal(JsonData.TotalEmployerContribution)) + " to your premium.<br><br>";
+                            }
+                            EmailBodyText = EmailBodyText.Replace("##TotalEmployerContribution##", str);
+                        }
 
                         Mail = EmailBodyText + EmailSignText;
 
@@ -1762,7 +1787,7 @@ namespace MHM.Api.Controllers
 
                     // instantiate a html to pdf converter object
                     HtmlToPdf converter = new HtmlToPdf();
-
+                    //SelectPdf.
                     // set converter options
                     converter.Options.PdfPageSize = pageSize;
                     converter.Options.PdfPageOrientation = pdfOrientation;
@@ -1771,6 +1796,20 @@ namespace MHM.Api.Controllers
 
                     // create a new pdf document converting an url
                     PdfDocument doc = converter.ConvertHtmlString(htmlString, baseUrl);
+
+                    //var fontPath1 = HttpContext.Current.Server.MapPath("~/fonts") + "\\hind-guntur-v3-latin-regular.ttf";
+                    //doc.AddFont(fontPath1);
+                    //var fontPath2 = HttpContext.Current.Server.MapPath("~/fonts") + "\\hind-guntur-v3-latin-300.ttf";
+                    //doc.AddFont(fontPath2);
+                    //var fontPath3 = HttpContext.Current.Server.MapPath("~/fonts") + "\\hind-guntur-v3-latin-500.ttf";
+                    //doc.AddFont(fontPath3);
+                    //var fontPath4 = HttpContext.Current.Server.MapPath("~/fonts") + "\\hind-guntur-v3-latin-600.ttf";
+                    //doc.AddFont(fontPath4);
+                    //PdfFont font = doc.AddFont(PdfStandardFont.Helvetica);
+                    //font.Size = 24;
+                    //SelectPdf.PdfTextSection obj = new PdfTextSection(1, 2, "Hello Worlds,", new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif,12.0F, System.Drawing.FontStyle.Bold));
+                    //converter.Footer.Add(obj);
+                    //doc.Fonts.Add();
 
                     // save pdf document
                     byte[] outPdfBuffer = doc.Save();
@@ -4378,6 +4417,12 @@ namespace MHM.Api.Controllers
         public string CaseId { get; set; }
         public string PlanTotalCostRange { get; set; }
         public string ModifiedBy { get; set; }
+
+        public string EmployerHSAContribution { get; set; }
+        public string EmployerPremiumContribution { get; set; }
+        public string EmployerHRAReimbursement { get; set; }
+        public string TotalEmployerContribution { get; set; }
+        public string OptimalPlanName { get; set; }
     }
 
     public class CaseStatusParamter

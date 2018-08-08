@@ -22,7 +22,7 @@
         <div class="col-md-12  pl0 pr0">
           <p ng-show="flash.status" class="alert {{flash.type}}">{{flash.message}} <a class="close" ng-click="closeFlash()"><i class="fa fa-close"></i></a> </p>
         </div>
-        <div class="col-md-6 mb20">         
+        <div class="col-md-6 mb20 pl0">         
             <div class="input-group" id="adv-search">
 				<form ng-submit="setCsrrateList()" class="form-horizontal" role="form">
 					<input  ng-model="TempSearch.searchby" type="text" class="form-control" placeholder="Search Plan ID.." />
@@ -139,29 +139,28 @@
         
       </div>
       <!-- end col 12-->      
-      <div class="col-md-12">   
+      <div class="col-md-12 pl0 pr0">   
         
         <table class="table table-bordered table-condensed table-nowrap table-striped table-hover">
           <thead>
             <tr>
-              <!-- <th style="width:10%;"><a ng-click="sort_by('Id')">#ID<i class="fa fa-sort ml20"></i></a></th> -->
-              <th style="width:10%;">#ID</th>
-              <th style="width:12%;"><a ng-click="sort_by('PlanID')">PlanID<i class="fa fa-sort ml20"></i></a></th>
-              <th style="width:15%;">PlanName</th>
-              <th style="width:10%;">IssuerName</th>
-              <th style="width:8%;"><a ng-click="sort_by('RatingAreaId')">Area / Use<i class="fa fa-sort ml20"></i></a></th>
-              <th style="width:7%;"><a ng-click="sort_by('Age')">Age / Prg<i class="fa fa-sort ml20"></i></a></th>
-              <th style="width:10%;">IndPrm</th>
-              <th style="width:10%;">ER Act Prem</th>
-              <th style="width:10%;">ER Contrib Prem</th>
-              <th style="width:10%;">ER Contrib HSA</th>
 
-              <!-- <th style="width:15%;">Year</th>
-              <th style="width:10%;">State</a></th>
-              <th style="width:15%;">Rating Area</th>
-                            <th style="width:10%;">Mrkt Cover</th>
-              <th style="width:15%;"><a ng-click="sort_by('RateEffectiveDate')">Rate Effective<i class="fa fa-sort ml20"></i></a></th> -->
-              <th style="width:12%;">Action</th>
+               
+
+
+          
+              <th style="width:5.5%;">#ID</th>
+              <th style="width:5.5%;"><a ng-click="sort_by('PlanID')">Plan ID<i class="fa fa-sort ml20"></i></a></th>
+              <th style="width:13%;">Plan Name</th>
+              <th style="width:6.5%;">Plan Year</th>
+              <th style="width:12%;">Issuer Name</th>
+              <th style="width:7.5%;"><a ng-click="sort_by('RatingAreaId')">Usage Code / Area<i class="fa fa-sort ml20"></i></a></th>
+              <th style="width:7.5%;"><a ng-click="sort_by('Age')">Program ID / Age<i class="fa fa-sort ml20"></i></a></th>              
+              <th style="width:8.5%;">Gross Premium</th>
+              <th style="width:8.5%;">ER Premium Contribution</th>
+              <th style="width:8.5%;">Net Individual Premium</th>
+              <th style="width:8.5%;"> Employer HSA Contribution</th>
+              <th style="width:8.5%;">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -169,19 +168,14 @@
 			       <td class="text-right" title="{{CSRRate.Id}}">{{CSRRate.Id}}</td>
               <td class="text-right" title="{{CSRRate.PlanID}}">{{CSRRate.PlanId}}</td> 
               <td class="text-right" title="{{CSRRate.PlanName}}">{{CSRRate.PlanName}}</td> 
+              <td class="text-right" title="{{CSRRate.PlanName}}">{{CSRRate.BusinessYear}}</td> 
               <td class="text-right" title="{{CSRRate.IssuerName}}">{{CSRRate.IssuerName}}</td> 
               <td class="text-right" title="{{CSRRate.RatingAreaId}}">{{CSRRate.RatingAreaId}}</td>
-              <td class="text-right" title="{{CSRRate.Age}}">{{CSRRate.Age}}</td>
-              <td class="text-right" title="{{CSRRate.IndividualRate}}">{{CSRRate.IndividualRate}}</td>
+              <td class="text-right" title="{{CSRRate.Age}}">{{CSRRate.Age}}</td>         
               <td class="text-right" title="{{CSRRate.GrpCostAmt}}">{{CSRRate.GrpCostAmt}}</td>
               <td class="text-right" title="{{CSRRate.GrpEmplrPremAmt}}">{{CSRRate.GrpEmplrPremAmt}}</td>
-              <td class="text-right" title="{{CSRRate.GrpHSAAmt}}">{{CSRRate.GrpHSAAmt}}</td>
-
-              <!-- <td class="text-right" title="{{CSRRate.BusinessYear}}">{{CSRRate.BusinessYear}}</td>  
-                                       <td class="text-left" title="{{CSRRate.StateCode}}">{{statesA[CSRRate.StateCode]}}</td> 
-                          <td class="text-left" title="{{CSRRate.RatingAreaName}}">{{CSRRate.RatingAreaName}}</td>
-                                       <td class="text-left" title="{{CSRRate.MrktCover}}">{{CSRRate.MrktCover}}</td>
-                          <td class="text-right" title="{{CSRRate.RateEffectiveDate | date:'MM/dd/yyyy hh:mm:ss'}}">{{CSRRate.RateEffectiveDate | date:'MM/dd/yyyy'}}</td> -->            
+              <td class="text-right" title="{{CSRRate.IndividualRate}}">{{CSRRate.IndividualRate}}</td>
+              <td class="text-right" title="{{CSRRate.GrpHSAAmt}}">{{CSRRate.GrpHSAAmt}}</td>          
               <td class="text-center">
                 <a title="create new csr rate" class="color_green add_case_btn" href="insuranceplantype/editcsrrate/{{CSRRate.Id}}/copy"><i class="fa fa-plus"></i></a>
 
@@ -192,12 +186,12 @@
 			       </td>
             </tr>
             <tr ng-if="!(TotalCount > 0)">
-              <td colspan="11">No Record Found.</td>
+              <td colspan="12">No Record Found.</td>
             </tr>
           </tbody>
           <tfoot ng-if="TotalCount > 0">
             <tr>
-              <td colspan="11"><span class="tot_rec_title"><i class="fa fa-check-circle mr10"></i> Total Records : {{TotalCount}}</span>
+              <td colspan="12"><span class="tot_rec_title"><i class="fa fa-check-circle mr10"></i> Total Records : {{TotalCount}}</span>
                 <div ng-if="TotalCount > pageSize" class="text-center">
                   <ul class="pagination">
                     <li ng-class="{disabled: page == 1}"> <a href="javascript:;" ng-click="prevPage()"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Prev</a> </li>

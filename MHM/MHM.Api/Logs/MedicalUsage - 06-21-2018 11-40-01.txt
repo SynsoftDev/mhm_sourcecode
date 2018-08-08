@@ -1,0 +1,3 @@
+Api : MedicalUsage
+Request :   ZipCode 04103 ,CountyName Oxford ,EmployerId 100127 ,StateCode ME
+Exception : {"MedicalsUsage":null,"RatingAreaId":0,"Status":false,"Message":"Object reference not set to an instance of an object."}

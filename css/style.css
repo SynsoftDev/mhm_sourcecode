@@ -52,7 +52,21 @@ body#scroll-area_body {
 .title_planattr {
 	font-size: 30px;
 	position: relative;
-	top: 10px;
+	top: 0;
+}
+.title_job{
+	font-size: 30px;
+	position: relative;
+	top: 0;
+	margin:15px 0;
+	margin-bottom: 0;
+}
+.title_attribute{
+	font-size: 30px;
+	position: relative;
+	top: 0;
+	margin:15px 0;
+	margin-bottom: 0;
 }
 #footer {
 	/*background-color: #24262a;*/
@@ -66,6 +80,9 @@ body#scroll-area_body {
 	float: left;
 	bottom: 0;
 	text-align: center;
+	/* border-top: 1px solid #ddd; */
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 #address {
 	max-width: 100% !important;
@@ -921,6 +938,7 @@ form small a {
 .copyright-text {
 	font-size: 14px;
 	padding: 14px;
+	
 }
 .tp-footer-two .tiny-ft-links ul {
 	float: right;
@@ -929,9 +947,10 @@ form small a {
 .tp-footer-two .tiny-ft-links ul li {
 	float: left;
 }
-.tp-footer-two .tiny-ft-links ul li a {
-	color: #62656a;
-	padding-right: 10px;
+.testingfooter .tiny-ft-links ul li a {
+	color: #fff;    
+    padding: 10px 20px;
+    border-radius: 5px;
 }
 .tp-footer-two .tiny-ft-links ul li a:hover {
 	color: #fafafa;
@@ -941,6 +960,11 @@ form small a {
 =========== Mobile CSS =========
 ===============================*/
 @media(max-width:767px) {
+
+	.btn {
+		width: 100%;
+		margin: 10px 0;
+	}
 /************ Slider Css **********/
 
 .slider-caption {
@@ -1067,6 +1091,9 @@ form small a {
 }
 .mb20 {
 	margin-bottom: 20px !important;
+}
+.mb3 {
+	margin-bottom: 3px !important;
 }
 .mt18 {
 	margin-top: 18px !important;
@@ -2808,15 +2835,19 @@ th {
 }
 .container.cst-from-container {
 	background: #fff none repeat scroll 0 0;
-	border: 1px solid #ddd;
+	/* border: 1px solid #ddd; */
 	padding: 20px;
 }
 .attr select.form-control {
 	width: 100%;
 }
 .attr-label .control-label {
-	margin-top: 7px;
+	margin-top: 5px;
 }
+.label-margin .control-label {
+	margin-top: 9px;
+}
+
 .nav-tabs > li.active > a, .nav-tabs > li.hover > a, .nav-tabs > li.focus > a {
 	background: #3b84f2;
 	cursor: pointer;
@@ -3047,3 +3078,116 @@ h3.panel-title {
 
 .model-benefit>.ngdialog-content .modal-body {font-family:'Source Sans Pro', sans-serif;}
 .font-family-sanspro strong {font-family:'Source Sans Pro', sans-serif;}
+.stepContainer {
+    height: auto !important;
+}
+.social-menu {
+    float: right;
+}
+
+.facebook {
+  background-color: #3a5795;
+}
+.facebook:hover {
+  background-color: #3e63b3;
+}
+.google {
+  background-color: #de4231;
+}
+.google:hover {
+  background-color: #d13221;
+}
+.twitter {
+  background-color: #55acee;
+}
+.twitter:hover {
+  background-color: #31a0f4;
+}
+.linkedin {
+  background-color: #0077b5;
+}
+.linkedin:hover {
+  background-color: #0684c5;
+}
+/* .test23 .control-label {   
+    margin-bottom: 20px;
+} */
+.wiz-content-border{border: 1px solid #ddd !important;}
+.test23 .stepContainer div.content {    
+	border: 0px solid #CCC;
+	
+}
+.test23 .actionBar {
+    display: none;
+}
+.cst-wizard .swMain ul.anchor li a{
+	width: 200px!important;
+    padding-left: 10px;
+}
+.cst-wizard h3 {
+	font-weight: bold;
+    font-size: 18px;    
+}
+.cst-wizard .stepDesc{font-weight: bold;}
+.cst-wizard ul.anchor li a .stepDesc{font-size: 14px;line-height: 34px;left: 0px;}
+.wiz-height{min-height: auto !important;}
+.wiz-height .container.cst-from-container{margin-bottom: 20px;}
+.cst-wizard textarea {
+    margin-bottom: 3px;
+}
+.tabs-checkbox {
+    margin: 10px 0!important;
+}
+.tier-title {
+	margin: 0 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: #ddd;
+
+}
+.all-btn-align{margin-top: 23px;}
+
+.test23 .control-label + div {  
+    margin-bottom: 10px;
+}
+.col-md-offset-1 {
+    margin-left: 8.33333333% !important;
+}
+.col-md-offset-2 {
+    margin-left: 16.66666667% !important;
+}
+.test23 hr {
+	width: 88%;
+    left: -8% !important;
+    position: relative;   
+}
+#job-hr hr{width: 88%;left: auto !important;}
+
+/* #job-hr{width: 88%;left: auto !important;} */
+
+#rates-hr hr{
+	width: 94%;
+    left: -0% !important;
+	position: relative; 
+}
+/* #rates-hr{
+	width: 94%;
+    left: -0% !important;
+	position: relative; 
+} */
+
+.container {
+		padding-left: 0;
+		padding-right: 0;
+}
+.col-md-12.text-center.list-title {
+    padding: 10px 0;
+}
+@media (min-width:992px) {
+.col-md-offset-0-5 {
+	margin-left: 2.33333333% !important;
+}
+.col-md-offset-1-5 {
+	margin-left: 12.33333333% !important;
+}
+}

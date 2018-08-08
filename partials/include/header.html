@@ -24,7 +24,18 @@
 					<li> <a my-refresh href="insuranceplantype/csrrate" class=""> <i class="fa fa-angle-right"></i>Rates</a></li>
 				</ul>
 			</div>          
-          <!-- end dropdown-->		  
+          <!-- end dropdown-->	
+          <!-- start dropdown-->
+			<div class="btn-group">
+			  <a ng-if="customer.Role == 'Admin'" aria-expanded="false" data-toggle="dropdown" class="nav_drpdown btn tp-btn dropdown-toggle" href="#">
+			   Job Info <span class="caret"></span>
+			  </a>
+			  <ul role="menu" class="dropdown-menu">
+					<li> <a my-refresh href="masters/job" class=""><i class="fa fa-angle-right"></i>Job</a></li>
+					<li> <a my-refresh href="masters/employermaster" class=""> <i class="fa fa-angle-right"></i>Employer Master</a></li>
+			  </ul>
+			</div>          
+          <!-- end dropdown-->	  
 		  <!-- start dropdown-->
 			<div class="btn-group">
 			  <a ng-if="customer.Role == 'Admin'" aria-expanded="false" data-toggle="dropdown" class="nav_drpdown btn tp-btn dropdown-toggle" href="#">
@@ -46,7 +57,7 @@
 					Created Date : 11-07-2016
 					Start : Add job master.
 				-->
-					<li> <a my-refresh href="masters/job" class=""><i class="fa fa-angle-right"></i>Job</a></li>
+					<!-- <li> <a my-refresh href="masters/job" class=""><i class="fa fa-angle-right"></i>Job</a></li> -->
 				<!-- End : Add job master. -->
 				
 					<li> <a my-refresh href="generalmasters/fplpovertylevel" class=""><i class="fa fa-angle-right"></i>FPL Poverty Level</a></li>
@@ -55,7 +66,7 @@
 					<li> <a my-refresh href="generalmasters/hsafunding" class=""> <i class="fa fa-angle-right"></i>HSA Funding</a></li>
 					<li> <a my-refresh href="generalmasters/insurancetype" class=""> <i class="fa fa-angle-right"></i>Insurance Type</a></li>
 					<li> <a my-refresh href="generalmasters/issuermaster" class=""> <i class="fa fa-angle-right"></i>Issuer Master</a></li>
-					<li> <a my-refresh href="masters/employermaster" class=""> <i class="fa fa-angle-right"></i>Employer Master</a></li>
+					<!-- <li> <a my-refresh href="masters/employermaster" class=""> <i class="fa fa-angle-right"></i>Employer Master</a></li> -->
 					<li> <a my-refresh href="generalmasters/medicalAideligibility" class=""> <i class="fa fa-angle-right"></i>Medical Aid Eligibility</a></li>
 					<li> <a my-refresh href="generalmasters/childeligibility" class=""> <i class="fa fa-angle-right"></i>Child Eligibility</a></li>
 			  </ul>
@@ -94,11 +105,11 @@
 <!-- /.full page header--> 
 <!-- breadcrumb -->
 <div class="tp-breadcrumb">
-  <div class="container">
-    <div class="col-md-12">
+  <div class="container pl0 pr0">
+    
       <ol ng-bind-html="breadcrumbHTML | unsafe" class="breadcrumb">
       </ol>
-    </div>
+   
   </div>
 </div>
 <div class="welcome_view" ng-if="dataLoading">  <span class="loading_case_view" ng-if="caseLoading">{{caseLoadingText}}</span> 

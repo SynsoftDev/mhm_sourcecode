@@ -17,12 +17,11 @@ namespace MHM.Api.Models
         public string Mobile { get; set; }
         public string MAGI { get; set; }
         public string CurrentPlan { get; set; }
-        public string CurrentPremium { get; set; }
-        public string PrevYrHSA { get; set; }
         public string UsageID { get; set; }
         public string HireDate { get; set; }
         public string EREmpId { get; set; }
         public string JobTitle { get; set; }
         public string CaseTitle { get; set; }
+        public string Wellness { get; set; }
     }
 }

@@ -59,7 +59,7 @@ namespace MHM.Api.Helpers
                 client.Host = ConfigurationManager.AppSettings["SmtpClient"];
                 client.Port = Convert.ToInt32(ConfigurationManager.AppSettings["SmtpPort"]);
 
-                MailAddress frmAddress = new MailAddress(ConfigurationManager.AppSettings["FromMailAddress"], "MHM");
+                MailAddress frmAddress = new MailAddress(ConfigurationManager.AppSettings["FromMailAddress"], "MyHealthMath");
 
                 System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["FromMailAddress"], ConfigurationManager.AppSettings["Password"]);
                 client.UseDefaultCredentials = false;

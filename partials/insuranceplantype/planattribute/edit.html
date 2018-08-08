@@ -1,23 +1,23 @@
-<style>
-    .main-container {
+        <style>
+        .main-container {
         padding-bottom: 0px;
-    }
+        }
 
-    .wrapper {
+        .wrapper {
         height: auto;
-    }
+        }
 
-    #footer {
+        #footer {
         height: 40px;
         position: relative !important;
-    }
+        }
 
-    .select-editable {
+        .select-editable {
         position: relative;
         background-color: white;
-    }
+        }
 
-    .select-editable select {
+        .select-editable select {
         position: absolute;
         top: 0px;
         left: 0px;
@@ -25,9 +25,9 @@
         border: none;
         border: 1px solid #d5dae2;
         margin: 0;
-    }
+        }
 
-    .select-editable input {
+        .select-editable input {
         position: absolute;
         top: 0px;
         left: 0px;
@@ -37,738 +37,946 @@
         padding: 6px 12px;
         font-size: 12px;
         border-right: none;
-    }
+        }
 
-    .select-editable select:focus,
-    .select-editable input:focus {
+        .select-editable select:focus,
+        .select-editable input:focus {
         outline: none;
-    }
-</style>
+        }
+        </style>
 
-<head>
-    <title>{{title}}</title>
-</head>
-<div ng-include src="'partials/include/header.html'"></div>
-<div class="main-container pt0" id="main-container" ng-hide="pageLoading">
-    <!--Main container start-->
-    <div class="row_dummy one-column grid-media-box1">
-        <div class="col-md-12">
-            <div class="tp-wizard-form" id="tp-wizard-form">
-                <!-- wizard form -->
-                <div class="container">
-                    <div class="row">
-                        <p ng-show="flash.status" class="alert {{flash.type}}">{{flash.message}}
-                            <a class="close" ng-click="closeFlash()">
-                                <i class="fa fa-close"></i>
-                            </a>
-                        </p>
-                        <!-- Smart Wizard -->
-                        <div class="swMain attr attr-label">
-                            <div class="pb0 pt0">
-
-                                <h1 class="title_planattr">{{title}}</h1>
-                                <div class="container cst-from-container">
-                                    <div class="row">
-                                        <div class="col-md-4 col-lg-4 col-sm-12">
-                                            <!-- <h2>Main</h2>  -->
-                                        </div>
-                                        <div class="col-md-8 col-lg-8 col-sm-12">
-                                            <a title="back" class="hvr-radial-out-black btn tp-btn tp-btn-grey dropdown-toggle pull-right ml20" href="javascript:void(0);"
-                                                ng-click="navigate('close')">back</a>
-                                            <a ng-click="editplanattribute()" href="javascript:void(0)" class="hvr-radial-out btn tp-btn tp-btn-blue pull-right mb20 ml20">{{actionBtnText}}</a>
-
-                                            <a href="insuranceplantype/editplanattribute/{{NextRecord}}/{{sortby}}/{{desc}}" class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle mb20 pull-right ml20"
-                                                ng-disabled="nextButton" ng-hide="showBtn">
-                                                <i class="fa fa-angle-double-right mr10" aria-hidden="true"></i>
-                                                Next Plan</a>
-                                            <a href="insuranceplantype/editplanattribute/{{PreviousRecord}}/{{sortby}}/{{desc}}" class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle mb20 pull-right ml20"
-                                                ng-disabled="prevButton" ng-hide="showBtn">
-                                                <i class="fa fa-angle-double-left mr10" aria-hidden="true"></i>
-                                                Prev Plan</a>
-
-                                            <a title="Back" class="hvr-radial-out-black btn tp-btn tp-btn-grey dropdown-toggle pull-right ml20" href="javascript:void(0);"
-                                                ng-click="navigate('csrrate')" ng-hide="showBtn">Go Rate List</a>
-
-                                            <a title="Back" class="hvr-radial-out-black btn tp-btn tp-btn-grey dropdown-toggle pull-right ml20" href="javascript:void(0);"
-                                                ng-click="navigate('planbenefit')" ng-hide="showBtn">Go Benefit List</a>
+        <head>
+        <title>{{title}}</title>
+        </head>
+        <div ng-include src="'partials/include/header.html'"></div>
+        <div class="main-container pt0" id="main-container" ng-hide="pageLoading">
+        <!--Main container start-->
+        <div class="row_dummy one-column grid-media-box1">
+        <div class="col-md-12_dummy">
+        <div class="tp-wizard-form" id="tp-wizard-form">
+        <!-- wizard form -->
+        <div class="container">
+        <div class="row">
+        <p ng-show="flash.status" class="alert {{flash.type}}">{{flash.message}}
+        <a class="close" ng-click="closeFlash()">
+        <i class="fa fa-close"></i>
+        </a>
+        </p>
+        <!-- Smart Wizard -->
+        <div class="swMain attr attr-label label-margin">
+        <div class="pb0 pt0">
 
 
-                                        </div>
-                                    </div>
-                                    <form name="createPlanAttributeForm" id="createPlanAttributeForm" ng-submit="editplanattribute()">
-                                        <div class="row">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">PlanRecordNum </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-model="planattribute.Id" disabled />
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Plan Approval Status
-                                                    <span class="required">*</span>
-                                                </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <select ng-model="planattribute.ApprovalStatus" class="form-control" ng-change="ChangesOccur();" name="approvalStatus" id="approvalStatus">
-                                                        <option value="" disabled>select plan approval status</option>
-                                                        <option ng-repeat="approvalStatu in approvalStatus" value="{{approvalStatu.Id}}">{{approvalStatu.Value}}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Plan Id
-                                                    <span class="required">*</span>
-                                                </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" id="planId" name="planId" required ng-change="ChangesOccur(); ApprovalStatusChange();"
-                                                        ng-model="planattribute.PlanId" ng-readonly="{{readOnly}}" />
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Year
-                                                    <span class="required">*</span>
-                                                </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <select ng-model="planattribute.BusinessYear" class="form-control" id="businessYear" name="businessYear" ng-change="onFieldsChange(); ChangesOccur(); ApprovalStatusChange();"
-                                                        ng-disabled="{{readOnly}}" required>
-                                                        <option value="" disabled>Select Year</option>
-                                                        <option ng-repeat="year in years" value="{{year.val}}">{{year.val}}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Standard Component Id
-                                                    <span class="required">*</span>
-                                                </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" id="StandardCompId" name="StandardCompId" required ng-change="ChangesOccur(); ApprovalStatusChange();"
-                                                        ng-model="planattribute.StandardComponentId" />
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">SubPlanId</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-model="planattribute.PlanNumber" ng-change="ChangesOccur(); ApprovalStatusChange();"
-                                                        ng-readonly="{{readOnly}}" />
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Plan Name
-                                                    <span class="required">*</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" id="planName" name="planName" ng-change="ChangesOccur(); ApprovalStatusChange();"
-                                                        ng-model="planattribute.PlanMarketingName" />
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Is Open for Enrollment </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <select ng-model="planattribute.OpenForEnrollment" ng-change="ChangesOccur(); IsOpenForEnrollmentChange();" class="form-control">
-                                                        <option value="" disabled>select is open for enrollment</option>
-                                                        <option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Market Coverage</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <select ng-model="planattribute.MrktCover" ng-change="ChangesOccur(); ApprovalStatusChange();" class="form-control">
-                                                        <option value="" disabled>Select Mrkt Cover</option>
-                                                        <option ng-repeat="marketCoverage in marketCoverages" value="{{marketCoverage}}">{{marketCoverage}}</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">OpenEnrollChngedDate</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input ng-click="open_enroll_date()" class="form-control datepicker" type="text" uib-datepicker-popup="MM/dd/yyyy" ng-model="planattribute.OpenForEnrollment_ChangedDate"
-                                                        is-open="enrollDate.isOpned" datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
-                                                        close-text="Close" readonly disabled />
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">IssuerId
-                                                    <span class="required">*</span>
-                                                </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <select ng-model="planattribute.CarrierId" ng-change="carrierIdChange(); ChangesOccur(); ApprovalStatusChange();" class="form-control"
-                                                        name="carrierId" id="carrierId">
-                                                        <option value="" disabled>Select Issuer Id</option>
-                                                        <option ng-repeat="id in issuerIds" value="{{id.Id}}">{{id.Id}} : {{id.IssuerName}}</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Issuer Name</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-model="planattribute.IssuerName" ng-change="ChangesOccur(); ApprovalStatusChange();"
-                                                        readonly="readonly" />
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Is HSA Compatible</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <select ng-model="planattribute.IsHSAEligible" ng-change="ChangesOccur(); ApprovalStatusChange();" class="form-control">
-                                                        <option value="" disabled>select is hsa compatible</option>
-                                                        <option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}}</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Plan Type</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <select ng-model="planattribute.PlanType" ng-change="ChangesOccur(); ApprovalStatusChange();" class="form-control">
-                                                        <option value="" disabled>Select Plan Type</option>
-                                                        <option ng-repeat="plan in plans" value="{{plan.PlanID}}">{{plan.PlanType}}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Non-Embedded OOP Limits </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <select ng-model="planattribute.NonEmbeddedOOPLimits" ng-change="ChangesOccur(); ApprovalStatusChange();" class="form-control">
-                                                        <option value="" disabled>select non-embedded oop limits</option>
-                                                        <option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}}</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Dental Only?</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <select ng-model="planattribute.DentalOnlyPlan" ng-change="ChangesOccur(); ApprovalStatusChange();" class="form-control">
-                                                        <option value="" disabled>select dental only</option>
-                                                        <option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Med-Rx Ded Integrated</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <select ng-model="planattribute.MedicalDrugDeductiblesIntegrated" ng-change="ChangesOccur(); ApprovalStatusChange();" class="form-control">
-                                                        <option value="" disabled>select med-rx ded integrated</option>
-                                                        <option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}}</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Spec RX Max Coins</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="number" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.SpecialtyDrugMaximumCoinsurance"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row" ng-hide="hideFields">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Created By </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-model="Createdby" ng-readonly="{{readOnly}}" />
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Modified Date </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-model="planattribute.ModifiedDateTime" ng-readonly="{{readOnly}}" />
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row" ng-hide="hideFields">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Modified By</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-model="ModifiedBy" ng-readonly="{{readOnly}}" />
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Created Date </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-model="planattribute.CreatedDateTime" ng-readonly="{{readOnly}}" />
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Insurance Type </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <select class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.InsuranceType">
-                                                        <option value="" disabled>select insurance type</option>
-                                                        <option value="1">Standard</option>
-                                                        <option value="2">Cobra</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Referral from PCP required to see specialist?</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <select ng-model="planattribute.ReferralForSpecialist" ng-change="ChangesOccur(); ApprovalStatusChange();" class="form-control">
-                                                        <option value="" disabled>Select Referral from PCP</option>
-                                                        <option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}}</option>
-                                                        <!-- <option value="false">False</option>
-                                                        <option value="true">True</option> -->
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Group Name</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12 ">
-                                                    <div class="select-editable">
-                                                        <select class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.GroupName">
-                                                            <option ng-repeat="name in groupNames" value="{{name}}">{{name}}</option>
-                                                        </select>
-                                                        <input class="form-control" type="text" ng-model="planattribute.GroupName" ng-change="ChangesOccur(); ApprovalStatusChange();"
-                                                            placeholder="enter or select groupname" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Med-Rx MOOP Integrated </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <select ng-model="planattribute.MedicalDrugMaximumOutofPocketIntegrated" ng-change="ChangesOccur(); ApprovalStatusChange();"
-                                                        class="form-control">
-                                                        <option value="" disabled>select med-rx moop integrated</option>
-                                                        <option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">SBC URL</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.URLForSummaryofBenefitsCoverage"
-                                                    />
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">State </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <select ng-model="planattribute.StateCode" ng-change="ChangesOccur(); ApprovalStatusChange();" class="form-control">
-                                                        <option value="" disabled>Select State</option>
-                                                        <option ng-repeat="state in states" value="{{state.StateCode}}">{{state.StateName}}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Formulary URL</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.FormularyURL"
-                                                    />
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Qual Health Plan Type </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <select ng-model="planattribute.QHPNonQHPTypeId" ng-change="ChangesOccur(); ApprovalStatusChange();" class="form-control">
-                                                        <option value="" disabled>Select Qual Health Plan Type</option>
-                                                        <option value="On Exchange">On Exchange</option>
-                                                        <option value="Off Exchange">Off Exchange</option>
-                                                        <option value="Both">Both</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Plan Effective Dt</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input ng-click="open_effect_start()" ng-change="ChangesOccur(); ApprovalStatusChange();" class="form-control datepicker"
-                                                        type="text" uib-datepicker-popup="MM/dd/yyyy" ng-model="planattribute.PlanEffictiveDate"
-                                                        is-open="effectDate.isOpned" datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
-                                                        close-text="Close" />
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Plan Brochure URL</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.PlanBrochure"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Int Tier 1 Coins</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBDedInnTier1Coinsurance"
-                                                        name="TEHBDedInnTier1Coinsurance" Only-digits/>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Provider Network URL </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.NetworkURL"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Int Ded Lmt Indiv Tier1</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBDedInnTier1Individual"
-                                                        name="TEHBDedInnTier1Individual" Only-digits />
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Plan Expiration Date </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input ng-click="open_exp_start()" ng-change="ChangesOccur(); ApprovalStatusChange();" class="form-control datepicker" type="text"
-                                                        uib-datepicker-popup="MM/dd/yyyy" ng-model="planattribute.PlanExpirationDate"
-                                                        is-open="expDate.isOpned" datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
-                                                        close-text="Close" />
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Int Ded Lmt Fam Per Prsn Tier1</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBDedInnTier1FamilyPerPerson"
-                                                        name="TEHBDedInnTier1FamilyPerPerson" only-digits/>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Int MOOP Indiv Tier1 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBInnTier1IndividualMOOP"
-                                                        name="TEHBInnTier1IndividualMOOP" Only-digits />
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Int Ded Lmt Fam Per Grp Tier1</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBDedInnTier1FamilyPerGroup"
-                                                        name="TEHBDedInnTier1FamilyPerGroup" only-digits/>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Int MOOP Fam Per Prsn Tier1</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBInnTier1FamilyPerPersonMOOP"
-                                                        name="TEHBInnTier1FamilyPerPersonMOOP" only-digits/>
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Int Tier 2 Coins</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBDedInnTier2Coinsurance"
-                                                        name="TEHBDedInnTier2Coinsurance" only-digits/>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Int MOOP Fam Per Grp Tier1 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBInnTier1FamilyPerGroupMOOP"
-                                                        name="TEHBInnTier1FamilyPerGroupMOOP" Only-digits/>
-                                                </div>
-                                            </div>
+        <div class="container cst-from-container  pl0 pr0 pt0">
+                        <h1 class="title_attribute">{{title}}</h1>
+        <form class="mt20" name="createPlanAttributeForm" id="createPlanAttributeForm" ng-submit="editplanattribute()">
+        <div class="row">
+        <div class="col-md-4 col-lg-4 col-sm-12 mb20">
 
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Embedded Deductible?</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input class="checkbox_modal" ng-checked="planattribute.TEHBDedInnTier1Individual ==planattribute.TEHBDedInnTier1FamilyPerPerson"
-                                                        type="checkbox" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="EmbeddedDeductible"
-                                                        name="EmbeddedDeductible" />
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Embedded Out-of-Pocket Limit?</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input class="checkbox_modal" ng-checked="planattribute.TEHBInnTier1FamilyPerPersonMOOP ==planattribute.TEHBInnTier1IndividualMOOP"
-                                                        type="checkbox" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="EmbeddedOOPL"
-                                                        name="EmbeddedOOPL" />
-                                                </div>
-                                            </div>
 
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Int Ded Lmt Indiv Tier2 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBDedInnTier2Individual"
-                                                        name="TEHBDedInnTier2Individual" only-digits/>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Int MOOP Indiv Tier2 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBInnTier2IndividualMOOP"
-                                                        name="TEHBInnTier2IndividualMOOP" only-digits/>
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Int Ded Lmt Fam Per Prsn Tier2 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBDedInnTier2FamilyPerPerson"
-                                                        name="TEHBDedInnTier2FamilyPerPerson" only-digits/>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Int MOOP Fam Per Prsn Tier2 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBInnTier2FamilyPerPersonMOOP"
-                                                        name="TEHBInnTier2FamilyPerPersonMOOP" only-digits/>
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Int Ded Lmt Fam Per Grp Tier2 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBDedInnTier2FamilyPerGroup"
-                                                        name="TEHBDedInnTier2FamilyPerGroup" only-digits/>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Int MOOP Fam Per Grp Tier2 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBInnTier2FamilyPerGroupMOOP"
-                                                        name="TEHBInnTier2FamilyPerGroupMOOP" only-digits/>
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Med Tier 1 Coins </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.MEHBDedInnTier1Coinsurance"
-                                                        name="MEHBDedInnTier1Coinsurance" only-digits/>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Med MOOP Indiv Tier1 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.MEHBInnTier1IndividualMOOP"
-                                                        name="MEHBInnTier1IndividualMOOP" only-digits/>
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Med Ded Lmt Indiv Tier1 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.MEHBDedInnTier1Individual"
-                                                        name="MEHBDedInnTier1Individual" only-digits/>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Med MOOP Fam Per Prsn Tier1 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.MEHBInnTier1FamilyPerPersonMOOP"
-                                                        name="MEHBInnTier1FamilyPerPersonMOOP" only-digits/>
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Med Ded Lmt Fam Per Prsn Tier1 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.MEHBDedInnTier1FamilyPerPerson"
-                                                        name="MEHBDedInnTier1FamilyPerPerson" only-digits/>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Med MOOP Fam Per Grp Tier1</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.MEHBInnTier1FamilyPerGroupMOOP"
-                                                        name="MEHBInnTier1FamilyPerGroupMOOP" only-digits/>
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Med Ded Lmt Fam Per Grp Tier1 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.MEHBDedInnTier1FamilyPerGroup"
-                                                        name="MEHBDedInnTier1FamilyPerGroup" only-digits/>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Med MOOP Indiv Tier2 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.MEHBInnTier2IndividualMOOP"
-                                                        name="MEHBInnTier2IndividualMOOP" only-digits/>
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Med Tier 2 Coins </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.MEHBDedInnTier2Coinsurance"
-                                                        name="MEHBDedInnTier2Coinsurance" only-digits/>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Med MOOP Fam Per Prsn Tier2</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.MEHBInnTier2FamilyPerPersonMOOP"
-                                                        name="MEHBInnTier2FamilyPerPersonMOOP" only-digits/>
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Med Ded Lmt Indiv Tier2 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.MEHBDedInnTier2Individual"
-                                                        name="MEHBDedInnTier2Individual" only-digits/>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Med MOOP Fam Per Grp Tier2 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.MEHBInnTier2FamilyPerGroupMOOP"
-                                                        name="MEHBInnTier2FamilyPerGroupMOOP" only-digits/>
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Med Ded Lmt Fam Per Prsn Tier2 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.MEHBDedInnTier2FamilyPerPerson"
-                                                        name="MEHBDedInnTier2FamilyPerPerson" only-digits/>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Rx MOOP Indiv Tier1 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.DEHBInnTier1IndividualMOOP"
-                                                        name="DEHBInnTier1IndividualMOOP" only-digits/>
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="ccol-md-2 col-lg-2 col-sm-12 text-right control-label">Med Ded Lmt Fam Per Grp Tier2 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.MEHBDedInnTier2FamilyPerGroup"
-                                                        name="MEHBDedInnTier2FamilyPerGroup" only-digits/>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Rx MOOP Fam Per Prsn Tier1 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.DEHBInnTier1FamilyPerPersonMOOP"
-                                                        name="DEHBInnTier1FamilyPerPersonMOOP" only-digits/>
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Rx Tier 1 Coins </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.DEHBDedInnTier1Coinsurance"
-                                                        name="DEHBDedInnTier1Coinsurance" only-digits/>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Rx MOOP Fam Per Grp Tier1 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.DEHBInnTier1FamilyPerGroupMOOP"
-                                                        name="DEHBInnTier1FamilyPerGroupMOOP" only-digits/>
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Rx Ded Lmt Indiv Tier1 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.DEHBDedInnTier1Individual"
-                                                        name="DEHBDedInnTier1Individual" only-digits/>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Rx MOOP Indiv Tier2 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.DEHBInnTier2IndividualMOOP"
-                                                        name="DEHBInnTier2IndividualMOOP" only-digits/>
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Rx Ded Lmt Fam Per Prsn Tier1 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.DEHBDedInnTier1FamilyPerPerson"
-                                                        name="DEHBDedInnTier1FamilyPerPerson" only-digits/>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Rx MOOP Fam Per Prsn Tier2 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.DEHBInnTier2FamilyPerPersonMOOP"
-                                                        name="DEHBInnTier2FamilyPerPersonMOOP" only-digits/>
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Rx Ded Lmt Fam Per Grp Tier1 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.DEHBDedInnTier1FamilyPerGroup"
-                                                        name="DEHBDedInnTier1FamilyPerGroup" only-digits/>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Rx MOOP Fam Per Grp Tier2 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.DEHBInnTier2FamilyPerGroupMOOP"
-                                                        name="DEHBInnTier2FamilyPerGroupMOOP" only-digits/>
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Rx Tier 2 Coins </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.DEHBDedInnTier2Coinsurance"
-                                                        name="DEHBDedInnTier2Coinsurance" only-digits/>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Cost Sharing Var Type</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.CSRVariationType"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Rx Ded Lmt Indiv Tier2 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.DEHBDedInnTier2Individual"
-                                                        name="DEHBDedInnTier2Individual" only-digits/>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Metal Level</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <select ng-model="planattribute.MetalLevel" ng-change="ChangesOccur(); ApprovalStatusChange();" class="form-control">
-                                                        <option value="" disabled>Select Metal Level</option>
-                                                        <option ng-repeat="metalLevel in metalLevels" value="{{metalLevel}}">{{metalLevel}}</option>
-                                                    </select>
-                                                </div>
-
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Rx Ded Lmt Fam Per Prsn Tier2 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.DEHBDedInnTier2FamilyPerPerson"
-                                                        name="DEHBDedInnTier2FamilyPerPerson" only-digits/>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Is HRA Eligible</div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <select ng-model="planattribute.IsHRAeligible" ng-change="ChangesOccur(); ApprovalStatusChange();" class="form-control">
-                                                        <option value="" disabled>Select HRA Eligible</option>
-                                                        <option value="false">False</option>
-                                                        <option value="true">True</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Rx Ded Lmt Fam Per Grp Tier2 </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.DEHBDedInnTier2FamilyPerGroup"
-                                                        name="DEHBDedInnTier2FamilyPerGroup" only-digits/>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Formal Plan Name </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-model="planattribute.PlanFormalName" name="PlanFormalName" />
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">HIOS Product Id </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.HIOSProductId"
-                                                        name="HIOSProductId" />
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Plan Notes </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-model="planattribute.PlanNotes" name="PlanNotes" />
-                                                </div>
-                                            </div>
-                                            <hr class="cst_hr">
-                                            <div class="row">
-                                                <div class="col-md-2 col-lg-2 col-sm-12 text-right control-label">Service Area Id </div>
-                                                <div class="col-md-3 col-lg-3 col-sm-12">
-                                                    <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.ServiceAreaId"
-                                                        name="ServiceAreaId" />
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-sm-12">&nbsp;</div>
-
-                                            </div>
-                                            <hr>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--end col 12-->
-                </div>
-                <!--end row-->
-            </div>
+        <div class="col-md-6 pl0">
+        <div class="form-group mb0">
+        <label class="control-label mt0" for="fname">Plan Approval Status
+        <span class="required">*</span>
+        </label>
+        <select ng-model="planattribute.ApprovalStatus" class="form-control" ng-change="ChangesOccur();" name="approvalStatus" id="approvalStatus">
+        <option value="" disabled>select plan approval status</option>
+        <option ng-repeat="approvalStatu in approvalStatus" value="{{approvalStatu.Id}}">{{approvalStatu.Value}}</option>
+        </select>
         </div>
-    </div>
-</div>
-<!-- /.wizard form -->
-<div ng-include src="'partials/include/footer.html'"></div>
+        </div>
+
+
+        <div class="col-md-6 pl0">
+        <div class="form-group mb0">
+        <label class="control-label mt0" for="fname">Is Open for Enrollment</label>
+        <select ng-model="planattribute.OpenForEnrollment" ng-change="ChangesOccur(); IsOpenForEnrollmentChange();" class="form-control">
+        <option value="" disabled>select is open for enrollment</option>
+        <option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}}</option>
+        </select>
+        </div>
+        </div>
+        </div>  <!--end col-md-4 col-lg-4 -->
+
+
+
+        <div class="col-md-8 col-lg-8 col-sm-12 all-btn-align">
+        <a title="back" class="hvr-radial-out-black btn tp-btn tp-btn-grey dropdown-toggle pull-right ml20" href="javascript:void(0);"
+        ng-click="navigate('close')">back</a>
+        <a ng-click="editplanattribute()" href="javascript:void(0)" class="hvr-radial-out btn tp-btn tp-btn-blue pull-right mb20 ml20">{{actionBtnText}}</a>
+
+        <a href="insuranceplantype/editplanattribute/{{NextRecord}}/{{sortby}}/{{desc}}" class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle mb20 pull-right ml20"
+        ng-disabled="nextButton" ng-hide="showBtn">
+        <i class="fa fa-angle-double-right mr10" aria-hidden="true"></i>
+        Next Plan</a>
+        <a href="insuranceplantype/editplanattribute/{{PreviousRecord}}/{{sortby}}/{{desc}}" class="hvr-radial-out-orange btn tp-btn tp-btn-orange dropdown-toggle mb20 pull-right ml20"
+        ng-disabled="prevButton" ng-hide="showBtn">
+        <i class="fa fa-angle-double-left mr10" aria-hidden="true"></i>
+        Prev Plan</a>
+
+        <a title="Back" class="hvr-radial-out-black btn tp-btn tp-btn-grey dropdown-toggle pull-right ml20" href="javascript:void(0);"
+        ng-click="navigate('csrrate')" ng-hide="showBtn">Go Rate List</a>
+
+        <a title="Back" class="hvr-radial-out-black btn tp-btn tp-btn-grey dropdown-toggle pull-right ml20" href="javascript:void(0);"
+        ng-click="navigate('planbenefit')" ng-hide="showBtn">Go Benefit List</a>
+
+
+        </div>
+        </div>
+
+
+
+        <!-- <form name="createPlanAttributeForm" id="createPlanAttributeForm" ng-submit="editplanattribute()"> -->
+        <div class="col-md-12_dummy">
+        <div class="tp-wizard-form" id="tp-wizard-form">
+        <!-- wizard form -->
+        <!-- Smart Wizard -->
+        <div class="swMain">
+
+        <div class="">
+        <div class="cst-wizard">
+        <div id="wizard" class="swMain test23">
+        <ul>
+
+        <li>
+        <a href="#step-0">
+                <span class="stepDesc">Main
+                
+                </span>
+        </a>
+        </li>
+        <li>
+        <a href="#step-1">
+                <span class="stepDesc">Coverage Details
+                
+                </span>
+        </a>
+        </li>
+
+        <li>
+        <a href="#step-2">
+                <span class="stepDesc">Notes/Reference
+                
+                </span>
+        </a>
+        </li>
+        <li>
+        <a href="#step-3">
+                <span class="stepDesc">ACA
+                
+                </span>
+        </a>
+        </li>
+
+        <li>
+                <a href="#step-4">
+                <span class="stepDesc">Systems
+                
+                </span>
+                </a>
+        </li>
+        </ul>
+
+        <div class="wiz-content-border">   
+
+
+        <div class="col-md-offset-0-5" id="step-0">
+        <p>
+        <h3>Key Information</h3>
+        </p>
+        <div class="row">
+
+
+
+        <div class="col-md-5 col-lg-5 col-sm-12">      
+                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Plan ID <span class="required">*</span></div>
+                <div class="col-md-7 col-lg-7 col-sm-12">
+                        <input type="text" class="form-control" id="planId" name="planId" required ng-change="ChangesOccur(); ApprovalStatusChange();"
+                        ng-model="planattribute.PlanId" ng-readonly="{{readOnly}}" />
+                </div>
+        </div>
+
+
+
+        <div class="col-md-5 col-lg-5 col-sm-12">
+                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Group Name</div>
+                <div class="col-md-7 col-lg-7 col-sm-12">
+                        <div class="select-editable">
+                                <select class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.GroupName">
+                                <option ng-repeat="name in groupNames" value="{{name}}">{{name}}</option>
+                                </select>
+                                <input class="form-control" type="text" ng-model="planattribute.GroupName" ng-change="ChangesOccur(); ApprovalStatusChange();"
+                                placeholder="enter or select groupname" />
+                        </div>
+                </div>
+        </div>
+        </div>
+
+
+
+        <div class="row">
+        <div class="col-md-5 col-lg-5 col-sm-12">
+                
+                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Plan Name </div>
+                <div class="col-md-7 col-lg-7 col-sm-12">
+                        <input type="text" class="form-control" id="planName" name="planName" ng-change="ChangesOccur(); ApprovalStatusChange();"
+                        ng-model="planattribute.PlanMarketingName" />
+                </div>
+        </div>
+        <div class="col-md-5 col-lg-5 col-sm-12">
+        
+                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Plan Year </div>
+                <div class="col-md-7 col-lg-7 col-sm-12">
+                        <select ng-model="planattribute.BusinessYear" class="form-control" id="businessYear" name="businessYear" ng-change="onFieldsChange(); ChangesOccur(); ApprovalStatusChange();"
+                        ng-disabled="{{readOnly}}" required>
+                        <option value="" disabled>Select Year</option>
+                        <option ng-repeat="year in years" value="{{year.val}}">{{year.val}}</option>
+                </select>
+                </div>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-md-5 col-lg-5 col-sm-12">
+                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Formal Plan Name </div>
+                <div class="col-md-7 col-lg-7 col-sm-12">                                                                 <input type="text" class="form-control" ng-model="planattribute.PlanFormalName" name="PlanFormalName" />
+                </div>
+        </div>
+        <div class="col-md-5 col-lg-5 col-sm-12">
+                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Plan Type</div>
+                <div class="col-md-7 col-lg-7 col-sm-12">
+                        <select ng-model="planattribute.PlanType" ng-change="ChangesOccur(); ApprovalStatusChange();" class="form-control">
+                        <option value="" disabled>Select Plan Type</option>
+                        <option ng-repeat="plan in plans| orderBy : 'PlanID'" value="{{plan.PlanID}}">{{plan.PlanType}}</option>
+                        </select>
+                </div>
+                </div>
+        </div>
+        <div class="row">
+        <div class="col-md-5 col-lg-5 col-sm-12">
+                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Issuer ID</div>
+                <div class="col-md-7 col-lg-7 col-sm-12">
+                        <select ng-model="planattribute.CarrierId" ng-change="carrierIdChange(); ChangesOccur(); ApprovalStatusChange();" class="form-control"
+                        name="carrierId" id="carrierId">
+                        <option value="" disabled>Select Issuer Id</option>
+                        <option ng-repeat="id in issuerIds" value="{{id.Id}}">{{id.Id}} : {{id.IssuerName}}</option>
+                </select>
+                </div>
+        </div>
+        <div class="col-md-5 col-lg-5 col-sm-12">
+                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Insurance Type </div>
+                <div class="col-md-7 col-lg-7 col-sm-12">
+                        <select class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.InsuranceType">
+                                <option value="" disabled>select insurance type</option>
+                                <option value="1">Standard</option>
+                                <option value="2">Cobra</option>
+                        </select>
+                </div>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-md-5 col-lg-5 col-sm-12">
+                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Issuer Name</div>
+                <div class="col-md-7 col-lg-7 col-sm-12">
+                        <input type="text" class="form-control" ng-model="planattribute.IssuerName" ng-change="ChangesOccur(); ApprovalStatusChange();"
+                        readonly="readonly" />
+                </div>
+        </div>
+
+
+
+
+        <div class="col-md-5 col-lg-5 col-sm-12">
+                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Market Coverage</div>
+                <div class="col-md-7 col-lg-7 col-sm-12">
+                        <select ng-model="planattribute.MrktCover" ng-change="ChangesOccur(); ApprovalStatusChange();" class="form-control">
+                                <option value="" disabled>Select Mrkt Cover</option>
+                                <option ng-repeat="marketCoverage in marketCoverages" value="{{marketCoverage}}">{{marketCoverage}}</option>
+                        </select>
+                </div>
+        </div>
+
+
+        </div>
+
+
+
+        <div class="row">
+
+        <div class="col-md-5 col-lg-5 col-sm-12">
+                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">State </div>
+                <div class="col-md-7 col-lg-7 col-sm-12">
+                        <select ng-model="planattribute.StateCode" ng-change="ChangesOccur(); ApprovalStatusChange();" class="form-control">
+                                <option value="" disabled>Select State</option>
+                                <option ng-repeat="state in states" value="{{state.StateCode}}">{{state.StateName}}</option>
+                        </select>
+                </div>
+        </div>
+
+
+
+        <div class="col-md-5 col-lg-5 col-sm-12">
+        
+                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Dental Only?</div>
+                <div class="col-md-7 col-lg-7 col-sm-12">
+                        <select ng-model="planattribute.DentalOnlyPlan" ng-change="ChangesOccur(); ApprovalStatusChange();" class="form-control">
+                                <option value="" disabled>select dental only</option>
+                                <option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}}</option>
+                        </select>
+                </div>
+        </div>
+
+
+
+
+
+
+        </div>
+        <!--  end row -->
+        <hr>
+        <p>
+        <h3>Additional Details</h3>
+        </p>
+
+        <div class="row">
+        <div class="col-md-5 col-lg-5 col-sm-12">
+                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Plan Effective Date</div>
+                <div class="col-md-7 col-lg-7 col-sm-12">
+                        <input ng-click="open_effect_start()" ng-change="ChangesOccur(); ApprovalStatusChange();" class="form-control datepicker"
+                        type="text" uib-datepicker-popup="MM/dd/yyyy" ng-model="planattribute.PlanEffictiveDate"
+                        is-open="effectDate.isOpned" datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
+                        close-text="Close" />
+                </div>
+        </div>
+        <div class="col-md-5 col-lg-5 col-sm-12">
+                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">HSA Eligible</div>
+                <div class="col-md-7 col-lg-7 col-sm-12">
+                        <select ng-model="planattribute.IsHSAEligible" ng-change="ChangesOccur(); ApprovalStatusChange();" class="form-control">
+                                <option value="" disabled>select is hsa compatible</option>
+                                <option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}}</option>
+                        </select>
+                </div>
+        </div>
+        <div class="col-md-5 col-lg-5 col-sm-12">
+        
+                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Plan Expiration Date </div>
+                <div class="col-md-7 col-lg-7 col-sm-12">
+                        <input ng-click="open_exp_start()" ng-change="ChangesOccur(); ApprovalStatusChange();" class="form-control datepicker" type="text"
+                        uib-datepicker-popup="MM/dd/yyyy" ng-model="planattribute.PlanExpirationDate"
+                        is-open="expDate.isOpned" datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
+                        close-text="Close" />
+                </div>
+        </div>
+        <div class="col-md-5 col-lg-5 col-sm-12">
+                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">HRA Eligible</div>
+                <div class="col-md-7 col-lg-7 col-sm-12">
+                        <select ng-model="planattribute.IsHRAeligible" ng-change="ChangesOccur(); ApprovalStatusChange();" class="form-control">
+                                <option value="" disabled>Select HRA Eligible</option>
+                                <option value="false">False</option>
+                                <option value="true">True</option>
+                        </select>
+                </div>
+        </div>
+
+        </div>
+        <!--  end row -->
+        </div>
+        <!--  end id="step-1" -->                
+
+        <div class="col-md-offset-0-5" id="step-1">
+        <p>
+                <h3>Coverage</h3>
+                </p>
+                <div class="row">
+
+
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Embedded Deductible?</div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">   
+                                <input class="checkbox_modal tabs-checkbox" ng-checked="planattribute.TEHBDedInnTier1Individual ==planattribute.TEHBDedInnTier1FamilyPerPerson"
+                                type="checkbox" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="EmbeddedDeductible"
+                                name="EmbeddedDeductible" />
+                        </div>
+                </div>
+
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Med-Rx Integrated Deductible?</div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <select ng-model="planattribute.MedicalDrugDeductiblesIntegrated" ng-change="ChangesOccur(); ApprovalStatusChange();" class="form-control">
+                                        <option value="" disabled>select med-rx ded integrated</option>
+                                        <option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}}</option>
+                                </select>
+                        </div>
+                </div>
+                </div>
+
+                <div class="row">
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Embedded Out-of-Pocket Limit?</div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input class="checkbox_modal tabs-checkbox" ng-checked="planattribute.TEHBInnTier1FamilyPerPersonMOOP ==planattribute.TEHBInnTier1IndividualMOOP"
+                                type="checkbox" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="EmbeddedOOPL"
+                                name="EmbeddedOOPL" />
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Med-Rx Integrated MOOP?</div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <select ng-model="planattribute.MedicalDrugMaximumOutofPocketIntegrated" ng-change="ChangesOccur(); ApprovalStatusChange();"
+                                class="form-control">
+                                <option value="" disabled>select med-rx moop integrated</option>
+                                <option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}}</option>
+                        </select>
+                        </div>
+                </div>
+                </div>
+
+
+
+
+                <div class="row">
+                <div class="col-md-5 col-lg-5 col-sm-12">  
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label"> Non-Embedded OOP Limits</div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <select ng-model="planattribute.NonEmbeddedOOPLimits" ng-change="ChangesOccur(); ApprovalStatusChange();" class="form-control">
+                                        <option value="" disabled>select non-embedded oop limits</option>
+                                        <option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}}</option>
+                                </select>
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Referral from PCP required to see specialist?</div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <select ng-model="planattribute.ReferralForSpecialist" ng-change="ChangesOccur(); ApprovalStatusChange();" class="form-control">
+                                        <option value="" disabled>Select Referral from PCP</option>
+                                        <option ng-repeat="exp in conditionalExp" value="{{exp.key}}">{{exp.val}}</option>
+                                        <!-- <option value="false">False</option>
+                                        <option value="true">True</option> -->
+                                </select>
+                        </div>
+                </div>
+                </div>
+                <!--  end row -->
+
+                <div class="row">
+                <div class="col-md-5 col-lg-5 col-sm-12 text-center tier-title">
+                <h3 class="mb0">TIER 1</h3> 
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12 text-center tier-title">
+                        <h3 class="mb0">TIER 2</h3> 
+                </div>
+
+
+
+                <div class="row_dummy">
+
+
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Coinsurance Rate Tier 1</div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBDedInnTier1Coinsurance"
+                                name="TEHBDedInnTier1Coinsurance" Only-digits/>
+                        </div>
+                </div>
+
+
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Coinsurance Rate Tier 2</div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBDedInnTier2Coinsurance"
+                                name="TEHBDedInnTier2Coinsurance" only-digits/>
+                        </div>
+                </div>
+
+
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label"> Integrated Deductible - Individual Tier 1</div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBDedInnTier1Individual"
+                                name="TEHBDedInnTier1Individual" Only-digits />
+                        </div>
+                </div>
+
+
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Integrated Deductible - Individual Tier 2 </div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBDedInnTier2Individual"
+                                name="TEHBDedInnTier2Individual" only-digits/>
+                        </div>
+                </div>
+
+
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Integrated Deductible - Family Per Person Tier 1</div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBDedInnTier1FamilyPerPerson"
+                                name="TEHBDedInnTier1FamilyPerPerson" only-digits/>
+                        </div>
+                </div>
+
+
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">
+                        Integrated Deductible - Family Per Person Tier 2 </div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBDedInnTier2FamilyPerPerson"
+                                name="TEHBDedInnTier2FamilyPerPerson" only-digits/>
+                        </div>
+                </div>
+
+
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Integrated Deductible - Family Per Group Tier 1</div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBDedInnTier1FamilyPerGroup"
+                                name="TEHBDedInnTier1FamilyPerGroup" only-digits/>
+                        </div>
+                </div>
+
+
+
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Integrated Deductible - Family Per Group Tier 2 </div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBDedInnTier2FamilyPerGroup"
+                                name="TEHBDedInnTier2FamilyPerGroup" only-digits/>
+                        </div>
+
+
+                </div>
+                </div>
+                <!-- end row -->
+
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Integrated MOOP - Individual Tier 1</div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                        <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBInnTier1IndividualMOOP"
+                        name="TEHBInnTier1IndividualMOOP" Only-digits />
+                        </div>
+                </div>
+
+
+
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Integrated MOOP - Individual Tier 2 </div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBInnTier2IndividualMOOP"
+                                name="TEHBInnTier2IndividualMOOP" only-digits/>
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Integrated MOOP - Family Per Person Tier 1</div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBInnTier1FamilyPerPersonMOOP"
+                                name="TEHBInnTier1FamilyPerPersonMOOP" only-digits/>
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Integrated MOOP - Family Per Person Tier 2</div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBInnTier2FamilyPerPersonMOOP"
+                                name="TEHBInnTier2FamilyPerPersonMOOP" only-digits/>
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Integrated MOOP - Family Per Group Tier 1</div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBInnTier1FamilyPerGroupMOOP"
+                                name="TEHBInnTier1FamilyPerGroupMOOP" Only-digits/>
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Integrated MOOP - Family Per Group Tier 2 </div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.TEHBInnTier2FamilyPerGroupMOOP"
+                                name="TEHBInnTier2FamilyPerGroupMOOP" only-digits/>
+                        </div>
+                </div>
+
+                <div class="row pull-left width_100"><hr></div>
+
+
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Medical Deductible - Individual Tier 1</div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.MEHBDedInnTier1Individual"
+                                name="MEHBDedInnTier1Individual" only-digits/>
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label"> Medical Deductible - Individual Tier 2 </div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.MEHBDedInnTier2Individual"
+                                name="MEHBDedInnTier2Individual" only-digits/>
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Medical Deductible - Family Per Person Tier 1 </div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.MEHBDedInnTier1FamilyPerPerson"
+                                name="MEHBDedInnTier1FamilyPerPerson" only-digits/>
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Medical Deductible - Family Per Person Tier 2 </div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.MEHBDedInnTier2FamilyPerPerson"
+                                name="MEHBDedInnTier2FamilyPerPerson" only-digits/>
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Medical Deductible - Family Per Group Tier 1</div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.MEHBDedInnTier1FamilyPerGroup"
+                                name="MEHBDedInnTier1FamilyPerGroup" only-digits/>
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="ccol-md-7 col-lg-7 col-sm-12 text-right control-label"> Medical Deductible - Family Per Group Tier 2 </div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.MEHBDedInnTier2FamilyPerGroup"
+                                name="MEHBDedInnTier2FamilyPerGroup" only-digits/>
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label"> Medical MOOP - Individual Tier 1 </div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.MEHBInnTier1IndividualMOOP"
+                                name="MEHBInnTier1IndividualMOOP" only-digits/>
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label"> Medical MOOP - Individual Tier 2</div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.MEHBInnTier2IndividualMOOP"
+                                name="MEHBInnTier2IndividualMOOP" only-digits/>
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Medical MOOP - Family Per Person Tier 1 </div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.MEHBInnTier1FamilyPerPersonMOOP"
+                                name="MEHBInnTier1FamilyPerPersonMOOP" only-digits/>
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Medical MOOP - Family Per Person Tier 2</div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.MEHBInnTier2FamilyPerPersonMOOP"
+                                name="MEHBInnTier2FamilyPerPersonMOOP" only-digits/>
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label"> Medical MOOP - Family Per Group Tier 1 </div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.MEHBInnTier1FamilyPerGroupMOOP"
+                                name="MEHBInnTier1FamilyPerGroupMOOP" only-digits/>
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Medical MOOP - Family Per Group Tier 2 </div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.MEHBInnTier2FamilyPerGroupMOOP"
+                                name="MEHBInnTier2FamilyPerGroupMOOP" only-digits/>
+                        </div>
+                </div>
+                <div class="row pull-left width_100"><hr></div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Rx Deductible - Individual Tier 1 </div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.DEHBDedInnTier1Individual"
+                                name="DEHBDedInnTier1Individual" only-digits/>
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Rx Deductible - Individual Tier 2 </div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                        <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.DEHBDedInnTier2Individual" name="DEHBDedInnTier2Individual" only-digits="">
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label"> Rx Deductible - Family Per Person Tier 1 </div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.DEHBDedInnTier1FamilyPerPerson"
+                                name="DEHBDedInnTier2Individual" only-digits/>
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label"> Rx Deductible - Family Per Person Tier 2 </div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.DEHBDedInnTier2FamilyPerPerson"
+                                name="DEHBDedInnTier2FamilyPerPerson" only-digits/>
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label"> Rx Deductible - Family Per Group Tier 1</div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.DEHBDedInnTier1FamilyPerGroup"
+                                name="DEHBDedInnTier1FamilyPerGroup" only-digits/>
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Rx Deductible - Family Per Group Tier 2 </div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.DEHBDedInnTier2FamilyPerGroup"
+                                name="DEHBDedInnTier2FamilyPerGroup" only-digits/>
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Rx MOOP - Individual Tier 1</div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.DEHBInnTier1IndividualMOOP"
+                                name="DEHBInnTier1IndividualMOOP" only-digits/>
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Rx MOOP - Individual Tier 2 </div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                        <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.DEHBInnTier2IndividualMOOP" name="DEHBInnTier2IndividualMOOP" only-digits="">
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label"> Rx MOOP - Family Per Person Tier 1 </div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.DEHBInnTier1FamilyPerPersonMOOP"
+                                name="DEHBInnTier1FamilyPerPersonMOOP" only-digits/>
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label">Rx MOOP - Family Per Person Tier 2 </div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.DEHBInnTier2FamilyPerPersonMOOP"
+                                name="DEHBInnTier2FamilyPerPersonMOOP" only-digits/>
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label"> Rx MOOP - Family Per Group Tier 1 </div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.DEHBInnTier1FamilyPerGroupMOOP"
+                                name="DEHBInnTier1FamilyPerGroupMOOP" only-digits/>
+                        </div>
+                </div>
+                <div class="col-md-5 col-lg-5 col-sm-12">
+                        <div class="col-md-7 col-lg-7 col-sm-12 text-right control-label"> Rx MOOP - Family Per Group Tier 2 </div>
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                                <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.DEHBInnTier2FamilyPerGroupMOOP"
+                                name="DEHBInnTier2FamilyPerGroupMOOP" only-digits/>
+                        </div>
+                </div>                                                                            
+                </div>
+                <!--  end row -->
+        </div>
+        <!--  end id="step-2" -->
+
+
+        <div  class="col-md-offset-0-5" id="step-2">
+        <p>
+        <h3>Notes</h3>
+        </p>
+        <div class="row">
+        <div class="col-md-5 col-lg-5 col-sm-12">
+                
+                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Plan Notes</div>
+                <div class="col-md-7 col-lg-7 col-sm-12">
+                        <!-- <input type="text" class="form-control" ng-model="planattribute.PlanNotes" name="PlanNotes" /> -->
+
+                        <textarea class="form-control" ng-model="planattribute.PlanNotes" name="PlanNotes" placeholder="PlanNotes"></textarea>
+                
+                        
+
+                </div>
+        </div>
+        </div>
+
+        <div class="row">
+        <div class="col-md-5 col-lg-5 col-sm-12">
+                
+                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Service Area ID </div>
+                <div class="col-md-7 col-lg-7 col-sm-12">
+                        <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.ServiceAreaId"
+                        name="ServiceAreaId" />
+                </div>
+        </div>
+        </div>
+
+        <div class="row">                                                                                       
+        <div class="col-md-5 col-lg-5 col-sm-12">
+                
+                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">SBC URL</div>
+                <div class="col-md-7 col-lg-7 col-sm-12">
+                        <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.URLForSummaryofBenefitsCoverage"
+                        />
+                </div>
+        </div>
+        </div>
+        <div class="row"> 
+        <div class="col-md-5 col-lg-5 col-sm-12">
+                
+                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Formulary URL</div>
+                <div class="col-md-7 col-lg-7 col-sm-12">
+                        <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.FormularyURL"
+                        />
+                </div>
+        </div>
+        </div>
+        <div class="row"> 
+        <div class="col-md-5 col-lg-5 col-sm-12">
+                
+                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Provider Network URL </div>
+                <div class="col-md-7 col-lg-7 col-sm-12">
+                        <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.NetworkURL"
+                        />
+                </div>
+        </div>
+        </div>
+        <div class="row"> 
+        <div class="col-md-5 col-lg-5 col-sm-12">
+                
+                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Plan Brochure URL</div>
+                <div class="col-md-7 col-lg-7 col-sm-12">
+                        <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.PlanBrochure"
+                        />
+                </div>
+        </div>
+        </div>
+        </div><!--  end id="step-4" -->               
+
+
+        <div class="col-md-offset-0-5" id="step-3">
+        <p>
+        <h3>ACA</h3>
+        </p>
+
+        <div class="row">
+        <div class="col-md-5 col-lg-5 col-sm-12">
+                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label"> ACA Plan ID
+                        <span class="required">*</span>
+                </div>
+                <div class="col-md-7 col-lg-7 col-sm-12">
+                        <input type="text" class="form-control" id="StandardCompId" name="StandardCompId" required ng-change="ChangesOccur(); ApprovalStatusChange();"
+                        ng-model="planattribute.StandardComponentId" />
+                </div>
+        </div>
+        </div>
+
+        <div class="row">
+        <div class="col-md-5 col-lg-5 col-sm-12">
+                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Sub Plan ID</div>
+                <div class="col-md-7 col-lg-7 col-sm-12">
+                        <input type="text" class="form-control" ng-model="planattribute.PlanNumber" ng-change="ChangesOccur(); ApprovalStatusChange();"
+                        ng-readonly="{{readOnly}}" />
+                </div>
+        </div>
+        </div>
+
+        <div class="row">
+        <div class="col-md-5 col-lg-5 col-sm-12">
+                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Cost Sharing Var Type</div>
+                <div class="col-md-7 col-lg-7 col-sm-12">
+                        <input type="text" class="form-control" ng-change="ChangesOccur(); ApprovalStatusChange();" ng-model="planattribute.CSRVariationType"
+                        />
+                </div>
+        </div>
+        </div>
+
+        <div class="row">
+        <div class="col-md-5 col-lg-5 col-sm-12">   
+                <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Metal Level</div>
+                <div class="col-md-7 col-lg-7 col-sm-12">
+                        <select ng-model="planattribute.MetalLevel" ng-change="ChangesOccur(); ApprovalStatusChange();" class="form-control">
+                                <option value="" disabled>Select Metal Level</option>
+                                <option ng-repeat="metalLevel in metalLevels" value="{{metalLevel}}">{{metalLevel}}</option>
+                        </select>  
+                </div>
+        </div>
+        </div>
+        </div><!--  end id="step-5" -->
+
+
+
+        <div class="col-md-offset-0-5" id="step-4">
+                <p>
+                <h3>Metadata</h3>
+                </p>
+                <div class="row">
+                        <div class="col-md-5 col-lg-5 col-sm-12">
+                        
+                        <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label"> Plan Record No. </div>
+                                <div class="col-md-7 col-lg-7 col-sm-12">
+                                        <input type="text" class="form-control" ng-model="planattribute.Id" disabled />
+                                </div>
+                        </div>                                                                                        
+                </div>
+                <!--  end row -->
+                <hr>
+                <p>
+                        <h3>History</h3>
+                        </p>
+                        <div class="row">
+                                <div class="col-md-5 col-lg-5 col-sm-12">
+                                        <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Created By </div>
+                                        <div class="col-md-7 col-lg-7 col-sm-12">
+                                                <input type="text" class="form-control" ng-model="Createdby" ng-readonly="{{readOnly}}" />
+                                        </div>
+                                        
+                                </div>    
+                                <div class="col-md-5 col-lg-5 col-sm-12">
+                                        
+                                        <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Modified By</div>
+                                        <div class="col-md-7 col-lg-7 col-sm-12">
+                                                <input type="text" class="form-control" ng-model="ModifiedBy" ng-readonly="{{readOnly}}" />
+                                        </div>
+                                </div> 
+                                <div class="col-md-5 col-lg-5 col-sm-12">
+                                
+                                        <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Created Date </div>
+                                        <div class="col-md-7 col-lg-7 col-sm-12">
+                                                <input type="text" class="form-control" ng-model="planattribute.CreatedDateTime" ng-readonly="{{readOnly}}" />
+                                        </div>
+                                </div> 
+                                <div class="col-md-5 col-lg-5 col-sm-12">
+                                        
+                                        <div class="col-md-5 col-lg-5 col-sm-12 text-right control-label">Modified Date </div>
+                                        <div class="col-md-7 col-lg-7 col-sm-12">
+                                                <input type="text" class="form-control" ng-model="planattribute.ModifiedDateTime" ng-readonly="{{readOnly}}" />
+                                        </div>
+                                </div>                                                                                     
+                        </div><!--  end row -->                                                                      
+        </div><!--  end id="step-3" -->
+
+        </div>
+
+
+        </div>
+        </div>
+        <!--end cst-wizard -->
+
+        </div>
+        </div>
+        </div>
+        </div>
+        </form>
+
+
+
+
+
+
+        </div>
+        </div>
+        </div>
+        </div>
+        <!--end col 12-->
+        </div>
+        <!--end row-->
+        </div>
+        </div>
+        </div>
+        </div>
+        <!-- /.wizard form -->
+        <div ng-include src="'partials/include/footer.html'"></div>
